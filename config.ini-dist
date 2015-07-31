@@ -1,0 +1,5 @@
+[manager]
+user = username
+password = password
+port = 5038
+host = localhost

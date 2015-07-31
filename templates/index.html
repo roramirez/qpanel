@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>QPanel</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet">
+    <!--external css-->
+    <link href="{{url_for('static', filename='font-awesome/css/font-awesome.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='lineicons/style.css')}}">
+
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/style-responsive.css')}}" rel="stylesheet">
+
+    <script src="{{url_for('static', filename='js/chart-master/Chart.js')}}"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+  <section id="container" class="sidebar-closed">
+      <!--
+          TOP BAR CONTENT & NOTIFICATIONS
+        -->
+      <!--header start-->
+      <header class="header black-bg">
+            <!--logo start-->
+            <a href="/" class="logo"><b>QPanel</b></a>
+            <!--logo end-->
+            <div class="nav notify-row" id="top_menu">
+            </div>
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                </ul>
+            </div>
+        </header>
+      <!--header end-->
+
+      <!--sidebar start-->
+      <aside>
+      </aside>
+      <!--sidebar end-->
+
+      <!--main content start-->
+      <section id="main-content" style="margin-left: 0px;">
+          <section class="wrapper">
+
+              <div class="row">
+                  <div class="col-lg-12 main-chart">
+
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
+                            <div class="box1">
+                                <span class="">Answered</span>
+                                <h3><span id="answered"></span></h3>
+                            </div>
+                            <p>Attended calls.</p>
+                        </div>
+                        <div class="col-md-2 col-sm-2 box0">
+                            <div class="box1">
+                                <span class="">Abandoned</span>
+                                <h3><span id="abandoned"></span></h3>
+                            </div>
+                            <p>Calls not attended by agents.</p>
+                        </div>
+                        <div class="col-md-2 col-sm-2 box0">
+                            <div class="box1">
+                                <span class="">Incomming</span>
+                                <h3><span id="incomming"></span></h3>
+                            </div>
+                            <p>Call on line.</p>
+                        </div>
+                        <div class="col-md-2 col-sm-2 box0">
+                            <div class="box1">
+                                <span class="">Av. time</span>
+                                <h3><span id="av_time"></span></h3>
+                            </div>
+                            <p>Average time for answered calls.</p>
+                        </div>
+                        <div class="col-md-2 col-sm-2 box0">
+                            <div class="box1">
+                                <span class="">Av. Wait</span>
+                                <h3><span id="av_wait"></span></h3>
+                            </div>
+                            <p>Average time waiting for calls.</p>
+                        </div>
+                    </div><!-- /row mt -->
+
+                     <div class="row mt">
+
+                    <div class="border-head">
+                      <h1><i class="fa fa-angle-right"></i> Queues</h1>
+                    </div>
+
+                    {% for queue in queues %}
+                        <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                            <div class="weather-2 pn">
+                                <div class="weather-2-header">
+                                    <div class="row">
+                                        <div class="panel-title centered">
+                                            <p>{{ queue }}</p>
+                                        </div>
+                                    </div>
+                                </div><!-- /weather-2 header -->
+
+
+                                <div class="row data" id="data-{{queue}}">
+
+                                    <div class="col-sm-4 col-xs-4 voffset20 goleft">
+                                        <h5><b>Answered:</b> <span id="queue_completed">{{queues[queue].Completed}}</span></h5>
+                                        <h5>Abandoned: <span id="queue_abandoned">{{queues[queue].Abandoned}} </span></h5>
+                                        <h5>Incomming: <span id="queue_incomming">{{queues[queue].Calls}} </span></h5>
+                                    </div>
+                                     <div class="col-lg-4 col-md-4 col-sm-4 mb voffset20">
+                                            <canvas id="graph_{{queue}}" height="120" width="120"></canvas>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-4 goright voffset20">
+                                        <h5><i class="fa fa-users fa-2x"> <span id="queue_users">{{ queues[queue]['members'] | count }} </span></i>
+                                        <h5><span id="queue_unavailable"></h5>
+                                        <h5><span id="queue_busy"></h5>
+                                        <h5><span id="queue_free"></h5>
+                                    </div>
+                                </div>
+                                <div class="row centered"  style="margin-top: -20px;">
+                                    <h2>Abandone: <span id="{{queue}}-percent_abandoned">0</span>%</h2>
+                                </div>
+                                <script>
+                                    var {{queue}}_DataGraph = [
+                                        {
+                                            value: {{queues[queue].Abandoned}},
+                                            color:"#FF6B6B"
+                                        },
+                                        {
+                                            value: {{queues[queue].Completed}},
+                                            color : "#fdfdfd"
+                                        }
+                                    ];
+                                    var graph_{{queue}} = new Chart(document.getElementById("graph_{{queue}}").getContext("2d")).Doughnut({{queue}}_DataGraph);
+                                    </script>
+
+
+                            </div>
+                        </div><!--/col-md-4 -->
+                    {% endfor %}
+                    </div><!-- /row -->
+          </section>
+      </section>
+
+      <!--main content end-->
+      <!--footer start-->
+      <footer class="site-footer">
+          <div class="text-center">
+              Template by <a href="http://alvarez.is">Carlos Alvarez</a>
+              <a href="/#" class="go-top">
+                  <i class="fa fa-angle-up"></i>
+              </a>
+          </div>
+      </footer>
+      <!--footer end-->
+  </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.scrollTo.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.nicescroll.js')}}" type="text/javascript"></script>
+
+    <!--common script for all pages-->
+    <script src="{{url_for('static', filename='js/common-scripts.js')}}"></script>
+
+    <script type="application/javascript">
+
+        var C =  {
+          status_agent: {
+            UNKNOWN:      0,
+            NOT_INUSE:    1,
+            INUSE:        2,
+            BUSY:         3,
+            INVALID:      4,
+            UNAVAILABLE:  5,
+            RINGING:      6,
+            RINGINUSE:    7,
+            ONHOLD:       8,
+          }
+        }
+
+        $(document).ready(function () {
+            $("#date-popover").popover({html: true, trigger: "manual"});
+            $("#date-popover").hide();
+            $("#date-popover").click(function (e) {
+                $(this).hide();
+            });
+
+            setInterval(function () {
+                getDataQueue();
+            }, 5000);
+
+        });
+
+
+
+        // parse data and put values on view
+        function parseDataQueue(data){
+            var answers = 0, unattended = 0, incomming = 0;
+            var c_hold = 0, holdtime = 0, c_talk = 0, talktime = 0;
+            for (var d in data) {
+                answers = answers + parseInt(data[d].Completed);
+                unattended = unattended + parseInt(data[d].Abandoned);
+                incomming = incomming + parseInt(data[d].Calls);
+
+                $('#data-'+d+' #queue_completed').html(parseInt(data[d].Completed));
+                $('#data-'+d+' #queue_abandoned').html(parseInt(data[d].Abandoned));
+                $('#data-'+d+' #queue_incomming').html(parseInt(data[d].Calls));
+                $('#data-'+d+' #queue_users').html( len(data[d].members));
+
+                if (data[d].Abandoned > 0) {
+                    $('#'+d+'-percent_abandoned')
+                        .html(parseInt(parseInt(data[d].Abandoned)  * 100 / (parseInt(data[d].Abandoned) + parseInt(data[d].Completed) )));
+                }
+
+
+                if (parseInt(data[d].TalkTime) > 0 ) {
+                    talktime = talktime + parseInt(data[d].TalkTime);
+                    c_talk++;
+                }
+
+                if (parseInt(data[d].Holdtime) > 0 ) {
+                    holdtime = holdtime + parseInt(data[d].Holdtime);
+                    c_hold++;
+                }
+
+                var agent_free = 0, agent_busy = 0, agent_unavailable = 0;
+                var unavailable = [C.status_agent.INVALID, C.status_agent.UNAVAILABLE, C.status_agent.UNKNOWN ]
+                for (agent in data[d].members) {
+                    if (C.status_agent.NOT_INUSE == data[d].members[agent].Status) {
+                        agent_free++;
+                    }else if (unavailable.indexOf(data[d].members[agent].Status) > -1) {
+                        unavailable++;
+                    } else {
+                        agent_busy++;
+                    }
+                }
+                agents = agent_free + agent_busy + agent_unavailable;
+                $('#data-'+d+' #queue_free')
+                    .html( "{agents} ({percent}% free)"
+                        .format({agents: agent_free, percent: agent_free * 100 / agents} ));
+
+                $('#data-'+d+' #queue_busy')
+                    .html( "{agents} ({percent}% busy)"
+                        .format({agents: agent_busy, percent: agent_busy * 100 / agents} ));
+
+                $('#data-'+d+' #queue_unavailable')
+                    .html( "{agents} ({percent}% unavailable)"
+                        .format({agents: agent_unavailable, percent: agent_unavailable * 100 / agents} ));
+
+
+            }
+            $('#answered').html(answers);
+            $('#abandoned').html(unattended);
+            $('#incomming').html(incomming);
+            $('#av_wait').html(parseInt((holdtime / c_hold)).toString().toMMSS());
+            $('#av_time').html(parseInt((talktime / c_talk)).toString().toMMSS());
+
+        }
+        var data_queue;
+        function getDataQueue() {
+            var result;
+            var r = $.ajax({
+                type: 'GET',
+                url: '/queues'
+            });
+            r.done(function (response) {
+                if (response) {
+                    result = response.data;
+                    data_queue = result;
+                    parseDataQueue(result);
+                }
+            });
+            r.fail(function (response) {
+            });
+
+            r.always(function () {
+            });
+        }
+
+
+    /*  Utils */
+    // http://stackoverflow.com/a/21035627
+    function len(obj) {
+        if(!Object.keys) {
+            Object.keys = function(obj) {
+                return $.map(obj, function(v, k) {
+                  return k;
+                });
+            };
+        }else{
+            return Object.keys(obj).length;
+        }
+    }
+
+    // http://stackoverflow.com/a/6313008
+    String.prototype.toMMSS = function () {
+        var sec_num = parseInt(this, 10); // don't forget the second param
+        var hours   = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num + (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+        if (seconds < 10) {seconds = "0"+seconds;}
+        var time    = minutes+':'+seconds;
+        return time;
+    }
+
+    // http://stackoverflow.com/a/6420040
+    String.prototype.format = function (args) {
+        var newStr = this;
+        for (var key in args) {
+            newStr = newStr.replace('{' + key + '}', args[key]);
+        }
+        return newStr;
+    }
+    </script>
+
+  </body>
+</html>
