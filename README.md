@@ -31,7 +31,7 @@ If dont have pip in your system. For install
   cd qpanel
   git submodule init
   git submodule update
-  cp config.init-dist config.ini
+  cp config.ini-dist config.ini
  ```
   Edit config.ini with Manager Asterisk parameters
 
