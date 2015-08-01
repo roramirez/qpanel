@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify
 import os, sys
 import ConfigParser
 import json
-
+from distutils.util import strtobool
 
 # current dir
 dirname, filename = os.path.split(os.path.abspath(__file__))
@@ -27,10 +27,18 @@ def __connect_manager():
     return Manager((host, port), user, password)
 manager = __connect_manager()
 
+def is_debug():
+    try:
+        var = cfg.get('general', 'debug')
+        v = True if strtobool(var) == 1 else False
+    except:
+        return False
+    return v
 
 def get_data_queues():
     data = manager.QueueStatus()
-    app.logger.info(data)
+    if is_debug():
+        app.logger.debug(data)
     return data
 
 def parser_data_queue(data):
@@ -68,6 +76,6 @@ def queues():
 # ---- Main  ----------
 # ---------------------
 if __name__ == '__main__':
-#    __setLog()
-    app.debug = True
+    if is_debug():
+        app.debug = True
     app.run(host='0.0.0.0')
