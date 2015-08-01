@@ -274,7 +274,6 @@
             $('#av_time').html(parseInt((talktime / c_talk)).toString().toMMSS());
 
         }
-        var data_queue;
         function getDataQueue() {
             var result;
             var r = $.ajax({
@@ -284,7 +283,6 @@
             r.done(function (response) {
                 if (response) {
                     result = response.data;
-                    data_queue = result;
                     parseDataQueue(result);
                 }
             });
