@@ -24,7 +24,7 @@ If dont have pip in your system. For install
 
 ## 2. Clone this repo
 ```
- git clone https://github.com/roramirez/qpanel.git
+ git clone -b stable  https://github.com/roramirez/qpanel.git
 ```
 ##  3. Go and prepair env
  ```
