@@ -85,14 +85,14 @@
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
                                 <span class="">Av. time</span>
-                                <h3><span id="av_time"></span></h3>
+                                <h3><span id="av_time">0:00</span></h3>
                             </div>
                             <p>Average time for answered calls.</p>
                         </div>
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
                                 <span class="">Av. Wait</span>
-                                <h3><span id="av_wait"></span></h3>
+                                <h3><span id="av_wait">0:00</span></h3>
                             </div>
                             <p>Average time waiting for calls.</p>
                         </div>
@@ -265,8 +265,12 @@
             $('#answered').html(answers);
             $('#abandoned').html(unattended);
             $('#incomming').html(incomming);
-            $('#av_wait').html(parseInt((holdtime / c_hold)).toString().toMMSS());
-            $('#av_time').html(parseInt((talktime / c_talk)).toString().toMMSS());
+            if (c_hold > 0 ) {
+              $('#av_wait').html(parseInt((holdtime / c_hold)).toString().toMMSS());
+            }
+            if (c_talk > 0){
+              $('#av_time').html(parseInt((talktime / c_talk)).toString().toMMSS());
+            }
 
         }
         function getDataQueue() {
