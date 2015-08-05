@@ -29,6 +29,10 @@
   </head>
 
   <body>
+  <script>
+    dataGraph = Array();
+    graph = Array();
+  </script>
 
   <section id="container" class="sidebar-closed">
       <!--
@@ -137,7 +141,7 @@
                                     <h2>Abandone: <span id="{{queue}}-percent_abandoned">0</span>%</h2>
                                 </div>
                                 <script>
-                                    var {{queue}}_DataGraph = [
+                                    dataGraph['{{queue}}'] = [
                                         {
                                             value: {{queues[queue].Abandoned}},
                                             color:"#FF6B6B"
@@ -147,8 +151,8 @@
                                             color : "#fdfdfd"
                                         }
                                     ];
-                                    var graph_{{queue}} = new Chart(document.getElementById("graph_{{queue}}").getContext("2d")).Doughnut({{queue}}_DataGraph);
-                                    </script>
+                                    graph['{{queue}}'] = new Chart(document.getElementById("graph_{{queue}}").getContext("2d")).Doughnut(dataGraph['{{queue}}']);
+                                </script>
 
 
                             </div>
@@ -205,6 +209,22 @@
         });
 
 
+        var optionsNoAnimation = {
+          animation : false,
+        }
+        function updateGraph(name, data_queue) {
+          dataGraph[name] = [
+            {
+              value: parseInt(data_queue.Abandoned),
+              color:"#FF6B6B"
+            },
+            {
+              value: parseInt(data_queue.Completed),
+              color : "#fdfdfd"
+            }
+          ];
+          graph[name] = new Chart(document.getElementById("graph_"+name).getContext("2d")).Doughnut(dataGraph[name], optionsNoAnimation);
+        }
 
         // parse data and put values on view
         function parseDataQueue(data){
@@ -225,6 +245,8 @@
                         .html(parseInt(parseInt(data[d].Abandoned)  * 100 / (parseInt(data[d].Abandoned) + parseInt(data[d].Completed) )));
                 }
 
+                //Update graph
+                updateGraph(d, data[d]);
 
                 if (parseInt(data[d].TalkTime) > 0 ) {
                     talktime = talktime + parseInt(data[d].TalkTime);
