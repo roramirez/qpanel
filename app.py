@@ -4,7 +4,7 @@ import ConfigParser
 import json
 from distutils.util import strtobool
 
-# current dir
+# get current names for directory and file
 dirname, filename = os.path.split(os.path.abspath(__file__))
 
 # py-asterisk

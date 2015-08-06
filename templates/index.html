@@ -29,6 +29,10 @@
   </head>
 
   <body>
+  <script>
+    dataGraph = Array();
+    graph = Array();
+  </script>
 
   <section id="container" class="sidebar-closed">
       <!--
@@ -85,14 +89,14 @@
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
                                 <span class="">Av. time</span>
-                                <h3><span id="av_time"></span></h3>
+                                <h3><span id="av_time">0:00</span></h3>
                             </div>
                             <p>Average time for answered calls.</p>
                         </div>
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
                                 <span class="">Av. Wait</span>
-                                <h3><span id="av_wait"></span></h3>
+                                <h3><span id="av_wait">0:00</span></h3>
                             </div>
                             <p>Average time waiting for calls.</p>
                         </div>
@@ -137,7 +141,7 @@
                                     <h2>Abandone: <span id="{{queue}}-percent_abandoned">0</span>%</h2>
                                 </div>
                                 <script>
-                                    var {{queue}}_DataGraph = [
+                                    dataGraph['{{queue}}'] = [
                                         {
                                             value: {{queues[queue].Abandoned}},
                                             color:"#FF6B6B"
@@ -147,8 +151,8 @@
                                             color : "#fdfdfd"
                                         }
                                     ];
-                                    var graph_{{queue}} = new Chart(document.getElementById("graph_{{queue}}").getContext("2d")).Doughnut({{queue}}_DataGraph);
-                                    </script>
+                                    graph['{{queue}}'] = new Chart(document.getElementById("graph_{{queue}}").getContext("2d")).Doughnut(dataGraph['{{queue}}']);
+                                </script>
 
 
                             </div>
@@ -205,6 +209,22 @@
         });
 
 
+        var optionsNoAnimation = {
+          animation : false,
+        }
+        function updateGraph(name, data_queue) {
+          dataGraph[name] = [
+            {
+              value: parseInt(data_queue.Abandoned),
+              color:"#FF6B6B"
+            },
+            {
+              value: parseInt(data_queue.Completed),
+              color : "#fdfdfd"
+            }
+          ];
+          graph[name] = new Chart(document.getElementById("graph_"+name).getContext("2d")).Doughnut(dataGraph[name], optionsNoAnimation);
+        }
 
         // parse data and put values on view
         function parseDataQueue(data){
@@ -225,6 +245,8 @@
                         .html(parseInt(parseInt(data[d].Abandoned)  * 100 / (parseInt(data[d].Abandoned) + parseInt(data[d].Completed) )));
                 }
 
+                //Update graph
+                updateGraph(d, data[d]);
 
                 if (parseInt(data[d].TalkTime) > 0 ) {
                     talktime = talktime + parseInt(data[d].TalkTime);
@@ -265,8 +287,12 @@
             $('#answered').html(answers);
             $('#abandoned').html(unattended);
             $('#incomming').html(incomming);
-            $('#av_wait').html(parseInt((holdtime / c_hold)).toString().toMMSS());
-            $('#av_time').html(parseInt((talktime / c_talk)).toString().toMMSS());
+            if (c_hold > 0 ) {
+              $('#av_wait').html(parseInt((holdtime / c_hold)).toString().toMMSS());
+            }
+            if (c_talk > 0){
+              $('#av_time').html(parseInt((talktime / c_talk)).toString().toMMSS());
+            }
 
         }
         function getDataQueue() {
