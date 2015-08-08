@@ -2,13 +2,10 @@
 
 Qpanel is dashboard for Queues in Asterisk
 
-# Use
-QPanel used [Flask](http://flask.pocoo.org/)
-
 # Requirement
     - Python 2.6+
-    - Flask 0.10+
-    - Asterisk 1.4+ and enabled manager
+    - [Flask](http://flask.pocoo.org/) 0.10+
+    - [Asterisk](http://www.asterisk.org) 1.4+ and enabled manager
 
 ## 1. Install flask
 ```
