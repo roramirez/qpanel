@@ -84,7 +84,6 @@ def queues():
     data = parser_data_queue(get_data_queues())
 
     return jsonify(
-        success = True,
         data = data
     )
 
