@@ -109,8 +109,9 @@
                     </div>
 
                     {% for queue in queues %}
-                        <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                            <div class="weather-2 pn">
+                        <div class="col-lg-4 col-md-4 col-sm-4 mb project">
+                            <div class="weather-2 pn photo-wrapper transparent-background">
+                              <a href="/queue/{{ queue }}">
                                 <div class="weather-2-header">
                                     <div class="row">
                                         <div class="panel-title centered">
@@ -156,6 +157,7 @@
 
 
                             </div>
+                            </a>
                         </div><!--/col-md-4 -->
                     {% endfor %}
                     </div><!-- /row -->

@@ -39,15 +39,23 @@ def is_debug():
         return False
     return v
 
-def get_data_queues():
+def __get_data_queues_manager():
     try:
         data = manager.QueueStatus()
     except:
         app.logger.info('Error to connect to Asterisk Manager. Check config.ini and manager.conf of asterisk')
         data = []
+    return data
+
+
+def get_data_queues(queue = None):
+    data = parser_data_queue(__get_data_queues_manager())
+    if queue is not None:
+        data = data[queue]
     if is_debug():
         app.logger.debug(data)
     return data
+
 
 def parser_data_queue(data):
     # convert references manager to string
@@ -57,9 +65,7 @@ def parser_data_queue(data):
             data[q]['entries'][str(e)] = tmp
             tmp = data[q]['entries'][str(e)]['Channel']
             data[q]['entries'][str(e)]['Channel']  = str(tmp)
-
     return data
-
 
 
 @app.before_first_request
@@ -78,11 +84,25 @@ def home():
     data = get_data_queues()
     return render_template('index.html', queues = data)
 
+
+@app.route('/queue/<name>')
+def queue(name = None):
+    data = get_data_queues(name)
+    return render_template('queue.html', data = data, name = name)
+
+
+@app.route('/queue/<name>.json')
+def queue_json(name = None):
+    data = get_data_queues(name)
+    return jsonify(
+        name = name,
+        data = data
+    )
+
 # data queue
 @app.route('/queues')
 def queues():
-    data = parser_data_queue(get_data_queues())
-
+    data = get_data_queues()
     return jsonify(
         data = data
     )

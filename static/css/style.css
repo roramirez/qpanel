@@ -1693,6 +1693,10 @@ PANELS CONFIGURATIONS
   
 }
 
+.transparent-background {
+  background-color: transparent;
+}
+
 .project:hover .photo-wrapper {
   background-color: #68dff0;
 	background-image:url(../img/zoom.png);
