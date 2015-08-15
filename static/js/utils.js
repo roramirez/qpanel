@@ -46,3 +46,16 @@ String.prototype.format = function (args) {
     }
     return newStr;
 }
+
+
+String.prototype.toStrStatusAgent = function(args) {
+    var value = this;
+    var unavailable = [C.status_agent.INVALID, C.status_agent.UNAVAILABLE, C.status_agent.UNKNOWN ]
+    if (C.status_agent.NOT_INUSE == value) {
+        return "free";
+    } else if (unavailable.indexOf(value) > -1) {
+        return "unavailable";
+    } else {
+        return "busy"
+    }
+}

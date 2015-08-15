@@ -75,6 +75,32 @@ def setup_logging():
     app.logger.addHandler(logging.StreamHandler())
     app.logger.setLevel(logging.INFO)
 
+
+#Utilities helpers
+@app.context_processor
+def utility_processor():
+    def format_id_agent(value):
+        return value.replace('/', '-')
+    return dict(format_id_agent=format_id_agent)
+
+@app.context_processor
+def utility_processor():
+    def str_status_agent(value):
+        try:
+            value = int(value)
+        except:
+            value = 0
+        unavailable = [0, 2, 5]
+        free = [1]
+
+        if value in unavailable:
+            return 'unavailable'
+        elif value in free:
+            return 'free'
+        else:
+            return 'busy'
+    return dict(str_status_agent=str_status_agent)
+
 # ---------------------
 # ---- Routes ---------
 # ---------------------
