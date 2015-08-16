@@ -28,7 +28,7 @@ If dont have pip in your system. For install
 ```
  git clone -b stable  https://github.com/roramirez/qpanel.git
 ```
-##  3. Go and prepair enviroment
+##  3. Go and prepair environment
  ```
   cd qpanel
   git submodule init
