@@ -39,6 +39,14 @@ def is_debug():
         return False
     return v
 
+def port_bind():
+    try:
+        var = cfg.get('general', 'port')
+        v = int(var)
+    except:
+        return 5000
+    return v
+
 def __get_data_queues_manager():
     try:
         data = manager.QueueStatus()
@@ -139,4 +147,4 @@ def queues():
 if __name__ == '__main__':
     if is_debug():
         app.debug = True
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=port_bind())
