@@ -123,7 +123,7 @@
                                   <td>{{ data['members'][agent]['Name'] }}</td>
                                   <td class="hidden-phone">{{ data['members'][agent]['StateInterface'] }}</td>
                                   <td id="status">
-                                    <span class="label label-info label-mini">
+                                    <span class="label label-info label-mini state">
                                         {{str_status_agent(data['members'][agent]['Status']) }}
                                     </span>
                                     </td>
@@ -181,7 +181,16 @@
           for (agent in data.members) {
             agent_id_div = agent.replace('/', '-');
             $('#agent-' + agent_id_div + ' #calls').html(data.members[agent].CallsTaken)
-            $('#agent-' + agent_id_div + ' #status .label').html(data.members[agent].Status.toStrStatusAgent())
+            $('#agent-' + agent_id_div + ' #status .state').html(data.members[agent].Status.toStrStatusAgent())
+
+            if (data.members[agent].Paused == true) {
+                $('#agent-' + agent_id_div + ' #status .pause').remove();
+                $('#agent-'+ agent_id_div +' #status .state')
+                    .after(' <span class="label label-success label-mini pause">paused</span>');
+            } else {
+                $('#agent-' + agent_id_div + ' #status .pause').remove();
+            }
+
           }
 
         }
