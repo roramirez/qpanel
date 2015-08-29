@@ -10,7 +10,7 @@
     <title>QPanel</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
     <!--external css-->
     <link href="{{url_for('static', filename='font-awesome/css/font-awesome.css')}}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='lineicons/style.css')}}">
@@ -109,8 +109,9 @@
                     </div>
 
                     {% for queue in queues %}
-                        <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                            <div class="weather-2 pn">
+                        <div class="col-lg-4 col-md-4 col-sm-4 mb project">
+                            <div class="weather-2 pn photo-wrapper transparent-background">
+                              <a href="/queue/{{ queue }}">
                                 <div class="weather-2-header">
                                     <div class="row">
                                         <div class="panel-title centered">
@@ -156,6 +157,7 @@
 
 
                             </div>
+                            </a>
                         </div><!--/col-md-4 -->
                     {% endfor %}
                     </div><!-- /row -->
@@ -186,20 +188,6 @@
 
     <script type="application/javascript">
 
-        var C =  {
-          status_agent: {
-            UNKNOWN:      0,
-            NOT_INUSE:    1,
-            INUSE:        2,
-            BUSY:         3,
-            INVALID:      4,
-            UNAVAILABLE:  5,
-            RINGING:      6,
-            RINGINUSE:    7,
-            ONHOLD:       8,
-          }
-        }
-
         $(document).ready(function () {
             getDataQueue(); //load data on page ready :)
             setInterval(function () {
@@ -207,7 +195,6 @@
             }, 5000);
 
         });
-
 
         var optionsNoAnimation = {
           animation : false,
@@ -313,43 +300,8 @@
             r.always(function () {
             });
         }
-
-
-    /*  Utils */
-    // http://stackoverflow.com/a/21035627
-    function len(obj) {
-        if(!Object.keys) {
-            Object.keys = function(obj) {
-                return $.map(obj, function(v, k) {
-                  return k;
-                });
-            };
-        }else{
-            return Object.keys(obj).length;
-        }
-    }
-
-    // http://stackoverflow.com/a/6313008
-    String.prototype.toMMSS = function () {
-        var sec_num = parseInt(this, 10); // don't forget the second param
-        var hours   = Math.floor(sec_num / 3600);
-        var minutes = Math.floor((sec_num + (hours * 3600)) / 60);
-        var seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-        if (seconds < 10) {seconds = "0"+seconds;}
-        var time    = minutes+':'+seconds;
-        return time;
-    }
-
-    // http://stackoverflow.com/a/6420040
-    String.prototype.format = function (args) {
-        var newStr = this;
-        for (var key in args) {
-            newStr = newStr.replace('{' + key + '}', args[key]);
-        }
-        return newStr;
-    }
     </script>
+    <script src="{{url_for('static', filename='js/utils.js')}}"></script>
 
   </body>
 </html>

@@ -6,3 +6,4 @@ host = localhost
 
 [general]
 debug = False
+port = 5000
