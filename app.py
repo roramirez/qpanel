@@ -17,7 +17,13 @@ app = Flask(__name__)
 # config file
 cfg_file = 'config.ini'
 cfg = ConfigParser.ConfigParser()
-cfg.read(os.path.join(dirname, cfg_file))
+try:
+    with open(os.path.join(dirname, cfg_file))  as f:
+        cfg.readfp(f)
+except IOError:
+    print 'Error open file config. Check if config.ini exists'
+    sys.exit()
+
 
 def __connect_manager():
     host = cfg.get('manager', 'host')
