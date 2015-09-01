@@ -53,7 +53,7 @@ String.prototype.toStrStatusAgent = function(args) {
     var unavailable = [C.status_agent.INVALID, C.status_agent.UNAVAILABLE, C.status_agent.UNKNOWN ]
     if (C.status_agent.NOT_INUSE == value) {
         return "free";
-    } else if (unavailable.indexOf(value) > -1) {
+    } else if (unavailable.indexOf(parseInt(value)) > -1) {
         return "unavailable";
     } else {
         return "busy"
