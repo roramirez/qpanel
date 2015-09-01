@@ -248,10 +248,11 @@
                 var agent_free = 0, agent_busy = 0, agent_unavailable = 0;
                 var unavailable = [C.status_agent.INVALID, C.status_agent.UNAVAILABLE, C.status_agent.UNKNOWN ]
                 for (agent in data[d].members) {
-                    if (C.status_agent.NOT_INUSE == data[d].members[agent].Status) {
+                    var status_agent = parseInt(data[d].members[agent].Status);
+                    if (C.status_agent.NOT_INUSE == status_agent) {
                         agent_free++;
-                    }else if (unavailable.indexOf(data[d].members[agent].Status) > -1) {
-                        unavailable++;
+                    }else if (unavailable.indexOf(status_agent) > -1) {
+                        agent_unavailable++;
                     } else {
                         agent_busy++;
                     }
