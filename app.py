@@ -98,7 +98,7 @@ def utility_processor():
             value = int(value)
         except:
             value = 0
-        unavailable = [0, 2, 5]
+        unavailable = [0, 4, 5]
         free = [1]
 
         if value in unavailable:
