@@ -46,11 +46,17 @@ def is_debug():
     return v
 
 def port_bind():
+    return int(__get_entry_ini_default('general', 'port', 5000))
+
+def host_bind():
+    return __get_entry_ini_default('general', 'host', '0.0.0.0')
+
+def __get_entry_ini_default(section, var, default):
     try:
-        var = cfg.get('general', 'port')
-        v = int(var)
+        var = cfg.get(section, var)
+        v = var
     except:
-        return 5000
+        return default
     return v
 
 def __get_data_queues_manager():
@@ -153,4 +159,4 @@ def queues():
 if __name__ == '__main__':
     if is_debug():
         app.debug = True
-    app.run(host='0.0.0.0', port=port_bind())
+    app.run(host=host_bind(), port=port_bind())
