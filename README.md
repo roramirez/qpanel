@@ -2,6 +2,8 @@
 
 Qpanel is dashboard for Queues in Asterisk
 
+![Demo](samples/animation.gif)
+
 ## Requirement
  * Python 2.6+
  * [Flask](http://flask.pocoo.org/) 0.10+
