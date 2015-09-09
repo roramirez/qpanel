@@ -79,8 +79,8 @@
                         </div>
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
-                                <span class="">Incomming</span>
-                                <h3><span id="incomming"></span></h3>
+                                <span class="">Incoming</span>
+                                <h3><span id="incoming"></span></h3>
                             </div>
                             <p>Call on line.</p>
                         </div>
@@ -172,7 +172,7 @@
         function parseDataQueue(data){
           $('#answered').html(data.Completed);
           $('#abandoned').html(data.Abandoned);
-          $('#incomming').html(data.Calls);
+          $('#incoming').html(data.Calls);
           $('#av_wait').html(parseInt(data.Holdtime).toString().toMMSS());
           $('#av_time').html(parseInt(data.TalkTime).toString().toMMSS());
 

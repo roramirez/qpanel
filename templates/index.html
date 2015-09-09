@@ -81,8 +81,8 @@
                         </div>
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
-                                <span class="">Incomming</span>
-                                <h3><span id="incomming"></span></h3>
+                                <span class="">Incoming</span>
+                                <h3><span id="incoming"></span></h3>
                             </div>
                             <p>Call on line.</p>
                         </div>
@@ -126,7 +126,7 @@
                                     <div class="col-sm-4 col-xs-4 voffset20 goleft">
                                         <h5><b>Answered:</b> <span id="queue_completed">{{queues[queue].Completed}}</span></h5>
                                         <h5>Abandoned: <span id="queue_abandoned">{{queues[queue].Abandoned}} </span></h5>
-                                        <h5>Incomming: <span id="queue_incomming">{{queues[queue].Calls}} </span></h5>
+                                        <h5>Incoming: <span id="queue_incomming">{{queues[queue].Calls}} </span></h5>
                                     </div>
                                      <div class="col-lg-4 col-md-4 col-sm-4 mb voffset20">
                                             <canvas id="graph_{{queue}}" height="120" width="120"></canvas>
@@ -139,7 +139,7 @@
                                     </div>
                                 </div>
                                 <div class="row centered"  style="margin-top: -20px;">
-                                    <h2>Abandone: <span id="{{queue}}-percent_abandoned">0</span>%</h2>
+                                    <h2>Abandoned: <span id="{{queue}}-percent_abandoned">0</span>%</h2>
                                 </div>
                                 <script>
                                     dataGraph['{{queue}}'] = [
@@ -215,16 +215,16 @@
 
         // parse data and put values on view
         function parseDataQueue(data){
-            var answers = 0, unattended = 0, incomming = 0;
+            var answers = 0, unattended = 0, incoming = 0;
             var c_hold = 0, holdtime = 0, c_talk = 0, talktime = 0;
             for (var d in data) {
                 answers = answers + parseInt(data[d].Completed);
                 unattended = unattended + parseInt(data[d].Abandoned);
-                incomming = incomming + parseInt(data[d].Calls);
+                incoming = incomming + parseInt(data[d].Calls);
 
                 $('#data-'+d+' #queue_completed').html(parseInt(data[d].Completed));
                 $('#data-'+d+' #queue_abandoned').html(parseInt(data[d].Abandoned));
-                $('#data-'+d+' #queue_incomming').html(parseInt(data[d].Calls));
+                $('#data-'+d+' #queue_incoming').html(parseInt(data[d].Calls));
                 $('#data-'+d+' #queue_users').html( len(data[d].members));
 
                 if (data[d].Abandoned > 0) {
@@ -273,7 +273,7 @@
             }
             $('#answered').html(answers);
             $('#abandoned').html(unattended);
-            $('#incomming').html(incomming);
+            $('#incoming').html(incomming);
             if (c_hold > 0 ) {
               $('#av_wait').html(parseInt((holdtime / c_hold)).toString().toMMSS());
             }
