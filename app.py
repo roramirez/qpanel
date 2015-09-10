@@ -85,6 +85,10 @@ def parser_data_queue(data):
             data[q]['entries'][str(e)] = tmp
             tmp = data[q]['entries'][str(e)]['Channel']
             data[q]['entries'][str(e)]['Channel']  = str(tmp)
+        for m in data[q]['members']:
+            #Asterisk 1.8 dont have StateInterface
+            if 'StateInterface' not in data[q]['members'][m]:
+                data[q]['members'][m]['StateInterface'] = m
     return data
 
 
