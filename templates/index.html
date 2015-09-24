@@ -220,7 +220,7 @@
             for (var d in data) {
                 answers = answers + parseInt(data[d].Completed);
                 unattended = unattended + parseInt(data[d].Abandoned);
-                incoming = incomming + parseInt(data[d].Calls);
+                incoming = incoming + parseInt(data[d].Calls);
 
                 $('#data-'+d+' #queue_completed').html(parseInt(data[d].Completed));
                 $('#data-'+d+' #queue_abandoned').html(parseInt(data[d].Abandoned));
@@ -273,7 +273,7 @@
             }
             $('#answered').html(answers);
             $('#abandoned').html(unattended);
-            $('#incoming').html(incomming);
+            $('#incoming').html(incoming);
             if (c_hold > 0 ) {
               $('#av_wait').html(parseInt((holdtime / c_hold)).toString().toMMSS());
             }
