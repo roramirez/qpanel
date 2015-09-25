@@ -104,7 +104,8 @@ def setup_logging():
 @app.context_processor
 def utility_processor():
     def format_id_agent(value):
-        return value.replace('/', '-')
+        v = value.replace('/', '-')
+        return v.replace('@', '_')
     return dict(format_id_agent=format_id_agent)
 
 @app.context_processor
