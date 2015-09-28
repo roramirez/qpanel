@@ -59,3 +59,17 @@ String.prototype.toStrStatusAgent = function(args) {
         return "busy"
     }
 }
+
+function addLabelDivStatusAgent(div) {
+    var label;
+    div.removeClass('label-warning label-info label-danger');
+    value = div.html();
+    if (value == "free") {
+        label = 'info';
+    } else if (value == "unavailable") {
+        label = 'danger';
+    } else {
+        label = 'warning';
+    }
+    div.addClass('label-'+label);
+}
