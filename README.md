@@ -51,7 +51,7 @@ Go url of machine http://IP:5000
 ## New features?
 If you like new features or something is wrong [please open a issue](https://github.com/roramirez/qpanel/issues/new)
 
-If you want check the development version get checkout to master branch
+If you want check the development version get checkout of master branch
 
  ```
  git clone -b master  https://github.com/roramirez/qpanel.git
