@@ -8,3 +8,4 @@ host = localhost
 debug = False
 port = 5000
 host = 0.0.0.0
+;hide =  ; Hide queue on monitor separate by comma. Example config hide=queue1,queue2
