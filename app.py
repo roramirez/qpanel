@@ -90,8 +90,21 @@ def hide_queue(data):
             tmp_data[q] = data[q]
     return tmp_data
 
+def rename_queue(data):
+    tmp_data = {}
+    for q in data:
+        rename = __get_entry_ini_default('rename', q, None)
+        if rename is not None:
+            tmp_data[rename] = data[q]
+        else:
+            tmp_data[q] = data[q]
+    return tmp_data
+
+
+
 def parser_data_queue(data):
     data = hide_queue(data)
+    data = rename_queue(data)
     # convert references manager to string
     for q in data:
         for e in data[q]['entries']:

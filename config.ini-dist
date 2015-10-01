@@ -9,3 +9,8 @@ debug = False
 port = 5000
 host = 0.0.0.0
 ;hide =  ; Hide queue on monitor separate by comma. Example config hide=queue1,queue2
+
+[rename]
+; This section if for rename name of queue
+; Example:
+; 5000 = support. This rename queue "5000"  by "support"
