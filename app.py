@@ -51,6 +51,12 @@ def port_bind():
 def host_bind():
     return __get_entry_ini_default('general', 'host', '0.0.0.0')
 
+def get_hide_config():
+    tmp = __get_entry_ini_default('general', 'hide', '')
+    tmp = tmp.replace('\'', '')
+    return tmp.split(',')
+
+
 def __get_entry_ini_default(section, var, default):
     try:
         var = cfg.get(section, var)
@@ -76,8 +82,29 @@ def get_data_queues(queue = None):
         app.logger.debug(data)
     return data
 
+def hide_queue(data):
+    tmp_data = {}
+    hide = get_hide_config()
+    for q in data:
+        if q not in hide:
+            tmp_data[q] = data[q]
+    return tmp_data
+
+def rename_queue(data):
+    tmp_data = {}
+    for q in data:
+        rename = __get_entry_ini_default('rename', q, None)
+        if rename is not None:
+            tmp_data[rename] = data[q]
+        else:
+            tmp_data[q] = data[q]
+    return tmp_data
+
+
 
 def parser_data_queue(data):
+    data = hide_queue(data)
+    data = rename_queue(data)
     # convert references manager to string
     for q in data:
         for e in data[q]['entries']:
