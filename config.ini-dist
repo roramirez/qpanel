@@ -8,6 +8,7 @@ host = localhost
 debug = False
 port = 5000
 host = 0.0.0.0
+interval = 5 ;Interval for request on seconds
 ;hide =  ; Hide queue on monitor separate by comma. Example config hide=queue1,queue2
 
 [rename]

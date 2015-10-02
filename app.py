@@ -153,6 +153,13 @@ def utility_processor():
             return 'busy'
     return dict(str_status_agent=str_status_agent)
 
+@app.context_processor
+def utility_processor():
+    def request_interval():
+        return int(__get_entry_ini_default('general', 'interval', 5)) * 1000
+    return dict(request_interval=request_interval)
+
+
 # ---------------------
 # ---- Routes ---------
 # ---------------------

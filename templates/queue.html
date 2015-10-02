@@ -165,8 +165,7 @@
             getDataQueue(); //load data on page ready :)
             setInterval(function () {
                 getDataQueue();
-            }, 5000);
-
+            }, {{ request_interval() }});
         });
         // parse data and put values on view
         function parseDataQueue(data){

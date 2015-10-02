@@ -192,8 +192,7 @@
             getDataQueue(); //load data on page ready :)
             setInterval(function () {
                 getDataQueue();
-            }, 5000);
-
+            }, {{ request_interval() }});
         });
 
         var optionsNoAnimation = {
