@@ -35,7 +35,6 @@ def __connect_manager():
         return manager
     except:
         app.logger.info('Error to connect to Asterisk Manager. Check config.ini and manager.conf of asterisk')
-manager = __connect_manager()
 
 def is_debug():
     try:
@@ -66,6 +65,7 @@ def __get_entry_ini_default(section, var, default):
     return v
 
 def __get_data_queues_manager():
+    manager = __connect_manager()
     try:
         data = manager.QueueStatus()
     except:
