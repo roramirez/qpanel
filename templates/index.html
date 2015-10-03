@@ -192,8 +192,7 @@
             getDataQueue(); //load data on page ready :)
             setInterval(function () {
                 getDataQueue();
-            }, 5000);
-
+            }, {{ request_interval() }});
         });
 
         var optionsNoAnimation = {
@@ -222,13 +221,13 @@
                 unattended = unattended + parseInt(data[d].Abandoned);
                 incoming = incoming + parseInt(data[d].Calls);
 
-                $('#data-'+d+' #queue_completed').html(parseInt(data[d].Completed));
-                $('#data-'+d+' #queue_abandoned').html(parseInt(data[d].Abandoned));
-                $('#data-'+d+' #queue_incoming').html(parseInt(data[d].Calls));
-                $('#data-'+d+' #queue_users').html( len(data[d].members));
+                $("[id='data-"+ d + "'] #queue_completed").html(parseInt(data[d].Completed));
+                $("[id='data-"+ d + "'] #queue_abandoned").html(parseInt(data[d].Abandoned));
+                $("[id='data-"+ d + "'] #queue_incoming").html(parseInt(data[d].Calls));
+                $("[id='data-"+ d + "'] #queue_users").html( len(data[d].members));
 
                 if (data[d].Abandoned > 0) {
-                    $('#'+d+'-percent_abandoned')
+                    $("[id='"+ d + "-percent_abandoned']")
                         .html(parseInt(parseInt(data[d].Abandoned)  * 100 / (parseInt(data[d].Abandoned) + parseInt(data[d].Completed) )));
                 }
 
@@ -258,15 +257,15 @@
                     }
                 }
                 agents = agent_free + agent_busy + agent_unavailable;
-                $('#data-'+d+' #queue_free')
+                $("[id='data-"+ d + "'] #queue_free")
                     .html( "{agents} ({percent}% free)"
                         .format({agents: agent_free, percent: agent_free * 100 / agents} ));
 
-                $('#data-'+d+' #queue_busy')
+                $("[id='data-"+ d + "'] #queue_busy")
                     .html( "{agents} ({percent}% busy)"
                         .format({agents: agent_busy, percent: agent_busy * 100 / agents} ));
 
-                $('#data-'+d+' #queue_unavailable')
+                $("[id='data-"+ d + "'] #queue_unavailable")
                     .html( "{agents} ({percent}% unavailable)"
                         .format({agents: agent_unavailable, percent: agent_unavailable * 100 / agents} ));
 

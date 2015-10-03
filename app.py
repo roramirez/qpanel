@@ -17,7 +17,13 @@ app = Flask(__name__)
 # config file
 cfg_file = 'config.ini'
 cfg = ConfigParser.ConfigParser()
-cfg.read(os.path.join(dirname, cfg_file))
+try:
+    with open(os.path.join(dirname, cfg_file))  as f:
+        cfg.readfp(f)
+except IOError:
+    print 'Error open file config. Check if config.ini exists'
+    sys.exit()
+
 
 def __connect_manager():
     host = cfg.get('manager', 'host')
@@ -29,7 +35,6 @@ def __connect_manager():
         return manager
     except:
         app.logger.info('Error to connect to Asterisk Manager. Check config.ini and manager.conf of asterisk')
-manager = __connect_manager()
 
 def is_debug():
     try:
@@ -40,14 +45,27 @@ def is_debug():
     return v
 
 def port_bind():
+    return int(__get_entry_ini_default('general', 'port', 5000))
+
+def host_bind():
+    return __get_entry_ini_default('general', 'host', '0.0.0.0')
+
+def get_hide_config():
+    tmp = __get_entry_ini_default('general', 'hide', '')
+    tmp = tmp.replace('\'', '')
+    return tmp.split(',')
+
+
+def __get_entry_ini_default(section, var, default):
     try:
-        var = cfg.get('general', 'port')
-        v = int(var)
+        var = cfg.get(section, var)
+        v = var
     except:
-        return 5000
+        return default
     return v
 
 def __get_data_queues_manager():
+    manager = __connect_manager()
     try:
         data = manager.QueueStatus()
     except:
@@ -64,8 +82,29 @@ def get_data_queues(queue = None):
         app.logger.debug(data)
     return data
 
+def hide_queue(data):
+    tmp_data = {}
+    hide = get_hide_config()
+    for q in data:
+        if q not in hide:
+            tmp_data[q] = data[q]
+    return tmp_data
+
+def rename_queue(data):
+    tmp_data = {}
+    for q in data:
+        rename = __get_entry_ini_default('rename', q, None)
+        if rename is not None:
+            tmp_data[rename] = data[q]
+        else:
+            tmp_data[q] = data[q]
+    return tmp_data
+
+
 
 def parser_data_queue(data):
+    data = hide_queue(data)
+    data = rename_queue(data)
     # convert references manager to string
     for q in data:
         for e in data[q]['entries']:
@@ -92,7 +131,8 @@ def setup_logging():
 @app.context_processor
 def utility_processor():
     def format_id_agent(value):
-        return value.replace('/', '-')
+        v = value.replace('/', '-')
+        return v.replace('@', '_')
     return dict(format_id_agent=format_id_agent)
 
 @app.context_processor
@@ -112,6 +152,13 @@ def utility_processor():
         else:
             return 'busy'
     return dict(str_status_agent=str_status_agent)
+
+@app.context_processor
+def utility_processor():
+    def request_interval():
+        return int(__get_entry_ini_default('general', 'interval', 5)) * 1000
+    return dict(request_interval=request_interval)
+
 
 # ---------------------
 # ---- Routes ---------
@@ -151,4 +198,4 @@ def queues():
 if __name__ == '__main__':
     if is_debug():
         app.debug = True
-    app.run(host='0.0.0.0', port=port_bind())
+    app.run(host=host_bind(), port=port_bind())

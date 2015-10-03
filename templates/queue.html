@@ -165,8 +165,7 @@
             getDataQueue(); //load data on page ready :)
             setInterval(function () {
                 getDataQueue();
-            }, 5000);
-
+            }, {{ request_interval() }});
         });
         // parse data and put values on view
         function parseDataQueue(data){
@@ -179,9 +178,11 @@
 
           //agents
           for (agent in data.members) {
-            agent_id_div = agent.replace('/', '-');
+            tmp_agent_id_div = agent.replace('/', '-');
+            agent_id_div = tmp_agent_id_div.replace('@', '_');
             $('#agent-' + agent_id_div + ' #calls').html(data.members[agent].CallsTaken)
             $('#agent-' + agent_id_div + ' #status .state').html(data.members[agent].Status.toStrStatusAgent())
+            addLabelDivStatusAgent($('#agent-' + agent_id_div + ' #status .state'));
 
             if (data.members[agent].Paused == true) {
                 $('#agent-' + agent_id_div + ' #status .pause').remove();
