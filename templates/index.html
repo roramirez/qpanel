@@ -259,15 +259,15 @@
                 agents = agent_free + agent_busy + agent_unavailable;
                 $("[id='data-"+ d + "'] #queue_free")
                     .html( "{agents} ({percent}% free)"
-                        .format({agents: agent_free, percent: agent_free * 100 / agents} ));
+                        .format({agents: agent_free, percent: Math.round(agent_free * 100 / agents)} ));
 
                 $("[id='data-"+ d + "'] #queue_busy")
                     .html( "{agents} ({percent}% busy)"
-                        .format({agents: agent_busy, percent: agent_busy * 100 / agents} ));
+                        .format({agents: agent_busy, percent: Math.round(agent_busy * 100 / agents)} ));
 
                 $("[id='data-"+ d + "'] #queue_unavailable")
                     .html( "{agents} ({percent}% unavailable)"
-                        .format({agents: agent_unavailable, percent: agent_unavailable * 100 / agents} ));
+                        .format({agents: agent_unavailable, percent: Math.round(agent_unavailable * 100 / agents)} ));
 
 
             }
