@@ -18,7 +18,15 @@ Qpanel is a panel for queues on Asterisk, powerful and simple monitor in realtim
 ## Requirement
  * Python 2.6+
  * [Flask](http://flask.pocoo.org/) 0.10+
- * [Asterisk](http://www.asterisk.org) 1.4+ and enabled manager
+ * [Asterisk](http://www.asterisk.org) 1.4+ and enabled manager.
+    On /etc/asterisk/manager.conf do you set command permission for read and write, example:
+
+    ```
+    [qpanel]
+    secret = mi_super_secret_password
+    read = command
+    write = command
+    ```
 
  If you used a CentOS 5.X or Elastix check [how to install Python 2.6 and Flask](README.Centos5.md)
 
