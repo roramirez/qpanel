@@ -4,6 +4,17 @@ Qpanel is dashboard for Queues in Asterisk
 
 ![Demo](samples/animation.gif)
 
+## Overview
+
+Qpanel is a panel for queues on Asterisk, powerful and simple monitor in realtime:
+
+* General resume for calls. Abandoned, Incoming, Answer time and Waiting time.
+* Show information on detail by queue.
+* Agents status.
+* Simple configuration. Only use Asterisk manager.
+* Written on Python
+
+
 ## Requirement
  * Python 2.6+
  * [Flask](http://flask.pocoo.org/) 0.10+
