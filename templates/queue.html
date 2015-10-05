@@ -36,7 +36,7 @@
       <!--header start-->
       <header class="header black-bg">
             <!--logo start-->
-            <a href="/" class="logo"><b>QPanel</b></a>
+            <a href="{{url_for('.home')}}" class="logo"><b>QPanel</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
             </div>
@@ -200,7 +200,7 @@
             var result;
             var r = $.ajax({
                 type: 'GET',
-                url: '/queue/{{name}}.json'
+                url: '{{url_for('.queue', name=name+".json")}}'
             });
             r.done(function (response) {
                 if (response) {

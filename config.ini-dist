@@ -10,6 +10,7 @@ port = 5000
 host = 0.0.0.0
 interval = 5 ;Interval for request on seconds
 ;hide =  ; Hide queue on monitor separate by comma. Example config hide=queue1,queue2
+;base_url =  ; Default is /
 
 [rename]
 ; This section if for rename name of queue

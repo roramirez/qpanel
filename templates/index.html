@@ -41,7 +41,7 @@
       <!--header start-->
       <header class="header black-bg">
             <!--logo start-->
-            <a href="/" class="logo"><b>QPanel</b></a>
+            <a href="{{url_for('.home')}}" class="logo"><b>QPanel</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
             </div>
@@ -111,7 +111,7 @@
                     {% for queue in queues %}
                         <div class="col-lg-4 col-md-4 col-sm-4 mb project">
                             <div class="weather-2 pn photo-wrapper transparent-background">
-                              <a href="/queue/{{ queue }}">
+                              <a href="{{url_for('.queue', name=queue)}}">
                                 <div class="weather-2-header">
                                     <div class="row">
                                         <div class="panel-title centered">
@@ -286,7 +286,7 @@
             var result;
             var r = $.ajax({
                 type: 'GET',
-                url: '/queues'
+                url: '{{url_for('.queues')}}'
             });
             r.done(function (response) {
                 if (response) {

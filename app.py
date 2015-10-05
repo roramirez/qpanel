@@ -3,6 +3,8 @@ import os, sys
 import ConfigParser
 import json
 from distutils.util import strtobool
+from werkzeug.serving import run_simple
+from werkzeug.wsgi import DispatcherMiddleware
 
 # get current names for directory and file
 dirname, filename = os.path.split(os.path.abspath(__file__))
@@ -10,9 +12,6 @@ dirname, filename = os.path.split(os.path.abspath(__file__))
 # py-asterisk
 sys.path.append(os.path.join(dirname,  'libs','py-asterisk'))
 from Asterisk.Manager import *
-
-
-app = Flask(__name__)
 
 # config file
 cfg_file = 'config.ini'
@@ -119,6 +118,11 @@ def parser_data_queue(data):
     return data
 
 
+# Flask env
+APPLICATION_ROOT = __get_entry_ini_default('general', 'base_url', '/')
+app = Flask(__name__)
+app.config.from_object(__name__)
+
 @app.before_first_request
 def setup_logging():
   # issue https://github.com/benoitc/gunicorn/issues/379
@@ -196,6 +200,15 @@ def queues():
 # ---- Main  ----------
 # ---------------------
 if __name__ == '__main__':
+
     if is_debug():
-        app.debug = True
-    app.run(host=host_bind(), port=port_bind())
+        app.config['DEBUG'] = True
+
+    app.logger.debug(APPLICATION_ROOT)
+    if APPLICATION_ROOT == '/':
+        app.run(host=host_bind(), port=port_bind())
+    else:
+        application = DispatcherMiddleware(Flask('dummy_app'), {
+            app.config['APPLICATION_ROOT']: app,
+        })
+        run_simple(host_bind(), port_bind(), application, use_reloader=True)
