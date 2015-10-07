@@ -1,7 +1,7 @@
 %define modname qpanel
 Name:    elastix-%{modname}
 Version: 0.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Qpanel is dashboard for Queues in Asterisk
 Group:   Applications/Communications
 License: MIT
@@ -54,10 +54,17 @@ python2.6 /tmp/get-pip.py
 #Flask
 pip2.6 install flask
 
-# UWSGI
+###### UWSGI  ##########
+# install
 pip2.6 install uwsgi
 
-# Init.d
+# config from repo
+mkdir /etc/uwsgi
+cp /opt/%{modname}/samples/configs/uwsgi-qpanel.ini /etc/uwsgi/
+sed -i "s/venv/;venv/" /etc/uwsgi/uwsgi-qpanel.ini
+sed -i "s/path\/app/opt\/qpanel/" /etc/uwsgi/uwsgi-qpanel.ini
+
+# init.d 
 echo '
 
 #!/bin/bash
@@ -174,12 +181,6 @@ chmod +x /etc/init.d/uwsgi
 chkconfig --add uwsgi
 chkconfig uwsgi on
 /etc/init.d/uwsgi start
-
-mkdir /etc/uwsgi
-cp /opt/%{modname}/samples/configs/uwsgi-qpanel.ini /etc/uwsgi/
-
-sed -i "s/venv/;venv/" /etc/uwsgi/uwsgi-qpanel.ini
-sed -i "s/path\/app/opt\/qpanel/" /etc/uwsgi/uwsgi-qpanel.ini
 
 
 
