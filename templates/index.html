@@ -257,6 +257,10 @@
                     }
                 }
                 agents = agent_free + agent_busy + agent_unavailable;
+                //bugfix NaN division by 0
+                if (agents == 0) {
+                    agents = 1;
+                }
                 $("[id='data-"+ d + "'] #queue_free")
                     .html( "{agents} ({percent}% free)"
                         .format({agents: agent_free, percent: Math.round(agent_free * 100 / agents)} ));
