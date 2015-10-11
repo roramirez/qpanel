@@ -1,7 +1,7 @@
 %define modname qpanel
 Name:    elastix-%{modname}
 Version: 0.3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Qpanel is dashboard for Queues in Asterisk
 Group:   Applications/Communications
 License: MIT
@@ -36,7 +36,12 @@ cp /opt/%{modname}/config.ini-dist /opt/%{modname}/config.ini
 sed -i "s/= password/= $RAN_PASS/" /opt/%{modname}/config.ini
 sed -i "s/= username/= qpanel/" /opt/%{modname}/config.ini
 sed -i "s/;base_url = /base_url =  \/qpanel/" /opt/%{modname}/config.ini
-echo  "#include \"manager_qpanel.conf\"" >> /etc/asterisk/manager_additional.conf
+
+search_include=$(grep  manager_qpanel.conf /etc/asterisk/manager.conf | grep  -v ';')
+if  [ ${#search_include} -eq 0 ]; then
+    echo  "#include manager_qpanel.conf" >> /etc/asterisk/manager.conf;
+fi
+
 echo "
 [qpanel]
 secret = $RAN_PASS
