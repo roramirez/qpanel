@@ -5,6 +5,7 @@ import json
 from distutils.util import strtobool
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
+from werkzeug.exceptions import abort
 
 # get current names for directory and file
 dirname, filename = os.path.split(os.path.abspath(__file__))
@@ -76,7 +77,10 @@ def __get_data_queues_manager():
 def get_data_queues(queue = None):
     data = parser_data_queue(__get_data_queues_manager())
     if queue is not None:
-        data = data[queue]
+        try:
+            data = data[queue]
+        except:
+            abort(404)
     if is_debug():
         app.logger.debug(data)
     return data
@@ -163,6 +167,10 @@ def utility_processor():
         return int(__get_entry_ini_default('general', 'interval', 5)) * 1000
     return dict(request_interval=request_interval)
 
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 # ---------------------
 # ---- Routes ---------
