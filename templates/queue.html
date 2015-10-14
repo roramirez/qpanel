@@ -169,8 +169,8 @@
 
           //agents
           for (agent in data.members) {
-            tmp_agent_id_div = agent.replace('/', '-');
-            agent_id_div = tmp_agent_id_div.replace('@', '_');
+            tmp_agent_id_div = agent.replace(/\//g, '-');
+            agent_id_div = tmp_agent_id_div.replace(/@/g, '_');
             $('#agent-' + agent_id_div + ' #calls').html(data.members[agent].CallsTaken)
             $('#agent-' + agent_id_div + ' #status .state').html(data.members[agent].Status.toStrStatusAgent())
             addLabelDivStatusAgent($('#agent-' + agent_id_div + ' #status .state'));
