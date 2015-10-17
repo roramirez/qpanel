@@ -183,6 +183,17 @@
                 $('#agent-' + agent_id_div + ' #status .pause').remove();
             }
 
+            if ($('#agent-' + agent_id_div).length == 0) {
+                $('.table tbody tr:last')
+                    .after('<tr id="agent-'+agent_id_div+'"><td>'
+                            + data.members[agent].Name +'</td>'
+                            + '<td>'+data.members[agent].StateInterface+'</td>'
+                            + '<td id="status"> <span class="label label-info label-mini state">'
+                                + data.members[agent].Status.toStrStatusAgent()
+                            + '</span></td>'
+                            + '<td>'+ data.members[agent].CallsTaken +'</td></tr>');
+            }
+
           }
 
         }
