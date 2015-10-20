@@ -129,10 +129,10 @@ app.config.from_object(__name__)
 
 @app.before_first_request
 def setup_logging():
-  # issue https://github.com/benoitc/gunicorn/issues/379
-  if not app.debug:
-    app.logger.addHandler(logging.StreamHandler())
-    app.logger.setLevel(logging.INFO)
+    # issue https://github.com/benoitc/gunicorn/issues/379
+    if not app.debug:
+        app.logger.addHandler(logging.StreamHandler())
+        app.logger.setLevel(logging.INFO)
 
 
 #Utilities helpers
