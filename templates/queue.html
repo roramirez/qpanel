@@ -62,43 +62,9 @@
               <div class="row">
                   <div class="col-lg-12 main-chart">
 
-                    <div class="row">
-                        <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
-                            <div class="box1">
-                                <span class="">Answered</span>
-                                <h3><span id="answered"></span></h3>
-                            </div>
-                            <p>Attended calls.</p>
-                        </div>
-                        <div class="col-md-2 col-sm-2 box0">
-                            <div class="box1">
-                                <span class="">Abandoned</span>
-                                <h3><span id="abandoned"></span></h3>
-                            </div>
-                            <p>Calls not attended by agents.</p>
-                        </div>
-                        <div class="col-md-2 col-sm-2 box0">
-                            <div class="box1">
-                                <span class="">Incoming</span>
-                                <h3><span id="incoming"></span></h3>
-                            </div>
-                            <p>Call on line.</p>
-                        </div>
-                        <div class="col-md-2 col-sm-2 box0">
-                            <div class="box1">
-                                <span class="">Av. time</span>
-                                <h3><span id="av_time">0:00</span></h3>
-                            </div>
-                            <p>Average time for answered calls.</p>
-                        </div>
-                        <div class="col-md-2 col-sm-2 box0">
-                            <div class="box1">
-                                <span class="">Av. Wait</span>
-                                <h3><span id="av_wait">0:00</span></h3>
-                            </div>
-                            <p>Average time waiting for calls.</p>
-                        </div>
-                    </div><!-- /row mt -->
+                      <div class="row"><!-- row general data-->
+                        {% include 'row_general_data.html' %}
+                      </div><!-- /row general data-->
 
                      <div class="row mt">
                     </div><!-- /row -->
