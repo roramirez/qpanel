@@ -84,8 +84,8 @@ def get_data_queues(queue = None):
             data = data[queue]
         except:
             abort(404)
-    #if is_debug():
-    #    app.logger.debug(data)
+    if is_debug():
+        app.logger.debug(data)
     return data
 
 def hide_queue(data):
