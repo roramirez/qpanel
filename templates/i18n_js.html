@@ -1,0 +1,31 @@
+    <!-- Js i18n -->
+    <script src="{{url_for('static', filename='js/jquery.i18n.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.i18n.messagestore.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.i18n.fallbacks.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.i18n.parser.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.i18n.emitter.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.i18n.language.js')}}"></script>
+    <script src="{{url_for('static', filename='js/js.cookie.js')}}"></script>
+
+
+    <script>
+        $.i18n().load( {
+            en: '{{url_for('static', filename='js/i18n/en.json')}}',
+            es: '{{url_for('static', filename='js/i18n/es.json')}}',
+        });
+
+        if ( typeof Cookies.get('lang') === "undefined" ) {
+            Cookies.set('lang', 'en');
+        }
+        $( "#language" ).val(Cookies.get('lang'));
+        $.i18n( { locale: Cookies.get('lang') } );
+
+        $('#language').on('change', function (e) {
+            var value   = $(this).val();
+            Cookies.set('lang', value);
+            $.i18n( { locale: Cookies.get('lang') } );
+            $('.i18n').i18n()
+        }).change();
+
+        setTimeout(function(){$('.i18n').i18n()}, 500);
+    </script>
