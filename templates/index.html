@@ -47,6 +47,12 @@
             </div>
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
+                    <li>
+                        <select id="language" class="logout">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                        </select>
+                    </li>
                 </ul>
             </div>
         </header>
@@ -71,7 +77,7 @@
                      <div class="row mt">
 
                     <div class="border-head">
-                      <h1><i class="fa fa-angle-right"></i> Queues</h1>
+                      <h1><i class="fa fa-angle-right"></i> {{_('Queues')}}</h1>
                     </div>
 
                     {% for queue in queues %}
@@ -90,9 +96,9 @@
                                 <div class="row data" id="data-{{queue}}">
 
                                     <div class="col-sm-4 col-xs-4 voffset20 goleft">
-                                        <h5><b>Answered:</b> <span id="queue_completed">{{queues[queue].Completed}}</span></h5>
-                                        <h5>Abandoned: <span id="queue_abandoned">{{queues[queue].Abandoned}} </span></h5>
-                                        <h5>Incoming: <span id="queue_incomming">{{queues[queue].Calls}} </span></h5>
+                                        <h5><b>{{_('Answered')}}:</b> <span id="queue_completed">{{queues[queue].Completed}}</span></h5>
+                                        <h5>{{_('Abandoned')}}: <span id="queue_abandoned">{{queues[queue].Abandoned}} </span></h5>
+                                        <h5>{{_('Incoming')}}: <span id="queue_incomming">{{queues[queue].Calls}} </span></h5>
                                     </div>
                                      <div class="col-lg-4 col-md-4 col-sm-4 mb voffset20">
                                             <canvas id="graph_{{queue}}" height="120" width="120"></canvas>
@@ -105,7 +111,7 @@
                                     </div>
                                 </div>
                                 <div class="row centered"  style="margin-top: -20px;">
-                                    <h2>Abandoned: <span id="{{queue}}-percent_abandoned">0</span>%</h2>
+                                    <h2>{{_('Abandoned:')}} <span id="{{queue}}-percent_abandoned">0</span>%</h2>
                                 </div>
                                 <script>
                                     dataGraph['{{queue}}'] = [
@@ -219,17 +225,15 @@
                     agents = 1;
                 }
                 $("[id='data-"+ d + "'] #queue_free")
-                    .html( "{agents} ({percent}% free)"
-                        .format({agents: agent_free, percent: Math.round(agent_free * 100 / agents)} ));
-
+                    .html( "{agents} ({percent}% {status})"
+                        .format({agents: agent_free, percent: Math.round(agent_free * 100 / agents), status: "{{_("free")}}" }));
                 $("[id='data-"+ d + "'] #queue_busy")
-                    .html( "{agents} ({percent}% busy)"
-                        .format({agents: agent_busy, percent: Math.round(agent_busy * 100 / agents)} ));
+                    .html( "{agents} ({percent}% {status})"
+                        .format({agents: agent_busy, percent: Math.round(agent_busy * 100 / agents), status: "{{_("busy")}}" }));
 
                 $("[id='data-"+ d + "'] #queue_unavailable")
-                    .html( "{agents} ({percent}% unavailable)"
-                        .format({agents: agent_unavailable, percent: Math.round(agent_unavailable * 100 / agents)} ));
-
+                    .html( "{agents} ({percent}% {status})"
+                        .format({agents: agent_unavailable, percent: Math.round(agent_unavailable * 100 / agents), status: "{{_("unavailable")}} "}));
 
             }
             $('#answered').html(answers);
@@ -261,8 +265,10 @@
             r.always(function () {
             });
         }
+
     </script>
     <script src="{{url_for('static', filename='js/utils.js')}}"></script>
+    {% include 'i18n_js.html' %}
 
   </body>
 </html>

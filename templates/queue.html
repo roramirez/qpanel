@@ -42,6 +42,12 @@
             </div>
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
+                    <li>
+                        <select id="language" class="logout">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                        </select>
+                    </li>
                 </ul>
             </div>
         </header>
@@ -76,14 +82,13 @@
                             <hr>
                               <thead>
                               <tr>
-                                  <th><i class="fa fa-user"></i> Name</th>
-                                  <th class="hidden-phone"><i class="fa fa-phone"></i> Interface</th>
-                                  <th><i class=" fa fa-question-circle "></i> Status</th>
-                                  <th><i class="fa fa-bookmark"></i> Calls</th>
+                                  <th><i class="fa fa-user"></i> {{_('Name')}}</th>
+                                  <th class="hidden-phone"><i class="fa fa-phone"></i> {{_('Interface')}}</th>
+                                  <th><i class=" fa fa-question-circle "></i> {{_('Status')}}</th>
+                                  <th><i class="fa fa-bookmark"></i> {{_('Calls')}}</th>
                               </tr>
                               </thead>
                               <tbody>
-
                               {% for agent in data['members'] %}
                               <tr id="agent-{{format_id_agent(agent)}}">
                                   <td>{{ data['members'][agent]['Name'] }}</td>
@@ -144,7 +149,7 @@
             if (data.members[agent].Paused == true) {
                 $('#agent-' + agent_id_div + ' #status .pause').remove();
                 $('#agent-'+ agent_id_div +' #status .state')
-                    .after(' <span class="label label-success label-mini pause">paused</span>');
+                    .after(' <span class="label label-success label-mini pause">{{_('paused')}}</span>');
             } else {
                 $('#agent-' + agent_id_div + ' #status .pause').remove();
             }
@@ -185,5 +190,6 @@
     </script>
 
     <script src="{{url_for('static', filename='js/utils.js')}}"></script>
+    {% include 'i18n_js.html' %}
   </body>
 </html>
