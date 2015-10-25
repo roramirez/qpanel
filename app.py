@@ -212,7 +212,6 @@ if __name__ == '__main__':
     if is_debug():
         app.config['DEBUG'] = True
 
-    app.logger.debug(APPLICATION_ROOT)
     if APPLICATION_ROOT == '/':
         app.run(host=host_bind(), port=port_bind())
     else:
