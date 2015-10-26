@@ -1,0 +1,109 @@
+# German translations for QPanel.
+# Copyright (C) 2015 Rodrigo Ramírez Norambuena
+# This file is distributed under the same license as the QPanel project.
+# Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.4.0\n"
+"Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
+"POT-Creation-Date: 2015-10-24 19:12-0400\n"
+"PO-Revision-Date: 2015-10-26 07:27-0400\n"
+"Last-Translator: Dominic Schubert <info@atom-area.net>\n"
+"Language: de\n"
+"Language-Team: de Dominic Schubert <info@atom-area.net>>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.1.1\n"
+
+#: app.py:173 templates/i18n_js.html:14 templates/i18n_js.html:26
+#: templates/index.html:236
+msgid "unavailable"
+msgstr "inaktiv"
+
+#: app.py:175 templates/i18n_js.html:12 templates/i18n_js.html:24
+#: templates/index.html:229
+msgid "free"
+msgstr "aktiv"
+
+#: app.py:177 templates/i18n_js.html:16 templates/index.html:232
+msgid "busy"
+msgstr "im GesprÃ¤ch"
+
+#: templates/footer.html:4
+msgid "Developed by"
+msgstr ""
+
+#: templates/footer.html:4
+msgid "with a Template by"
+msgstr ""
+
+#: templates/index.html:80
+msgid "Queues"
+msgstr "Warteschlangen"
+
+#: templates/index.html:99 templates/row_general_data.html:3
+msgid "Answered"
+msgstr "Beantwortet"
+
+#: templates/index.html:100 templates/row_general_data.html:10
+msgid "Abandoned"
+msgstr "Abgebrochen"
+
+#: templates/index.html:101 templates/row_general_data.html:17
+msgid "Incoming"
+msgstr "Wartente"
+
+#: templates/index.html:114
+msgid "Abandoned:"
+msgstr "Verloren"
+
+#: templates/queue.html:85
+msgid "Name"
+msgstr ""
+
+#: templates/queue.html:86
+msgid "Interface"
+msgstr ""
+
+#: templates/queue.html:87
+msgid "Status"
+msgstr ""
+
+#: templates/queue.html:88
+msgid "Calls"
+msgstr "Anrufe"
+
+#: templates/queue.html:152
+msgid "paused"
+msgstr ""
+
+#: templates/row_general_data.html:6
+msgid "Attended calls."
+msgstr "Beanwortete Anrufe."
+
+#: templates/row_general_data.html:13
+msgid "Calls not attended by agents."
+msgstr "Verlorene Anrufe"
+
+#: templates/row_general_data.html:20
+msgid "Call on line."
+msgstr "Anrufe in der Line"
+
+#: templates/row_general_data.html:24
+msgid "Av. time"
+msgstr "Durch. Zeit"
+
+#: templates/row_general_data.html:27
+msgid "Average time for answered calls."
+msgstr "Durch. Zeit fÃ¼r beantwortete Anrufe"
+
+#: templates/row_general_data.html:31
+msgid "Av. Wait"
+msgstr "Wartezeit"
+
+#: templates/row_general_data.html:34
+msgid "Average time waiting for calls."
+msgstr "Durch. Zeit fÃ¼r wartente Anrufe."
+
