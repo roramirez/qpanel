@@ -11,6 +11,8 @@ host = 0.0.0.0
 interval = 5 ;Interval for request on seconds
 ;hide =  ; Hide queue on monitor separate by comma. Example config hide=queue1,queue2
 ;base_url =  ; Default is /
+;secret_key = 'PLEASE_CHANGE_ME' ; is a good idea change this value
+language = en
 
 [rename]
 ; This section if for rename name of queue

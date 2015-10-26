@@ -42,6 +42,7 @@
             </div>
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
+                    {% include 'language_selector.html' %}
                 </ul>
             </div>
         </header>
@@ -62,43 +63,9 @@
               <div class="row">
                   <div class="col-lg-12 main-chart">
 
-                    <div class="row">
-                        <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
-                            <div class="box1">
-                                <span class="">Answered</span>
-                                <h3><span id="answered"></span></h3>
-                            </div>
-                            <p>Attended calls.</p>
-                        </div>
-                        <div class="col-md-2 col-sm-2 box0">
-                            <div class="box1">
-                                <span class="">Abandoned</span>
-                                <h3><span id="abandoned"></span></h3>
-                            </div>
-                            <p>Calls not attended by agents.</p>
-                        </div>
-                        <div class="col-md-2 col-sm-2 box0">
-                            <div class="box1">
-                                <span class="">Incoming</span>
-                                <h3><span id="incoming"></span></h3>
-                            </div>
-                            <p>Call on line.</p>
-                        </div>
-                        <div class="col-md-2 col-sm-2 box0">
-                            <div class="box1">
-                                <span class="">Av. time</span>
-                                <h3><span id="av_time">0:00</span></h3>
-                            </div>
-                            <p>Average time for answered calls.</p>
-                        </div>
-                        <div class="col-md-2 col-sm-2 box0">
-                            <div class="box1">
-                                <span class="">Av. Wait</span>
-                                <h3><span id="av_wait">0:00</span></h3>
-                            </div>
-                            <p>Average time waiting for calls.</p>
-                        </div>
-                    </div><!-- /row mt -->
+                      <div class="row"><!-- row general data-->
+                        {% include 'row_general_data.html' %}
+                      </div><!-- /row general data-->
 
                      <div class="row mt">
                     </div><!-- /row -->
@@ -110,14 +77,13 @@
                             <hr>
                               <thead>
                               <tr>
-                                  <th><i class="fa fa-user"></i> Name</th>
-                                  <th class="hidden-phone"><i class="fa fa-phone"></i> Interface</th>
-                                  <th><i class=" fa fa-question-circle "></i> Status</th>
-                                  <th><i class="fa fa-bookmark"></i> Calls</th>
+                                  <th><i class="fa fa-user"></i> {{_('Name')}}</th>
+                                  <th class="hidden-phone"><i class="fa fa-phone"></i> {{_('Interface')}}</th>
+                                  <th><i class=" fa fa-question-circle "></i> {{_('Status')}}</th>
+                                  <th><i class="fa fa-bookmark"></i> {{_('Calls')}}</th>
                               </tr>
                               </thead>
                               <tbody>
-
                               {% for agent in data['members'] %}
                               <tr id="agent-{{format_id_agent(agent)}}">
                                   <td>{{ data['members'][agent]['Name'] }}</td>
@@ -178,7 +144,7 @@
             if (data.members[agent].Paused == true) {
                 $('#agent-' + agent_id_div + ' #status .pause').remove();
                 $('#agent-'+ agent_id_div +' #status .state')
-                    .after(' <span class="label label-success label-mini pause">paused</span>');
+                    .after(' <span class="label label-success label-mini pause">{{_('paused')}}</span>');
             } else {
                 $('#agent-' + agent_id_div + ' #status .pause').remove();
             }
@@ -219,5 +185,6 @@
     </script>
 
     <script src="{{url_for('static', filename='js/utils.js')}}"></script>
+    {% include 'i18n_js.html' %}
   </body>
 </html>

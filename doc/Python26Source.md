@@ -32,9 +32,10 @@ python2.6 get-pip.py
 ```
 
 ## Flask
-Will be use pip2.6 for install Flask
+Will be use pip2.6 for install Flask and dependences
 
 ```
 pip2.6 install flask
+pip2.6 install flask-babel
 
 ```

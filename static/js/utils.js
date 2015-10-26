@@ -48,28 +48,4 @@ String.prototype.format = function (args) {
 }
 
 
-String.prototype.toStrStatusAgent = function(args) {
-    var value = this;
-    var unavailable = [C.status_agent.INVALID, C.status_agent.UNAVAILABLE, C.status_agent.UNKNOWN ]
-    if (C.status_agent.NOT_INUSE == value) {
-        return "free";
-    } else if (unavailable.indexOf(parseInt(value)) > -1) {
-        return "unavailable";
-    } else {
-        return "busy"
-    }
-}
 
-function addLabelDivStatusAgent(div) {
-    var label;
-    div.removeClass('label-warning label-info label-danger');
-    value = div.html();
-    if (value == "free") {
-        label = 'info';
-    } else if (value == "unavailable") {
-        label = 'danger';
-    } else {
-        label = 'warning';
-    }
-    div.addClass('label-'+label);
-}

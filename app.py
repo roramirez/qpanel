@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, redirect, request, session, url_for
 import os, sys
 import ConfigParser
 import json
@@ -6,6 +6,9 @@ from distutils.util import strtobool
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
+
+# babel
+from flask.ext.babel import Babel, gettext
 
 # get current names for directory and file
 dirname, filename = os.path.split(os.path.abspath(__file__))
@@ -126,6 +129,8 @@ def parser_data_queue(data):
 APPLICATION_ROOT = __get_entry_ini_default('general', 'base_url', '/')
 app = Flask(__name__)
 app.config.from_object(__name__)
+babel = Babel(app)
+app.config['BABEL_DEFAULT_LOCALE'] = __get_entry_ini_default('general', 'language', 'en')
 
 @app.before_first_request
 def setup_logging():
@@ -134,6 +139,17 @@ def setup_logging():
         app.logger.addHandler(logging.StreamHandler())
         app.logger.setLevel(logging.INFO)
 
+# babel
+@babel.localeselector
+def get_locale():
+    browser = request.accept_languages.best_match(['en', 'es', 'de'])
+    try:
+      app.logger.debug(session['language'])
+      return session['language']
+    except KeyError:
+      session['language'] = browser
+      app.logger.debug(session['language'])
+      return browser
 
 #Utilities helpers
 @app.context_processor
@@ -154,11 +170,11 @@ def utility_processor():
         free = [1]
 
         if value in unavailable:
-            return 'unavailable'
+            return gettext('unavailable')
         elif value in free:
-            return 'free'
+            return gettext('free')
         else:
-            return 'busy'
+            return gettext('busy')
     return dict(str_status_agent=str_status_agent)
 
 @app.context_processor
@@ -171,6 +187,8 @@ def utility_processor():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+
 
 # ---------------------
 # ---- Routes ---------
@@ -204,6 +222,14 @@ def queues():
         data = data
     )
 
+@app.route('/lang')
+def fake_language():
+    return redirect(url_for('home'))
+@app.route('/lang/<language>')
+def language(language = None):
+    session['language'] = language
+    return redirect(url_for('home'))
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------
@@ -211,6 +237,8 @@ if __name__ == '__main__':
 
     if is_debug():
         app.config['DEBUG'] = True
+
+    app.secret_key = __get_entry_ini_default('general', 'secret_key', 'CHANGEME_ON_CONFIG')
 
     if APPLICATION_ROOT == '/':
         app.run(host=host_bind(), port=port_bind())
