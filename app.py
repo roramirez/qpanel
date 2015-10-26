@@ -240,7 +240,6 @@ if __name__ == '__main__':
 
     app.secret_key = __get_entry_ini_default('general', 'secret_key', 'CHANGEME_ON_CONFIG')
 
-    app.logger.debug(APPLICATION_ROOT)
     if APPLICATION_ROOT == '/':
         app.run(host=host_bind(), port=port_bind())
     else:
