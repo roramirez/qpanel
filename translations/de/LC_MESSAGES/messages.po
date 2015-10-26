@@ -4,9 +4,9 @@
 # Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.4.0\n"
+"Project-Id-Version:  0.4.0\n"
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
-"POT-Creation-Date: 2015-10-24 19:12-0400\n"
+"POT-Creation-Date: 2015-10-26 07:53-0400\n"
 "PO-Revision-Date: 2015-10-26 07:27-0400\n"
 "Last-Translator: Dominic Schubert <info@atom-area.net>\n"
 "Language: de\n"
@@ -18,16 +18,16 @@ msgstr ""
 "Generated-By: Babel 2.1.1\n"
 
 #: app.py:173 templates/i18n_js.html:14 templates/i18n_js.html:26
-#: templates/index.html:236
+#: templates/index.html:231
 msgid "unavailable"
 msgstr "inaktiv"
 
 #: app.py:175 templates/i18n_js.html:12 templates/i18n_js.html:24
-#: templates/index.html:229
+#: templates/index.html:224
 msgid "free"
 msgstr "aktiv"
 
-#: app.py:177 templates/i18n_js.html:16 templates/index.html:232
+#: app.py:177 templates/i18n_js.html:16 templates/index.html:227
 msgid "busy"
 msgstr "im GesprÃ¤ch"
 
@@ -39,43 +39,47 @@ msgstr ""
 msgid "with a Template by"
 msgstr ""
 
-#: templates/index.html:80
+#: templates/index.html:75
 msgid "Queues"
 msgstr "Warteschlangen"
 
-#: templates/index.html:99 templates/row_general_data.html:3
+#: templates/index.html:94 templates/row_general_data.html:3
 msgid "Answered"
 msgstr "Beantwortet"
 
-#: templates/index.html:100 templates/row_general_data.html:10
+#: templates/index.html:95 templates/row_general_data.html:10
 msgid "Abandoned"
 msgstr "Abgebrochen"
 
-#: templates/index.html:101 templates/row_general_data.html:17
+#: templates/index.html:96 templates/row_general_data.html:17
 msgid "Incoming"
 msgstr "Wartente"
 
-#: templates/index.html:114
+#: templates/index.html:109
 msgid "Abandoned:"
 msgstr "Verloren"
 
-#: templates/queue.html:85
+#: templates/queue.html:76
+msgid "Agents"
+msgstr ""
+
+#: templates/queue.html:80
 msgid "Name"
 msgstr ""
 
-#: templates/queue.html:86
+#: templates/queue.html:81
 msgid "Interface"
 msgstr ""
 
-#: templates/queue.html:87
+#: templates/queue.html:82
 msgid "Status"
 msgstr ""
 
-#: templates/queue.html:88
+#: templates/queue.html:83
 msgid "Calls"
 msgstr "Anrufe"
 
-#: templates/queue.html:152
+#: templates/queue.html:147
 msgid "paused"
 msgstr ""
 
