@@ -58,6 +58,22 @@ msgstr ""
 msgid "Abandoned:"
 msgstr ""
 
+#: templates/language_selector.html:3
+msgid "English"
+msgstr ""
+
+#: templates/language_selector.html:4
+msgid "Spanish"
+msgstr ""
+
+#: templates/language_selector.html:5
+msgid "German"
+msgstr ""
+
+#: templates/language_selector.html:6
+msgid "Russian"
+msgstr ""
+
 #: templates/queue.html:76
 msgid "Agents"
 msgstr ""
