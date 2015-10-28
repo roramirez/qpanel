@@ -24,10 +24,10 @@ sys.path.append(os.path.join(dirname,  'libs','py-asterisk'))
 from Asterisk.Manager import *
 
 # config file
-cfg_file = 'config.ini'
+cfg_file = os.path.join(dirname, 'config.ini')
 cfg = ConfigParser.ConfigParser()
 try:
-    with open(os.path.join(dirname, cfg_file))  as f:
+    with open(cfg_file)  as f:
         cfg.readfp(f)
 except IOError:
     print 'Error open file config. Check if config.ini exists'
@@ -268,9 +268,9 @@ if __name__ == '__main__':
     app.secret_key = __get_entry_ini_default('general', 'secret_key', 'CHANGEME_ON_CONFIG')
 
     if APPLICATION_ROOT == '/':
-        app.run(host=host_bind(), port=port_bind())
+        app.run(host=host_bind(), port=port_bind(), extra_files=[cfg_file])
     else:
         application = DispatcherMiddleware(Flask('dummy_app'), {
             app.config['APPLICATION_ROOT']: app,
         })
-        run_simple(host_bind(), port_bind(), application, use_reloader=True)
+        run_simple(host_bind(), port_bind(), application, use_reloader=True, extra_files=[cfg_file])
