@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.4.0\n"
+"Project-Id-Version:  0.4.0\n"
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
 "PO-Revision-Date: 2015-10-23 23:44-0400\n"
@@ -79,6 +79,10 @@ msgstr "Estado"
 #: templates/queue.html:83
 msgid "Calls"
 msgstr "Llamadas"
+
+#: templates/queue.html:84
+msgid "Last call at"
+msgstr "Última llamada"
 
 #: templates/queue.html:147
 msgid "paused"

@@ -79,6 +79,10 @@ msgstr ""
 msgid "Calls"
 msgstr "Anrufe"
 
+#: templates/queue.html:84
+msgid "Last call at"
+msgstr ""
+
 #: templates/queue.html:147
 msgid "paused"
 msgstr ""

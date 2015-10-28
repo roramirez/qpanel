@@ -8,8 +8,8 @@ from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
 
 # babel
-from flask.ext.babel import Babel, gettext
-
+from flask.ext.babel import Babel, gettext, dates, format_timedelta
+from datetime import timedelta
 # get current names for directory and file
 dirname, filename = os.path.split(os.path.abspath(__file__))
 
@@ -111,6 +111,7 @@ def rename_queue(data):
 def parser_data_queue(data):
     data = hide_queue(data)
     data = rename_queue(data)
+    current_timestamp = int(time.time())
     # convert references manager to string
     for q in data:
         for e in data[q]['entries']:
@@ -122,6 +123,14 @@ def parser_data_queue(data):
             #Asterisk 1.8 dont have StateInterface
             if 'StateInterface' not in data[q]['members'][m]:
                 data[q]['members'][m]['StateInterface'] = m
+
+            second_ago = 0
+            if 'LastCall' in data[q]['members'][m]:
+                if int(data[q]['members'][m]['LastCall']) > 0:
+                    second_ago = current_timestamp - int(data[q]['members'][m]['LastCall'])
+            data[q]['members'][m]['LastCallAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+
+
     return data
 
 

@@ -4,7 +4,7 @@
 # Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.4.0\n"
+"Project-Id-Version:  0.4.0\n"
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
 "PO-Revision-Date: 2015-10-26 07:50-0400\n"
@@ -77,6 +77,10 @@ msgstr ""
 
 #: templates/queue.html:83
 msgid "Calls"
+msgstr ""
+
+#: templates/queue.html:84
+msgid "Last call at"
 msgstr ""
 
 #: templates/queue.html:147
