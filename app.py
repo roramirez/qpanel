@@ -39,6 +39,7 @@ def __connect_manager():
     except:
         app.logger.info('Error to connect to Asterisk Manager. Check config.ini and manager.conf of asterisk')
 
+
 def is_debug():
     try:
         var = cfg.get('general', 'debug')
@@ -47,11 +48,14 @@ def is_debug():
         return False
     return v
 
+
 def port_bind():
     return int(__get_entry_ini_default('general', 'port', 5000))
 
+
 def host_bind():
     return __get_entry_ini_default('general', 'host', '0.0.0.0')
+
 
 def get_hide_config():
     tmp = __get_entry_ini_default('general', 'hide', '')
@@ -66,6 +70,7 @@ def __get_entry_ini_default(section, var, default):
     except:
         return default
     return v
+
 
 def __get_data_queues_manager():
     manager = __connect_manager()
@@ -88,6 +93,7 @@ def get_data_queues(queue = None):
         app.logger.debug(data)
     return data
 
+
 def hide_queue(data):
     tmp_data = {}
     hide = get_hide_config()
@@ -95,6 +101,7 @@ def hide_queue(data):
         if q not in hide:
             tmp_data[q] = data[q]
     return tmp_data
+
 
 def rename_queue(data):
     tmp_data = {}
@@ -105,7 +112,6 @@ def rename_queue(data):
         else:
             tmp_data[q] = data[q]
     return tmp_data
-
 
 
 def parser_data_queue(data):
@@ -130,7 +136,6 @@ def parser_data_queue(data):
                     second_ago = current_timestamp - int(data[q]['members'][m]['LastCall'])
             data[q]['members'][m]['LastCallAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
 
-
     return data
 
 
@@ -141,12 +146,14 @@ app.config.from_object(__name__)
 babel = Babel(app)
 app.config['BABEL_DEFAULT_LOCALE'] = __get_entry_ini_default('general', 'language', 'en')
 
+
 @app.before_first_request
 def setup_logging():
     # issue https://github.com/benoitc/gunicorn/issues/379
     if not app.debug:
         app.logger.addHandler(logging.StreamHandler())
         app.logger.setLevel(logging.INFO)
+
 
 # babel
 @babel.localeselector
@@ -160,6 +167,7 @@ def get_locale():
       app.logger.debug(session['language'])
       return browser
 
+
 #Utilities helpers
 @app.context_processor
 def utility_processor():
@@ -167,6 +175,7 @@ def utility_processor():
         v = value.replace('/', '-')
         return v.replace('@', '_')
     return dict(format_id_agent=format_id_agent)
+
 
 @app.context_processor
 def utility_processor():
@@ -186,6 +195,7 @@ def utility_processor():
             return gettext('busy')
     return dict(str_status_agent=str_status_agent)
 
+
 @app.context_processor
 def utility_processor():
     def request_interval():
@@ -196,7 +206,6 @@ def utility_processor():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
-
 
 
 # ---------------------
@@ -223,6 +232,7 @@ def queue_json(name = None):
         data = data
     )
 
+
 # data queue
 @app.route('/queues')
 def queues():
@@ -231,6 +241,7 @@ def queues():
         data = data
     )
 
+
 @app.route('/lang')
 def fake_language():
     return redirect(url_for('home'))
@@ -238,6 +249,7 @@ def fake_language():
 def language(language = None):
     session['language'] = language
     return redirect(url_for('home'))
+
 
 # ---------------------
 # ---- Main  ----------
