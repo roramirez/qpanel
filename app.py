@@ -1,3 +1,9 @@
+# coding=utf8
+
+# Copyright (C) 2015 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+#
+
+
 from flask import Flask, render_template, jsonify, redirect, request, session, url_for
 import os, sys
 import ConfigParser
