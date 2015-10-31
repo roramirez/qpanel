@@ -1,5 +1,17 @@
 ## Change Log
 
+### 0.4.0 (Not released yet)
+- [c4fab97](https://github.com/roramirez/qpanel/commit/c4fab97b94b4bcf2324c3fd2f1078c3d41bc0d08) Add last_call agent on queue
+- [d7b7571](https://github.com/roramirez/qpanel/commit/d7b757173874d61ddbaabbd383ff27f5f0809daa) add Russian translation (@alexcr-telecom)
+- [0320525](https://github.com/roramirez/qpanel/commit/03205250ba6adbe80b7c67b91af78d325b55312b) Add german translation
+- [#16](https://github.com/roramirez/qpanel/pull/16) Add Changelog
+- [83792a6](https://github.com/roramirez/qpanel/commit/83792a6a9946b1222f084feb4a951ceaf979743a) Feature translations issue [\#8](https://github.com/roramirez/qpanel/issues/3) language english and spanish
+- [550b548](https://github.com/roramirez/qpanel/commit/550b5487dd9945d05f92418a05abe173718d3b5f) Feature set by config secret_key
+- [b1b79ff](https://github.com/roramirez/qpanel/commit/b1b79ff1eeb314e2863e5dc2d0e0c641d4ee7f31) Improve update jQuery version to v1.11.3
+- [57a61b0](https://github.com/roramirez/qpanel/commit/57a61b0749bf89eea66f4832559f4d5514338077) Create dir for documentation
+- [e95d066](https://github.com/roramirez/qpanel/commit/e95d0668aea46d2575a7195dd2d4c76920abe5d2) Added Logo
+
+
 ### 0.3.2 (2015-10-17)
 - [58e650e](https://github.com/roramirez/qpanel/commit/58e650e1d7bd523c664f7ba61867975f28a3bcff) Fixed a bug on link to up on footer
 - [7507174](https://github.com/roramirez/qpanel/commit/7507174d748b532bd02e3836940e76260793401d) Fixed a bug for add agent on table if not present after load the page for queue
