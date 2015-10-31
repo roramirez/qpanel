@@ -1,11 +1,11 @@
-# Centos 5
+# Python 2.6+ from source
 
-If you OS. is Centos 5.X this distribution dont have Python 2.6 necessary for QPanel because use Flask.
-
-The way to install Flask on Centos 5.X is
+If you a OS with a older than 2.6 version of Python necessary for QPanel because use Flask. This document show how to install from source Python 2.6 and Flask.
 
 ## Dependences
 Minimal necessary compiler and openssl
+
+### Based in RPM like RedHat, CentOS, Fedora, etc..
 
 ```
   yum install gcc cc
@@ -32,9 +32,10 @@ python2.6 get-pip.py
 ```
 
 ## Flask
-Will be use pip2.6 for install Flask
+Will be use pip2.6 for install Flask and dependences
 
 ```
 pip2.6 install flask
+pip2.6 install flask-babel
 
 ```

@@ -4,16 +4,36 @@ Qpanel is dashboard for Queues in Asterisk
 
 ![Demo](samples/animation.gif)
 
+## Overview
+
+Qpanel is a panel for queues on Asterisk, powerful and simple monitor in realtime:
+
+* General resume for calls. Abandoned, Incoming, Answer time and Waiting time.
+* Show information on detail by queue.
+* Agents status.
+* Simple configuration. Only use Asterisk manager.
+* Written on Python
+
+
 ## Requirement
  * Python 2.6+
  * [Flask](http://flask.pocoo.org/) 0.10+
- * [Asterisk](http://www.asterisk.org) 1.4+ and enabled manager
+ * [Asterisk](http://www.asterisk.org) 1.4+ and enabled manager.
+    On /etc/asterisk/manager.conf do you set command permission for read and write, example:
 
- If you used a CentOS 5.X or Elastix check [how to install Python 2.6 and Flask](README.Centos5.md)
+    ```
+    [qpanel]
+    secret = mi_super_secret_password
+    read = command
+    write = command
+    ```
 
-## 1. Install flask
+ If you used a CentOS 5.X or Elastix check [how to install Python 2.6 and Flask](doc/README.Centos5.md)
+
+## 1. Install flask and flask-babel
 ```
  $ pip install Flask
+ $ pip install flask-babel
 ```
 If dont have pip in your system. For install
 
@@ -41,7 +61,13 @@ If dont have pip in your system. For install
  ```
   Edit config.ini with Manager Asterisk parameters
 
-## 4.- Run and relax
+## 4.- Translations
+ ```
+  pybabel compile -d translations
+ ```
+
+
+## 5.- Run and relax
  ```
     python app.py
  ```
