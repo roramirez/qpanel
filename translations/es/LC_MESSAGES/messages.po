@@ -40,6 +40,14 @@ msgstr "Desarrollado por"
 msgid "with a Template by"
 msgstr "con un template de"
 
+#: templates/404.html:63
+msgid "404 Not Found"
+msgstr "404 No encontrado"
+
+#: templates/404.html:66
+msgid "The request the was not found on this server."
+msgstr "La solicitud realizada no fue encontrada en el servidor"
+
 #: templates/index.html:75
 msgid "Queues"
 msgstr "Colas"

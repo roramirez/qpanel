@@ -39,6 +39,14 @@ msgstr ""
 msgid "with a Template by"
 msgstr ""
 
+#: templates/404.html:63
+msgid "404 Not Found"
+msgstr ""
+
+#: templates/404.html:66
+msgid "The request the was not found on this server."
+msgstr ""
+
 #: templates/index.html:75
 msgid "Queues"
 msgstr "Warteschlangen"
