@@ -142,6 +142,16 @@ def parser_data_queue(data):
                     second_ago = current_timestamp - int(data[q]['members'][m]['LastCall'])
             data[q]['members'][m]['LastCallAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
 
+        #REFACTORME
+        for c in data[q]['entries']:
+            second_ago = 0
+            if 'Wait' in data[q]['entries'][c]:
+                if int(data[q]['entries'][c]['Wait']) > 0:
+                    second_ago = int(data[q]['entries'][c]['Wait'])
+            data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+
+
+
     return data
 
 
