@@ -136,6 +136,7 @@
 
 
           //agents
+          var agents_ids = Array();
           for (agent in data.members) {
             tmp_agent_id_div = agent.replace(/\//g, '-');
             agent_id_div = tmp_agent_id_div.replace(/@/g, '_');
@@ -175,7 +176,17 @@
                     $('.table tbody').append(tr);
                 }
             }
+
+            agents_ids.push(agent_id_div);
           }
+
+          $.each($("[id^='agent-']"), function( index, value ) {
+            uid = $(value).attr('id').substring(6);
+            if (agents_ids.indexOf(uid.toString()) == -1) {
+              console.log('removed: ' + uid);
+              $("[id='agent-"+ uid +"']").remove();
+            }
+          });
         }
 
         function getDataQueue() {
