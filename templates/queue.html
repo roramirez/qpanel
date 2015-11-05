@@ -163,6 +163,7 @@
 
 
           //agents
+          var agents_ids = Array();
           for (agent in data.members) {
             tmp_agent_id_div = agent.replace(/\//g, '-');
             agent_id_div = tmp_agent_id_div.replace(/@/g, '_');
@@ -185,18 +186,25 @@
                 $('#agent-' + agent_id_div + ' #status .pause').remove();
             }
 
+
+            var tr = '<tr id="agent-'+agent_id_div+'"><td>'
+                        + data.members[agent].Name +'</td>'
+                        + '<td>'+data.members[agent].StateInterface+'</td>'
+                        + '<td id="status"> <span class="label label-info label-mini state">'
+                        + data.members[agent].Status.toStrStatusAgent()
+                        + '</span></td>'
+                        + '<td>'+ data.members[agent].CallsTaken +'</td>'
+                        + '<td></td></tr>';
+
             if ($('#agent-' + agent_id_div).length == 0) {
-                $('#agents tbody tr:last')
-                    .after('<tr id="agent-'+agent_id_div+'"><td>'
-                            + data.members[agent].Name +'</td>'
-                            + '<td>'+data.members[agent].StateInterface+'</td>'
-                            + '<td id="status"> <span class="label label-info label-mini state">'
-                                + data.members[agent].Status.toStrStatusAgent()
-                            + '</span></td>'
-                            + '<td>'+ data.members[agent].CallsTaken +'</td>'
-                            + '<td></td></tr>');
+                if ($('#agents tbody tr:last').length > 0){
+                    $('#agents tbody tr:last').after(tr);
+                } else {
+                    $('#agents tbody').append(tr);
+                }
             }
 
+            agents_ids.push(agent_id_div);
           }
           $('#total_agent').html("{total}".format({total:  Object.keys(data.members).length}));
 
@@ -233,6 +241,13 @@
             }
           });
           $('#total_callers').html("{total}".format({total:  Object.keys(data.entries).length}));
+          $.each($("[id^='agent-']"), function( index, value ) {
+            uid = $(value).attr('id').substring(6);
+            if (agents_ids.indexOf(uid.toString()) == -1) {
+              console.log('removed: ' + uid);
+              $("[id='agent-"+ uid +"']").remove();
+            }
+          });
         }
 
         function getDataQueue() {
