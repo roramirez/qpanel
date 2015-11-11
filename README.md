@@ -87,3 +87,7 @@ If you want check the development version get checkout of master branch
  ```
  git clone -b master  https://github.com/roramirez/qpanel.git
  ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/roramirez/qpanel/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
