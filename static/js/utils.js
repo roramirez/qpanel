@@ -1,4 +1,18 @@
 /*  Utils */
+var C =  {
+    status_agent: {
+        UNKNOWN:      0,
+        NOT_INUSE:    1,
+        INUSE:        2,
+        BUSY:         3,
+        INVALID:      4,
+        UNAVAILABLE:  5,
+        RINGING:      6,
+        RINGINUSE:    7,
+        ONHOLD:       8,
+    }
+}
+
 // http://stackoverflow.com/a/21035627
 function len(obj) {
     if(!Object.keys) {
@@ -32,3 +46,6 @@ String.prototype.format = function (args) {
     }
     return newStr;
 }
+
+
+

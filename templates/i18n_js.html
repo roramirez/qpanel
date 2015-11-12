@@ -1,0 +1,34 @@
+<script>
+    $('#language').on('change', function (e) {
+        var lang  = $(this).val();
+        window.location = '{{url_for('.fake_language')}}' + '/' + lang;
+    });
+    $( "#language" ).val("{{session['language']}}")
+
+    String.prototype.toStrStatusAgent = function(args) {
+        var value = this;
+        var unavailable = [C.status_agent.INVALID, C.status_agent.UNAVAILABLE, C.status_agent.UNKNOWN ]
+        if (C.status_agent.NOT_INUSE == value) {
+            return "{{_('free')}}";
+        } else if (unavailable.indexOf(parseInt(value)) > -1) {
+            return "{{_('unavailable')}}";
+        } else {
+            return "{{_('busy')}}"
+        }
+    }
+
+    function addLabelDivStatusAgent(div) {
+        var label;
+        div.removeClass('label-warning label-info label-danger');
+        value = div.html();
+        if (value == "{{_('free')}}") {
+            label = 'info';
+        } else if (value == "{{_('unavailable')}}") {
+            label = 'danger';
+        } else {
+            label = 'warning';
+        }
+        div.addClass('label-'+label);
+    }
+
+</script>

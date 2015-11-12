@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<menulist>
+		<menuitem menuid="qpanel" desc="Qpanel" parent="pbxconfig" module="yes" link="https://{NAME_SERVER}/qpanel" order="7">
+			<permissions>
+				<group id="1" name="administrator" desc="total access"></group>
+			</permissions>
+		</menuitem>
+	</menulist>
+</module>
