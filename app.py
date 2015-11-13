@@ -22,6 +22,7 @@ dirname, filename = os.path.split(os.path.abspath(__file__))
 # py-asterisk
 sys.path.append(os.path.join(dirname,  'libs','py-asterisk'))
 from Asterisk.Manager import *
+from upgrader import *
 
 # config file
 cfg_file = os.path.join(dirname, 'config.ini')
@@ -223,7 +224,16 @@ def utility_processor():
 def page_not_found(e):
     return render_template('404.html'), 404
 
-
+@app.context_processor
+def utility_processor():
+    def check_upgrade():
+        try:
+            var = cfg.get('general', 'check_upgrade')
+            v = True if strtobool(var) == 1 else False
+        except:
+            return True
+        return v
+    return dict(check_upgrade=check_upgrade)
 # ---------------------
 # ---- Routes ---------
 # ---------------------
@@ -266,6 +276,21 @@ def language(language = None):
     session['language'] = language
     return redirect(url_for('home'))
 
+
+@app.route('/check_new_version')
+def check_new_version():
+    need_upgrade = False
+    try:
+        if require_upgrade():
+            need_upgrade = True
+    except:
+        pass
+
+    return jsonify(
+        require_upgrade = need_upgrade,
+        current_version = get_current_version(),
+        last_stable_version = get_stable_version()
+    )
 
 # ---------------------
 # ---- Main  ----------

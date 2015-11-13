@@ -13,6 +13,7 @@ interval = 5 ;Interval for request on seconds
 ;base_url =  ; Default is /
 ;secret_key = 'PLEASE_CHANGE_ME' ; is a good idea change this value
 language = en
+check_upgrade = True
 
 [rename]
 ; This section if for rename name of queue
