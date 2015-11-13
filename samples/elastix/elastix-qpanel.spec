@@ -27,7 +27,7 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/opt/%{modname}
 mv * $RPM_BUILD_ROOT/opt/%{modname}
 mkdir -p $RPM_BUILD_ROOT/usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
-cp $RPM_BUILD_ROOT/opt/%{modname}/samples/configs/elastix/menu.xml $RPM_BUILD_ROOT/usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
+cp $RPM_BUILD_ROOT/opt/%{modname}/samples/elastix/menu.xml $RPM_BUILD_ROOT/usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
 
 %post
 #Manager config
