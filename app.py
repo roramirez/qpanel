@@ -48,13 +48,7 @@ def __connect_manager():
 
 
 def is_debug():
-    try:
-        var = cfg.get('general', 'debug')
-        v = True if strtobool(var) == 1 else False
-    except:
-        return False
-    return v
-
+    __get_bool_value_config('general', 'debug', False)
 
 def port_bind():
     return int(__get_entry_ini_default('general', 'port', 5000))
@@ -74,6 +68,14 @@ def __get_entry_ini_default(section, var, default):
     try:
         var = cfg.get(section, var)
         v = var
+    except:
+        return default
+    return v
+
+def __get_bool_value_config(section, option, default):
+    try:
+        var = cfg.get(section, option)
+        v = True if strtobool(var) == 1 else False
     except:
         return default
     return v
@@ -227,12 +229,7 @@ def page_not_found(e):
 @app.context_processor
 def utility_processor():
     def check_upgrade():
-        try:
-            var = cfg.get('general', 'check_upgrade')
-            v = True if strtobool(var) == 1 else False
-        except:
-            return True
-        return v
+        return __get_bool_value_config('general', 'check_upgrade', True)
     return dict(check_upgrade=check_upgrade)
 # ---------------------
 # ---- Routes ---------
