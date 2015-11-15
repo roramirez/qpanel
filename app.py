@@ -48,7 +48,7 @@ def __connect_manager():
 
 
 def is_debug():
-    __get_bool_value_config('general', 'debug', False)
+    return __get_bool_value_config('general', 'debug', False)
 
 def port_bind():
     return int(__get_entry_ini_default('general', 'port', 5000))
