@@ -3,7 +3,6 @@
 
 ### 0.4.2 (2015-11-16)
 - [350f86b](https://github.com/roramirez/qpanel/commit/350f86b17b077df80ad174dd9255dea31880c003) Fixed a bug on refresh data field incoming call for section queue on general view. Issue [\#26](https://github.com/roramirez/qpanel/issues/26)
-
 - [92a75c7](https://github.com/roramirez/qpanel/commit/92a75c7fea210412d09547e94a0d06b676a5f531) Fixed a bug for path where is menu file for Elastix.
 
 ### 0.4.1 (2015-11-05)
@@ -51,7 +50,7 @@
 ### 0.2.4 (2015-09-24)
 - [2ebc6eb](https://github.com/roramirez/qpanel/commit/2ebc6eb53754175b23723e812bbd42650b4620eb) Fixed a bug introduced in commit 91d2be497e76ae886171ecdab80590df9bb66a84 issue [#\2](https://github.com/roramirez/qpanel/issues/2)
 
-### 0.2.3 (2015/09/10)
+### 0.2.3 (2015-09-10)
 - [6efb62d](https://github.com/roramirez/qpanel/commit/6efb62d9f50a812dcba90480049a7fb22701935b) Fixed a bug for StateInterface var in Asterisk 1.8 Close [\#1] (https://github.com/roramirez/qpanel/issues/1)
 
 ### 0.2.2 (2015-09-09)
@@ -63,7 +62,7 @@
 - [fd2aa2f](https://github.com/roramirez/qpanel/commit/fd2aa2f7d0b91e07b177dd201bf0dde982807ea7) Fixed a bug in agent status
 - [010b499](https://github.com/roramirez/qpanel/commit/010b4991c78f2c8b79e59ffd2a1a438f25535e32) Improve in  validation if config.ini exists
 
-### 0.2.0 (2015/08/29)
+### 0.2.0 (2015-08-29)
 - [9bae5e8](https://github.com/roramirez/qpanel/commit/9bae5e84854dd31e6441cdfc5e98c47a9f92cb8d) Add README for Centos 5.x and Elastix Distributions
 - [031b752](https://github.com/roramirez/qpanel/commit/031b7525f0546144de714912097a04e283a8dc2e) Add status pause on queue for agent
 - [8b45f85](https://github.com/roramirez/qpanel/commit/8b45f853014503fa9fd940c2908bffbc1d98525d) Add setting for port number
