@@ -1,6 +1,18 @@
 ## Change Log
 
-### 0.4.0 (Not released yet)
+
+### 0.4.2 (2015-11-16)
+- [350f86b](https://github.com/roramirez/qpanel/commit/350f86b17b077df80ad174dd9255dea31880c003) Fixed a bug on refresh data field incoming call for section queue on general view. Issue [\#26](https://github.com/roramirez/qpanel/issues/26)
+
+- [92a75c7](https://github.com/roramirez/qpanel/commit/92a75c7fea210412d09547e94a0d06b676a5f531) Fixed a bug for path where is menu file for Elastix.
+
+### 0.4.1 (2015-11-05)
+- [14e2d10](https://github.com/roramirez/qpanel/commit/14e2d1061048465d40e58118bdcb340d77df8bbf) Fixed a bug remove agent from list if not in queue after added on list view for queues.
+- [a3ff2cb](https://github.com/roramirez/qpanel/commit/a3ff2cb5d4a4be390e53994d638ee643ed54f174) Fixed a bug add new member when the list of agent on queue view dont have member.
+- [ff73668](https://github.com/roramirez/qpanel/commit/ff73668c83e3bf0a8455a37378457795ddd5a64f) Fixed a bug for  close tr on table agents when is add a new
+
+
+### 0.4.0 (2015-10-31)
 - [c4fab97](https://github.com/roramirez/qpanel/commit/c4fab97b94b4bcf2324c3fd2f1078c3d41bc0d08) Add last_call agent on queue
 - [d7b7571](https://github.com/roramirez/qpanel/commit/d7b757173874d61ddbaabbd383ff27f5f0809daa) add Russian translation (@alexcr-telecom)
 - [0320525](https://github.com/roramirez/qpanel/commit/03205250ba6adbe80b7c67b91af78d325b55312b) Add german translation
