@@ -31,11 +31,11 @@ fi
 VERSION_STABLE=$(curl $URL_STABLE_VERSION)
 CLONE_DIR="/tmp/qpanel-$VERSION_STABLE"
 FILE_TAR="qpanel-$VERSION_STABLE.tar.gz"
-if [ ! -d "$CLONE_DIR" ]; then
-  git clone -b $BRANCH $REPO $CLONE_DIR_NAME
-else·
+if [ -d "$CLONE_DIR" ]; then
   cd $CLONE_DIR
   git pull
+else
+  git clone -b $BRANCH $REPO $CLONE_DIR
 fi
 
 cd /tmp
