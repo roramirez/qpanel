@@ -151,6 +151,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 babel = Babel(app)
 app.config['BABEL_DEFAULT_LOCALE'] = __get_entry_ini_default('general', 'language', 'en')
+app.secret_key = __get_entry_ini_default('general', 'secret_key', 'CHANGEME_ON_CONFIG')
 
 
 @app.before_first_request
@@ -265,7 +266,6 @@ if __name__ == '__main__':
     if is_debug():
         app.config['DEBUG'] = True
 
-    app.secret_key = __get_entry_ini_default('general', 'secret_key', 'CHANGEME_ON_CONFIG')
 
     if APPLICATION_ROOT == '/':
         app.run(host=host_bind(), port=port_bind())
