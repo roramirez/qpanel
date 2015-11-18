@@ -38,6 +38,11 @@ else
   git clone -b $BRANCH $REPO $CLONE_DIR
 fi
 
+cd $CLONE_DIR
+git submodule init
+git submodule update
+pybabel compile -d translations
+
 cd /tmp
 tar  cvfz $FILE_TAR qpanel-$VERSION_STABLE
 
