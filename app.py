@@ -264,6 +264,8 @@ if __name__ == '__main__':
 
     if is_debug():
         app.config['DEBUG'] = True
+        from werkzeug.debug import DebuggedApplication
+        app.wsgi_app = DebuggedApplication( app.wsgi_app, True )
 
     app.secret_key = __get_entry_ini_default('general', 'secret_key', 'CHANGEME_ON_CONFIG')
 
