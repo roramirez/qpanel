@@ -1,7 +1,7 @@
 %define modname qpanel
 Name:    elastix-%{modname}
-Version: 0.3.0
-Release: 3%{?dist}
+Version: 0.4.2
+Release: 0%{?dist}
 Summary: Qpanel is dashboard for Queues in Asterisk
 Group:   Applications/Communications
 License: MIT
@@ -30,17 +30,23 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/elastix/module_installer/%{name}-%{version}-%
 cp $RPM_BUILD_ROOT/opt/%{modname}/samples/elastix/menu.xml $RPM_BUILD_ROOT/usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
 
 %post
-#Manager config
-RAN_PASS=$(date +%s | sha256sum | base64 | head -c 32 ; echo)
-cp /opt/%{modname}/config.ini-dist /opt/%{modname}/config.ini
-sed -i "s/= password/= $RAN_PASS/" /opt/%{modname}/config.ini
-sed -i "s/= username/= qpanel/" /opt/%{modname}/config.ini
-sed -i "s/;base_url = /base_url =  \/qpanel/" /opt/%{modname}/config.ini
 
-search_include=$(grep  manager_qpanel.conf /etc/asterisk/manager.conf | grep  -v ';')
-if  [ ${#search_include} -eq 0 ]; then
+
+
+CONFIG_FILE=/opt/%{modname}/config.ini
+if ! [ -f "$CONFIG_FILE" ]; then
+
+  #Manager config
+  RAN_PASS=$(date +%s | sha256sum | base64 | head -c 32 ; echo)
+  cp /opt/%{modname}/config.ini-dist /opt/%{modname}/config.ini
+  sed -i "s/= password/= $RAN_PASS/" /opt/%{modname}/config.ini
+  sed -i "s/= username/= qpanel/" /opt/%{modname}/config.ini
+  sed -i "s/;base_url = /base_url =  \/qpanel/" /opt/%{modname}/config.ini
+
+  search_include=$(grep  manager_qpanel.conf /etc/asterisk/manager.conf | grep  -v ';')
+  if  [ ${#search_include} -eq 0 ]; then
     echo  "#include manager_qpanel.conf" >> /etc/asterisk/manager.conf;
-fi
+  fi
 
 echo "
 [qpanel]
@@ -49,27 +55,42 @@ read = command
 write = command
 " > /etc/asterisk/manager_qpanel.conf
 
+else
+  python2.6 /opt/%{modname}/update_config.py $CONFIG_FILE /opt/%{modname}/config.ini-dist
+fi
+
+
 asterisk -rx "reload"
 
+# Check and install pip
+if ! [ -x "$(command -v pip2.6)" ]; then
+  wget --no-check-certificate  https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
+  python2.6 /tmp/get-pip.py
+fi
 
-#Install pip
-wget --no-check-certificate  https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
-python2.6 /tmp/get-pip.py
-
-#Flask
+#Flask and babel
 pip2.6 install flask
+pip2.6 install flask-babel
 
 ###### UWSGI  ##########
 # install
 pip2.6 install uwsgi
 
 # config from repo
-mkdir /etc/uwsgi
-cp /opt/%{modname}/samples/configs/uwsgi-qpanel.ini /etc/uwsgi/
-sed -i "s/venv/;venv/" /etc/uwsgi/uwsgi-qpanel.ini
-sed -i "s/path\/app/opt\/qpanel/" /etc/uwsgi/uwsgi-qpanel.ini
+if ! [ -d "/etc/uwsgi" ]; then
+  mkdir /etc/uwsgi
+fi
 
-# init.d 
+if ! [ -f "/etc/uwsgi/uwsgi-qpanel.ini" ]; then
+  cp /opt/%{modname}/samples/configs/uwsgi-qpanel.ini /etc/uwsgi/
+  sed -i "s/venv/;venv/" /etc/uwsgi/uwsgi-qpanel.ini
+  sed -i "s/path\/app/opt\/qpanel/" /etc/uwsgi/uwsgi-qpanel.ini
+fi
+
+# init.d
+
+if ! [ -f "/etc/init.d/uwsgi" ]; then
+
 echo '
 
 #!/bin/bash
@@ -186,11 +207,11 @@ chmod +x /etc/init.d/uwsgi
 chkconfig --add uwsgi
 chkconfig uwsgi on
 /etc/init.d/uwsgi start
-
+fi
 
 
 #Nginx
-
+if ! [ -f "/etc/nginx/conf.d/qpanel.conf" ]; then
 echo '
 server {
   listen   8081;
@@ -212,9 +233,10 @@ server {
 sed -i 's/listen\s*80;/listen 8080;/' /etc/nginx/nginx.conf
 chkconfig nginx on
 /etc/init.d/nginx start
+fi
 
 # httpd apache
-
+if ! [ -f "/etc/httpd/conf.d/qpanel.conf" ]; then
 echo '
 ProxyPass /qpanel http://127.0.0.1:8081/qpanel
 <Location /qpanel>
@@ -225,6 +247,8 @@ ProxyPass /qpanel http://127.0.0.1:8081/qpanel
 ' > /etc/httpd/conf.d/qpanel.conf
 
 /etc/init.d/httpd reload
+fi
+
 
 pathModule="/usr/share/elastix/module_installer/%{name}-%{version}-%{release}"
 # Run installer script to fix up ACLs and add module to Elastix menus.
