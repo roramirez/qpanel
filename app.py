@@ -232,6 +232,13 @@ def utility_processor():
     def check_upgrade():
         return __get_bool_value_config('general', 'check_upgrade', True)
     return dict(check_upgrade=check_upgrade)
+
+@app.context_processor
+def utility_processor():
+    def show_service_level():
+        return __get_bool_value_config('general', 'show_service_level', False)
+    return dict(show_service_level=show_service_level)
+
 # ---------------------
 # ---- Routes ---------
 # ---------------------

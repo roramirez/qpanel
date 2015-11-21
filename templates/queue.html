@@ -161,6 +161,9 @@
           $('#av_wait').html(parseInt(data.Holdtime).toString().toMMSS());
           $('#av_time').html(parseInt(data.TalkTime).toString().toMMSS());
 
+          {% if show_service_level() %}
+          $("#servicelevel").html(data.ServicelevelPerf + '%');
+          {% endif %}
 
           //agents
           var agents_ids = Array();

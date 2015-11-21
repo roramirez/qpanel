@@ -1,4 +1,8 @@
+                        {% if show_service_level() %}
+                        <div class="col-md-2 col-sm-2 box0">
+                        {% else %}
                         <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
+                        {% endif %}
                             <div class="box1">
                                 <span class="">{{_('Answered')}}</span>
                                 <h3><span id="answered"></span></h3>
@@ -12,6 +16,15 @@
                             </div>
                             <p>{{_('Calls not attended by agents.')}}</p>
                         </div>
+                        {% if show_service_level() %}
+                        <div class="col-md-2 col-sm-2 box0">
+                            <div class="box1">
+                                <span class="">{{_('SL')}}</span>
+                                <h3><span id="servicelevel"></span></h3>
+                            </div>
+                            <p>{{_('Service Level.')}}</p>
+                        </div>
+                        {% endif %}
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
                                 <span class="">{{_('Incoming')}}</span>
