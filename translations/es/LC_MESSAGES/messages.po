@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:  0.4.0\n"
+"Project-Id-Version:  0.5.0\n"
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
 "PO-Revision-Date: 2015-10-23 23:44-0400\n"
@@ -18,19 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.1.1\n"
 
-#: app.py:173 templates/i18n_js.html:14 templates/i18n_js.html:26
-#: templates/index.html:231
+#: app.py:211 templates/i18n_js.html:14 templates/i18n_js.html:26
+#: templates/index.html:241
 msgid "unavailable"
 msgstr "no disponible"
 
-#: app.py:175 templates/i18n_js.html:12 templates/i18n_js.html:24
-#: templates/index.html:224
+#: app.py:213 templates/i18n_js.html:12 templates/i18n_js.html:24
+#: templates/index.html:234
 msgid "free"
 msgstr "libre"
 
-#: app.py:177 templates/i18n_js.html:16 templates/index.html:227
+#: app.py:215 templates/i18n_js.html:16 templates/index.html:237
 msgid "busy"
 msgstr "ocupado"
+
+#: templates/404.html:64
+msgid "404 Not Found"
+msgstr "404 No encontrado"
+
+#: templates/404.html:67
+msgid "The request the was not found on this server."
+msgstr "La solicitud realizada no fue encontrada en el servidor"
 
 #: templates/footer.html:4
 msgid "Developed by"
@@ -40,31 +48,45 @@ msgstr "Desarrollado por"
 msgid "with a Template by"
 msgstr "con un template de"
 
-#: templates/404.html:63
-msgid "404 Not Found"
-msgstr "404 No encontrado"
+#: templates/footer.html:42
+msgid "New version available"
+msgstr "no disponible"
 
-#: templates/404.html:66
-msgid "The request the was not found on this server."
-msgstr "La solicitud realizada no fue encontrada en el servidor"
+#: templates/footer.html:43
+msgid "Exist a new version stable: "
+msgstr "Existe una nueva versión estable"
 
-#: templates/index.html:75
+#: templates/footer.html:43
+msgid ""
+". Visit and update your QPanel <a "
+"href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
+"style=\"color:#ffd777\">from Github</a>."
+msgstr ""
+". Visita y actualiza QPanel <a "
+"href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
+"style=\"color:#ffd777\">desde Github</a>."
+
+#: templates/index.html:76
 msgid "Queues"
 msgstr "Colas"
 
-#: templates/index.html:94 templates/row_general_data.html:3
+#: templates/index.html:95 templates/row_general_data.html:7
 msgid "Answered"
 msgstr "Contestadas"
 
-#: templates/index.html:95 templates/row_general_data.html:10
+#: templates/index.html:96 templates/row_general_data.html:14
 msgid "Abandoned"
 msgstr "Abandonadas"
 
-#: templates/index.html:96 templates/row_general_data.html:17
+#: templates/index.html:97 templates/row_general_data.html:30
 msgid "Incoming"
 msgstr "En línea"
 
-#: templates/index.html:109
+#: templates/index.html:99
+msgid "Service Level"
+msgstr "Nivel de servicio"
+
+#: templates/index.html:113
 msgid "Abandoned:"
 msgstr "Abandono:"
 
@@ -84,59 +106,87 @@ msgstr "Alemán"
 msgid "Russian"
 msgstr "Ruso"
 
-#: templates/queue.html:76
+#: templates/queue.html:77
 msgid "Agents"
 msgstr "Agentes"
 
-#: templates/queue.html:80
+#: templates/queue.html:81
 msgid "Name"
 msgstr "Nombre"
 
-#: templates/queue.html:81
+#: templates/queue.html:82
 msgid "Interface"
 msgstr "Interface"
 
-#: templates/queue.html:82
+#: templates/queue.html:83
 msgid "Status"
 msgstr "Estado"
 
-#: templates/queue.html:83
+#: templates/queue.html:84
 msgid "Calls"
 msgstr "Llamadas"
 
-#: templates/queue.html:84
+#: templates/queue.html:85
 msgid "Last call at"
 msgstr "Última llamada"
 
-#: templates/queue.html:147
+#: templates/queue.html:111
+msgid "Callers"
+msgstr "Llamadas"
+
+#: templates/queue.html:115
+msgid "Id Name"
+msgstr "Nombre id"
+
+#: templates/queue.html:116
+msgid "Id Number"
+msgstr "Numero Id"
+
+#: templates/queue.html:117
+msgid "Position"
+msgstr "Posición"
+
+#: templates/queue.html:118
+msgid "Wait"
+msgstr "Espera"
+
+#: templates/queue.html:194
 msgid "paused"
 msgstr "Pausado"
 
-#: templates/row_general_data.html:6
+#: templates/row_general_data.html:10
 msgid "Attended calls."
 msgstr "Llamadas contestadas."
 
-#: templates/row_general_data.html:13
+#: templates/row_general_data.html:17
 msgid "Calls not attended by agents."
 msgstr "Llamadas abandonadas"
 
-#: templates/row_general_data.html:20
+#: templates/row_general_data.html:22
+msgid "SL"
+msgstr "SL"
+
+#: templates/row_general_data.html:25
+msgid "Service Level."
+msgstr "Nivel de servicio."
+
+#: templates/row_general_data.html:33
 msgid "Call on line."
 msgstr "Llamadas en línea."
 
-#: templates/row_general_data.html:24
+#: templates/row_general_data.html:37
 msgid "Av. time"
 msgstr "P.Hablado"
 
-#: templates/row_general_data.html:27
+#: templates/row_general_data.html:40
 msgid "Average time for answered calls."
 msgstr "Promedio de llamadas contestadas"
 
-#: templates/row_general_data.html:31
+#: templates/row_general_data.html:44
 msgid "Av. Wait"
 msgstr "P.Espera"
 
-#: templates/row_general_data.html:34
+#: templates/row_general_data.html:47
 msgid "Average time waiting for calls."
 msgstr "Promedio de espera para llamadas"
 
