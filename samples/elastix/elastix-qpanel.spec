@@ -1,7 +1,7 @@
 %define modname qpanel
 Name:    elastix-%{modname}
 Version: 0.4.2
-Release: 0%{?dist}
+Release: 1%{?dist}
 Summary: Qpanel is dashboard for Queues in Asterisk
 Group:   Applications/Communications
 License: MIT
@@ -254,6 +254,7 @@ pathModule="/usr/share/elastix/module_installer/%{name}-%{version}-%{release}"
 # Run installer script to fix up ACLs and add module to Elastix menus.
 elastix-menumerge $pathModule/menu.xml
 
+/etc/init.d/uwsgi restart
 
 %pre
 mkdir -p /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
