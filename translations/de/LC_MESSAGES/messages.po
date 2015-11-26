@@ -29,11 +29,11 @@ msgstr "aktiv"
 
 #: app.py:215 templates/i18n_js.html:16 templates/index.html:237
 msgid "busy"
-msgstr "im GesprÃ¤ch"
+msgstr "im Gespräch"
 
 #: templates/404.html:64
 msgid "404 Not Found"
-msgstr ""
+msgstr "404 nicht gefunden"
 
 #: templates/404.html:67
 msgid "The request the was not found on this server."
@@ -41,11 +41,11 @@ msgstr ""
 
 #: templates/footer.html:4
 msgid "Developed by"
-msgstr ""
+msgstr "Enwickelt bei"
 
 #: templates/footer.html:4
 msgid "with a Template by"
-msgstr ""
+msgstr "und Design von"
 
 #: templates/footer.html:42
 msgid "New version available"
@@ -53,7 +53,7 @@ msgstr "inaktiv"
 
 #: templates/footer.html:43
 msgid "Exist a new version stable: "
-msgstr ""
+msgstr "Neue Version verfügbar"
 
 #: templates/footer.html:43
 msgid ""
@@ -88,23 +88,23 @@ msgstr "Verloren"
 
 #: templates/language_selector.html:3
 msgid "English"
-msgstr ""
+msgstr "Englisch"
 
 #: templates/language_selector.html:4
 msgid "Spanish"
-msgstr ""
+msgstr "Spanisch"
 
 #: templates/language_selector.html:5
 msgid "German"
-msgstr ""
+msgstr "Deutsch"
 
 #: templates/language_selector.html:6
 msgid "Russian"
-msgstr ""
+msgstr "Russisch"
 
 #: templates/queue.html:77
 msgid "Agents"
-msgstr ""
+msgstr "Agenten"
 
 #: templates/queue.html:81
 msgid "Name"
@@ -112,7 +112,7 @@ msgstr ""
 
 #: templates/queue.html:82
 msgid "Interface"
-msgstr ""
+msgstr "Gerät"
 
 #: templates/queue.html:83
 msgid "Status"
@@ -124,19 +124,19 @@ msgstr "Anrufe"
 
 #: templates/queue.html:85
 msgid "Last call at"
-msgstr ""
+msgstr "Letzter Anruf vor"
 
 #: templates/queue.html:111
 msgid "Callers"
-msgstr "Anrufe"
+msgstr "Anrufer"
 
 #: templates/queue.html:115
 msgid "Id Name"
-msgstr ""
+msgstr "ID Name"
 
 #: templates/queue.html:116
 msgid "Id Number"
-msgstr ""
+msgstr "ID Nummer"
 
 #: templates/queue.html:117
 msgid "Position"
@@ -144,11 +144,11 @@ msgstr ""
 
 #: templates/queue.html:118
 msgid "Wait"
-msgstr ""
+msgstr "Wartezeit"
 
 #: templates/queue.html:194
 msgid "paused"
-msgstr ""
+msgstr "pausiert"
 
 #: templates/row_general_data.html:10
 msgid "Attended calls."
@@ -176,7 +176,7 @@ msgstr "Durch. Zeit"
 
 #: templates/row_general_data.html:40
 msgid "Average time for answered calls."
-msgstr "Durch. Zeit fÃ¼r beantwortete Anrufe"
+msgstr "Durch. Zeit für beantwortete Anrufe"
 
 #: templates/row_general_data.html:44
 msgid "Av. Wait"
@@ -184,5 +184,5 @@ msgstr "Wartezeit"
 
 #: templates/row_general_data.html:47
 msgid "Average time waiting for calls."
-msgstr "Durch. Zeit fÃ¼r wartente Anrufe."
+msgstr "Durch. Zeit für wartente Anrufe."
 
