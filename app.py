@@ -22,12 +22,13 @@ dirname, filename = os.path.split(os.path.abspath(__file__))
 # py-asterisk
 sys.path.append(os.path.join(dirname,  'libs','py-asterisk'))
 from Asterisk.Manager import *
+from upgrader import *
 
 # config file
-cfg_file = 'config.ini'
+cfg_file = os.path.join(dirname, 'config.ini')
 cfg = ConfigParser.ConfigParser()
 try:
-    with open(os.path.join(dirname, cfg_file))  as f:
+    with open(cfg_file)  as f:
         cfg.readfp(f)
 except IOError:
     print 'Error open file config. Check if config.ini exists'
@@ -47,13 +48,7 @@ def __connect_manager():
 
 
 def is_debug():
-    try:
-        var = cfg.get('general', 'debug')
-        v = True if strtobool(var) == 1 else False
-    except:
-        return False
-    return v
-
+    return __get_bool_value_config('general', 'debug', False)
 
 def port_bind():
     return int(__get_entry_ini_default('general', 'port', 5000))
@@ -73,6 +68,14 @@ def __get_entry_ini_default(section, var, default):
     try:
         var = cfg.get(section, var)
         v = var
+    except:
+        return default
+    return v
+
+def __get_bool_value_config(section, option, default):
+    try:
+        var = cfg.get(section, option)
+        v = True if strtobool(var) == 1 else False
     except:
         return default
     return v
@@ -141,6 +144,16 @@ def parser_data_queue(data):
                 if int(data[q]['members'][m]['LastCall']) > 0:
                     second_ago = current_timestamp - int(data[q]['members'][m]['LastCall'])
             data[q]['members'][m]['LastCallAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+
+        #REFACTORME
+        for c in data[q]['entries']:
+            second_ago = 0
+            if 'Wait' in data[q]['entries'][c]:
+                if int(data[q]['entries'][c]['Wait']) > 0:
+                    second_ago = int(data[q]['entries'][c]['Wait'])
+            data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+
+
 
     return data
 
@@ -214,6 +227,17 @@ def utility_processor():
 def page_not_found(e):
     return render_template('404.html'), 404
 
+@app.context_processor
+def utility_processor():
+    def check_upgrade():
+        return __get_bool_value_config('general', 'check_upgrade', True)
+    return dict(check_upgrade=check_upgrade)
+
+@app.context_processor
+def utility_processor():
+    def show_service_level():
+        return __get_bool_value_config('general', 'show_service_level', False)
+    return dict(show_service_level=show_service_level)
 
 # ---------------------
 # ---- Routes ---------
@@ -258,6 +282,21 @@ def language(language = None):
     return redirect(url_for('home'))
 
 
+@app.route('/check_new_version')
+def check_new_version():
+    need_upgrade = False
+    try:
+        if require_upgrade():
+            need_upgrade = True
+    except:
+        pass
+
+    return jsonify(
+        require_upgrade = need_upgrade,
+        current_version = get_current_version(),
+        last_stable_version = get_stable_version()
+    )
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------
@@ -268,9 +307,9 @@ if __name__ == '__main__':
 
 
     if APPLICATION_ROOT == '/':
-        app.run(host=host_bind(), port=port_bind())
+        app.run(host=host_bind(), port=port_bind(), extra_files=[cfg_file])
     else:
         application = DispatcherMiddleware(Flask('dummy_app'), {
             app.config['APPLICATION_ROOT']: app,
         })
-        run_simple(host_bind(), port_bind(), application, use_reloader=True)
+        run_simple(host_bind(), port_bind(), application, use_reloader=True, extra_files=[cfg_file])

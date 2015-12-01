@@ -8,3 +8,46 @@
           </div>
       </footer>
       <!--footer end-->
+
+<script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+<script src="{{url_for('static', filename='js/js.cookie.js')}}"></script>
+<script src="{{url_for('static', filename='gritter/js/jquery.gritter.js')}}"></script>
+<link href="{{url_for('static', filename='gritter/css/jquery.gritter.css')}}" rel="stylesheet">
+
+<script>
+    var config_check_update = {{check_upgrade()|lower}};
+    if (config_check_update) {
+        if (typeof Cookies.get('check_version') === "undefined") {
+
+            var rversion = $.ajax({
+                type: 'GET',
+                url: '{{url_for('.check_new_version')}}'
+            });
+            rversion.done(function (response) {
+                if (response) {
+                    if (response.require_upgrade) {
+                        showPopupUpdate(response.last_stable_version);
+                    }
+                    Cookies.set('check_version', '1', { expires: 30 });
+                }
+            });
+            rversion.fail(function (response) {
+                Cookies.set('check_version', '1', { expires: 1 });
+            });
+        }
+    }
+
+    function showPopupUpdate(actual_version) {
+        var unique_id = $.gritter.add({
+            title: '{{_('New version available')}}',
+            text: '{{_('Exist a new version stable: ')}}' + actual_version + '{{_('. Visit and update your QPanel <a href="https://github.com/roramirez/qpanel" target="_blank" style="color:#ffd777">from Github</a>.')}}',
+            image: '{{url_for('static', filename='img/logo.png')}}',
+            sticky: true,
+            time: '',
+            class_name: 'my-sticky-class'
+        });
+    }
+
+
+</script>
+

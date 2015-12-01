@@ -46,6 +46,3 @@ String.prototype.format = function (args) {
     }
     return newStr;
 }
-
-
-

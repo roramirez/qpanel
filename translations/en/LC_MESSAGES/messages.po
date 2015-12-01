@@ -4,7 +4,7 @@
 # Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version:  0.4.0\n"
+"Project-Id-Version:  0.5.0\n"
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
 "PO-Revision-Date: 2015-10-26 07:50-0400\n"
@@ -17,18 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.1.1\n"
 
-#: app.py:173 templates/i18n_js.html:14 templates/i18n_js.html:26
-#: templates/index.html:231
+#: app.py:211 templates/i18n_js.html:14 templates/i18n_js.html:26
+#: templates/index.html:241
 msgid "unavailable"
 msgstr ""
 
-#: app.py:175 templates/i18n_js.html:12 templates/i18n_js.html:24
-#: templates/index.html:224
+#: app.py:213 templates/i18n_js.html:12 templates/i18n_js.html:24
+#: templates/index.html:234
 msgid "free"
 msgstr ""
 
-#: app.py:177 templates/i18n_js.html:16 templates/index.html:227
+#: app.py:215 templates/i18n_js.html:16 templates/index.html:237
 msgid "busy"
+msgstr ""
+
+#: templates/404.html:64
+msgid "404 Not Found"
+msgstr ""
+
+#: templates/404.html:67
+msgid "The request the was not found on this server."
 msgstr ""
 
 #: templates/footer.html:4
@@ -39,79 +47,142 @@ msgstr ""
 msgid "with a Template by"
 msgstr ""
 
-#: templates/index.html:75
+#: templates/footer.html:42
+msgid "New version available"
+msgstr ""
+
+#: templates/footer.html:43
+msgid "Exist a new version stable: "
+msgstr ""
+
+#: templates/footer.html:43
+msgid ""
+". Visit and update your QPanel <a "
+"href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
+"style=\"color:#ffd777\">from Github</a>."
+msgstr ""
+
+#: templates/index.html:76
 msgid "Queues"
 msgstr ""
 
-#: templates/index.html:94 templates/row_general_data.html:3
+#: templates/index.html:95 templates/row_general_data.html:7
 msgid "Answered"
 msgstr ""
 
-#: templates/index.html:95 templates/row_general_data.html:10
+#: templates/index.html:96 templates/row_general_data.html:14
 msgid "Abandoned"
 msgstr ""
 
-#: templates/index.html:96 templates/row_general_data.html:17
+#: templates/index.html:97 templates/row_general_data.html:30
 msgid "Incoming"
 msgstr ""
 
-#: templates/index.html:109
+#: templates/index.html:99
+msgid "Service Level"
+msgstr ""
+
+#: templates/index.html:113
 msgid "Abandoned:"
 msgstr ""
 
-#: templates/queue.html:76
+#: templates/language_selector.html:3
+msgid "English"
+msgstr ""
+
+#: templates/language_selector.html:4
+msgid "Spanish"
+msgstr ""
+
+#: templates/language_selector.html:5
+msgid "German"
+msgstr ""
+
+#: templates/language_selector.html:6
+msgid "Russian"
+msgstr ""
+
+#: templates/queue.html:77
 msgid "Agents"
 msgstr ""
 
-#: templates/queue.html:80
+#: templates/queue.html:81
 msgid "Name"
 msgstr ""
 
-#: templates/queue.html:81
+#: templates/queue.html:82
 msgid "Interface"
 msgstr ""
 
-#: templates/queue.html:82
+#: templates/queue.html:83
 msgid "Status"
 msgstr ""
 
-#: templates/queue.html:83
+#: templates/queue.html:84
 msgid "Calls"
 msgstr ""
 
-#: templates/queue.html:84
+#: templates/queue.html:85
 msgid "Last call at"
 msgstr ""
 
-#: templates/queue.html:147
+#: templates/queue.html:111
+msgid "Callers"
+msgstr ""
+
+#: templates/queue.html:115
+msgid "Id Name"
+msgstr ""
+
+#: templates/queue.html:116
+msgid "Id Number"
+msgstr ""
+
+#: templates/queue.html:117
+msgid "Position"
+msgstr ""
+
+#: templates/queue.html:118
+msgid "Wait"
+msgstr ""
+
+#: templates/queue.html:194
 msgid "paused"
 msgstr ""
 
-#: templates/row_general_data.html:6
+#: templates/row_general_data.html:10
 msgid "Attended calls."
 msgstr ""
 
-#: templates/row_general_data.html:13
+#: templates/row_general_data.html:17
 msgid "Calls not attended by agents."
 msgstr ""
 
-#: templates/row_general_data.html:20
+#: templates/row_general_data.html:22
+msgid "SL"
+msgstr ""
+
+#: templates/row_general_data.html:25
+msgid "Service Level."
+msgstr ""
+
+#: templates/row_general_data.html:33
 msgid "Call on line."
 msgstr ""
 
-#: templates/row_general_data.html:24
+#: templates/row_general_data.html:37
 msgid "Av. time"
 msgstr ""
 
-#: templates/row_general_data.html:27
+#: templates/row_general_data.html:40
 msgid "Average time for answered calls."
 msgstr ""
 
-#: templates/row_general_data.html:31
+#: templates/row_general_data.html:44
 msgid "Av. Wait"
 msgstr ""
 
-#: templates/row_general_data.html:34
+#: templates/row_general_data.html:47
 msgid "Average time waiting for calls."
 msgstr ""
 
