@@ -1,6 +1,21 @@
 ## Change Log
 
 
+### 0.5.0 (2015-11-30)
+- [47f4c10](https://github.com/roramirez/qpanel/commit/47f4c10e38dd40d41eeea5e810725879c4e31f09) Add feature show Service Level.  Issue [\#5](https://github.com/roramirez/qpanel/issues/5)
+- [89b07c4](https://github.com/roramirez/qpanel/commit/89b07c4ce06026a36090c10208d788d7c1d06356) Add favicon.
+- [99db9f2](https://github.com/roramirez/qpanel/commit/99db9f296965d8abaae05177a459aec3fd7ab9db) Refactor and add function get boolean value from config.
+- [5334dd0](https://github.com/roramirez/qpanel/commit/5334dd008f4311c2089d98a46d94f5fa4e6ed5d7) Add script to create RPM for Elastix.
+- [6ef1c8a](https://github.com/roramirez/qpanel/commit/6ef1c8ad31ea35d771d8313e4fb577d2a4b90fb4) Add feature check new stable releases.
+- [5aed9d9](https://github.com/roramirez/qpanel/commit/5aed9d96a0fcae04fd90e1b04cbfaac3f545eb16) Add pause reason for Asterisk with change https://goo.gl/Njm6H5
+- [26a8fc4](https://github.com/roramirez/qpanel/commit/26a8fc43773e6920c74f262670c7a6a65d25479a) Add callers in queue view Issue [\#12](https://github.com/roramirez/qpanel/issues/12)
+- [b36c538](https://github.com/roramirez/qpanel/commit/b36c5381a57dd5c3624330294e2a7d2c54e312ff) Add number of agents on table for show queue.
+- [63e694f](https://github.com/roramirez/qpanel/commit/63e694f6ad55cf5d4a9a4211ee494772f0d961e3) Add reload app when configuration file is changed.
+
+### 0.4.3 (2015-11-20)
+- [204659c](https://github.com/roramirez/qpanel/commit/204659ccc030767675aff11dab45a7db55df40b3) Add backwards compatibility for Elastix on config file
+- [00588f6](https://github.com/roramirez/qpanel/commit/00588f67e0c58ad607ca054b87f9487be4b8791c) Fixed a bug for set config secret_key owhen is used wsgi
+
 ### 0.4.2 (2015-11-16)
 - [350f86b](https://github.com/roramirez/qpanel/commit/350f86b17b077df80ad174dd9255dea31880c003) Fixed a bug on refresh data field incoming call for section queue on general view. Issue [\#26](https://github.com/roramirez/qpanel/issues/26)
 - [92a75c7](https://github.com/roramirez/qpanel/commit/92a75c7fea210412d09547e94a0d06b676a5f531) Fixed a bug for path where is menu file for Elastix.
