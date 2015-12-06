@@ -46,3 +46,19 @@ String.prototype.format = function (args) {
     }
     return newStr;
 }
+
+// http://blog.stevenlevithan.com/archives/multi-replace
+String.prototype.multiReplace = function ( hash ) {
+    var str = this, key;
+    for ( key in hash ) {
+        if ( Object.prototype.hasOwnProperty.call( hash, key ) ) {
+            str = str.replace( new RegExp( key, 'g' ), hash[ key ] );
+        }
+    }
+    return str;
+}
+
+function div_agent(text) {
+    return text.multiReplace({'/': '-',
+                              '@': '_'});
+}
