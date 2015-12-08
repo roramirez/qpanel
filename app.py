@@ -1,3 +1,9 @@
+# coding=utf8
+
+# Copyright (C) 2015 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+#
+
+
 from flask import Flask, render_template, jsonify, redirect, request, session, url_for
 import os, sys
 import ConfigParser
@@ -8,20 +14,21 @@ from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
 
 # babel
-from flask.ext.babel import Babel, gettext
-
+from flask.ext.babel import Babel, gettext, dates, format_timedelta
+from datetime import timedelta
 # get current names for directory and file
 dirname, filename = os.path.split(os.path.abspath(__file__))
 
 # py-asterisk
 sys.path.append(os.path.join(dirname,  'libs','py-asterisk'))
 from Asterisk.Manager import *
+from upgrader import *
 
 # config file
-cfg_file = 'config.ini'
+cfg_file = os.path.join(dirname, 'config.ini')
 cfg = ConfigParser.ConfigParser()
 try:
-    with open(os.path.join(dirname, cfg_file))  as f:
+    with open(cfg_file)  as f:
         cfg.readfp(f)
 except IOError:
     print 'Error open file config. Check if config.ini exists'
@@ -39,19 +46,17 @@ def __connect_manager():
     except:
         app.logger.info('Error to connect to Asterisk Manager. Check config.ini and manager.conf of asterisk')
 
+
 def is_debug():
-    try:
-        var = cfg.get('general', 'debug')
-        v = True if strtobool(var) == 1 else False
-    except:
-        return False
-    return v
+    return __get_bool_value_config('general', 'debug', False)
 
 def port_bind():
     return int(__get_entry_ini_default('general', 'port', 5000))
 
+
 def host_bind():
     return __get_entry_ini_default('general', 'host', '0.0.0.0')
+
 
 def get_hide_config():
     tmp = __get_entry_ini_default('general', 'hide', '')
@@ -66,6 +71,15 @@ def __get_entry_ini_default(section, var, default):
     except:
         return default
     return v
+
+def __get_bool_value_config(section, option, default):
+    try:
+        var = cfg.get(section, option)
+        v = True if strtobool(var) == 1 else False
+    except:
+        return default
+    return v
+
 
 def __get_data_queues_manager():
     manager = __connect_manager()
@@ -88,6 +102,7 @@ def get_data_queues(queue = None):
         app.logger.debug(data)
     return data
 
+
 def hide_queue(data):
     tmp_data = {}
     hide = get_hide_config()
@@ -95,6 +110,7 @@ def hide_queue(data):
         if q not in hide:
             tmp_data[q] = data[q]
     return tmp_data
+
 
 def rename_queue(data):
     tmp_data = {}
@@ -107,10 +123,10 @@ def rename_queue(data):
     return tmp_data
 
 
-
 def parser_data_queue(data):
     data = hide_queue(data)
     data = rename_queue(data)
+    current_timestamp = int(time.time())
     # convert references manager to string
     for q in data:
         for e in data[q]['entries']:
@@ -122,6 +138,23 @@ def parser_data_queue(data):
             #Asterisk 1.8 dont have StateInterface
             if 'StateInterface' not in data[q]['members'][m]:
                 data[q]['members'][m]['StateInterface'] = m
+
+            second_ago = 0
+            if 'LastCall' in data[q]['members'][m]:
+                if int(data[q]['members'][m]['LastCall']) > 0:
+                    second_ago = current_timestamp - int(data[q]['members'][m]['LastCall'])
+            data[q]['members'][m]['LastCallAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+
+        #REFACTORME
+        for c in data[q]['entries']:
+            second_ago = 0
+            if 'Wait' in data[q]['entries'][c]:
+                if int(data[q]['entries'][c]['Wait']) > 0:
+                    second_ago = int(data[q]['entries'][c]['Wait'])
+            data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+
+
+
     return data
 
 
@@ -131,6 +164,8 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 babel = Babel(app)
 app.config['BABEL_DEFAULT_LOCALE'] = __get_entry_ini_default('general', 'language', 'en')
+app.secret_key = __get_entry_ini_default('general', 'secret_key', 'CHANGEME_ON_CONFIG')
+
 
 @app.before_first_request
 def setup_logging():
@@ -138,6 +173,7 @@ def setup_logging():
     if not app.debug:
         app.logger.addHandler(logging.StreamHandler())
         app.logger.setLevel(logging.INFO)
+
 
 # babel
 @babel.localeselector
@@ -151,6 +187,7 @@ def get_locale():
       app.logger.debug(session['language'])
       return browser
 
+
 #Utilities helpers
 @app.context_processor
 def utility_processor():
@@ -158,6 +195,7 @@ def utility_processor():
         v = value.replace('/', '-')
         return v.replace('@', '_')
     return dict(format_id_agent=format_id_agent)
+
 
 @app.context_processor
 def utility_processor():
@@ -177,6 +215,7 @@ def utility_processor():
             return gettext('busy')
     return dict(str_status_agent=str_status_agent)
 
+
 @app.context_processor
 def utility_processor():
     def request_interval():
@@ -188,7 +227,17 @@ def utility_processor():
 def page_not_found(e):
     return render_template('404.html'), 404
 
+@app.context_processor
+def utility_processor():
+    def check_upgrade():
+        return __get_bool_value_config('general', 'check_upgrade', True)
+    return dict(check_upgrade=check_upgrade)
 
+@app.context_processor
+def utility_processor():
+    def show_service_level():
+        return __get_bool_value_config('general', 'show_service_level', False)
+    return dict(show_service_level=show_service_level)
 
 # ---------------------
 # ---- Routes ---------
@@ -214,6 +263,7 @@ def queue_json(name = None):
         data = data
     )
 
+
 # data queue
 @app.route('/queues')
 def queues():
@@ -221,6 +271,7 @@ def queues():
     return jsonify(
         data = data
     )
+
 
 @app.route('/lang')
 def fake_language():
@@ -230,6 +281,22 @@ def language(language = None):
     session['language'] = language
     return redirect(url_for('home'))
 
+
+@app.route('/check_new_version')
+def check_new_version():
+    need_upgrade = False
+    try:
+        if require_upgrade():
+            need_upgrade = True
+    except:
+        pass
+
+    return jsonify(
+        require_upgrade = need_upgrade,
+        current_version = get_current_version(),
+        last_stable_version = get_stable_version()
+    )
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------
@@ -238,12 +305,11 @@ if __name__ == '__main__':
     if is_debug():
         app.config['DEBUG'] = True
 
-    app.secret_key = __get_entry_ini_default('general', 'secret_key', 'CHANGEME_ON_CONFIG')
 
     if APPLICATION_ROOT == '/':
-        app.run(host=host_bind(), port=port_bind())
+        app.run(host=host_bind(), port=port_bind(), extra_files=[cfg_file])
     else:
         application = DispatcherMiddleware(Flask('dummy_app'), {
             app.config['APPLICATION_ROOT']: app,
         })
-        run_simple(host_bind(), port_bind(), application, use_reloader=True)
+        run_simple(host_bind(), port_bind(), application, use_reloader=True, extra_files=[cfg_file])

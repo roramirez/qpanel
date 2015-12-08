@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Rodrigo Ramírez Norambuena">
     <meta name="keyword" content="Dashboard, Panel, Queue, app_queue, Asterisk">
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='img/favicon.ico')}}">
 
     <title>QPanel</title>
 
@@ -93,7 +94,10 @@
                                     <div class="col-sm-4 col-xs-4 voffset20 goleft">
                                         <h5><b>{{_('Answered')}}:</b> <span id="queue_completed">{{queues[queue].Completed}}</span></h5>
                                         <h5>{{_('Abandoned')}}: <span id="queue_abandoned">{{queues[queue].Abandoned}} </span></h5>
-                                        <h5>{{_('Incoming')}}: <span id="queue_incomming">{{queues[queue].Calls}} </span></h5>
+                                        <h5>{{_('Incoming')}}: <span id="queue_incoming">{{queues[queue].Calls}} </span></h5>
+                                        {% if show_service_level() %}
+                                        <h5>{{_('Service Level')}}: <span id="queue_servicelevel">{{queues[queue].ServicelevelPerf}}%</span></h5>
+                                        {% endif %}
                                     </div>
                                      <div class="col-lg-4 col-md-4 col-sm-4 mb voffset20">
                                             <canvas id="graph_{{queue}}" height="120" width="120"></canvas>
@@ -136,7 +140,7 @@
   </section>
 
     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+
     <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/jquery.scrollTo.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/jquery.nicescroll.js')}}" type="text/javascript"></script>
@@ -174,6 +178,7 @@
         function parseDataQueue(data){
             var answers = 0, unattended = 0, incoming = 0;
             var c_hold = 0, holdtime = 0, c_talk = 0, talktime = 0;
+            var call_in_service_level = 0;
             for (var d in data) {
                 answers = answers + parseInt(data[d].Completed);
                 unattended = unattended + parseInt(data[d].Abandoned);
@@ -183,6 +188,11 @@
                 $("[id='data-"+ d + "'] #queue_abandoned").html(parseInt(data[d].Abandoned));
                 $("[id='data-"+ d + "'] #queue_incoming").html(parseInt(data[d].Calls));
                 $("[id='data-"+ d + "'] #queue_users").html( len(data[d].members));
+
+                {% if show_service_level() %}
+                $("[id='data-"+ d + "'] #queue_servicelevel").html(data[d].ServicelevelPerf + '%');
+                call_in_service_level +=  data[d].Completed * parseFloat(data[d].ServicelevelPerf) / 100;
+                {% endif %}
 
                 if (data[d].Abandoned > 0) {
                     $("[id='"+ d + "-percent_abandoned']")
@@ -240,6 +250,10 @@
             if (c_talk > 0){
               $('#av_time').html(parseInt((talktime / c_talk)).toString().toMMSS());
             }
+
+            {% if show_service_level() %}
+                $('#servicelevel').html( "{percent}%".format({percent: Math.round(call_in_service_level * 100 / answers)}));
+            {% endif %}
 
         }
         function getDataQueue() {

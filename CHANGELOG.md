@@ -1,5 +1,43 @@
 ## Change Log
 
+
+### 0.5.0 (2015-11-30)
+- [47f4c10](https://github.com/roramirez/qpanel/commit/47f4c10e38dd40d41eeea5e810725879c4e31f09) Add feature show Service Level.  Issue [\#5](https://github.com/roramirez/qpanel/issues/5)
+- [89b07c4](https://github.com/roramirez/qpanel/commit/89b07c4ce06026a36090c10208d788d7c1d06356) Add favicon.
+- [99db9f2](https://github.com/roramirez/qpanel/commit/99db9f296965d8abaae05177a459aec3fd7ab9db) Refactor and add function get boolean value from config.
+- [5334dd0](https://github.com/roramirez/qpanel/commit/5334dd008f4311c2089d98a46d94f5fa4e6ed5d7) Add script to create RPM for Elastix.
+- [6ef1c8a](https://github.com/roramirez/qpanel/commit/6ef1c8ad31ea35d771d8313e4fb577d2a4b90fb4) Add feature check new stable releases.
+- [5aed9d9](https://github.com/roramirez/qpanel/commit/5aed9d96a0fcae04fd90e1b04cbfaac3f545eb16) Add pause reason for Asterisk with change https://goo.gl/Njm6H5
+- [26a8fc4](https://github.com/roramirez/qpanel/commit/26a8fc43773e6920c74f262670c7a6a65d25479a) Add callers in queue view Issue [\#12](https://github.com/roramirez/qpanel/issues/12)
+- [b36c538](https://github.com/roramirez/qpanel/commit/b36c5381a57dd5c3624330294e2a7d2c54e312ff) Add number of agents on table for show queue.
+- [63e694f](https://github.com/roramirez/qpanel/commit/63e694f6ad55cf5d4a9a4211ee494772f0d961e3) Add reload app when configuration file is changed.
+
+### 0.4.3 (2015-11-20)
+- [204659c](https://github.com/roramirez/qpanel/commit/204659ccc030767675aff11dab45a7db55df40b3) Add backwards compatibility for Elastix on config file
+- [00588f6](https://github.com/roramirez/qpanel/commit/00588f67e0c58ad607ca054b87f9487be4b8791c) Fixed a bug for set config secret_key owhen is used wsgi
+
+### 0.4.2 (2015-11-16)
+- [350f86b](https://github.com/roramirez/qpanel/commit/350f86b17b077df80ad174dd9255dea31880c003) Fixed a bug on refresh data field incoming call for section queue on general view. Issue [\#26](https://github.com/roramirez/qpanel/issues/26)
+- [92a75c7](https://github.com/roramirez/qpanel/commit/92a75c7fea210412d09547e94a0d06b676a5f531) Fixed a bug for path where is menu file for Elastix.
+
+### 0.4.1 (2015-11-05)
+- [14e2d10](https://github.com/roramirez/qpanel/commit/14e2d1061048465d40e58118bdcb340d77df8bbf) Fixed a bug remove agent from list if not in queue after added on list view for queues.
+- [a3ff2cb](https://github.com/roramirez/qpanel/commit/a3ff2cb5d4a4be390e53994d638ee643ed54f174) Fixed a bug add new member when the list of agent on queue view dont have member.
+- [ff73668](https://github.com/roramirez/qpanel/commit/ff73668c83e3bf0a8455a37378457795ddd5a64f) Fixed a bug for  close tr on table agents when is add a new
+
+
+### 0.4.0 (2015-10-31)
+- [c4fab97](https://github.com/roramirez/qpanel/commit/c4fab97b94b4bcf2324c3fd2f1078c3d41bc0d08) Add last_call agent on queue
+- [d7b7571](https://github.com/roramirez/qpanel/commit/d7b757173874d61ddbaabbd383ff27f5f0809daa) add Russian translation (@alexcr-telecom)
+- [0320525](https://github.com/roramirez/qpanel/commit/03205250ba6adbe80b7c67b91af78d325b55312b) Add german translation
+- [#16](https://github.com/roramirez/qpanel/pull/16) Add Changelog
+- [83792a6](https://github.com/roramirez/qpanel/commit/83792a6a9946b1222f084feb4a951ceaf979743a) Feature translations issue [\#8](https://github.com/roramirez/qpanel/issues/3) language english and spanish
+- [550b548](https://github.com/roramirez/qpanel/commit/550b5487dd9945d05f92418a05abe173718d3b5f) Feature set by config secret_key
+- [b1b79ff](https://github.com/roramirez/qpanel/commit/b1b79ff1eeb314e2863e5dc2d0e0c641d4ee7f31) Improve update jQuery version to v1.11.3
+- [57a61b0](https://github.com/roramirez/qpanel/commit/57a61b0749bf89eea66f4832559f4d5514338077) Create dir for documentation
+- [e95d066](https://github.com/roramirez/qpanel/commit/e95d0668aea46d2575a7195dd2d4c76920abe5d2) Added Logo
+
+
 ### 0.3.2 (2015-10-17)
 - [58e650e](https://github.com/roramirez/qpanel/commit/58e650e1d7bd523c664f7ba61867975f28a3bcff) Fixed a bug on link to up on footer
 - [7507174](https://github.com/roramirez/qpanel/commit/7507174d748b532bd02e3836940e76260793401d) Fixed a bug for add agent on table if not present after load the page for queue
@@ -27,7 +65,7 @@
 ### 0.2.4 (2015-09-24)
 - [2ebc6eb](https://github.com/roramirez/qpanel/commit/2ebc6eb53754175b23723e812bbd42650b4620eb) Fixed a bug introduced in commit 91d2be497e76ae886171ecdab80590df9bb66a84 issue [#\2](https://github.com/roramirez/qpanel/issues/2)
 
-### 0.2.3 (2015/09/10)
+### 0.2.3 (2015-09-10)
 - [6efb62d](https://github.com/roramirez/qpanel/commit/6efb62d9f50a812dcba90480049a7fb22701935b) Fixed a bug for StateInterface var in Asterisk 1.8 Close [\#1] (https://github.com/roramirez/qpanel/issues/1)
 
 ### 0.2.2 (2015-09-09)
@@ -39,7 +77,7 @@
 - [fd2aa2f](https://github.com/roramirez/qpanel/commit/fd2aa2f7d0b91e07b177dd201bf0dde982807ea7) Fixed a bug in agent status
 - [010b499](https://github.com/roramirez/qpanel/commit/010b4991c78f2c8b79e59ffd2a1a438f25535e32) Improve in  validation if config.ini exists
 
-### 0.2.0 (2015/08/29)
+### 0.2.0 (2015-08-29)
 - [9bae5e8](https://github.com/roramirez/qpanel/commit/9bae5e84854dd31e6441cdfc5e98c47a9f92cb8d) Add README for Centos 5.x and Elastix Distributions
 - [031b752](https://github.com/roramirez/qpanel/commit/031b7525f0546144de714912097a04e283a8dc2e) Add status pause on queue for agent
 - [8b45f85](https://github.com/roramirez/qpanel/commit/8b45f853014503fa9fd940c2908bffbc1d98525d) Add setting for port number
