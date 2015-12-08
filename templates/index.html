@@ -48,9 +48,19 @@
             </div>
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
+<<<<<<< HEAD
                     {% include 'language_selector.html' %}
+=======
+                    <li>
+                        <select id="language" class="logout">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                        </select>
+                    </li>
+>>>>>>> origin/i18n
                 </ul>
             </div>
+
         </header>
       <!--header end-->
 
@@ -67,6 +77,7 @@
                   <div class="col-lg-12 main-chart">
 
                     <div class="row"><!-- row general data-->
+<<<<<<< HEAD
                       {% include 'row_general_data.html' %}
                     </div><!-- /row general data-->
 
@@ -74,6 +85,14 @@
 
                     <div class="border-head">
                       <h1><i class="fa fa-angle-right"></i> {{_('Queues')}}</h1>
+=======
+                        {% include 'row_general_data.html' %}
+                    </div><!-- /row general data-->
+                    <div class="row mt">
+
+                    <div class="border-head">
+                      <h1><i class="fa fa-angle-right"></i> <span data-i18n="queues" class="i18n">Queues</span></h1>
+>>>>>>> origin/i18n
                     </div>
 
                     {% for queue in queues %}
@@ -92,12 +111,18 @@
                                 <div class="row data" id="data-{{queue}}">
 
                                     <div class="col-sm-4 col-xs-4 voffset20 goleft">
+<<<<<<< HEAD
                                         <h5><b>{{_('Answered')}}:</b> <span id="queue_completed">{{queues[queue].Completed}}</span></h5>
                                         <h5>{{_('Abandoned')}}: <span id="queue_abandoned">{{queues[queue].Abandoned}} </span></h5>
                                         <h5>{{_('Incoming')}}: <span id="queue_incoming">{{queues[queue].Calls}} </span></h5>
                                         {% if show_service_level() %}
                                         <h5>{{_('Service Level')}}: <span id="queue_servicelevel">{{queues[queue].ServicelevelPerf}}%</span></h5>
                                         {% endif %}
+=======
+                                        <h5><b><span data-i18n="answered" class="i18n">Answered</span>:</b> <span id="queue_completed">{{queues[queue].Completed}}</span></h5>
+                                        <h5><span data-i18n="abandoned" class="i18n">Abandoned</span>: <span id="queue_abandoned">{{queues[queue].Abandoned}} </span></h5>
+                                        <h5><span data-i18n="incoming" class="i18n">Incoming</span>: <span id="queue_incomming">{{queues[queue].Calls}} </span></h5>
+>>>>>>> origin/i18n
                                     </div>
                                      <div class="col-lg-4 col-md-4 col-sm-4 mb voffset20">
                                             <canvas id="graph_{{queue}}" height="120" width="120"></canvas>
@@ -110,7 +135,11 @@
                                     </div>
                                 </div>
                                 <div class="row centered"  style="margin-top: -20px;">
+<<<<<<< HEAD
                                     <h2>{{_('Abandoned:')}} <span id="{{queue}}-percent_abandoned">0</span>%</h2>
+=======
+                                    <h2><span data-i18n="p_abandoned" class="i18n">Abandoned</span>: <span id="{{queue}}-percent_abandoned">0</span>%</h2>
+>>>>>>> origin/i18n
                                 </div>
                                 <script>
                                     dataGraph['{{queue}}'] = [
@@ -231,6 +260,7 @@
                 }
                 $("[id='data-"+ d + "'] #queue_free")
                     .html( "{agents} ({percent}% {status})"
+<<<<<<< HEAD
                         .format({agents: agent_free, percent: Math.round(agent_free * 100 / agents), status: "{{_("free")}}" }));
                 $("[id='data-"+ d + "'] #queue_busy")
                     .html( "{agents} ({percent}% {status})"
@@ -239,6 +269,18 @@
                 $("[id='data-"+ d + "'] #queue_unavailable")
                     .html( "{agents} ({percent}% {status})"
                         .format({agents: agent_unavailable, percent: Math.round(agent_unavailable * 100 / agents), status: "{{_("unavailable")}} "}));
+=======
+                        .format({agents: agent_free, percent: Math.round(agent_free * 100 / agents), status: $.i18n("free")}));
+                var s = $.i18n("busy");
+                $("[id='data-"+ d + "'] #queue_busy")
+                    .html( "{agents} ({percent}% {status})"
+                        .format({agents: agent_busy, percent: Math.round(agent_busy * 100 / agents), status: $.i18n("busy")}));
+
+                $("[id='data-"+ d + "'] #queue_unavailable")
+                    .html( "{agents} ({percent}% {status})"
+                        .format({agents: agent_unavailable, percent: Math.round(agent_unavailable * 100 / agents), status: $.i18n("unavailable")}));
+
+>>>>>>> origin/i18n
 
             }
             $('#answered').html(answers);
@@ -279,5 +321,9 @@
     <script src="{{url_for('static', filename='js/utils.js')}}"></script>
     {% include 'i18n_js.html' %}
 
+
+    {% include 'i18n_js.html' %}
+    <script>
+    </script>
   </body>
 </html>
