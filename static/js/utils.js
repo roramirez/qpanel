@@ -58,7 +58,22 @@ String.prototype.multiReplace = function ( hash ) {
     return str;
 }
 
+<<<<<<< HEAD
 function div_agent(text) {
     return text.multiReplace({'/': '-',
                               '@': '_'});
+=======
+function addLabelDivStatusAgent(div) {
+    var label;
+    div.removeClass('label-warning label-info label-danger');
+    value = div.html();
+    if (value == $.i18n("free")) {
+        label = 'info';
+    } else if (value == $.i18n("unavailable")) {
+        label = 'danger';
+    } else {
+        label = 'warning';
+    }
+    div.addClass('label-'+label);
+>>>>>>> origin/i18n
 }

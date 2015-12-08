@@ -1,0 +1,31 @@
+{
+
+    "@metadata": {
+        "authors": [
+            "Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>"
+        ]
+    },
+
+    "abandoned" : "Abandoned",
+    "answered" : "Answered",
+    "incoming" : "Incoming",
+    "av_time" : "Av. time",
+    "av_wait" : "Av. Wait",
+    "p_abandoned" : "Abandoned",
+    "attended_calls" : "Attended calls.",
+    "calls_not_attended_agent" : "Calls not attended by agents.",
+    "call_on_linea" : "Call on line.",
+    "av_detail_time" : "Average time for answered calls.",
+    "av_detail_wait" : "Average time waiting for calls.",
+    "developed_by" : "Developed by",
+    "template_by" : "with a Template by ",
+    "free" : "Free",
+    "busy" : "Busy",
+    "unavailable" : "Unavailable",
+    "queues" : "Queues",
+    "agents" : "Agents",
+    "name" : "Name",
+    "interface" : "Interface",
+    "status" : "Status",
+    "calls": "Calls"
+}

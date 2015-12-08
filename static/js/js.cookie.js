@@ -1,8 +1,15 @@
 /*!
+<<<<<<< HEAD
  * JavaScript Cookie v2.0.4
  * https://github.com/js-cookie/js-cookie
  *
  * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
+=======
+ * JavaScript Cookie v2.0.2
+ * https://github.com/js-cookie/js-cookie
+ *
+ * Copyright 2006, 2015 Klaus Hartl
+>>>>>>> origin/i18n
  * Released under the MIT license
  */
 (function (factory) {
@@ -12,7 +19,11 @@
 		module.exports = factory();
 	} else {
 		var _OldCookies = window.Cookies;
+<<<<<<< HEAD
 		var api = window.Cookies = factory();
+=======
+		var api = window.Cookies = factory(window.jQuery);
+>>>>>>> origin/i18n
 		api.noConflict = function () {
 			window.Cookies = _OldCookies;
 			return api;
