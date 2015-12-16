@@ -180,11 +180,9 @@ def setup_logging():
 def get_locale():
     browser = request.accept_languages.best_match(['en', 'es', 'de'])
     try:
-      app.logger.debug(session['language'])
       return session['language']
     except KeyError:
       session['language'] = browser
-      app.logger.debug(session['language'])
       return browser
 
 
