@@ -20,3 +20,8 @@ show_service_level = False ; Show information of service level of a queue
 ; This section if for rename name of queue
 ; Example:
 ; 5000 = support. This rename queue "5000"  by "support"
+
+[users]
+; add user and password
+; example
+; username = password

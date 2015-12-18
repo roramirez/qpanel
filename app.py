@@ -19,10 +19,19 @@ from datetime import timedelta
 # get current names for directory and file
 dirname, filename = os.path.split(os.path.abspath(__file__))
 
+#flask-login
+import flask.ext.login as flask_login
+
 # py-asterisk
 sys.path.append(os.path.join(dirname,  'libs','py-asterisk'))
 from Asterisk.Manager import *
 from upgrader import *
+from utils import *
+
+
+
+class User(flask_login.UserMixin):
+    pass
 
 # config file
 cfg_file = os.path.join(dirname, 'config.ini')
@@ -158,6 +167,17 @@ def parser_data_queue(data):
     return data
 
 
+def get_user_config_by_name(username):
+    try:
+        user = User()
+        user.id = username
+        user.password = cfg.get('users', username)
+        return user
+    except:
+        return None
+
+
+# Flask env
 # Flask env
 APPLICATION_ROOT = __get_entry_ini_default('general', 'base_url', '/')
 app = Flask(__name__)
@@ -165,6 +185,65 @@ app.config.from_object(__name__)
 babel = Babel(app)
 app.config['BABEL_DEFAULT_LOCALE'] = __get_entry_ini_default('general', 'language', 'en')
 app.secret_key = __get_entry_ini_default('general', 'secret_key', 'CHANGEME_ON_CONFIG')
+
+login_manager = flask_login.LoginManager()
+login_manager.init_app(app)
+
+
+def set_data_user(user_config):
+    user = User()
+    user.id = user_config.id
+    return user
+
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+    return redirect(url_for('login'))
+
+@login_manager.user_loader
+def user_loader(username):
+    user_config = get_user_config_by_name(username)
+    if user_config is None:
+        return
+    return set_data_user(user_config)
+
+@login_manager.request_loader
+def request_loader(request):
+    username = request.form.get('username')
+    user_config = get_user_config_by_name(username)
+
+    if count_element_sections_config('users', cfg) == 0:
+        # fake login
+        user = User()
+        user.id = 'withoutlogin'
+        return user
+
+    if user_config is None:
+        return
+
+    user = set_data_user(user_config)
+    user.is_authenticated = user_config == request.form['pw']
+    return user
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if count_element_sections_config('users', cfg) == 0:
+        return redirect(url_for('home'))
+
+    if request.method == 'GET':
+        return render_template('login.html')
+
+    username = request.form['username']
+    user_config = get_user_config_by_name(username)
+    if user_config is None:
+        return redirect(url_for('login'))
+
+    if user_config.password == request.form['pw']:
+        user = set_data_user(user_config)
+        flask_login.login_user(user)
+        return redirect(url_for('home'))
+    return redirect(url_for('login'))
+
+
 
 
 @app.before_first_request
@@ -237,23 +316,35 @@ def utility_processor():
         return __get_bool_value_config('general', 'show_service_level', False)
     return dict(show_service_level=show_service_level)
 
+@app.context_processor
+def utility_processor():
+    def has_users():
+        if count_element_sections_config('users', cfg) == 0:
+            return False
+        else:
+            return True
+    return dict(has_users=has_users)
 # ---------------------
 # ---- Routes ---------
 # ---------------------
 # home
 @app.route('/')
+@flask_login.login_required
 def home():
     data = get_data_queues()
     return render_template('index.html', queues = data)
 
 
+
 @app.route('/queue/<name>')
+@flask_login.login_required
 def queue(name = None):
     data = get_data_queues(name)
     return render_template('queue.html', data = data, name = name)
 
 
 @app.route('/queue/<name>.json')
+@flask_login.login_required
 def queue_json(name = None):
     data = get_data_queues(name)
     return jsonify(
@@ -262,25 +353,32 @@ def queue_json(name = None):
     )
 
 
+
 # data queue
 @app.route('/queues')
+@flask_login.login_required
 def queues():
+    app.logger.debug(count_element_sections_config('users', cfg))
     data = get_data_queues()
     return jsonify(
         data = data
     )
 
 
+
 @app.route('/lang')
+@flask_login.login_required
 def fake_language():
     return redirect(url_for('home'))
 @app.route('/lang/<language>')
+@flask_login.login_required
 def language(language = None):
     session['language'] = language
     return redirect(url_for('home'))
 
 
 @app.route('/check_new_version')
+@flask_login.login_required
 def check_new_version():
     need_upgrade = False
     try:
@@ -294,6 +392,11 @@ def check_new_version():
         current_version = get_current_version(),
         last_stable_version = get_stable_version()
     )
+
+@app.route('/logout')
+def logout():
+    flask_login.logout_user()
+    return redirect(url_for('login'))
 
 # ---------------------
 # ---- Main  ----------
