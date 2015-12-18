@@ -178,7 +178,6 @@ def get_user_config_by_name(username):
 
 
 # Flask env
-# Flask env
 APPLICATION_ROOT = __get_entry_ini_default('general', 'base_url', '/')
 app = Flask(__name__)
 app.config.from_object(__name__)
