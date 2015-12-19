@@ -89,6 +89,11 @@ def __get_bool_value_config(section, option, default):
         return default
     return v
 
+def __get_entry_int_min_value(section, option, min = 0):
+    v = int(__get_entry_ini_default(section, option, min))
+    if v < min:
+        return min
+    return v
 
 def __get_data_queues_manager():
     manager = __connect_manager()
@@ -295,7 +300,7 @@ def utility_processor():
 @app.context_processor
 def utility_processor():
     def request_interval():
-        return int(__get_entry_ini_default('general', 'interval', 5)) * 1000
+        return (__get_entry_int_min_value('general', 'interval', 1) * 1000)
     return dict(request_interval=request_interval)
 
 
