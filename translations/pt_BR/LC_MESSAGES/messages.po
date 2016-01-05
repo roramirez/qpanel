@@ -1,17 +1,16 @@
-# German translations for QPanel.
+# Translations template for QPanel.
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena
 # This file is distributed under the same license as the QPanel project.
-# Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
+# Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015-2016.
+
 msgid ""
 msgstr ""
-"Project-Id-Version:  0.6.0\n"
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
-"PO-Revision-Date: 2015-10-26 07:27-0400\n"
-"Last-Translator: Dominic Schubert <info@atom-area.net>\n"
-"Language: de\n"
-"Language-Team: de Dominic Schubert <info@atom-area.net>>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"PO-Revision-Date: 2015-11-22 15:44-0400\n"
+"Last-Translator: Max Araujo <max.araujo@outlook.com>\n"
+"Language: pt\n"
+"Language-Team: LANGUAGE <a@rodrigoramirez.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,40 +19,40 @@ msgstr ""
 #: app.py:211 templates/i18n_js.html:14 templates/i18n_js.html:26
 #: templates/index.html:241
 msgid "unavailable"
-msgstr "inaktiv"
+msgstr "indisponivel"
 
 #: app.py:213 templates/i18n_js.html:12 templates/i18n_js.html:24
 #: templates/index.html:234
 msgid "free"
-msgstr "aktiv"
+msgstr "livre"
 
 #: app.py:215 templates/i18n_js.html:16 templates/index.html:237
 msgid "busy"
-msgstr "im Gespräch"
+msgstr "ocupado"
 
 #: templates/404.html:64
 msgid "404 Not Found"
-msgstr "404 nicht gefunden"
+msgstr "404 Não encontrado"
 
 #: templates/404.html:67
 msgid "The request the was not found on this server."
-msgstr ""
+msgstr "A requisição não foi encontrada no servidor"
 
 #: templates/footer.html:4
 msgid "Developed by"
-msgstr "Enwickelt bei"
+msgstr "Desenvolvido por"
 
 #: templates/footer.html:4
 msgid "with a Template by"
-msgstr "und Design von"
+msgstr "Com modelo de"
 
 #: templates/footer.html:42
 msgid "New version available"
-msgstr "inaktiv"
+msgstr "Nova versão disponível"
 
 #: templates/footer.html:43
 msgid "Exist a new version stable: "
-msgstr "Neue Version verfügbar"
+msgstr "Nova versão estavel"
 
 #: templates/footer.html:43
 msgid ""
@@ -64,125 +63,130 @@ msgstr ""
 
 #: templates/index.html:76
 msgid "Queues"
-msgstr "Warteschlangen"
+msgstr "Fila"
 
 #: templates/index.html:95 templates/row_general_data.html:7
 msgid "Answered"
-msgstr "Beantwortet"
+msgstr "Atendidas"
 
 #: templates/index.html:96 templates/row_general_data.html:14
 msgid "Abandoned"
-msgstr "Abgebrochen"
+msgstr "Abandonos"
 
 #: templates/index.html:97 templates/row_general_data.html:30
 msgid "Incoming"
-msgstr "Wartente"
+msgstr "Em fila"
 
 #: templates/index.html:99
 msgid "Service Level"
-msgstr ""
+msgstr "Nivel de serviço"
 
 #: templates/index.html:113
 msgid "Abandoned:"
-msgstr "Verloren"
+msgstr "Abandonos:"
 
 #: templates/language_selector.html:3
 msgid "English"
-msgstr "Englisch"
+msgstr ""
 
 #: templates/language_selector.html:4
 msgid "Spanish"
-msgstr "Spanisch"
+msgstr ""
 
 #: templates/language_selector.html:5
 msgid "German"
-msgstr "Deutsch"
+msgstr ""
 
 #: templates/language_selector.html:6
 msgid "Russian"
-msgstr "Russisch"
+msgstr ""
+
+#: templates/language_selector.html:7
+msgid "Portuguese"
+msgstr ""
+
 
 #: templates/queue.html:77
-msgid "Agents"
-msgstr "Agenten"
+msgid "Agentes"
+msgstr "Agentes"
 
 #: templates/queue.html:81
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: templates/queue.html:82
 msgid "Interface"
-msgstr "Gerät"
+msgstr "Interface"
 
 #: templates/queue.html:83
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: templates/queue.html:84
 msgid "Calls"
-msgstr "Anrufe"
+msgstr "Ligações"
 
 #: templates/queue.html:85
 msgid "Last call at"
-msgstr "Letzter Anruf vor"
+msgstr "Ultima ligação"
 
 #: templates/queue.html:111
 msgid "Callers"
-msgstr "Anrufer"
+msgstr "Clientes"
 
 #: templates/queue.html:115
 msgid "Id Name"
-msgstr "ID Name"
+msgstr "Nome"
 
 #: templates/queue.html:116
 msgid "Id Number"
-msgstr "ID Nummer"
+msgstr "Numero"
 
 #: templates/queue.html:117
 msgid "Position"
-msgstr ""
+msgstr "Posição"
 
 #: templates/queue.html:118
 msgid "Wait"
-msgstr "Wartezeit"
+msgstr "Espera"
 
 #: templates/queue.html:194
 msgid "paused"
-msgstr "pausiert"
+msgstr "pausado"
 
 #: templates/row_general_data.html:10
 msgid "Attended calls."
-msgstr "Beanwortete Anrufe."
+msgstr "Ligações atendidas"
 
 #: templates/row_general_data.html:17
 msgid "Calls not attended by agents."
-msgstr "Verlorene Anrufe"
+msgstr "Ligações não atendidas"
 
 #: templates/row_general_data.html:22
 msgid "SL"
-msgstr ""
+msgstr "NS"
 
 #: templates/row_general_data.html:25
 msgid "Service Level."
-msgstr ""
+msgstr "Nivel de Serviço"
 
 #: templates/row_general_data.html:33
 msgid "Call on line."
-msgstr "Anrufe in der Line"
+msgstr "Ligação na fila"
 
 #: templates/row_general_data.html:37
 msgid "Av. time"
-msgstr "Durch. Zeit"
+msgstr "Tempo"
 
 #: templates/row_general_data.html:40
 msgid "Average time for answered calls."
-msgstr "Durch. Zeit für beantwortete Anrufe"
+msgstr "Tempo de conversação médio"
 
 #: templates/row_general_data.html:44
 msgid "Av. Wait"
-msgstr "Wartezeit"
+msgstr "Espera"
 
 #: templates/row_general_data.html:47
 msgid "Average time waiting for calls."
-msgstr "Durch. Zeit für wartente Anrufe."
+msgstr "Tempo médio de espera"
 

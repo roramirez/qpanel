@@ -16,10 +16,11 @@ python2.6 /tmp/get-pip.py
 
 
 ## Flask
-Will be use pip2.6 for install Flask and dependences
+Will be use pip2.6 for install Flask and dependencies
 
 ```
 pip2.6 install flask
 pip2.6 install flask-babel
+pip2.6 install flask-login
 
 ```

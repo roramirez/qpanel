@@ -35,10 +35,11 @@ Qpanel is a panel for queues on Asterisk, powerful and simple monitor in realtim
 
  If you used a CentOS 5.X or Elastix check [how to install Python 2.6 and Flask](doc/README.Centos5.md)
 
-## 1. Install flask and flask-babel
+## 1. Install flask and dependencies
 ```
  $ pip install Flask
  $ pip install flask-babel
+ $ pip install flask-login
 ```
 If dont have pip in your system. For install
 

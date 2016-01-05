@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Copyright (C) 2015 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+# Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
 import ConfigParser
@@ -28,3 +28,9 @@ def unified_configs(file_config, file_template, sections = []):
     file = open(file_config, 'wr')
     template.write(file)
     file.close()
+
+def count_element_sections_config(section, cfg):
+    try:
+        return len(dict(cfg.items(section)))
+    except:
+        return 0

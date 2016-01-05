@@ -1,10 +1,10 @@
 # English translations for QPanel.
-# Copyright (C) 2015 Rodrigo Ramírez Norambuena
+# Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena
 # This file is distributed under the same license as the QPanel project.
 # Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version:  0.5.0\n"
+"Project-Id-Version:  0.6.0\n"
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
 "PO-Revision-Date: 2015-10-26 07:50-0400\n"
@@ -33,11 +33,11 @@ msgstr "занят"
 
 #: templates/404.html:64
 msgid "404 Not Found"
-msgstr ""
+msgstr "404 Не Найдено"
 
 #: templates/404.html:67
 msgid "The request the was not found on this server."
-msgstr ""
+msgstr "Этот запрос не найден на сервере"
 
 #: templates/footer.html:4
 msgid "Developed by"
@@ -53,7 +53,7 @@ msgstr "недоступен"
 
 #: templates/footer.html:43
 msgid "Exist a new version stable: "
-msgstr ""
+msgstr "Существует более новая версия:"
 
 #: templates/footer.html:43
 msgid ""
@@ -80,7 +80,7 @@ msgstr "Входящих"
 
 #: templates/index.html:99
 msgid "Service Level"
-msgstr ""
+msgstr "Уровень обслуживания"
 
 #: templates/index.html:113
 msgid "Abandoned:"
@@ -88,19 +88,19 @@ msgstr "Пропущенных:"
 
 #: templates/language_selector.html:3
 msgid "English"
-msgstr ""
+msgstr "Английский"
 
 #: templates/language_selector.html:4
 msgid "Spanish"
-msgstr ""
+msgstr "Испанский"
 
 #: templates/language_selector.html:5
 msgid "German"
-msgstr ""
+msgstr "Немецкий"
 
 #: templates/language_selector.html:6
 msgid "Russian"
-msgstr ""
+msgstr "Русский"
 
 #: templates/queue.html:77
 msgid "Agents"
@@ -124,7 +124,7 @@ msgstr "Звонков"
 
 #: templates/queue.html:85
 msgid "Last call at"
-msgstr ""
+msgstr "Последний звонок в"
 
 #: templates/queue.html:111
 msgid "Callers"
@@ -132,19 +132,19 @@ msgstr "Звонков"
 
 #: templates/queue.html:115
 msgid "Id Name"
-msgstr ""
+msgstr "Id Имени"
 
 #: templates/queue.html:116
 msgid "Id Number"
-msgstr ""
+msgstr "Id Номера"
 
 #: templates/queue.html:117
 msgid "Position"
-msgstr ""
+msgstr "Позиция"
 
 #: templates/queue.html:118
 msgid "Wait"
-msgstr ""
+msgstr "Ожидание"
 
 #: templates/queue.html:194
 msgid "paused"
@@ -160,11 +160,11 @@ msgstr "Непринятых звонков операторами"
 
 #: templates/row_general_data.html:22
 msgid "SL"
-msgstr ""
+msgstr "SL"
 
 #: templates/row_general_data.html:25
 msgid "Service Level."
-msgstr ""
+msgstr "Уровень обслуживания."
 
 #: templates/row_general_data.html:33
 msgid "Call on line."
