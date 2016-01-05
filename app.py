@@ -362,7 +362,6 @@ def queue_json(name = None):
 @app.route('/queues')
 @flask_login.login_required
 def queues():
-    app.logger.debug(count_element_sections_config('users', cfg))
     data = get_data_queues()
     return jsonify(
         data = data
