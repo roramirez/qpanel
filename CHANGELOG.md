@@ -1,5 +1,11 @@
 ## Change Log
 
+### 0.6.0 (2016-01-05)
+- [6333e75](https://github.com/roramirez/qpanel/commit/6333e753de3b1c008fee32c39e9d6bd21166da3c) Add pt_BR translations
+- [6262ccc](https://github.com/roramirez/qpanel/commit/6262ccc490f60c7fffceb75bb75e5cdcb875430a) Fix a bug in value NaN by division by 0 for Service Level
+- [f830a5b](https://github.com/roramirez/qpanel/commit/f830a5bb3225fa345f54f3ec6f49f263529392b9) Improve prevent if set to 0 interval many requests
+- [ce63c33](https://github.com/roramirez/qpanel/commit/ce63c33e84281fd758ec7fc516b6ff87661e75c8) Add feature login auth Issue [\#34](https://github.com/roramirez/qpanel/issues/34)
+
 
 ### 0.5.0 (2015-11-30)
 - [47f4c10](https://github.com/roramirez/qpanel/commit/47f4c10e38dd40d41eeea5e810725879c4e31f09) Add feature show Service Level.  Issue [\#5](https://github.com/roramirez/qpanel/issues/5)
