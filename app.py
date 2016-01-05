@@ -1,6 +1,6 @@
 # coding=utf8
 
-# Copyright (C) 2015 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+# Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
 
