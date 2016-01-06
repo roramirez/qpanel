@@ -188,7 +188,7 @@
                 $("[id='data-"+ d + "'] #queue_completed").html(parseInt(data[d].Completed));
                 $("[id='data-"+ d + "'] #queue_abandoned").html(parseInt(data[d].Abandoned));
                 $("[id='data-"+ d + "'] #queue_incoming").html(parseInt(data[d].Calls));
-                $("[id='data-"+ d + "'] #queue_users").html( len(data[d].members));
+                $("[id='data-"+ d + "'] #queue_users").html(len(data[d].members));
                 $(".header-"+ d + " #strategy").html(data[d].Strategy);
 
                 {% if show_service_level() %}
