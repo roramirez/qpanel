@@ -165,11 +165,13 @@
           dataGraph[name] = [
             {
               value: parseInt(data_queue.Abandoned),
-              color:"#FF6B6B"
+              color: "#FF6B6B",
+              label: "{{_('Abandoned')}}"
             },
             {
               value: parseInt(data_queue.Completed),
-              color : "#fdfdfd"
+              color: "#fdfdfd",
+              label: "{{_('Answered')}}"
             }
           ];
           graph[name] = new Chart(document.getElementById("graph_"+name).getContext("2d")).Doughnut(dataGraph[name], optionsNoAnimation);
