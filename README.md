@@ -2,7 +2,6 @@
 
 Qpanel is dashboard for Queues in Asterisk
 
-![Demo](samples/animation.gif)
 
 ## Overview
 
