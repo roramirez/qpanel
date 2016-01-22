@@ -20,6 +20,10 @@ Qpanel is a panel for queues on Asterisk, powerful and simple monitor in realtim
 * Opensource by MIT licence.
 
 
+Also you can use a [API of Qpanel](doc/api.md) for data query related to queues
+
+
+
 ## Requirement
  * Python 2.6+
  * [Flask](http://flask.pocoo.org/) 0.10+
