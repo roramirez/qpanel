@@ -17,8 +17,18 @@ def unified_configs(file_config, file_template, sections = []):
     template.readfp(f2)
     f2.close()
 
+    # create new file based in template
     for s in sections:
         items =  dict(template.items(s))
+        for i in items:
+            try:
+                template.set(s, i,  config.get(s, i))
+            except:
+                pass
+
+    # set old configs
+    for s in config.sections():
+        items = dict(config.items(s))
         for i in items:
             try:
                 template.set(s, i,  config.get(s, i))
