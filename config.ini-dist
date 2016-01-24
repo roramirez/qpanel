@@ -25,3 +25,9 @@ show_service_level = False ; Show information of service level of a queue
 ; add user and password
 ; example
 ; username = password
+
+;; Config for Freeswitch
+;[freeswitch]
+; host = 127.0.0.1
+; port = 8081
+; password ClueCon

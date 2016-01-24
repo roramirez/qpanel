@@ -44,3 +44,7 @@ def count_element_sections_config(section, cfg):
         return len(dict(cfg.items(section)))
     except:
         return 0
+
+# http://stackoverflow.com/a/6425628
+def underscore_to_camelcase(word):
+    return ''.join(x.capitalize() or '_' for x in word.split('_'))
