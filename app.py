@@ -25,7 +25,7 @@ import flask.ext.login as flask_login
 # py-asterisk
 sys.path.append(os.path.join(dirname,  'libs','py-asterisk'))
 from Asterisk.Manager import *
-from upgrader import *
+from libs.qpanel.upgrader import *
 from libs.qpanel.utils import *
 
 
