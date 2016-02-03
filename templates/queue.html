@@ -184,6 +184,8 @@
 
             if (data.members[agent].Paused == true) {
                 // reason pause introduced in https://goo.gl/Njm6H5
+                // if dont have feature in your Asterisk
+                // check directory patches
                 var reason = '';
                 if (data.members[agent].PausedReason){
                     reason = ": {reason}".format({'reason': data.members[agent].PausedReason});
