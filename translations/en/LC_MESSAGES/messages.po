@@ -186,3 +186,31 @@ msgstr ""
 msgid "Average time waiting for calls."
 msgstr ""
 
+#: templates/language_selector.html:7
+msgid "Portuguese"
+msgstr ""
+
+#: templates/login.html:32 templates/login.html:41
+msgid "Sign in"
+msgstr ""
+
+#: templates/login.html:34
+msgid "User id"
+msgstr ""
+
+#: templates/login.html:36
+msgid "Password"
+msgstr ""
+
+#: templates/logout_button.html:2
+msgid "Logout"
+msgstr ""
+
+#: templates/queue.html:196
+msgid "was"
+msgstr ""
+
+#: templates/queue.html:196
+msgid "ago"
+msgstr ""
+

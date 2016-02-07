@@ -190,3 +190,32 @@ msgstr "P.Espera"
 msgid "Average time waiting for calls."
 msgstr "Promedio de espera para llamadas"
 
+#: templates/language_selector.html:7
+msgid "Portuguese"
+msgstr ""
+
+#: templates/login.html:32 templates/login.html:41
+msgid "Sign in"
+msgstr ""
+
+#: templates/login.html:34
+#, fuzzy
+msgid "User id"
+msgstr "Pausado"
+
+#: templates/login.html:36
+msgid "Password"
+msgstr ""
+
+#: templates/logout_button.html:2
+msgid "Logout"
+msgstr ""
+
+#: templates/queue.html:196
+msgid "was"
+msgstr ""
+
+#: templates/queue.html:196
+msgid "ago"
+msgstr ""
+

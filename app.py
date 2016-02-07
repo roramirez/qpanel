@@ -25,8 +25,8 @@ import flask.ext.login as flask_login
 # py-asterisk
 sys.path.append(os.path.join(dirname,  'libs','py-asterisk'))
 from Asterisk.Manager import *
-from upgrader import *
-from libs.qpanel import utils
+from libs.qpanel.upgrader import *
+from libs.qpanel.utils import *
 
 
 
@@ -158,6 +158,14 @@ def parser_data_queue(data):
                 if int(data[q]['members'][m]['LastCall']) > 0:
                     second_ago = current_timestamp - int(data[q]['members'][m]['LastCall'])
             data[q]['members'][m]['LastCallAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+
+            # Time last pause
+            second_ago = 0
+            if 'LastPause' in data[q]['members'][m]:
+                if int(data[q]['members'][m]['LastPause']) > 0:
+                    second_ago = current_timestamp - int(data[q]['members'][m]['LastPause'])
+            data[q]['members'][m]['LastPauseAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+
 
         #REFACTORME
         for c in data[q]['entries']:
