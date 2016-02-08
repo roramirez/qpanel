@@ -30,4 +30,4 @@ show_service_level = False ; Show information of service level of a queue
 ;[freeswitch]
 ; host = 127.0.0.1
 ; port = 8081
-; password ClueCon
+; password = ClueCon
