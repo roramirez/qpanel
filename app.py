@@ -149,13 +149,14 @@ def parser_data_queue(data):
             tmp = data[q]['entries'][str(e)]['Channel']
             data[q]['entries'][str(e)]['Channel']  = str(tmp)
         for m in data[q]['members']:
+            member =  data[q]['members'][m]
             #Asterisk 1.8 dont have StateInterface
-            if 'StateInterface' not in data[q]['members'][m]:
-                data[q]['members'][m]['StateInterface'] = m
+            if 'StateInterface' not in member:
+                member['StateInterface'] = m
 
-            data[q]['members'][m]['LastCallAgo'] = format_timedelta(timedelta_from_field_dict('LastCall', data[q]['members'][m]) , granularity='second')
+            member['LastCallAgo'] = format_timedelta(timedelta_from_field_dict('LastCall', member) , granularity='second')
             # Time last pause
-            data[q]['members'][m]['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', data[q]['members'][m]) , granularity='second')
+            member['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', member) , granularity='second')
 
         for c in data[q]['entries']:
             data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c]) , granularity='second')
