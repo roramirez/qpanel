@@ -191,8 +191,8 @@
                     reason = ": {reason}".format({'reason': data.members[agent].PausedReason});
                 }
                 var last_pause_time = '';
-                if (data.members[agent].LastPauseAgo){
-                    reason = " {{_('was')}} {last_pause} {{_('ago')}}".format({'last_pause': data.members[agent].LastPauseAgo});
+                if (parseInt(data.members[agent].LastPauseAgo.split(" ")[0]) > 0){
+                    last_pause_time = " {{_('was')}} {last_pause} {{_('ago')}}".format({'last_pause': data.members[agent].LastPauseAgo});
                 }
 
                 $('#agent-' + agent_id_div + ' #status .pause').remove();
