@@ -153,28 +153,12 @@ def parser_data_queue(data):
             if 'StateInterface' not in data[q]['members'][m]:
                 data[q]['members'][m]['StateInterface'] = m
 
-            second_ago = 0
-            if 'LastCall' in data[q]['members'][m]:
-                if int(data[q]['members'][m]['LastCall']) > 0:
-                    second_ago = current_timestamp - int(data[q]['members'][m]['LastCall'])
-            data[q]['members'][m]['LastCallAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
-
+            data[q]['members'][m]['LastCallAgo'] = format_timedelta(timedelta_from_field_dict('LastCall', data[q]['members'][m]) , granularity='second')
             # Time last pause
-            second_ago = 0
-            if 'LastPause' in data[q]['members'][m]:
-                if int(data[q]['members'][m]['LastPause']) > 0:
-                    second_ago = current_timestamp - int(data[q]['members'][m]['LastPause'])
-            data[q]['members'][m]['LastPauseAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+            data[q]['members'][m]['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', data[q]['members'][m]) , granularity='second')
 
-
-        #REFACTORME
         for c in data[q]['entries']:
-            second_ago = 0
-            if 'Wait' in data[q]['entries'][c]:
-                if int(data[q]['entries'][c]['Wait']) > 0:
-                    second_ago = int(data[q]['entries'][c]['Wait'])
-            data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
-
+            data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c]) , granularity='second')
 
 
     return data
