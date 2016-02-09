@@ -35,7 +35,6 @@ class Freeswitch:
         self.password = password or defaultESLpassword
         self.connection = ESL.ESLconnection(self.host, self.port, self.password)
 
-
     def getQueues(self):
         cmd = self.command('callcenter_config queue list')
         cmd = self._parserBodyCommand(cmd)
@@ -53,7 +52,7 @@ class Freeswitch:
         return queues
 
     def command(self, command):
-        if not self.connection.connected():
+        if not self.isConnected():
             raise NotConnected
 
         e = self.connection.api(command)
@@ -78,3 +77,6 @@ class Freeswitch:
             output[line[0]] = tmp_dict
 
         return output
+
+    def isConnected(self):
+        return self.connection.connected()
