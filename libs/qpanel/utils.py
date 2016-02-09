@@ -48,3 +48,8 @@ def count_element_sections_config(section, cfg):
 # http://stackoverflow.com/a/6425628
 def underscore_to_camelcase(word):
     return ''.join(x.capitalize() or '_' for x in word.split('_'))
+
+def clean_str_to_div_id(value):
+    v = value.replace('/', '-')
+    v = value.replace('.', '-')
+    return v.replace('@', '_')
