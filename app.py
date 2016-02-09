@@ -140,7 +140,6 @@ def rename_queue(data):
 def parser_data_queue(data):
     data = hide_queue(data)
     data = rename_queue(data)
-    current_timestamp = int(time.time())
     # convert references manager to string
     for q in data:
         for e in data[q]['entries']:
