@@ -66,6 +66,6 @@ function div_agent(text) {
 
 function clean_div_name(text) {
     return text.multiReplace({'/': '-',
-                              '.': '.',
+                              '\\.': '_',
                               '@': '_'});
 }
