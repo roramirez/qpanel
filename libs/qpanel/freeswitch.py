@@ -45,10 +45,23 @@ class Freeswitch:
         cmd = self._parserBodyCommand(cmd)
         return cmd
 
+    def getCalls(self, queue_name):
+        output = {}
+        cmd = self.command('show channels')
+        cmd = self._parserBodyCommand(cmd, ',')
+        for channel in cmd:
+            if cmd[channel]['Application'] == 'callcenter':
+                if  cmd[channel]['ApplicationData'] == queue_name:
+                    output[channel] = cmd[channel]
+
+        return output
+
     def queueStatus(self):
         queues = self.getQueues()
         for queue in queues:
             queues[queue]['members'] = self.getAgents(queue)
+            queues[queue]['entries'] = self.getCalls(queue)
+            queues[queue]['Calls'] = len(queues[queue]['entries'])
         return queues
 
     def command(self, command):
@@ -59,16 +72,18 @@ class Freeswitch:
         if e:
             return e.getBody()
 
-    def _parserBodyCommand(self, body):
+    def _parserBodyCommand(self, body, delimiter = '|'):
         output = {}
 
         if body:
             tmp = body.splitlines()
         if len(tmp) > 0:
-            header = tmp[0].split('|')
+            header = tmp[0].split(delimiter)
 
         for l in tmp[1:-1]:
-            line = l.split('|')
+            line = l.split(delimiter)
+            if len(line) < len(header):
+                continue
             i = 0
             tmp_dict = {}
             for e in line:
