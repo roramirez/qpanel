@@ -54,7 +54,7 @@ def __connect_manager():
         manager = Manager((host, port), user, password)
         return manager
     except:
-        app.logger.info('Error to connect to Asterisk Manager. Check config.ini and manager.conf of asterisk')
+        app.logger.info('Error to connect to AMI. Check config.ini and manager.conf of Asterisk')
 
 
 def is_debug():
@@ -101,7 +101,7 @@ def __get_data_queues_manager():
     try:
         data = manager.QueueStatus()
     except:
-        app.logger.info('Error to connect to Asterisk Manager. Check config.ini and manager.conf of asterisk')
+        app.logger.info('Error to connect to AMI. Check config.ini and manager.conf of Asterisk')
         data = []
     return data
 
