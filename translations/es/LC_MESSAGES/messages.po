@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:  0.6.0\n"
+"Project-Id-Version:  0.7.0\n"
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
-"PO-Revision-Date: 2016-02-10 10:44-0400\n"
+"PO-Revision-Date: 2016-02-12 10:44-0400\n"
 "Last-Translator: Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>\n"
 "Language: es\n"
 "Language-Team: es <a@rodrigoramirez.com>\n"
@@ -192,30 +192,30 @@ msgstr "Promedio de espera para llamadas"
 
 #: templates/language_selector.html:7
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugués"
 
 #: templates/login.html:32 templates/login.html:41
 msgid "Sign in"
-msgstr ""
+msgstr "Ingresar"
 
 #: templates/login.html:34
 #, fuzzy
 msgid "User id"
-msgstr "Pausado"
+msgstr "ID usuario"
 
 #: templates/login.html:36
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #: templates/logout_button.html:2
 msgid "Logout"
-msgstr ""
+msgstr "Salir"
 
 #: templates/queue.html:196
 msgid "was"
-msgstr ""
+msgstr "hace"
 
 #: templates/queue.html:196
 msgid "ago"
-msgstr ""
+msgstr "atrás"
 
