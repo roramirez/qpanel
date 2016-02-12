@@ -60,7 +60,7 @@
 
 
           <section class="wrapper">
-              <h3><i class="fa fa-angle-right"></i> {{name}} </h3>
+              <h3><i class="fa fa-angle-right"></i> {{name}} - <span id="strategy"</span></h3>
 
               <div class="row">
                   <div class="col-lg-12 main-chart">
@@ -82,7 +82,7 @@
                                   <th><i class="fa fa-user"></i> {{_('Name')}}</th>
                                   <th><i class="fa fa-plug"></i> {{_('Interface')}}</th>
                                   <th><i class=" fa fa-question-circle "></i> {{_('Status')}}</th>
-                                  <th><i class="fa fa-bookmark"></i> {{_('Calls')}}</th>
+                                  <th><i class="fa fa-bookmark"></i> <span data-toggle="tooltip" data-placement="left" title="{{_('Attend calls')}}"></i> {{_('Calls')}}</span></th>
                                   <th><i class="fa fa-clock-o"></i> {{_('Last call at')}}</th>
                               </tr>
                               </thead>
@@ -184,14 +184,20 @@
 
             if (data.members[agent].Paused == true) {
                 // reason pause introduced in https://goo.gl/Njm6H5
+                // if dont have feature in your Asterisk
+                // check directory patches
                 var reason = '';
                 if (data.members[agent].PausedReason){
                     reason = ": {reason}".format({'reason': data.members[agent].PausedReason});
                 }
+                var last_pause_time = '';
+                if (parseInt(data.members[agent].LastPauseAgo.split(" ")[0]) > 0){
+                    last_pause_time = " {{_('was')}} {last_pause} {{_('ago')}}".format({'last_pause': data.members[agent].LastPauseAgo});
+                }
 
                 $('#agent-' + agent_id_div + ' #status .pause').remove();
                 $('#agent-'+ agent_id_div +' #status .state')
-                   .after(' <span class="label label-success label-mini pause">{{_('paused')}}'+ reason +'</span>');
+                   .after(' <span class="label label-success label-mini pause">{{_('paused')}}'+ reason + last_pause_time + '</span>');
             } else {
                 $('#agent-' + agent_id_div + ' #status .pause').remove();
             }
@@ -258,6 +264,8 @@
               $("[id='agent-"+ uid +"']").remove();
             }
           });
+
+          $('#strategy').html(data.Strategy);
         }
 
         function getDataQueue() {

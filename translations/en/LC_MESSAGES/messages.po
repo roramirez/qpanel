@@ -4,7 +4,7 @@
 # Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version:  0.6.0\n"
+"Project-Id-Version:  0.7.0\n"
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
 "PO-Revision-Date: 2015-10-26 07:50-0400\n"
@@ -184,5 +184,33 @@ msgstr ""
 
 #: templates/row_general_data.html:47
 msgid "Average time waiting for calls."
+msgstr ""
+
+#: templates/language_selector.html:7
+msgid "Portuguese"
+msgstr ""
+
+#: templates/login.html:32 templates/login.html:41
+msgid "Sign in"
+msgstr ""
+
+#: templates/login.html:34
+msgid "User id"
+msgstr ""
+
+#: templates/login.html:36
+msgid "Password"
+msgstr ""
+
+#: templates/logout_button.html:2
+msgid "Logout"
+msgstr ""
+
+#: templates/queue.html:196
+msgid "was"
+msgstr ""
+
+#: templates/queue.html:196
+msgid "ago"
 msgstr ""
 

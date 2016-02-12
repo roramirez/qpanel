@@ -1,5 +1,20 @@
 ## Change Log
 
+###0.7.0 (2016-02-12)
+- [aafe5c1](https://github.com/roramirez/qpanel/commit/aafe5c1286d58ec15377fe0de35d0e8dc8f07384) Improved message error to connect Asterisk Manager API.
+- [b55940e](https://github.com/roramirez/qpanel/commit/b55940e0d4b795be73b71e032af5290c2cb0268e) Add Port patches Asterisk 13.7.X for app_queue.
+- [585adcf](https://github.com/roramirez/qpanel/commit/585adcf86f0808a613f782a16fd4d8c70d927c76) Add pause time of a pause of agent.
+- [f514279](https://github.com/roramirez/qpanel/commit/f5142794259d51e2a8a0b0a6a7b1e851aa0daa27) Add a code of conduct.
+- [cb942b3](https://github.com/roramirez/qpanel/commit/cb942b3322ce6d0431ab663131afb54f5719330d) Create patches directory add partches for Asterisk.
+- [f8cc1ff](https://github.com/roramirez/qpanel/commit/f8cc1ffccc9b6e088aa191368b9a441585c2a846) Create package libs.qpanel.
+- [9a55ce4](https://github.com/roramirez/qpanel/commit/9a55ce40a03d412751f9a821b14be39b880696df) Add information about queue strategy.
+- [0c3a2fd](https://github.com/roramirez/qpanel/commit/0c3a2fda8e9cb78d4ff5064ef8e015e3133023b3) Update chart.js.
+- [2f820df](https://github.com/roramirez/qpanel/commit/2f820df49ab98e0df53d37b83d0406d436e6ea55) add API documentation.
+- [93c2f39](https://github.com/roramirez/qpanel/commit/93c2f39e2d02c1f2b54ff34c5100b22e37d7276c) add tooltips [\#23](https://github.com/roramirez/qpanel/issues/23)
+
+### 0.6.1 (2016-01-23)
+- [d2fa842](https://github.com/roramirez/qpanel/commit/d2fa842e36cec7b2f6fb12d27b3c9a667bde082a) Fix a bug for preserver old values in update_config
+
 ### 0.6.0 (2016-01-05)
 - [6333e75](https://github.com/roramirez/qpanel/commit/6333e753de3b1c008fee32c39e9d6bd21166da3c) Add pt_BR translations
 - [6262ccc](https://github.com/roramirez/qpanel/commit/6262ccc490f60c7fffceb75bb75e5cdcb875430a) Fix a bug in value NaN by division by 0 for Service Level

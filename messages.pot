@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
-"PO-Revision-Date: 2015-11-22 15:44-0400\n"
+"PO-Revision-Date: 2016-02-04 14:22-0400\n"
 "Last-Translator: Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>\n"
 "Language: es\n"
 "Language-Team: LANGUAGE <a@rodrigoramirez.com>\n"
@@ -183,5 +183,33 @@ msgstr ""
 
 #: templates/row_general_data.html:47
 msgid "Average time waiting for calls."
+msgstr ""
+
+#: templates/language_selector.html:7
+msgid "Portuguese"
+msgstr ""
+
+#: templates/login.html:32 templates/login.html:41
+msgid "Sign in"
+msgstr ""
+
+#: templates/login.html:34
+msgid "User id"
+msgstr ""
+
+#: templates/login.html:36
+msgid "Password"
+msgstr ""
+
+#: templates/logout_button.html:2
+msgid "Logout"
+msgstr ""
+
+#: templates/queue.html:196
+msgid "was"
+msgstr ""
+
+#: templates/queue.html:196
+msgid "ago"
 msgstr ""
 

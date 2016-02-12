@@ -82,9 +82,9 @@
                             <div class="weather-2 pn photo-wrapper transparent-background">
                               <a href="{{url_for('.queue', name=queue)}}">
                                 <div class="weather-2-header">
-                                    <div class="row">
+                                    <div class="row header-{{ queue }}">
                                         <div class="panel-title centered">
-                                            <p>{{ queue }}</p>
+                                            <p>{{ queue }} - <span id="strategy"></span></p>
                                         </div>
                                     </div>
                                 </div><!-- /weather-2 header -->
@@ -165,11 +165,13 @@
           dataGraph[name] = [
             {
               value: parseInt(data_queue.Abandoned),
-              color:"#FF6B6B"
+              color: "#FF6B6B",
+              label: "{{_('Abandoned')}}"
             },
             {
               value: parseInt(data_queue.Completed),
-              color : "#fdfdfd"
+              color: "#fdfdfd",
+              label: "{{_('Answered')}}"
             }
           ];
           graph[name] = new Chart(document.getElementById("graph_"+name).getContext("2d")).Doughnut(dataGraph[name], optionsNoAnimation);
@@ -188,7 +190,8 @@
                 $("[id='data-"+ d + "'] #queue_completed").html(parseInt(data[d].Completed));
                 $("[id='data-"+ d + "'] #queue_abandoned").html(parseInt(data[d].Abandoned));
                 $("[id='data-"+ d + "'] #queue_incoming").html(parseInt(data[d].Calls));
-                $("[id='data-"+ d + "'] #queue_users").html( len(data[d].members));
+                $("[id='data-"+ d + "'] #queue_users").html(len(data[d].members));
+                $(".header-"+ d + " #strategy").html(data[d].Strategy);
 
                 {% if show_service_level() %}
                 $("[id='data-"+ d + "'] #queue_servicelevel").html(data[d].ServicelevelPerf + '%');
