@@ -27,8 +27,13 @@ sys.path.append(os.path.join(dirname,  'libs','py-asterisk'))
 from Asterisk.Manager import *
 from libs.qpanel.upgrader import *
 from libs.qpanel.utils import *
+from libs.qpanel.freeswitch import *
 
-
+# Constant defines
+# IMPROVEME
+ASTERISK = 1
+FREESWITCH = 2
+BACKEND = ASTERISK
 
 class User(flask_login.UserMixin):
     pass
@@ -54,6 +59,20 @@ def __connect_manager():
         return manager
     except:
         app.logger.info('Error to connect to Asterisk Manager. Check config.ini and manager.conf of asterisk')
+
+
+def __connect_esl_freeswitch():
+    host = cfg.get('freeswitch', 'host')
+    port = int(cfg.get('freeswitch', 'port'))
+    password = cfg.get('freeswitch', 'password')
+    try:
+        esl = Freeswitch(host, port, password)
+        if esl.isConnected():
+            return esl
+        else:
+            raise NotConnected
+    except:
+        app.logger.info('Error to connect to ESL. Check config.ini and file config of FreeSWITCH')
 
 
 def is_debug():
@@ -104,9 +123,24 @@ def __get_data_queues_manager():
         data = []
     return data
 
+def __get_data_queues_freeswitch():
+    esl = __connect_esl_freeswitch()
+    try:
+        data = esl.queueStatus()
+    except:
+        data = []
+    return data
+
 
 def get_data_queues(queue = None):
-    data = parser_data_queue(__get_data_queues_manager())
+    global BACKEND
+
+    if BACKEND == ASTERISK:
+        data = parser_data_queue(__get_data_queues_manager())
+    elif BACKEND == FREESWITCH:
+        data = parser_data_queue_fs(__get_data_queues_freeswitch()) # FIXME: create layer to parser
+    else:
+        data = []
     if queue is not None:
         try:
             data = data[queue]
@@ -115,7 +149,6 @@ def get_data_queues(queue = None):
     if is_debug():
         app.logger.debug(data)
     return data
-
 
 def hide_queue(data):
     tmp_data = {}
@@ -179,6 +212,32 @@ def parser_data_queue(data):
 
     return data
 
+def parser_data_queue_fs(data):
+    data = hide_queue(data)
+    data = rename_queue(data)
+    current_timestamp = int(time.time())
+    for q in data:
+        for m in data[q]['members']:
+            second_ago = 0
+            if 'LastBridgeEnd' in data[q]['members'][m]:
+                if int(data[q]['members'][m]['LastBridgeEnd']) > 0:
+                    second_ago = current_timestamp - int(data[q]['members'][m]['LastBridgeEnd'])
+            data[q]['members'][m]['LastBridgeEndAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+
+            second_ago = 0
+            if 'LastStatusChange' in data[q]['members'][m]:
+                if int(data[q]['members'][m]['LastStatusChange']) > 0:
+                    second_ago = current_timestamp - int(data[q]['members'][m]['LastStatusChange'])
+            data[q]['members'][m]['LastStatusChangeAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+
+        for c in data[q]['entries']:
+            second_ago = 0
+            if 'CreatedEpoch' in data[q]['entries'][c]:
+                if int(data[q]['entries'][c]['CreatedEpoch']) > 0:
+                    second_ago = current_timestamp - int(data[q]['entries'][c]['CreatedEpoch'])
+            data[q]['entries'][c]['CreatedEpochAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+
+    return data
 
 def get_user_config_by_name(username):
     try:
@@ -190,6 +249,11 @@ def get_user_config_by_name(username):
         return None
 
 
+def set_backend():
+    global BACKEND
+    if __get_bool_value_config('general', 'freeswitch', False):
+        BACKEND = FREESWITCH
+
 # Flask env
 APPLICATION_ROOT = __get_entry_ini_default('general', 'base_url', '/')
 app = Flask(__name__)
@@ -200,7 +264,6 @@ app.secret_key = __get_entry_ini_default('general', 'secret_key', 'CHANGEME_ON_C
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
-
 
 def set_data_user(user_config):
     user = User()
@@ -260,6 +323,7 @@ def login():
 
 @app.before_first_request
 def setup_logging():
+    set_backend()
     # issue https://github.com/benoitc/gunicorn/issues/379
     if not app.debug:
         app.logger.addHandler(logging.StreamHandler())
@@ -344,6 +408,12 @@ def utility_processor():
         return utils.clean_str_to_div_id(value)
     return dict(clean_str_to_div_id=clean_str_to_div_id)
 
+@app.context_processor
+def utility_processor():
+    def is_freeswitch():
+        return __get_bool_value_config('general', 'freeswitch', False)
+    return dict(is_freeswitch=is_freeswitch)
+
 # ---------------------
 # ---- Routes ---------
 # ---------------------
@@ -351,16 +421,23 @@ def utility_processor():
 @app.route('/')
 @flask_login.login_required
 def home():
+    global BACKEND
     data = get_data_queues()
-    return render_template('index.html', queues = data)
-
+    template = 'index.html'
+    if BACKEND == FREESWITCH:
+        template = 'fs/index.html'
+    return render_template(template, queues = data)
 
 
 @app.route('/queue/<name>')
 @flask_login.login_required
 def queue(name = None):
+    global BACKEND
     data = get_data_queues(name)
-    return render_template('queue.html', data = data, name = name)
+    template = 'queue.html'
+    if BACKEND == FREESWITCH:
+        template = 'fs/queue.html'
+    return render_template(template, data = data, name = name)
 
 
 @app.route('/queue/<name>.json')
