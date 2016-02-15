@@ -1,12 +1,12 @@
 # Qpanel
 
-Qpanel is dashboard for Queues in Asterisk
+Qpanel is dashboard for Queues in Asterisk and FreeSWITCH
 
 ![Demo](samples/animation.gif)
 
 ## Overview
 
-Qpanel is a panel for queues on Asterisk, powerful and simple monitor in realtime:
+Qpanel is a panel for queues on Asterisk and FreeSWITCH, powerful and simple monitor in realtime:
 
 * General resume for calls. Abandoned, Incoming, Answer time and Waiting time.
 * Show information on detail by queue.
@@ -28,7 +28,10 @@ Also you can use a [API of Qpanel](doc/api.md) for data query related to queues
 ## Requirement
  * Python 2.6+
  * [Flask](http://flask.pocoo.org/) 0.10+
- * [Asterisk](http://www.asterisk.org) 1.4+ and enabled manager.
+ * [Asterisk](http://www.asterisk.org) 1.4+ and enabled manager or [FreeSWITCH](http://www.freeswitch.org) and connection permission to Event Socket Library.
+
+
+### Asterisk
     On /etc/asterisk/manager.conf do you set command permission for read and write, example:
 
     ```
@@ -39,6 +42,29 @@ Also you can use a [API of Qpanel](doc/api.md) for data query related to queues
     ```
 Some features maybe not included in your Asterisk version. In the [patch
 directory](patches) you can find the patchs for add more powerfull to the QPanel.
+
+
+### Freeswitch
+
+The feature realtime counter for answered and abandoned calls in a  queues if not included in your FreeSWITCH version. In the [patch
+directory](patches/freeswitch) you can find the patch
+
+
+You can configure a freeswitch section for your config.ini file like
+
+    ```
+    [freeswitch]
+    host = 127.0.0.1
+    port = 8021
+    password = ClueCon
+
+    ```
+
+In general section set config
+
+    ```
+    freeswitch = True ; Use FreeSWITCH as backend. Use mod_callcenter
+    ```
 
  If you used a CentOS 5.X or Elastix check [how to install Python 2.6 and Flask](doc/README.Centos5.md)
 
