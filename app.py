@@ -203,24 +203,12 @@ def parser_data_queue_fs(data):
     current_timestamp = int(time.time())
     for q in data:
         for m in data[q]['members']:
-            second_ago = 0
-            if 'LastBridgeEnd' in data[q]['members'][m]:
-                if int(data[q]['members'][m]['LastBridgeEnd']) > 0:
-                    second_ago = current_timestamp - int(data[q]['members'][m]['LastBridgeEnd'])
-            data[q]['members'][m]['LastBridgeEndAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
-
-            second_ago = 0
-            if 'LastStatusChange' in data[q]['members'][m]:
-                if int(data[q]['members'][m]['LastStatusChange']) > 0:
-                    second_ago = current_timestamp - int(data[q]['members'][m]['LastStatusChange'])
-            data[q]['members'][m]['LastStatusChangeAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+            member =  data[q]['members'][m]
+            member['LastBridgeEndAgo'] = format_timedelta(timedelta_from_field_dict('LastBridgeEnd', member) , granularity='second')
+            member['LastStatusChangeAgo'] = format_timedelta(timedelta_from_field_dict('LastStatusChange', member) , granularity='second')
 
         for c in data[q]['entries']:
-            second_ago = 0
-            if 'CreatedEpoch' in data[q]['entries'][c]:
-                if int(data[q]['entries'][c]['CreatedEpoch']) > 0:
-                    second_ago = current_timestamp - int(data[q]['entries'][c]['CreatedEpoch'])
-            data[q]['entries'][c]['CreatedEpochAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+            data[q]['entries'][c]['CreatedEpochAgo'] = format_timedelta(timedelta_from_field_dict('CreatedEpoch', data[q]['entries'][c]) , granularity='second')
 
     return data
 
