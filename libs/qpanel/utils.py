@@ -41,11 +41,6 @@ def unified_configs(file_config, file_template, sections = []):
     template.write(file)
     file.close()
 
-def count_element_sections_config(section, cfg):
-    try:
-        return len(dict(cfg.items(section)))
-    except:
-        return 0
 
 def timedelta_from_field_dict(field, dic, current_timestamp = time.time()):
     second_ago = 0
