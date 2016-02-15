@@ -222,7 +222,7 @@
                     var status_agent = parseInt(data[d].members[agent].Status);
                     if (C.status_agent.NOT_INUSE == status_agent) {
                         agent_free++;
-                    }else if (unavailable.indexOf(status_agent) > -1) {
+                    } else if (unavailable.indexOf(status_agent) > -1) {
                         agent_unavailable++;
                     } else {
                         agent_busy++;
