@@ -41,11 +41,6 @@ def unified_configs(file_config, file_template, sections = []):
     template.write(file)
     file.close()
 
-def count_element_sections_config(section, cfg):
-    try:
-        return len(dict(cfg.items(section)))
-    except:
-        return 0
 
 # http://stackoverflow.com/a/6425628
 def underscore_to_camelcase(word):
