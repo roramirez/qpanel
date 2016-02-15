@@ -1,10 +1,10 @@
 # German translations for QPanel.
-# Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena
+# Copyright (C) 2015 Rodrigo Ramírez Norambuena
 # This file is distributed under the same license as the QPanel project.
 # Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version:  0.6.0\n"
+"Project-Id-Version:  0.5.0\n"
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
 "PO-Revision-Date: 2015-10-26 07:27-0400\n"
@@ -188,30 +188,29 @@ msgstr "Durch. Zeit für wartente Anrufe."
 
 #: templates/language_selector.html:7
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugiesisch"
 
 #: templates/login.html:32 templates/login.html:41
 msgid "Sign in"
-msgstr ""
+msgstr "Einloggen"
 
 #: templates/login.html:34
 #, fuzzy
 msgid "User id"
-msgstr "pausiert"
+msgstr "Pausiert"
 
 #: templates/login.html:36
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 #: templates/logout_button.html:2
 msgid "Logout"
-msgstr ""
+msgstr "Ausloggen"
 
 #: templates/queue.html:196
 msgid "was"
-msgstr ""
+msgstr "seit"
 
-#: templates/queue.html:196
+#: templates/queue.html:196 (nonsense for German translate)
 msgid "ago"
-msgstr ""
-
+msgstr " " 

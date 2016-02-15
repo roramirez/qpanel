@@ -1,5 +1,6 @@
-# coding=utf8
+# -*- coding: utf-8 -*-
 
+#
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
@@ -58,7 +59,7 @@ def __connect_manager():
         manager = Manager((host, port), user, password)
         return manager
     except:
-        app.logger.info('Error to connect to Asterisk Manager. Check config.ini and manager.conf of asterisk')
+        app.logger.info('Error to connect to AMI. Check config.ini and manager.conf of Asterisk')
 
 
 def __connect_esl_freeswitch():
@@ -119,7 +120,7 @@ def __get_data_queues_manager():
     try:
         data = manager.QueueStatus()
     except:
-        app.logger.info('Error to connect to Asterisk Manager. Check config.ini and manager.conf of asterisk')
+        app.logger.info('Error to connect to AMI. Check config.ini and manager.conf of Asterisk')
         data = []
     return data
 
@@ -173,7 +174,6 @@ def rename_queue(data):
 def parser_data_queue(data):
     data = hide_queue(data)
     data = rename_queue(data)
-    current_timestamp = int(time.time())
     # convert references manager to string
     for q in data:
         for e in data[q]['entries']:
@@ -182,32 +182,17 @@ def parser_data_queue(data):
             tmp = data[q]['entries'][str(e)]['Channel']
             data[q]['entries'][str(e)]['Channel']  = str(tmp)
         for m in data[q]['members']:
+            member =  data[q]['members'][m]
             #Asterisk 1.8 dont have StateInterface
-            if 'StateInterface' not in data[q]['members'][m]:
-                data[q]['members'][m]['StateInterface'] = m
+            if 'StateInterface' not in member:
+                member['StateInterface'] = m
 
-            second_ago = 0
-            if 'LastCall' in data[q]['members'][m]:
-                if int(data[q]['members'][m]['LastCall']) > 0:
-                    second_ago = current_timestamp - int(data[q]['members'][m]['LastCall'])
-            data[q]['members'][m]['LastCallAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
-
+            member['LastCallAgo'] = format_timedelta(timedelta_from_field_dict('LastCall', member) , granularity='second')
             # Time last pause
-            second_ago = 0
-            if 'LastPause' in data[q]['members'][m]:
-                if int(data[q]['members'][m]['LastPause']) > 0:
-                    second_ago = current_timestamp - int(data[q]['members'][m]['LastPause'])
-            data[q]['members'][m]['LastPauseAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
+            member['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', member) , granularity='second')
 
-
-        #REFACTORME
         for c in data[q]['entries']:
-            second_ago = 0
-            if 'Wait' in data[q]['entries'][c]:
-                if int(data[q]['entries'][c]['Wait']) > 0:
-                    second_ago = int(data[q]['entries'][c]['Wait'])
-            data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
-
+            data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c]) , granularity='second')
 
 
     return data

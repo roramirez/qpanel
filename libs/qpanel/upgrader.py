@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+
+#
+# Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+#
+
 from urllib2 import Request, urlopen
 from distutils.version import LooseVersion
 

@@ -5,6 +5,8 @@
 #
 
 import ConfigParser
+from datetime import timedelta
+import time
 
 def unified_configs(file_config, file_template, sections = []):
     f = open(file_config, 'r')
@@ -53,3 +55,10 @@ def clean_str_to_div_id(value):
     v = value.replace('/', '-')
     v = value.replace('.', '_')
     return v.replace('@', '_')
+
+def timedelta_from_field_dict(field, dic, current_timestamp = time.time()):
+    second_ago = 0
+    if field in dic:
+        if int(dic[field]) > 0:
+            second_ago = int(current_timestamp) - int(dic[field])
+    return timedelta(seconds=second_ago)

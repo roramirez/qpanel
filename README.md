@@ -11,6 +11,7 @@ Qpanel is a panel for queues on Asterisk, powerful and simple monitor in realtim
 * General resume for calls. Abandoned, Incoming, Answer time and Waiting time.
 * Show information on detail by queue.
 * Show agents status if these are free, busy or unavailable.
+* Pause reason and time to agents
 * Percent of abandoned calls.
 * Allows rename the queue name or hide in case if required not show a determined queue.
 * Show callers by queue with the priority and wait time.
@@ -36,6 +37,8 @@ Also you can use a [API of Qpanel](doc/api.md) for data query related to queues
     read = command
     write = command
     ```
+Some features maybe not included in your Asterisk version. In the [patch
+directory](patches) you can find the patchs for add more powerfull to the QPanel.
 
  If you used a CentOS 5.X or Elastix check [how to install Python 2.6 and Flask](doc/README.Centos5.md)
 
