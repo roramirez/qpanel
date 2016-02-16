@@ -11,16 +11,15 @@ from  utils import timedelta_from_field_dict
 import os
 import sys
 
-# get current names for directory and file
-dirname, filename = os.path.split(os.path.abspath(__file__))
-# py-asterisk
-sys.path.append(os.path.join(dirname,  os.pardir ,'py-asterisk'))
-from Asterisk.Manager import *
-
+from libs.qpanel.asterisk import *
 # In case use Asterisk dont crash with ESL not in system
 try:
     from libs.qpanel.freeswitch import *
 except:
+    pass
+
+
+class ConnectionErrorAMI(Exception):
     pass
 
 class Backend(object):
@@ -51,27 +50,20 @@ class Backend(object):
         return self._connect_ami()
 
     def _connect_ami(self):
-        try:
-            manager = Manager((self.host, self.port), self.user, self.password)
-            return manager
-        except:
-            print ('Error to connect to AMI. Check config.ini and manager.conf of Asterisk')
+        manager = AsteriskAMI(self.host, self.port, self.user, self.password)
+        return manager
 
     def _connect_esl(self):
-        try:
-            esl = Freeswitch(self.host, self.port, self.password)
-            if esl.isConnected():
-                return esl
-            else:
-                raise NotConnected
-        except:
-            print ('Error to connect to ESL. Check config.ini and file config of FreeSWITCH')
+        esl = Freeswitch(self.host, self.port, self.password)
+        return esl
 
     def _get_data_queue_from_backend(self):
         self.connection = self._connect()
-        if self.is_freeswitch():
+        try:
             return self.connection.queueStatus()
-        return self.connection.QueueStatus()
+        except Exception, e:
+            print str(e)
+            return {}
 
     def get_data_queues(self):
         data = self._get_data_queue_from_backend()
