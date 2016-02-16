@@ -16,83 +16,26 @@ from werkzeug.exceptions import abort
 # babel
 from flask.ext.babel import Babel, gettext, dates, format_timedelta
 from datetime import timedelta
-# get current names for directory and file
-dirname, filename = os.path.split(os.path.abspath(__file__))
 
 #flask-login
 import flask.ext.login as flask_login
 
-# py-asterisk
-sys.path.append(os.path.join(dirname,  'libs','py-asterisk'))
-from Asterisk.Manager import *
 from libs.qpanel.upgrader import *
-from libs.qpanel.utils import *
-from libs.qpanel.freeswitch import *
-from libs.qpanel.config import QPanelConfig
+import libs.qpanel.utils as uqpanel
 
-# Constant defines
-# IMPROVEME
-ASTERISK = 1
-FREESWITCH = 2
-BACKEND = ASTERISK
+from libs.qpanel.config import QPanelConfig
+from libs.qpanel.backend import Backend
+
 
 class User(flask_login.UserMixin):
     pass
 
 cfg = QPanelConfig()
-
-def __connect_manager():
-    host = cfg.get('manager', 'host')
-    port = int(cfg.get('manager', 'port'))
-    user = cfg.get('manager', 'user')
-    password = cfg.get('manager', 'password')
-    try:
-        manager = Manager((host, port), user, password)
-        return manager
-    except:
-        app.logger.info('Error to connect to AMI. Check config.ini and manager.conf of Asterisk')
-
-
-def __connect_esl_freeswitch():
-    host = cfg.get('freeswitch', 'host')
-    port = int(cfg.get('freeswitch', 'port'))
-    password = cfg.get('freeswitch', 'password')
-    try:
-        esl = Freeswitch(host, port, password)
-        if esl.isConnected():
-            return esl
-        else:
-            raise NotConnected
-    except:
-        app.logger.info('Error to connect to ESL. Check config.ini and file config of FreeSWITCH')
-
-def __get_data_queues_manager():
-    manager = __connect_manager()
-    try:
-        data = manager.QueueStatus()
-    except:
-        app.logger.info('Error to connect to AMI. Check config.ini and manager.conf of Asterisk')
-        data = []
-    return data
-
-def __get_data_queues_freeswitch():
-    esl = __connect_esl_freeswitch()
-    try:
-        data = esl.queueStatus()
-    except:
-        data = []
-    return data
+backend = Backend()
 
 
 def get_data_queues(queue = None):
-    global BACKEND
-
-    if BACKEND == ASTERISK:
-        data = parser_data_queue(__get_data_queues_manager())
-    elif BACKEND == FREESWITCH:
-        data = parser_data_queue_fs(__get_data_queues_freeswitch()) # FIXME: create layer to parser
-    else:
-        data = []
+    data = backend.get_data_queues()
     if queue is not None:
         try:
             data = data[queue]
@@ -100,67 +43,6 @@ def get_data_queues(queue = None):
             abort(404)
     if cfg.is_debug:
         app.logger.debug(data)
-    return data
-
-def hide_queue(data):
-    tmp_data = {}
-    hide = cfg.get_hide_config()
-    for q in data:
-        if q not in hide:
-            tmp_data[q] = data[q]
-    return tmp_data
-
-
-def rename_queue(data):
-    tmp_data = {}
-    for q in data:
-        rename = cfg.get_value_set_default('rename', q, None)
-        if rename is not None:
-            tmp_data[rename] = data[q]
-        else:
-            tmp_data[q] = data[q]
-    return tmp_data
-
-
-def parser_data_queue(data):
-    data = hide_queue(data)
-    data = rename_queue(data)
-    # convert references manager to string
-    for q in data:
-        for e in data[q]['entries']:
-            tmp = data[q]['entries'].pop(e)
-            data[q]['entries'][str(e)] = tmp
-            tmp = data[q]['entries'][str(e)]['Channel']
-            data[q]['entries'][str(e)]['Channel']  = str(tmp)
-        for m in data[q]['members']:
-            member =  data[q]['members'][m]
-            #Asterisk 1.8 dont have StateInterface
-            if 'StateInterface' not in member:
-                member['StateInterface'] = m
-
-            member['LastCallAgo'] = format_timedelta(timedelta_from_field_dict('LastCall', member) , granularity='second')
-            # Time last pause
-            member['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', member) , granularity='second')
-
-        for c in data[q]['entries']:
-            data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c]) , granularity='second')
-
-
-    return data
-
-def parser_data_queue_fs(data):
-    data = hide_queue(data)
-    data = rename_queue(data)
-    current_timestamp = int(time.time())
-    for q in data:
-        for m in data[q]['members']:
-            member =  data[q]['members'][m]
-            member['LastBridgeEndAgo'] = format_timedelta(timedelta_from_field_dict('LastBridgeEnd', member) , granularity='second')
-            member['LastStatusChangeAgo'] = format_timedelta(timedelta_from_field_dict('LastStatusChange', member) , granularity='second')
-
-        for c in data[q]['entries']:
-            data[q]['entries'][c]['CreatedEpochAgo'] = format_timedelta(timedelta_from_field_dict('CreatedEpoch', data[q]['entries'][c]) , granularity='second')
-
     return data
 
 def get_user_config_by_name(username):
@@ -171,12 +53,6 @@ def get_user_config_by_name(username):
         return user
     except:
         return None
-
-
-def set_backend():
-    global BACKEND
-    if __get_bool_value_config('general', 'freeswitch', False):
-        BACKEND = FREESWITCH
 
 # Flask env
 APPLICATION_ROOT = cfg.base_url
@@ -243,11 +119,8 @@ def login():
     return redirect(url_for('login'))
 
 
-
-
 @app.before_first_request
 def setup_logging():
-    set_backend()
     # issue https://github.com/benoitc/gunicorn/issues/379
     if not app.debug:
         app.logger.addHandler(logging.StreamHandler())
@@ -326,13 +199,13 @@ def utility_processor():
 @app.context_processor
 def utility_processor():
     def clean_str_to_div_id(value):
-        return utils.clean_str_to_div_id(value)
+        return uqpanel.clean_str_to_div_id(value)
     return dict(clean_str_to_div_id=clean_str_to_div_id)
 
 @app.context_processor
 def utility_processor():
     def is_freeswitch():
-        return __get_bool_value_config('general', 'freeswitch', False)
+        return backend.is_freeswitch()
     return dict(is_freeswitch=is_freeswitch)
 
 # ---------------------
@@ -342,10 +215,9 @@ def utility_processor():
 @app.route('/')
 @flask_login.login_required
 def home():
-    global BACKEND
     data = get_data_queues()
     template = 'index.html'
-    if BACKEND == FREESWITCH:
+    if backend.is_freeswitch():
         template = 'fs/index.html'
     return render_template(template, queues = data)
 
@@ -353,10 +225,9 @@ def home():
 @app.route('/queue/<name>')
 @flask_login.login_required
 def queue(name = None):
-    global BACKEND
     data = get_data_queues(name)
     template = 'queue.html'
-    if BACKEND == FREESWITCH:
+    if backend.is_freeswitch():
         template = 'fs/queue.html'
     return render_template(template, data = data, name = name)
 

@@ -93,3 +93,6 @@ class QPanelConfig:
         if self.count_element_sections_config('users', self.config) > 0:
             v = True
         return v
+
+    def is_freeswitch(self):
+        return self.__get_bool_value_config('general', 'freeswitch', False)
