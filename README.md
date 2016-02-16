@@ -32,14 +32,14 @@ Also you can use a [API of Qpanel](doc/api.md) for data query related to queues
 
 
 ### Asterisk
-    On /etc/asterisk/manager.conf do you set command permission for read and write, example:
+On /etc/asterisk/manager.conf do you set command permission for read and write, example:
 
-    ```
+```
     [qpanel]
     secret = mi_super_secret_password
     read = command
     write = command
-    ```
+```
 Some features maybe not included in your Asterisk version. In the [patch
 directory](patches) you can find the patchs for add more powerfull to the QPanel.
 
@@ -52,19 +52,18 @@ directory](patches/freeswitch) you can find the patch
 
 You can configure a freeswitch section for your config.ini file like
 
-    ```
+```
     [freeswitch]
     host = 127.0.0.1
     port = 8021
     password = ClueCon
-
-    ```
+```
 
 In general section set config
 
-    ```
+```
     freeswitch = True ; Use FreeSWITCH as backend. Use mod_callcenter
-    ```
+```
 
  If you used a CentOS 5.X or Elastix check [how to install Python 2.6 and Flask](doc/README.Centos5.md)
 
