@@ -404,7 +404,7 @@ if __name__ == '__main__':
 
 
     if APPLICATION_ROOT == '/':
-        app.run(host=host_bind(), port=port_bind(), extra_files=[cfg_file])
+        app.run(host=host_bind(), port=port_bind(), use_reloader=True, extra_files=[cfg_file])
     else:
         application = DispatcherMiddleware(Flask('dummy_app'), {
             app.config['APPLICATION_ROOT']: app,
