@@ -1,5 +1,9 @@
 ## Change Log
 
+### 0.7.1 (2016-02-17)
+- [9666392](https://github.com/roramirez/qpanel/commit/9666392c348457123b8daa8479d4b980156481da) Fix a bug not reload when used base_url /
+- [#40](https://github.com/roramirez/qpanel/pull/40) Update german Translations by @DoM1niC
+
 ###0.7.0 (2016-02-12)
 - [aafe5c1](https://github.com/roramirez/qpanel/commit/aafe5c1286d58ec15377fe0de35d0e8dc8f07384) Improved message error to connect Asterisk Manager API.
 - [b55940e](https://github.com/roramirez/qpanel/commit/b55940e0d4b795be73b71e032af5290c2cb0268e) Add Port patches Asterisk 13.7.X for app_queue.
