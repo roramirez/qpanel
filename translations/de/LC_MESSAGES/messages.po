@@ -1,13 +1,13 @@
 # German translations for QPanel.
-# Copyright (C) 2015 Rodrigo Ramírez Norambuena
+# Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena
 # This file is distributed under the same license as the QPanel project.
 # Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version:  0.5.0\n"
+"Project-Id-Version:  0.7.1\n"
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
-"PO-Revision-Date: 2015-10-26 07:27-0400\n"
+"PO-Revision-Date: 2016-02-14 07:27-0400\n"
 "Last-Translator: Dominic Schubert <info@atom-area.net>\n"
 "Language: de\n"
 "Language-Team: de Dominic Schubert <info@atom-area.net>>\n"
