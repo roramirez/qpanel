@@ -159,7 +159,7 @@ def parser_data_queue(data):
             member['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', member) , granularity='second')
 
         for c in data[q]['entries']:
-            data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c]) , granularity='second')
+            data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c], True) , granularity='second')
 
 
     return data

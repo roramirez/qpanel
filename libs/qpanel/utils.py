@@ -47,9 +47,13 @@ def count_element_sections_config(section, cfg):
     except:
         return 0
 
-def timedelta_from_field_dict(field, dic, current_timestamp = time.time()):
+def timedelta_from_field_dict(field, dic, current_timestamp=time.time(), is_seconds_ago=False):
     second_ago = 0
     if field in dic:
         if int(dic[field]) > 0:
-            second_ago = int(current_timestamp) - int(dic[field])
+            if is_seconds_ago:
+                seconds_ago = int(dic[field])
+            else:
+                second_ago = int(current_timestamp) - int(dic[field])
+
     return timedelta(seconds=second_ago)
