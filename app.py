@@ -295,7 +295,7 @@ if __name__ == '__main__':
         app.config['DEBUG'] = True
 
     if APPLICATION_ROOT == '/':
-        app.run(host=cfg.host_bind, port=cfg.port_bind, extra_files=[cfg.path_config_file])
+        app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=True, extra_files=[cfg.path_config_file])
     else:
         application = DispatcherMiddleware(Flask('dummy_app'), {
             app.config['APPLICATION_ROOT']: app,

@@ -51,9 +51,15 @@ def clean_str_to_div_id(value):
     v = value.replace('.', '_')
     return v.replace('@', '_')
 
-def timedelta_from_field_dict(field, dic, current_timestamp = time.time()):
+def timedelta_from_field_dict(field, dic, current_timestamp=None, is_seconds_ago=False):
     second_ago = 0
+    if not current_timestamp:
+        current_timestamp = time.time()
     if field in dic:
         if int(dic[field]) > 0:
-            second_ago = int(current_timestamp) - int(dic[field])
+            if is_seconds_ago:
+                seconds_ago = int(dic[field])
+            else:
+                second_ago = int(current_timestamp) - int(dic[field])
+
     return timedelta(seconds=second_ago)
