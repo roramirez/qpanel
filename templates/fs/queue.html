@@ -227,8 +227,7 @@
               }
             }
 
-            $("[id='caller-"+ c.Uuid + "'] #wait").html(c.WaitAgo);
-            $("[id='caller-"+ c.Uuid + "'] #position").html(c.Position);
+            $("[id='caller-"+ c.Uuid + "'] #wait").html(c.CreatedEpochAgo);
             uniques_ids.push(c.Uuid);
           }
           $.each($("[id^='caller-']"), function( index, value ) {
