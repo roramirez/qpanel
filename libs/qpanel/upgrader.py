@@ -45,8 +45,3 @@ def __first_line(content):
     if len(tmp) > 1:
         return tmp[0]
     return tmp
-
-# Test
-#print "stable version %s" %  get_stable_version()
-#print "current version %s" % get_current_version()
-#print "require upgrade? %s" % require_upgrade()
