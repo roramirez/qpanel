@@ -34,22 +34,7 @@
       <!--
           TOP BAR CONTENT & NOTIFICATIONS
         -->
-      <!--header start-->
-      <header class="header black-bg">
-            <!--logo start-->
-            <a href="{{url_for('.home')}}" class="logo"><img src="{{url_for('static', filename='img/logo_header.png')}}"></a>
-            <!--logo end-->
-            <div class="nav notify-row" id="top_menu">
-            </div>
-            <div class="top-menu">
-                <ul class="nav pull-right top-menu">
-                    {% include 'language_selector.html' %}
-                    {% include 'logout_button.html' %}
-                </ul>
-            </div>
-        </header>
-      <!--header end-->
-
+      {% include 'header.html' %}
       <!--sidebar start-->
       <aside>
       </aside>
