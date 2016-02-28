@@ -84,13 +84,14 @@
                                   <th><i class=" fa fa-question-circle "></i> {{_('Status')}}</th>
                                   <th><i class="fa fa-bookmark"></i> <span data-toggle="tooltip" data-placement="left" title="{{_('Attend calls')}}"></i> {{_('Calls')}}</span></th>
                                   <th><i class="fa fa-clock-o"></i> {{_('Last call at')}}</th>
+                                  <th><i class="fa fa-action-o"></i> {{_('Actions')}}</th>
                               </tr>
                               </thead>
                               <tbody>
                               {% for agent in data['members'] %}
                               <tr id="agent-{{format_id_agent(agent)}}">
                                   <td>{{ data['members'][agent]['Name'] }}</td>
-                                  <td class="hidden-phone">{{ data['members'][agent]['StateInterface'] }}</td>
+                                  <td id="hidden-phone">{{ data['members'][agent]['StateInterface'] }}</td>
                                   <td id="status">
                                     <span class="label label-info label-mini state">
                                         {{str_status_agent(data['members'][agent]['Status']) }}
@@ -98,6 +99,10 @@
                                     </td>
                                   <td id="calls">{{data['members'][agent]['CallsTaken'] }}</td>
                                   <td id="last_call">{{data['members'][agent]['LastCall'] }}</td>
+                                  <td id="actions" data-channel="{{ data['members'][agent]['StateInterface'] }}">
+                                    <a href="#" data-action="spy">{{_('Spy')}} </a> |
+                                    <a href="#" data-action="whisper">{{_('Whisper')}}</a>
+                                  </td
                               </tr>
                               {% endfor %}
                               </tbody>
@@ -134,6 +139,37 @@
 
           </section>
       </section>
+
+    <!-- Modal spy and whisper -->
+    <div id="spy_whisperk" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="swModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> 
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="col-lg-2">
+                    <h4><i class="fa fa-headphones fa-5x"></i> </h4>
+                </div>
+                <div class="col-lg-10">
+                    <br/>
+                    <p>{{ _('Insert where  you listen the call, example: <i>SIP/1001</i>')}}</p>
+                    <div class="input-group">
+                        <input id="to_exten" type="text" class="form-control" value="">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" id="execute-action" data-action="" data-channel=""  title="{{_('Listen ')}}"></button>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <label class="modal-message"></label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+         </div>
+    </div>
+    <!-- End Modal spy and whisper -->
 
       <!--main content end-->
       {% include 'footer.html' %}
@@ -287,6 +323,69 @@
             r.always(function () {
             });
         }
+
+
+        //handle show modal for Spy and Whisper
+        $('#actions* a').on('click', function() {
+            var action = $(this).data('action');
+            channel = $(this.closest('td')).data('channel');
+            $('#spy_whisperk #execute-action').data('channel', channel);
+            $('#spy_whisperk #execute-action').data('action', action);
+            $('#spy_whisperk #execute-action').html(action);
+            $('#spy_whisperk .modal-header h4').html('{{_('Execute a ')}}' + action);
+            $('#spy_whisperk').modal();
+        });
+        var r=null;
+        $('#execute-action').on('click', function() {
+            var to_exten = $('#spy_whisperk  #to_exten').val();
+            if (to_exten == "") {
+                $('.modal-message').html('{{_('Insert where do need listen')}}');
+                $('.modal-message').addClass('has-error')
+                return 0;
+            }
+
+            $('.modal-message').removeClass('has-error');
+            $('.modal-message').html('{{_('Try...')}}');
+
+            $('#execute-action').prop("disabled", true);
+
+            var channel = $(this).data('channel');
+            var action = $(this).data('action');
+
+            console.log("do a %s to channel %s", action, channel);
+
+            var url_action = ''
+            if (action == 'spy') {
+                url_action = '{{url_for('.spy')}}';
+            } else if (action == 'whisper') {
+                url_action = '{{url_for('.whisper')}}';
+            }
+            var r = $.ajax({
+                type: 'post',
+                url: url_action,
+                data: {channel: channel, to_exten: to_exten}
+            });
+            r.done(function (response) {
+                if (response) {
+                    var status = response.result.Response;
+                    console.log(status);
+                    if (status == 'failed') {
+                        $('.modal-message').html("Failed:" +  response.result.Message);
+                        $('.modal-message').addClass('has-error')
+                    } else {
+                        $('.modal-message').html(response.result.Message);
+                        $('.modal-message').removeClass('has-error')
+                    }
+                }
+            });
+            r.fail(function (response) {
+                console.log(response);
+            });
+
+            r.always(function () {
+                $('#execute-action').prop("disabled", false);
+            });
+        });
     </script>
 
     {% include 'i18n_js.html' %}

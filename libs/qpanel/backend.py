@@ -136,3 +136,17 @@ class Backend(object):
                 tmp_data[q] = data[q]
         return tmp_data
 
+    def _call_spy(self, channel, to_exten, with_whisper=False):
+        self.connection = self._connect()
+        try:
+            return self.connection.spy(channel, to_exten, with_whisper)
+        except Exception, e:
+            print str(e)
+            return {}
+
+    def whisper(self, channel, to_exten):
+        return self._call_spy(channel, to_exten, with_whisper=True)
+
+    def spy(self, channel, to_exten):
+        return self._call_spy(channel, to_exten, with_whisper=False)
+

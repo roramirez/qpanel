@@ -57,6 +57,19 @@ class AsteriskAMI:
         cmd = self.connection.QueueStatus()
         return cmd
 
+
+    def spy(self, channel, where_listen, with_whisper=False):
+        out = []
+        options = ',q'
+        if with_whisper:
+            options = options + 'w'
+        try:
+            # create a originate call for Spy a exten
+            return self.connection.Originate(where_listen, application = 'ChanSpy',
+                                             data = channel + options, async = 'yes')
+        except Asterisk.Manager.ActionFailed, msg:
+            return  {'Response': 'failed', 'Message': str(msg)}
+
     def isConnected(self):
         if not self.connection:
             return False

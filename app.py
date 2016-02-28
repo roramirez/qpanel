@@ -286,6 +286,23 @@ def logout():
     flask_login.logout_user()
     return redirect(url_for('login'))
 
+@app.route('/spy', methods=['POST'])
+def spy():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.spy(channel, to_exten)
+    return jsonify(
+        result = r
+    )
+
+@app.route('/whisper', methods=['POST'])
+def whisper():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.whisper(channel, to_exten)
+    return jsonify(
+        result = r
+    )
 # ---------------------
 # ---- Main  ----------
 # ---------------------
