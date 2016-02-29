@@ -69,3 +69,12 @@ function clean_div_name(text) {
                               '\\.': '_',
                               '@': '_'});
 }
+
+Number.prototype.isUnavailableInAsterisk = function(args) {
+    var value = this;
+    var unavailable_status = [C.status_agent.INVALID,
+                              C.status_agent.UNAVAILABLE,
+                              C.status_agent.UNKNOWN ];
+    if (unavailable_status.indexOf(parseInt(value)) > -1) { return true; }
+    return false;
+}
