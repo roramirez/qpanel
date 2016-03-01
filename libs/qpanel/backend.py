@@ -10,7 +10,6 @@ from datetime import timedelta
 from  utils import timedelta_from_field_dict
 import os
 import sys
-
 from libs.qpanel.asterisk import *
 # In case use Asterisk dont crash with ESL not in system
 try:
@@ -21,6 +20,7 @@ except:
 
 class ConnectionErrorAMI(Exception):
     pass
+
 
 class Backend(object):
 
@@ -78,7 +78,6 @@ class Backend(object):
             return self.parse_fs(data)
         return self.parse_asterisk(data)
 
-
     def parse_fs(self, data):
         for q in data:
             for m in data[q]['members']:
@@ -91,7 +90,6 @@ class Backend(object):
 
         return data
 
-
     def parse_asterisk(self, data):
         # convert references manager to string
         for q in data:
@@ -101,8 +99,8 @@ class Backend(object):
                 tmp = data[q]['entries'][str(e)]['Channel']
                 data[q]['entries'][str(e)]['Channel']  = str(tmp)
             for m in data[q]['members']:
-                member =  data[q]['members'][m]
-                #Asterisk 1.8 dont have StateInterface
+                member = data[q]['members'][m]
+                # Asterisk 1.8 dont have StateInterface
                 if 'StateInterface' not in member:
                     member['StateInterface'] = m
 
@@ -113,9 +111,7 @@ class Backend(object):
             for c in data[q]['entries']:
                 data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c], True) , granularity='second')
 
-
         return data
-
 
     def hide_queue(self, data):
         tmp_data = {}
@@ -124,7 +120,6 @@ class Backend(object):
             if q not in hide:
                 tmp_data[q] = data[q]
         return tmp_data
-
 
     def rename_queue(self, data):
         tmp_data = {}

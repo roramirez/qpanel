@@ -6,7 +6,8 @@
 
 
 from flask import Flask, render_template, jsonify, redirect, request, session, url_for
-import os, sys
+import os
+import sys
 import ConfigParser
 import json
 from werkzeug.serving import run_simple
@@ -17,7 +18,7 @@ from werkzeug.exceptions import abort
 from flask.ext.babel import Babel, gettext, dates, format_timedelta
 from datetime import timedelta
 
-#flask-login
+# flask-login
 import flask.ext.login as flask_login
 
 from libs.qpanel.upgrader import *
@@ -34,7 +35,7 @@ cfg = QPanelConfig()
 backend = Backend()
 
 
-def get_data_queues(queue = None):
+def get_data_queues(queue=None):
     data = backend.get_data_queues()
     if queue is not None:
         try:
@@ -132,13 +133,13 @@ def setup_logging():
 def get_locale():
     browser = request.accept_languages.best_match(['en', 'es', 'de'])
     try:
-      return session['language']
+        return session['language']
     except KeyError:
-      session['language'] = browser
-      return browser
+        session['language'] = browser
+        return browser
 
 
-#Utilities helpers
+# Utilities helpers
 @app.context_processor
 def utility_processor():
     # Deprecated function
@@ -178,11 +179,13 @@ def utility_processor():
 def page_not_found(e):
     return render_template('404.html'), 404
 
+
 @app.context_processor
 def utility_processor():
     def check_upgrade():
         return cfg.check_upgrade
     return dict(check_upgrade=check_upgrade)
+
 
 @app.context_processor
 def utility_processor():
@@ -190,11 +193,13 @@ def utility_processor():
         return cfg.show_service_level
     return dict(show_service_level=show_service_level)
 
+
 @app.context_processor
 def utility_processor():
     def has_users():
         return cfg.has_users()
     return dict(has_users=has_users)
+
 
 @app.context_processor
 def utility_processor():
@@ -202,11 +207,13 @@ def utility_processor():
         return uqpanel.clean_str_to_div_id(value)
     return dict(clean_str_to_div_id=clean_str_to_div_id)
 
+
 @app.context_processor
 def utility_processor():
     def is_freeswitch():
         return backend.is_freeswitch()
     return dict(is_freeswitch=is_freeswitch)
+
 
 # ---------------------
 # ---- Routes ---------
@@ -219,7 +226,7 @@ def home():
     template = 'index.html'
     if backend.is_freeswitch():
         template = 'fs/index.html'
-    return render_template(template, queues = data)
+    return render_template(template, queues=data)
 
 
 @app.route('/queue/<name>')
@@ -229,18 +236,14 @@ def queue(name = None):
     template = 'queue.html'
     if backend.is_freeswitch():
         template = 'fs/queue.html'
-    return render_template(template, data = data, name = name)
+    return render_template(template, data=data, name=name)
 
 
 @app.route('/queue/<name>.json')
 @flask_login.login_required
-def queue_json(name = None):
+def queue_json(name=None):
     data = get_data_queues(name)
-    return jsonify(
-        name = name,
-        data = data
-    )
-
+    return jsonify(name=name, data=data)
 
 
 # data queue
@@ -248,19 +251,18 @@ def queue_json(name = None):
 @flask_login.login_required
 def queues():
     data = get_data_queues()
-    return jsonify(
-        data = data
-    )
-
+    return jsonify(data=data)
 
 
 @app.route('/lang')
 @flask_login.login_required
 def fake_language():
     return redirect(url_for('home'))
+
+
 @app.route('/lang/<language>')
 @flask_login.login_required
-def language(language = None):
+def language(language=None):
     session['language'] = language
     return redirect(url_for('home'))
 
@@ -276,10 +278,11 @@ def check_new_version():
         pass
 
     return jsonify(
-        require_upgrade = need_upgrade,
-        current_version = get_current_version(),
-        last_stable_version = get_stable_version()
+        require_upgrade=need_upgrade,
+        current_version=get_current_version(),
+        last_stable_version=get_stable_version()
     )
+
 
 @app.route('/logout')
 def logout():
@@ -295,9 +298,11 @@ if __name__ == '__main__':
         app.config['DEBUG'] = True
 
     if APPLICATION_ROOT == '/':
-        app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=True, extra_files=[cfg.path_config_file])
+        app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=True,
+                extra_files=[cfg.path_config_file])
     else:
         application = DispatcherMiddleware(Flask('dummy_app'), {
             app.config['APPLICATION_ROOT']: app,
         })
-        run_simple(cfg.host_bind, cfg.port_bind, application, use_reloader=True, extra_files=[cfg.path_config_file])
+        run_simple(cfg.host_bind, cfg.port_bind, application,
+                   use_reloader=True, extra_files=[cfg.path_config_file])
