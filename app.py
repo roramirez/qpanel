@@ -255,11 +255,6 @@ def queues():
 
 
 @app.route('/lang')
-@flask_login.login_required
-def fake_language():
-    return redirect(url_for('home'))
-
-
 @app.route('/lang/<language>')
 @flask_login.login_required
 def language(language=None):
