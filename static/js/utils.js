@@ -9,7 +9,7 @@ var C =  {
         UNAVAILABLE:  5,
         RINGING:      6,
         RINGINUSE:    7,
-        ONHOLD:       8,
+        ONHOLD:       8
     }
 }
 

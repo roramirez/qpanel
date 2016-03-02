@@ -7,7 +7,7 @@
 from config import QPanelConfig
 from flask.ext.babel import format_timedelta
 from datetime import timedelta
-from  utils import timedelta_from_field_dict
+from utils import timedelta_from_field_dict
 import os
 import sys
 from libs.qpanel.asterisk import *
@@ -81,12 +81,12 @@ class Backend(object):
     def parse_fs(self, data):
         for q in data:
             for m in data[q]['members']:
-                member =  data[q]['members'][m]
-                member['LastBridgeEndAgo'] = format_timedelta(timedelta_from_field_dict('LastBridgeEnd', member) , granularity='second')
-                member['LastStatusChangeAgo'] = format_timedelta(timedelta_from_field_dict('LastStatusChange', member) , granularity='second')
+                member = data[q]['members'][m]
+                member['LastBridgeEndAgo'] = format_timedelta(timedelta_from_field_dict('LastBridgeEnd', member), granularity='second')
+                member['LastStatusChangeAgo'] = format_timedelta(timedelta_from_field_dict('LastStatusChange', member), granularity='second')
 
             for c in data[q]['entries']:
-                data[q]['entries'][c]['CreatedEpochAgo'] = format_timedelta(timedelta_from_field_dict('CreatedEpoch', data[q]['entries'][c]) , granularity='second')
+                data[q]['entries'][c]['CreatedEpochAgo'] = format_timedelta(timedelta_from_field_dict('CreatedEpoch', data[q]['entries'][c]), granularity='second')
 
         return data
 
@@ -97,19 +97,19 @@ class Backend(object):
                 tmp = data[q]['entries'].pop(e)
                 data[q]['entries'][str(e)] = tmp
                 tmp = data[q]['entries'][str(e)]['Channel']
-                data[q]['entries'][str(e)]['Channel']  = str(tmp)
+                data[q]['entries'][str(e)]['Channel'] = str(tmp)
             for m in data[q]['members']:
                 member = data[q]['members'][m]
                 # Asterisk 1.8 dont have StateInterface
                 if 'StateInterface' not in member:
                     member['StateInterface'] = m
 
-                member['LastCallAgo'] = format_timedelta(timedelta_from_field_dict('LastCall', member) , granularity='second')
+                member['LastCallAgo'] = format_timedelta(timedelta_from_field_dict('LastCall', member), granularity='second')
                 # Time last pause
-                member['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', member) , granularity='second')
+                member['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', member), granularity='second')
 
             for c in data[q]['entries']:
-                data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c], True) , granularity='second')
+                data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c], True), granularity='second')
 
         return data
 
@@ -130,4 +130,3 @@ class Backend(object):
             else:
                 tmp_data[q] = data[q]
         return tmp_data
-

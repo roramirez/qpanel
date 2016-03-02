@@ -22,7 +22,7 @@ def unified_configs(file_config, file_template, sections=[]):
 
     # create new file based in template
     for s in sections:
-        items =  dict(template.items(s))
+        items = dict(template.items(s))
         for i in items:
             try:
                 template.set(s, i,  config.get(s, i))

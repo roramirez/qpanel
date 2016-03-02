@@ -11,14 +11,14 @@ import sys
 # get current names for directory and file
 dirname, filename = os.path.split(os.path.abspath(__file__))
 # py-asterisk
-sys.path.append(os.path.join(dirname,  os.pardir ,'py-asterisk'))
+sys.path.append(os.path.join(dirname, os.pardir, 'py-asterisk'))
 from Asterisk.Manager import *
 
 
 class ConnectionErrorAMI(Exception):
     '''
-    This exception is raised when is not possible or is not connected to AMI for a
-    requested action.
+    This exception is raised when is not possible or is not connected to
+    AMI for a requested action.
     '''
     _error = 'Not Connected'
     pass
@@ -31,7 +31,7 @@ class AsteriskAMI:
         Initialise a class for Asterisk
         '''
         self.host = host
-        self.port =  int(port)
+        self.port = int(port)
         self.password = password
         self.user = user
         self.is_connected = False
@@ -51,8 +51,8 @@ class AsteriskAMI:
         if self.connection is None:
             raise ConnectionErrorAMI(
                 "Failed to connect to server at '{}:{}' for user {}\n"
-                "Please check that Asterisk running and "
-                "accepting AMI connections.".format(self.host, self.port, self.user))
+                "Please check that Asterisk running and accepting AMI "
+                "connections.".format(self.host, self.port, self.user))
 
         cmd = self.connection.QueueStatus()
         return cmd

@@ -5,7 +5,8 @@
 #
 
 
-from flask import Flask, render_template, jsonify, redirect, request, session, url_for
+from flask import Flask, render_template, jsonify, redirect,\
+    request, session, url_for
 import os
 import sys
 import ConfigParser
@@ -46,6 +47,7 @@ def get_data_queues(queue=None):
         app.logger.debug(data)
     return data
 
+
 def get_user_config_by_name(username):
     try:
         user = User()
@@ -66,14 +68,17 @@ app.secret_key = cfg.secret_key
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
+
 def set_data_user(user_config):
     user = User()
     user.id = user_config.id
     return user
 
+
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     return redirect(url_for('login'))
+
 
 @login_manager.user_loader
 def user_loader(username):
@@ -81,6 +86,7 @@ def user_loader(username):
     if user_config is None:
         return
     return set_data_user(user_config)
+
 
 @login_manager.request_loader
 def request_loader(request):
@@ -99,6 +105,7 @@ def request_loader(request):
     user = set_data_user(user_config)
     user.is_authenticated = user_config == request.form['pw']
     return user
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -231,7 +238,7 @@ def home():
 
 @app.route('/queue/<name>')
 @flask_login.login_required
-def queue(name = None):
+def queue(name=None):
     data = get_data_queues(name)
     template = 'queue.html'
     if backend.is_freeswitch():

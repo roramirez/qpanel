@@ -7,9 +7,10 @@
 from urllib2 import Request, urlopen
 from distutils.version import LooseVersion
 
-BRANCH='stable'
-REPO='git@github.com:roramirez/qpanel.git'
-URL_STABLE_VERSION='https://raw.githubusercontent.com/roramirez/qpanel/%s/VERSION' % BRANCH
+BRANCH = 'stable'
+REPO = 'git@github.com:roramirez/qpanel.git'
+URL_STABLE_VERSION = 'https://raw.githubusercontent.com/roramirez/qpanel' + \
+                     '/%s/VERSION' % BRANCH
 
 def require_upgrade():
     a = LooseVersion(get_current_version())
@@ -18,17 +19,21 @@ def require_upgrade():
         return True
     return False
 
+
 # InmplementME
 def last_check_update():
     return True
+
 
 def get_current_version():
     current_version = open('VERSION')
     return __first_line(current_version.read())
 
+
 def get_stable_version():
     stable_version = __get_data_url(URL_STABLE_VERSION)
     return __first_line(stable_version)
+
 
 def __get_data_url(url):
     req = Request(url)
@@ -37,6 +42,7 @@ def __get_data_url(url):
         return response.read()
     except:
         return None
+
 
 def __first_line(content):
     tmp = ''
