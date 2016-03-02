@@ -1,7 +1,7 @@
 <script>
     $('#language').on('change', function (e) {
         var lang  = $(this).val();
-        window.location = '{{url_for('.fake_language')}}' + '/' + lang;
+        window.location = '{{url_for('.language')}}' + '/' + lang;
     });
     $( "#language" ).val("{{session['language']}}")
 
