@@ -101,7 +101,8 @@
                                   <td id="last_call">{{data['members'][agent]['LastCall'] }}</td>
                                   <td id="actions" data-channel="{{ data['members'][agent]['StateInterface'] }}">
                                     <a href="#" data-action="spy">{{_('Spy')}} </a> |
-                                    <a href="#" data-action="whisper">{{_('Whisper')}}</a>
+                                    <a href="#" data-action="whisper">{{_('Whisper')}}</a> |
+                                    <a href="#" data-action="barge">{{_('Barge')}}</a>
                                   </td>
                               </tr>
                               {% endfor %}
@@ -359,6 +360,8 @@
                 url_action = '{{url_for('.spy')}}';
             } else if (action == 'whisper') {
                 url_action = '{{url_for('.whisper')}}';
+            } else if (action == 'barge') {
+                url_action = '{{url_for('.barge')}}';
             }
             var r = $.ajax({
                 type: 'post',

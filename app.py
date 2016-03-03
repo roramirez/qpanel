@@ -303,6 +303,16 @@ def whisper():
     return jsonify(
         result = r
     )
+
+
+@app.route('/barge', methods=['POST'])
+def barge():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.barge(channel, to_exten)
+    return jsonify(result=r)
+
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------

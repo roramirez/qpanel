@@ -145,8 +145,10 @@ class Backend(object):
             return {}
 
     def whisper(self, channel, to_exten):
-        return self._call_spy(channel, to_exten, with_whisper=True)
+        return self._call_spy(channel, to_exten, 'w')
 
     def spy(self, channel, to_exten):
-        return self._call_spy(channel, to_exten, with_whisper=False)
+        return self._call_spy(channel, to_exten)
 
+    def barge(self, channel, to_exten):
+        return self._call_spy(channel, to_exten, 'B')

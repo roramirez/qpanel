@@ -57,12 +57,33 @@ class AsteriskAMI:
         cmd = self.connection.QueueStatus()
         return cmd
 
+    def spy(self, channel, where_listen, option=None):
+        '''Generate a Originate event by Manager to used Spy Application
 
-    def spy(self, channel, where_listen, with_whisper=False):
+        Parameters
+        ----------
+        channel: str
+            channel to create Originate action tu use ChanSpy
+        where_listen: str
+            channel where listen the spy action.
+        option: str
+            other option to add for execute distinct options.
+                whisper: w
+                barge: B
+            other string to add ChanSpy Command
+            The option is concatenate to ',q'
+
+        Returns
+        -------
+        originate result command : Dictionary
+            if case the fail return return  {'Response': 'failed',
+                                             'Message': str(msg)}
+        '''
+
         out = []
         options = ',q'
-        if with_whisper:
-            options = options + 'w'
+        if option:
+            options = options + option
         try:
             # create a originate call for Spy a exten
             return self.connection.Originate(where_listen, application = 'ChanSpy',
