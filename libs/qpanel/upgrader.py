@@ -12,6 +12,7 @@ REPO = 'git@github.com:roramirez/qpanel.git'
 URL_STABLE_VERSION = 'https://raw.githubusercontent.com/roramirez/qpanel' + \
                      '/%s/VERSION' % BRANCH
 
+
 def require_upgrade():
     a = LooseVersion(get_current_version())
     b = LooseVersion(get_stable_version())

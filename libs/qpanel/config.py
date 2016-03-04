@@ -8,6 +8,7 @@ import os
 import sys
 from distutils.util import strtobool
 
+
 class NotConfigFileQPanel(BaseException):
     '''
         This exception is raised when is not possible iread file of
@@ -19,7 +20,7 @@ class NotConfigFileQPanel(BaseException):
 class QPanelConfig:
 
     def __init__(self, path_config_file=None):
-        dirname, filename =  os.path.split(os.path.abspath(__file__))
+        dirname, filename = os.path.split(os.path.abspath(__file__))
         if path_config_file:
             self.path_config_file = path_config_file
         else:
@@ -46,7 +47,8 @@ class QPanelConfig:
         self.check_upgrade \
             = self.__get_bool_value_config('general', 'check_upgrade', True)
         self.show_service_level \
-            = self.__get_bool_value_config('general', 'show_service_level', False)
+            = self.__get_bool_value_config('general',
+                                           'show_service_level', False)
 
     def __open_config_file(self):
         cfg = ConfigParser.ConfigParser()

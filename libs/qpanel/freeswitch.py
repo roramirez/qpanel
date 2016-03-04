@@ -43,7 +43,7 @@ class Freeswitch:
         return cmd
 
     def getAgents(self, queue_name):
-        cmd = self.command('callcenter_config queue list agents %s' %\
+        cmd = self.command('callcenter_config queue list agents %s' %
                            queue_name)
         cmd = self._parserBodyCommand(cmd)
         return cmd
