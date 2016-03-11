@@ -50,7 +50,7 @@ def underscore_to_camelcase(word):
 
 def clean_str_to_div_id(value):
     v = value.replace('/', '-')
-    v = value.replace('.', '_')
+    v = v.replace('.', '_')
     return v.replace('@', '_')
 
 
