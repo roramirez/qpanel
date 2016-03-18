@@ -1,18 +1,18 @@
 <script>
     $('#language').on('change', function (e) {
         var lang  = $(this).val();
-        window.location = '{{url_for('.language')}}' + '/' + lang;
+        window.location = '{{ url_for('.language') }}' + '/' + lang;
     });
-    $( "#language" ).val("{{session['language']}}")
+    $( "#language" ).val("{{ session['language'] }}")
 
     String.prototype.toStrStatusAgent = function(args) {
         var value = this;
         if (C.status_agent.NOT_INUSE == value) {
-            return "{{_('free')}}";
+            return "{{ _('free') }}";
         } else if (parseInt(value).isUnavailableInAsterisk()) {
-            return "{{_('unavailable')}}";
+            return "{{ _('unavailable') }}";
         } else {
-            return "{{_('busy')}}"
+            return "{{ _('busy') }}"
         }
     }
 
@@ -20,26 +20,26 @@
         var label;
         div.removeClass('label-warning label-info label-danger');
         value = div.html();
-        if (value == "{{_('free')}}") {
+        if (value == "{{ _('free') }}") {
             label = 'info';
-        } else if (value == "{{_('unavailable')}}") {
+        } else if (value == "{{ _('unavailable') }}") {
             label = 'danger';
         //Freeswitch status and states
-        } else if (value == "{{_('Logged Out')}}") {
+        } else if (value == "{{ _('Logged Out') }}") {
             label = 'danger';
-        } else if (value == "{{_('Available')}}") {
+        } else if (value == "{{ _('Available') }}") {
             label = 'info';
-        } else if (value == "{{_('Available (On Demand)')}}") {
+        } else if (value == "{{ _('Available (On Demand)') }}") {
             label = 'info';
-        } else if (value == "{{_('On Break')}}") {
+        } else if (value == "{{ _('On Break') }}") {
             label = 'warning';
-        } else if (value == "{{_('Idle')}}") {
+        } else if (value == "{{ _('Idle') }}") {
             label = 'info';
-        } else if (value == "{{_('Waiting')}}") {
+        } else if (value == "{{ _('Waiting') }}") {
             label = 'info';
-        } else if (value == "{{_('Receiving')}}") {
+        } else if (value == "{{ _('Receiving') }}") {
             label = 'warning';
-        } else if (value == "{{_('In a queue call')}}") {
+        } else if (value == "{{ _('In a queue call') }}") {
             label = 'warning';
         } else {
             label = 'warning';
