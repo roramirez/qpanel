@@ -1,5 +1,16 @@
 ## Change Log
 
+### 0.8.0 (2016-03-17)
+- [ca98b39](https://github.com/roramirez/qpanel/commit/ca98b39512e0235d0e76d917ef37db4d78c5c9c4) Add FreeSWITCH support.
+
+### 0.7.3 (2016-03-02)
+- [242e53e](https://github.com/roramirez/qpanel/commit/242e53eb302b94e1990c44c3184af7db61ac5af0) Fix a bug missing language for automatic best match
+
+### 0.7.2 (2016-02-19)
+- [59260cf](https://github.com/roramirez/qpanel/commit/59260cf3c732bbd014110a5f1f8ed362bb151118) Fix current_time parameter by default in function
+- [77dd847](https://github.com/roramirez/qpanel/commit/77dd8472e910f634db1cdcb6d0b85e6ebab9c19e) fix refresh data call and last_call for new agents add in the list.
+- [fbc3c6c](https://github.com/roramirez/qpanel/commit/fbc3c6cc105ee6ff6557bcef83949e017bdcf6f9) Fix wait time for a call
+
 ### 0.7.1 (2016-02-17)
 - [9666392](https://github.com/roramirez/qpanel/commit/9666392c348457123b8daa8479d4b980156481da) Fix a bug not reload when used base_url /
 - [#40](https://github.com/roramirez/qpanel/pull/40) Update german Translations by @DoM1niC
