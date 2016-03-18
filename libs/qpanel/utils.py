@@ -8,7 +8,8 @@ import ConfigParser
 from datetime import timedelta
 import time
 
-def unified_configs(file_config, file_template, sections = []):
+
+def unified_configs(file_config, file_template, sections=[]):
     f = open(file_config, 'r')
     config = ConfigParser.ConfigParser()
     config.readfp(f)
@@ -21,7 +22,7 @@ def unified_configs(file_config, file_template, sections = []):
 
     # create new file based in template
     for s in sections:
-        items =  dict(template.items(s))
+        items = dict(template.items(s))
         for i in items:
             try:
                 template.set(s, i,  config.get(s, i))
@@ -41,13 +42,20 @@ def unified_configs(file_config, file_template, sections = []):
     template.write(file)
     file.close()
 
-def count_element_sections_config(section, cfg):
-    try:
-        return len(dict(cfg.items(section)))
-    except:
-        return 0
 
-def timedelta_from_field_dict(field, dic, current_timestamp=None, is_seconds_ago=False):
+# http://stackoverflow.com/a/6425628
+def underscore_to_camelcase(word):
+    return ''.join(x.capitalize() or '_' for x in word.split('_'))
+
+
+def clean_str_to_div_id(value):
+    v = value.replace('/', '-')
+    v = v.replace('.', '_')
+    return v.replace('@', '_')
+
+
+def timedelta_from_field_dict(field, dic, current_timestamp=None,
+                              is_seconds_ago=False):
     second_ago = 0
     if not current_timestamp:
         current_timestamp = time.time()

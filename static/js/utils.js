@@ -9,7 +9,7 @@ var C =  {
         UNAVAILABLE:  5,
         RINGING:      6,
         RINGINUSE:    7,
-        ONHOLD:       8,
+        ONHOLD:       8
     }
 }
 
@@ -59,6 +59,22 @@ String.prototype.multiReplace = function ( hash ) {
 }
 
 function div_agent(text) {
+    // Deprecated
     return text.multiReplace({'/': '-',
                               '@': '_'});
+}
+
+function clean_div_name(text) {
+    return text.multiReplace({'/': '-',
+                              '\\.': '_',
+                              '@': '_'});
+}
+
+Number.prototype.isUnavailableInAsterisk = function(args) {
+    var value = this;
+    var unavailable_status = [C.status_agent.INVALID,
+                              C.status_agent.UNAVAILABLE,
+                              C.status_agent.UNKNOWN ];
+    if (unavailable_status.indexOf(parseInt(value)) > -1) { return true; }
+    return false;
 }

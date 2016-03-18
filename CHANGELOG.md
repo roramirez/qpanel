@@ -1,5 +1,7 @@
 ## Change Log
 
+### 0.8.0 (2016-03-17)
+- [ca98b39](https://github.com/roramirez/qpanel/commit/ca98b39512e0235d0e76d917ef37db4d78c5c9c4) Add FreeSWITCH support.
 
 ### 0.7.3 (2016-03-02)
 - [242e53e](https://github.com/roramirez/qpanel/commit/242e53eb302b94e1990c44c3184af7db61ac5af0) Fix a bug missing language for automatic best match

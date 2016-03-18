@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Rodrigo Ramírez Norambuena">
+    <meta name="keyword" content="Dashboard, Panel, Queue, mod_callcenter, FreeSWITCH">
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='img/favicon.ico')}}">
+
+    <title>QPanel</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <!--external css-->
+    <link href="{{url_for('static', filename='font-awesome/css/font-awesome.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='lineicons/style.css')}}">
+
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/style-responsive.css')}}" rel="stylesheet">
+
+    <script src="{{url_for('static', filename='js/chart-master/Chart.js')}}"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+  <script>
+    dataGraph = Array();
+    graph = Array();
+  </script>
+
+  <section id="container" class="sidebar-closed">
+      <!--
+          TOP BAR CONTENT & NOTIFICATIONS
+        -->
+      {% include 'header.html' %}
+
+      <!--sidebar start-->
+      <aside>
+      </aside>
+      <!--sidebar end-->
+
+      <!--main content start-->
+      <section id="main-content" style="margin-left: 0px;">
+          <section class="wrapper">
+
+              <div class="row">
+                  <div class="col-lg-12 main-chart">
+
+                    <div class="row"><!-- row general data-->
+                      {% include 'row_general_data.html' %}
+                    </div><!-- /row general data-->
+
+                     <div class="row mt">
+
+                    <div class="border-head">
+                      <h1><i class="fa fa-angle-right"></i> {{_('Queues')}}</h1>
+                    </div>
+
+                    {% for queue in queues %}
+                        <div class="col-lg-4 col-md-4 col-sm-4 mb project">
+                            <div class="weather-2 pn photo-wrapper transparent-background">
+                              <a href="{{url_for('.queue', name=queue)}}">
+                                <div class="weather-2-header">
+                                    <div class="row header-{{ clean_str_to_div_id(queue) }}">
+                                        <div class="panel-title centered">
+                                            <p>{{ queue }} - <span id="strategy"></span></p>
+                                        </div>
+                                    </div>
+                                </div><!-- /weather-2 header -->
+
+
+                                <div class="row data" id="data-{{clean_str_to_div_id(queue)}}">
+
+                                    <div class="col-sm-4 col-xs-4 voffset20 goleft">
+                                        <h5><b>{{_('Answered')}}:</b> <span id="queue_completed">{{queues[queue].CallsAnswered}}</span></h5>
+                                        <h5>{{_('Abandoned')}}: <span id="queue_abandoned">{{queues[queue].CallsAbandoned}} </span></h5>
+                                        <h5>{{_('Incoming')}}: <span id="queue_incoming">{{queues[queue].Calls}} </span></h5>
+                                        {% if show_service_level() %}
+                                        <h5>{{_('Service Level')}}: <span id="queue_servicelevel">{{queues[queue].ServicelevelPerf}}%</span></h5>
+                                        {% endif %}
+                                    </div>
+                                     <div class="col-lg-4 col-md-4 col-sm-4 mb voffset20">
+                                            <canvas id="graph_{{clean_str_to_div_id(queue)}}" height="120" width="120"></canvas>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-4 goright voffset20">
+                                        <h5><i class="fa fa-users fa-2x"> <span id="queue_users">{{ queues[queue]['members'] | count }} </span></i>
+                                        <h5><span id="queue_unavailable"></h5>
+                                        <h5><span id="queue_busy"></h5>
+                                        <h5><span id="queue_free"></h5>
+                                    </div>
+                                </div>
+                                <div class="row centered"  style="margin-top: -20px;">
+                                    <h2>{{_('Abandoned:')}} <span id="{{clean_str_to_div_id(queue)}}-percent_abandoned">0</span>%</h2>
+                                </div>
+                                <script>
+                                    dataGraph['{{queue}}'] = [
+                                        {
+                                            value: {{queues[queue].CallsAbandoned}},
+                                            color:"#FF6B6B"
+                                        },
+                                        {
+                                            value: {{queues[queue].CallsAnswered}},
+                                            color : "#fdfdfd"
+                                        }
+                                    ];
+                                    graph['{{queue}}'] = new Chart(document.getElementById("graph_{{clean_str_to_div_id(queue)}}").getContext("2d")).Doughnut(dataGraph['{{queue}}']);
+                                </script>
+
+
+                            </div>
+                            </a>
+                        </div><!--/col-md-4 -->
+                    {% endfor %}
+                    </div><!-- /row -->
+          </section>
+      </section>
+
+      <!--main content end-->
+      {% include 'footer.html' %}
+  </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.scrollTo.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.nicescroll.js')}}" type="text/javascript"></script>
+
+    <!--common script for all pages-->
+    <script src="{{url_for('static', filename='js/common-scripts.js')}}"></script>
+
+    <script type="application/javascript">
+
+        $(document).ready(function () {
+            getDataQueue(); //load data on page ready :)
+            setInterval(function () {
+                getDataQueue();
+            }, {{ request_interval() }});
+        });
+
+        var optionsNoAnimation = {
+          animation : false,
+        }
+        // add to utils function
+        function updateGraph(name, data_queue) {
+          dataGraph[name] = [
+            {
+              value: parseInt(data_queue.CallsAbandoned),
+              color: "#FF6B6B",
+              label: "{{_('Abandoned')}}"
+            },
+            {
+              value: parseInt(data_queue.CallsAnswered),
+              color: "#fdfdfd",
+              label: "{{_('Answered')}}"
+            }
+          ];
+          graph[name] = new Chart(document.getElementById("graph_"+name).getContext("2d")).Doughnut(dataGraph[name], optionsNoAnimation);
+        }
+
+        // parse data and put values on view
+        function parseDataQueue(data){
+            var answers = 0, unattended = 0, incoming = 0;
+            for (var d in data) {
+                answers = answers + parseInt(data[d].CallsAnswered);
+                unattended = unattended + parseInt(data[d].CallsAbandoned);
+                incoming = incoming + parseInt(data[d].Calls);
+
+                var qid = clean_div_name(d); //id div queue
+
+                $("[id='data-"+ qid + "'] #queue_completed").html(parseInt(data[d].CallsAnswered));
+                $("[id='data-"+ qid + "'] #queue_abandoned").html(parseInt(data[d].CallsAbandoned));
+                $("[id='data-"+ qid + "'] #queue_incoming").html(parseInt(data[d].Calls));
+                $("[id='data-"+ qid + "'] #queue_users").html(len(data[d].members));
+                $(".header-"+ qid + " #strategy").html(data[d].Strategy);
+
+                if (data[d].CallsAbandoned > 0) {
+                    $("[id='"+ qid + "-percent_abandoned']")
+                        .html(parseInt(parseInt(data[d].CallsAbandoned)  * 100 / (parseInt(data[d].CallsAbandoned) + parseInt(data[d].CallsAnswered) )));
+                }
+
+                //Update graph
+                updateGraph(qid, data[d]);
+
+                var agent_free = 0, agent_busy = 0, agent_unavailable = 0;
+                for (agent in data[d].members) {
+                    member = data[d].members[agent];
+
+                    if (member.Status == 'Logged Out')  {
+                        agent_unavailable++;
+                    } else if (member.Status == 'On Break')  {
+                        agent_busy++;
+                    } else if (member.Status.indexOf('Available') > -1)  {
+                        if (member.State == 'Idle' || member.State == 'Waiting') {
+                            agent_free++;
+                        } else {
+                            agent_busy++;
+                        }
+                    }
+                }
+                agents = agent_free + agent_busy + agent_unavailable;
+                //bugfix NaN division by 0
+                if (agents == 0) {
+                    agents = 1;
+                }
+                $("[id='data-"+ qid + "'] #queue_free")
+                    .html( "{agents} ({percent}% {status})"
+                        .format({agents: agent_free, percent: Math.round(agent_free * 100 / agents), status: "{{_("free")}}" }));
+                $("[id='data-"+ qid + "'] #queue_busy")
+                    .html( "{agents} ({percent}% {status})"
+                        .format({agents: agent_busy, percent: Math.round(agent_busy * 100 / agents), status: "{{_("busy")}}" }));
+
+                $("[id='data-"+ qid + "'] #queue_unavailable")
+                    .html( "{agents} ({percent}% {status})"
+                        .format({agents: agent_unavailable, percent: Math.round(agent_unavailable * 100 / agents), status: "{{_("unavailable")}} "}));
+
+            }
+            $('#answered').html(answers);
+            $('#abandoned').html(unattended);
+            $('#incoming').html(incoming);
+        }
+        function getDataQueue() {
+            var result;
+            var r = $.ajax({
+                type: 'GET',
+                url: '{{url_for('.queues')}}'
+            });
+            r.done(function (response) {
+                if (response) {
+                    result = response.data;
+                    parseDataQueue(result);
+                }
+            });
+            r.fail(function (response) {
+            });
+
+            r.always(function () {
+            });
+        }
+
+    </script>
+    <script src="{{url_for('static', filename='js/utils.js')}}"></script>
+    {% include 'i18n_js.html' %}
+
+  </body>
+</html>

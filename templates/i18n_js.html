@@ -1,16 +1,15 @@
 <script>
     $('#language').on('change', function (e) {
         var lang  = $(this).val();
-        window.location = '{{url_for('.fake_language')}}' + '/' + lang;
+        window.location = '{{url_for('.language')}}' + '/' + lang;
     });
     $( "#language" ).val("{{session['language']}}")
 
     String.prototype.toStrStatusAgent = function(args) {
         var value = this;
-        var unavailable = [C.status_agent.INVALID, C.status_agent.UNAVAILABLE, C.status_agent.UNKNOWN ]
         if (C.status_agent.NOT_INUSE == value) {
             return "{{_('free')}}";
-        } else if (unavailable.indexOf(parseInt(value)) > -1) {
+        } else if (parseInt(value).isUnavailableInAsterisk()) {
             return "{{_('unavailable')}}";
         } else {
             return "{{_('busy')}}"
@@ -25,6 +24,23 @@
             label = 'info';
         } else if (value == "{{_('unavailable')}}") {
             label = 'danger';
+        //Freeswitch status and states
+        } else if (value == "{{_('Logged Out')}}") {
+            label = 'danger';
+        } else if (value == "{{_('Available')}}") {
+            label = 'info';
+        } else if (value == "{{_('Available (On Demand)')}}") {
+            label = 'info';
+        } else if (value == "{{_('On Break')}}") {
+            label = 'warning';
+        } else if (value == "{{_('Idle')}}") {
+            label = 'info';
+        } else if (value == "{{_('Waiting')}}") {
+            label = 'info';
+        } else if (value == "{{_('Receiving')}}") {
+            label = 'warning';
+        } else if (value == "{{_('In a queue call')}}") {
+            label = 'warning';
         } else {
             label = 'warning';
         }

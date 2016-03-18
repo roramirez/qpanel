@@ -39,22 +39,8 @@
       <!--
           TOP BAR CONTENT & NOTIFICATIONS
         -->
-      <!--header start-->
-      <header class="header black-bg">
-            <!--logo start-->
-            <a href="{{url_for('.home')}}" class="logo"><img src="{{url_for('static', filename='img/logo_header.png')}}"></a>
-            <!--logo end-->
-            <div class="nav notify-row" id="top_menu">
-            </div>
-            <div class="top-menu">
-                <ul class="nav pull-right top-menu">
-                    {% include 'language_selector.html' %}
-                    {% include 'logout_button.html' %}
-                </ul>
-            </div>
-        </header>
-      <!--header end-->
 
+      {% include 'header.html' %}
       <!--sidebar start-->
       <aside>
       </aside>
@@ -148,6 +134,7 @@
 
     <!--common script for all pages-->
     <script src="{{url_for('static', filename='js/common-scripts.js')}}"></script>
+    <script src="{{url_for('static', filename='js/utils.js')}}"></script>
 
     <script type="application/javascript">
 
@@ -217,12 +204,11 @@
                 }
 
                 var agent_free = 0, agent_busy = 0, agent_unavailable = 0;
-                var unavailable = [C.status_agent.INVALID, C.status_agent.UNAVAILABLE, C.status_agent.UNKNOWN ]
                 for (agent in data[d].members) {
                     var status_agent = parseInt(data[d].members[agent].Status);
                     if (C.status_agent.NOT_INUSE == status_agent) {
                         agent_free++;
-                    } else if (unavailable.indexOf(status_agent) > -1) {
+                    } else if (status_agent.isUnavailableInAsterisk()) {
                         agent_unavailable++;
                     } else {
                         agent_busy++;
@@ -284,7 +270,6 @@
         }
 
     </script>
-    <script src="{{url_for('static', filename='js/utils.js')}}"></script>
     {% include 'i18n_js.html' %}
 
   </body>

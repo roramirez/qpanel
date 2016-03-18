@@ -14,6 +14,7 @@ interval = 5 ;Interval for request on seconds
 ;secret_key = 'PLEASE_CHANGE_ME' ; is a good idea change this value
 language = en
 check_upgrade = True
+;freeswitch = True ; Use FreeSWITCH as backend. Use mod_callcenter
 show_service_level = False ; Show information of service level of a queue
 
 [rename]
@@ -25,3 +26,9 @@ show_service_level = False ; Show information of service level of a queue
 ; add user and password
 ; example
 ; username = password
+
+;; Config for Freeswitch
+;[freeswitch]
+; host = 127.0.0.1
+; port = 8021
+; password = ClueCon
