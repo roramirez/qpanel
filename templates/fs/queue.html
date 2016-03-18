@@ -74,22 +74,22 @@
                               </tr>
                               </thead>
                               <tbody>
-                              {% for agent in data['members'] %}
-                              <tr id="agent-{{clean_str_to_div_id(agent)}}">
-                                  <td>{{ data['members'][agent]['Name'] }}</td>
-                                  <td class="hidden-phone">{{ data['members'][agent]['Contact'] }}</td>
+                              {% for agent_name, agent in data.members.iteritems() %}
+                              <tr id="agent-{{ clean_str_to_div_id(agent_name) }}">
+                                  <td>{{ agent.Name }}</td>
+                                  <td class="hidden-phone">{{ agent.Contact }}</td>
                                   <td id="status">
                                     <span class="label label-info label-mini state">
-                                        {{data['members'][agent]['Status']}}
+                                        {{ agent.Status }}
                                     </span>
                                   </td>
                                   <td id="state">
                                     <span class="label label-info label-mini state">
-                                        {{data['members'][agent]['State']}}
+                                        {{ agent.State }}
                                     </span>
                                   </td>
-                                  <td id="calls">{{data['members'][agent]['CallsAnswered'] }}</td>
-                                  <td id="last_call">{{data['members'][agent]['LastCall'] }}</td>
+                                  <td id="calls">{{ agent.CallsAnswered }}</td>
+                                  <td id="last_call">{{ agent.LastCall }}</td>
                               </tr>
                               {% endfor %}
                               </tbody>
@@ -110,11 +110,11 @@
                               </tr>
                               </thead>
                               <tbody>
-                              {% for caller in data['entries'] %}
-                              <tr id="caller-{{data['entries'][caller]['Uuid']}}" data-uniqueid="{{data['entries'][caller]['Uuid']}}">
-                                  <td>{{ data['entries'][caller]['CidName'] }}</td>
-                                  <td class="hidden-phone">{{ data['entries'][caller]['CidNum'] }}</td>
-                                  <td id="wait">{{data['entries'][caller]['CreatedEpochAgo'] }}</td>
+                              {% for id, caller in data.entries.iteritems() %}
+                              <tr id="caller-{{ caller.Uuid }}" data-uniqueid="{{ caller.Uuid }}">
+                                  <td>{{ caller.CidName }}</td>
+                                  <td class="hidden-phone">{{ caller.CidNum }}</td>
+                                  <td id="wait">{{ caller.CreatedEpochAgo }}</td>
                               </tr>
                               {% endfor %}
                               </tbody>
