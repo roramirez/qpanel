@@ -206,7 +206,9 @@
                 var agent_free = 0, agent_busy = 0, agent_unavailable = 0;
                 for (agent in data[d].members) {
                     var status_agent = parseInt(data[d].members[agent].Status);
-                    if (C.status_agent.NOT_INUSE == status_agent) {
+                    if (data[d].members[agent].Paused == true) {
+                        agent_busy++;
+                    } else if (C.status_agent.NOT_INUSE == status_agent) {
                         agent_free++;
                     } else if (status_agent.isUnavailableInAsterisk()) {
                         agent_unavailable++;
