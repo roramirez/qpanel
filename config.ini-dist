@@ -32,3 +32,12 @@ show_service_level = False ; Show information of service level of a queue
 ; host = 127.0.0.1
 ; port = 8021
 ; password = ClueCon
+
+;[queue_log]
+;database = asterisk
+;table = queue_log
+;host = localhost
+;user = user
+;password = changeme
+;port = 5432
+;adapter = postgres
