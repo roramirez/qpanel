@@ -24,7 +24,6 @@ queue_log = Table(u'queue_log', metadata,
     Column('data3', Text),
     Column('data4', Text),
     Column('data5', Text),
-    Column('created', TIMESTAMP),
 )
 
 class QueueLog(DeclarativeBase):
@@ -43,6 +42,5 @@ class QueueLog(DeclarativeBase):
                 'data2': self.data2,
                 'data3': self.data3,
                 'data4': self.data4,
-                'data5': self.data5,
-                'created': self.created,
-                }
+                'data5': self.data5
+               }
