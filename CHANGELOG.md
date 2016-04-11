@@ -1,5 +1,8 @@
 ## Change Log
 
+### 0.8.1 (2016-04-11)
+- [9abe336](https://github.com/roramirez/qpanel/commit/be33697b13ef5a544e3ea51e3f7674eb5f31cf) Add missing section into script migrate configs
+
 ### 0.8.0 (2016-03-17)
 - [ca98b39](https://github.com/roramirez/qpanel/commit/ca98b39512e0235d0e76d917ef37db4d78c5c9c4) Add FreeSWITCH support.
 
