@@ -7,18 +7,13 @@
 import ConfigParser
 from datetime import timedelta
 import time
+from config import QPanelConfig
 
 
 def unified_configs(file_config, file_template, sections=[]):
-    f = open(file_config, 'r')
-    config = ConfigParser.ConfigParser()
-    config.readfp(f)
-    f.close()
 
-    f2 = open(file_template)
-    template = ConfigParser.ConfigParser()
-    template.readfp(f2)
-    f2.close()
+    config = QPanelConfig(file_config).config
+    template = QPanelConfig(file_template).config
 
     # create new file based in template
     for s in sections:
