@@ -30,8 +30,9 @@ def unified_configs(file_config, file_template, sections=[]):
         for i in items:
             try:
                 template.set(s, i,  config.get(s, i))
-            except:
-                pass
+            except ConfigParser.NoSectionError:
+                template.add_section(s)
+                template.set(s, i,  config.get(s, i))
 
     file = open(file_config, 'wr')
     template.write(file)
