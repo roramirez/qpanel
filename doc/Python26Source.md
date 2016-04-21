@@ -35,7 +35,6 @@ python2.6 get-pip.py
 Will be use pip2.6 for install Flask and dependences
 
 ```
-pip2.6 install flask
-pip2.6 install flask-babel
+ $ pip2.6 install -r requirements.txt
 
 ```

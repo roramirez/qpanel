@@ -67,11 +67,9 @@ In general section set config
 
  If you used a CentOS 5.X or Elastix check [how to install Python 2.6 and Flask](doc/README.Centos5.md)
 
-## 1. Install flask and dependencies
+## 1. Install dependencies
 ```
- $ pip install Flask
- $ pip install flask-babel
- $ pip install flask-login
+ $ pip install -r requirements.txt
 ```
 If dont have pip in your system. For install
 
