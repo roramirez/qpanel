@@ -90,6 +90,8 @@ class AsteriskAMI:
                                              data = channel + options, async = 'yes')
         except Asterisk.Manager.ActionFailed, msg:
             return  {'Response': 'failed', 'Message': str(msg)}
+        except PermissionDenied, msg:
+            return  {'Response': 'failed', 'Message': 'Permission Denied'}
 
     def isConnected(self):
         if not self.connection:
