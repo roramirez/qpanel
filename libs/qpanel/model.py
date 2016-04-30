@@ -1,11 +1,4 @@
-import os
-import sys
 import ConfigParser
-
-#import sqlalchemy from libs
-dirname, filename = os.path.split(os.path.abspath(__file__))
-sys.path.append(os.path.join(dirname, os.pardir, 'sqlalchemy', 'lib'))
-
 from sqlalchemy import Table, Column, Integer, String, Text, ForeignKey, TIMESTAMP
 from sqlalchemy.orm import mapper
 from database import session_db, metadata, DeclarativeBase

@@ -1,11 +1,4 @@
-import os
-import sys
 import ConfigParser
-
-# import sqlalchemy from lib
-dirname, filename = os.path.split(os.path.abspath(__file__))
-sys.path.append(os.path.join(dirname, os.pardir, 'sqlalchemy', 'lib'))
-
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
