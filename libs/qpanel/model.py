@@ -50,10 +50,10 @@ def queuelog_event_by_range_and_types(start_date, end_date, events=None,
                                       agent=None, queue=None):
     try:
         q = session_db.query(QueueLog)
-        if from:
-            q = q.filter(QueueLog.time >= from)
-        if to:
-            q = q.filter(QueueLog.time <= to)
+        if start_date:
+            q = q.filter(QueueLog.time >= start_date)
+        if end_date:
+            q = q.filter(QueueLog.time <= end_date)
         if events:
             q = q.filter(QueueLog.event.in_(events))
         if agent:
