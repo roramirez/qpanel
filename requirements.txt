@@ -1,0 +1,3 @@
+Flask==0.10.1
+Flask_Babel>=0.9
+Flask_Login>=0.3.2
