@@ -38,8 +38,11 @@ On /etc/asterisk/manager.conf do you set command permission for read and write, 
     [qpanel]
     secret = mi_super_secret_password
     read = command
-    write = command
+    write = command,originate
 ```
+
+_originate_ option is for feature spy, whisper and barge.
+
 Some features maybe not included in your Asterisk version. In the [patch
 directory](patches) you can find the patchs for add more powerfull to the QPanel.
 
