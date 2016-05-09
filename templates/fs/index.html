@@ -6,21 +6,21 @@
     <meta name="description" content="">
     <meta name="author" content="Rodrigo Ramírez Norambuena">
     <meta name="keyword" content="Dashboard, Panel, Queue, mod_callcenter, FreeSWITCH">
-    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='img/favicon.ico')}}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
 
     <title>QPanel</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <!--external css-->
-    <link href="{{url_for('static', filename='font-awesome/css/font-awesome.css')}}" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='lineicons/style.css')}}">
+    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lineicons/style.css') }}">
 
     <!-- Custom styles for this template -->
-    <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
-    <link href="{{url_for('static', filename='css/style-responsive.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style-responsive.css') }}" rel="stylesheet">
 
-    <script src="{{url_for('static', filename='js/chart-master/Chart.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/chart-master/Chart.js') }}"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -60,57 +60,57 @@
                      <div class="row mt">
 
                     <div class="border-head">
-                      <h1><i class="fa fa-angle-right"></i> {{_('Queues')}}</h1>
+                      <h1><i class="fa fa-angle-right"></i> {{ _('Queues') }}</h1>
                     </div>
 
-                    {% for queue in queues %}
+                    {% for queue_name, queue in queues.iteritems() %}
                         <div class="col-lg-4 col-md-4 col-sm-4 mb project">
                             <div class="weather-2 pn photo-wrapper transparent-background">
-                              <a href="{{url_for('.queue', name=queue)}}">
+                              <a href="{{ url_for('.queue', name=queue_name) }}">
                                 <div class="weather-2-header">
-                                    <div class="row header-{{ clean_str_to_div_id(queue) }}">
+                                    <div class="row header-{{ clean_str_to_div_id(queue_name) }}">
                                         <div class="panel-title centered">
-                                            <p>{{ queue }} - <span id="strategy"></span></p>
+                                            <p>{{ queue_name }} - <span id="strategy"></span></p>
                                         </div>
                                     </div>
                                 </div><!-- /weather-2 header -->
 
 
-                                <div class="row data" id="data-{{clean_str_to_div_id(queue)}}">
+                                <div class="row data" id="data-{{ clean_str_to_div_id(queue_name) }}">
 
                                     <div class="col-sm-4 col-xs-4 voffset20 goleft">
-                                        <h5><b>{{_('Answered')}}:</b> <span id="queue_completed">{{queues[queue].CallsAnswered}}</span></h5>
-                                        <h5>{{_('Abandoned')}}: <span id="queue_abandoned">{{queues[queue].CallsAbandoned}} </span></h5>
-                                        <h5>{{_('Incoming')}}: <span id="queue_incoming">{{queues[queue].Calls}} </span></h5>
+                                        <h5><b>{{ _('Answered') }}:</b> <span id="queue_completed">{{ queue.CallsAnswered }}</span></h5>
+                                        <h5>{{ _('Abandoned') }}: <span id="queue_abandoned">{{ queue.CallsAbandoned }} </span></h5>
+                                        <h5>{{ _('Incoming') }}: <span id="queue_incoming">{{ queue.Calls }} </span></h5>
                                         {% if show_service_level() %}
-                                        <h5>{{_('Service Level')}}: <span id="queue_servicelevel">{{queues[queue].ServicelevelPerf}}%</span></h5>
+                                        <h5>{{ _('Service Level') }}: <span id="queue_servicelevel">{{ queues.ServicelevelPerf }}%</span></h5>
                                         {% endif %}
                                     </div>
                                      <div class="col-lg-4 col-md-4 col-sm-4 mb voffset20">
-                                            <canvas id="graph_{{clean_str_to_div_id(queue)}}" height="120" width="120"></canvas>
+                                            <canvas id="graph_{{ clean_str_to_div_id(queue_name) }}" height="120" width="120"></canvas>
                                     </div>
                                     <div class="col-sm-4 col-xs-4 goright voffset20">
-                                        <h5><i class="fa fa-users fa-2x"> <span id="queue_users">{{ queues[queue]['members'] | count }} </span></i>
+                                        <h5><i class="fa fa-users fa-2x"> <span id="queue_users">{{ queue.members | count }} </span></i>
                                         <h5><span id="queue_unavailable"></h5>
                                         <h5><span id="queue_busy"></h5>
                                         <h5><span id="queue_free"></h5>
                                     </div>
                                 </div>
                                 <div class="row centered"  style="margin-top: -20px;">
-                                    <h2>{{_('Abandoned:')}} <span id="{{clean_str_to_div_id(queue)}}-percent_abandoned">0</span>%</h2>
+                                    <h2>{{ _('Abandoned:') }} <span id="{{ clean_str_to_div_id(queue_name) }}-percent_abandoned">0</span>%</h2>
                                 </div>
                                 <script>
-                                    dataGraph['{{queue}}'] = [
+                                    dataGraph['{{ queue_name }}'] = [
                                         {
-                                            value: {{queues[queue].CallsAbandoned}},
+                                            value: {{ queue.CallsAbandoned }},
                                             color:"#FF6B6B"
                                         },
                                         {
-                                            value: {{queues[queue].CallsAnswered}},
+                                            value: {{ queue.CallsAnswered }},
                                             color : "#fdfdfd"
                                         }
                                     ];
-                                    graph['{{queue}}'] = new Chart(document.getElementById("graph_{{clean_str_to_div_id(queue)}}").getContext("2d")).Doughnut(dataGraph['{{queue}}']);
+                                    graph['{{ queue_name }}'] = new Chart(document.getElementById("graph_{{ clean_str_to_div_id(queue_name) }}").getContext("2d")).Doughnut(dataGraph['{{ queue_name }}']);
                                 </script>
 
 
@@ -128,12 +128,12 @@
 
     <!-- js placed at the end of the document so the pages load faster -->
 
-    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
-    <script src="{{url_for('static', filename='js/jquery.scrollTo.min.js')}}"></script>
-    <script src="{{url_for('static', filename='js/jquery.nicescroll.js')}}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.scrollTo.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.nicescroll.js') }}" type="text/javascript"></script>
 
     <!--common script for all pages-->
-    <script src="{{url_for('static', filename='js/common-scripts.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/common-scripts.js') }}"></script>
 
     <script type="application/javascript">
 
@@ -153,12 +153,12 @@
             {
               value: parseInt(data_queue.CallsAbandoned),
               color: "#FF6B6B",
-              label: "{{_('Abandoned')}}"
+              label: "{{ _('Abandoned') }}"
             },
             {
               value: parseInt(data_queue.CallsAnswered),
               color: "#fdfdfd",
-              label: "{{_('Answered')}}"
+              label: "{{ _('Answered') }}"
             }
           ];
           graph[name] = new Chart(document.getElementById("graph_"+name).getContext("2d")).Doughnut(dataGraph[name], optionsNoAnimation);
@@ -211,14 +211,14 @@
                 }
                 $("[id='data-"+ qid + "'] #queue_free")
                     .html( "{agents} ({percent}% {status})"
-                        .format({agents: agent_free, percent: Math.round(agent_free * 100 / agents), status: "{{_("free")}}" }));
+                        .format({agents: agent_free, percent: Math.round(agent_free * 100 / agents), status: "{{ _("free") }}" }));
                 $("[id='data-"+ qid + "'] #queue_busy")
                     .html( "{agents} ({percent}% {status})"
-                        .format({agents: agent_busy, percent: Math.round(agent_busy * 100 / agents), status: "{{_("busy")}}" }));
+                        .format({agents: agent_busy, percent: Math.round(agent_busy * 100 / agents), status: "{{ _("busy") }}" }));
 
                 $("[id='data-"+ qid + "'] #queue_unavailable")
                     .html( "{agents} ({percent}% {status})"
-                        .format({agents: agent_unavailable, percent: Math.round(agent_unavailable * 100 / agents), status: "{{_("unavailable")}} "}));
+                        .format({agents: agent_unavailable, percent: Math.round(agent_unavailable * 100 / agents), status: "{{ _("unavailable") }} "}));
 
             }
             $('#answered').html(answers);
@@ -229,7 +229,7 @@
             var result;
             var r = $.ajax({
                 type: 'GET',
-                url: '{{url_for('.queues')}}'
+                url: '{{ url_for('.queues') }}'
             });
             r.done(function (response) {
                 if (response) {
@@ -245,7 +245,7 @@
         }
 
     </script>
-    <script src="{{url_for('static', filename='js/utils.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
     {% include 'i18n_js.html' %}
 
   </body>

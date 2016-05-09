@@ -6,21 +6,21 @@
     <meta name="description" content="">
     <meta name="author" content="Rodrigo Ramírez Norambuena">
     <meta name="keyword" content="Dashboard, Panel, Queue, app_queue, Asterisk">
-    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='img/favicon.ico')}}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
 
     <title>QPanel</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <!--external css-->
-    <link href="{{url_for('static', filename='font-awesome/css/font-awesome.css')}}" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='lineicons/style.css')}}">
+    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lineicons/style.css') }}">
 
     <!-- Custom styles for this template -->
-    <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
-    <link href="{{url_for('static', filename='css/style-responsive.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style-responsive.css') }}" rel="stylesheet">
 
-    <script src="{{url_for('static', filename='js/chart-master/Chart.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/chart-master/Chart.js') }}"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -49,10 +49,10 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper site-min-height centered">
-            <h1><i class="fa fa-angle-right"></i> {{_('404 Not Found')}}</h1>
+            <h1><i class="fa fa-angle-right"></i> {{ _('404 Not Found') }}</h1>
             <div class="row mt">
                 <div class="col-lg-12">
-                <h2>{{_('The request the was not found on this server.')}}</h2>
+                <h2>{{ _('The request the was not found on this server.') }}</h2>
                 </div>
         </section><!--/wrapper -->
       </section><!-- /MAIN CONTENT -->
@@ -62,14 +62,14 @@
   </section>
 
     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
-    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
-    <script src="{{url_for('static', filename='js/jquery.scrollTo.min.js')}}"></script>
-    <script src="{{url_for('static', filename='js/jquery.nicescroll.js')}}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.scrollTo.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.nicescroll.js') }}" type="text/javascript"></script>
 
     <!--common script for all pages-->
-    <script src="{{url_for('static', filename='js/common-scripts.js')}}"></script>
-    <script src="{{url_for('static', filename='js/utils.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/common-scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
 
   </body>
 </html>
