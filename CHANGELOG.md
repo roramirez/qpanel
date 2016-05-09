@@ -1,5 +1,19 @@
 ## Change Log
 
+### 0.9.0  (2016-05-09)
+- [011d675](https://github.com/roramirez/qpanel/commit/011d675bde87bbcc231e52bb2c2e9c96cfcfde6a) fixbug when sections is defined in config original and not into template
+- [48a0296](https://github.com/roramirez/qpanel/commit/48a0296e16d1277ac675d221f1709a9ea87dccd4) Refactor. Use function from QPanelConfig class for unified configs
+- [ca042dd](https://github.com/roramirez/qpanel/commit/ca042dde1e99112c5c5992a2d298b0224e9ef8ca) add requirements file to install dependencies
+- [1dd11b8](https://github.com/roramirez/qpanel/commit/1dd11b8ffd50208ba4139dd344f2742c625cfef2) refactor exception for not file config
+- [ea145c2](https://github.com/roramirez/qpanel/commit/ea145c204add6382b0b83b531f6dbd4dd1f0b306) add Port patches Asterisk 11.X for app_queue
+- [29d183a](https://github.com/roramirez/qpanel/commit/29d183a53b06734c4c2382df74aeb51d456d5f42) Change behavior when the members (agent) is paused set counter as busy
+- [#50](https://github.com/roramirez/qpanel/pull/50) Update repository of  py-asterisk submodule.
+- [#49](https://github.com/roramirez/qpanel/pull/49) massive fix format space for open/close brackets in templates
+- [#48](https://github.com/roramirez/qpanel/pull/48) Refactor loops into templates and minimal fix format code bracket
+
+### 0.8.1 (2016-04-11)
+- [9abe336](https://github.com/roramirez/qpanel/commit/be33697b13ef5a544e3ea51e3f7674eb5f31cf) Add missing section into script migrate configs
+
 ### 0.8.0 (2016-03-17)
 - [ca98b39](https://github.com/roramirez/qpanel/commit/ca98b39512e0235d0e76d917ef37db4d78c5c9c4) Add FreeSWITCH support.
 
