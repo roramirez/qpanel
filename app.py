@@ -150,15 +150,6 @@ def get_locale():
 # Utilities helpers
 @app.context_processor
 def utility_processor():
-    # Deprecated function
-    def format_id_agent(value):
-        v = value.replace('/', '-')
-        return v.replace('@', '_')
-    return dict(format_id_agent=format_id_agent)
-
-
-@app.context_processor
-def utility_processor():
     def str_status_agent(value):
         try:
             value = int(value)
