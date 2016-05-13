@@ -5,6 +5,7 @@ CREATE TABLE "queue_log" (
     "queuename" character varying(50) NOT NULL,
     "agent" character varying(50) NOT NULL,
     "event" character varying(20) NOT NULL,
+    "data" character varying(50) NOT NULL,
     "data1" character varying(50) NOT NULL,
     "data2" character varying(50) NOT NULL,
     "data3" character varying(50) NOT NULL,
