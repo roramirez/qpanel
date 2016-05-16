@@ -58,12 +58,6 @@ String.prototype.multiReplace = function ( hash ) {
     return str;
 }
 
-function div_agent(text) {
-    // Deprecated
-    return text.multiReplace({'/': '-',
-                              '@': '_'});
-}
-
 function clean_div_name(text) {
     return text.multiReplace({'/': '-',
                               '\\.': '_',
