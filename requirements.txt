@@ -2,3 +2,4 @@ Flask==0.10.1
 Flask_Babel>=0.9
 Flask_Login>=0.3.2
 SQLAlchemy==0.9.10
+Click==6.6

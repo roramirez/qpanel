@@ -5,8 +5,9 @@
 #
 
 import ConfigParser
-from datetime import timedelta
+from datetime import timedelta, date, datetime
 import time
+import calendar
 
 
 def unified_configs(file_config, file_template, sections=[]):
@@ -67,3 +68,32 @@ def timedelta_from_field_dict(field, dic, current_timestamp=None,
                 second_ago = int(current_timestamp) - int(dic[field])
 
     return timedelta(seconds=second_ago)
+
+
+def first_data_dict(data):
+    if data:
+        return data.keys()[0]
+    else:
+        return ''
+
+
+def init_day(d=None):
+    if d is None:
+        d = date.today()
+    return datetime(d.year, d.month, d.day, 0, 0, 0)
+
+
+def end_day(d=None):
+    if d is None:
+        d = date.today()
+    return datetime(d.year, d.month, d.day, 23, 59, 59)
+
+
+# http://stackoverflow.com/a/13260981
+# Convert a unix time u to a datetime object d, and vice versa
+def dt(u):
+    return datetime.utcfromtimestamp(u)
+
+
+def ut(d):
+    return calendar.timegm(d.timetuple())
