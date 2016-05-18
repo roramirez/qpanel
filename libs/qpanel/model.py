@@ -11,9 +11,11 @@ from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql import exists
 from database import session_db, metadata, DeclarativeBase
 import utils
+from config import QPanelConfig
 
+cfg = QPanelConfig()
 # Class queue_log Table
-queue_log = Table(u'queue_log', metadata,
+queue_log = Table(cfg.get('queue_log', 'table'), metadata,
                   Column('id', Integer, primary_key=True, nullable=False),
                   Column('time', Text),
                   Column('callid', Text),
