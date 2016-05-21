@@ -17,17 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.1.1\n"
 
-#: app.py:171 templates/i18n_js.html:13 templates/i18n_js.html:25
-#: templates/index.html:231 templates/fs/index.html:221
+#: app.py:162 templates/i18n_js.html:13 templates/i18n_js.html:25
+#: templates/index.html:233 templates/fs/index.html:221
 msgid "unavailable"
 msgstr "недоступен"
 
-#: app.py:173 templates/i18n_js.html:11 templates/i18n_js.html:23
-#: templates/index.html:224 templates/fs/index.html:214
+#: app.py:164 templates/i18n_js.html:11 templates/i18n_js.html:23
+#: templates/index.html:226 templates/fs/index.html:214
 msgid "free"
 msgstr "свободный"
 
-#: app.py:175 templates/i18n_js.html:15 templates/index.html:227
+#: app.py:166 templates/i18n_js.html:15 templates/index.html:229
 #: templates/fs/index.html:217
 msgid "busy"
 msgstr "занят"
@@ -39,6 +39,89 @@ msgstr "404 Не Найдено"
 #: templates/404.html:55
 msgid "The request the was not found on this server."
 msgstr "Этот запрос не найден на сервере"
+
+#: templates/all_queues.html:11
+msgid "Consolidated view"
+msgstr ""
+
+#: templates/all_queues.html:49 templates/header.html:12
+msgid "Consolidate view"
+msgstr ""
+
+#: templates/all_queues.html:64 templates/queue.html:64
+#: templates/fs/queue.html:63
+msgid "Agents"
+msgstr "Операторы"
+
+#: templates/all_queues.html:68 templates/all_queues.html:106
+#, fuzzy
+msgid "Queue"
+msgstr "Очередь"
+
+#: templates/all_queues.html:69 templates/queue.html:68
+#: templates/fs/queue.html:67
+msgid "Name"
+msgstr "Имя"
+
+#: templates/all_queues.html:70 templates/queue.html:69
+msgid "Interface"
+msgstr "Оператор"
+
+#: templates/all_queues.html:71 templates/queue.html:70
+#: templates/fs/queue.html:69
+msgid "Status"
+msgstr "Статус"
+
+#: templates/all_queues.html:72 templates/queue.html:71
+#: templates/fs/queue.html:71
+msgid "Attend calls"
+msgstr "Принятых звонков."
+
+#: templates/all_queues.html:72 templates/queue.html:71
+#: templates/fs/queue.html:71
+msgid "Calls"
+msgstr "Звонков"
+
+#: templates/all_queues.html:73 templates/queue.html:72
+#: templates/fs/queue.html:72
+msgid "Last call at"
+msgstr "Последний звонок в"
+
+#: templates/all_queues.html:102 templates/queue.html:97
+#: templates/fs/queue.html:103
+msgid "Callers"
+msgstr "Звонков"
+
+#: templates/all_queues.html:107 templates/queue.html:101
+#: templates/fs/queue.html:107
+msgid "Id Name"
+msgstr "Id Имени"
+
+#: templates/all_queues.html:108 templates/queue.html:102
+#: templates/fs/queue.html:108
+msgid "Id Number"
+msgstr "Id Номера"
+
+#: templates/all_queues.html:109 templates/queue.html:103
+msgid "Position"
+msgstr "Позиция"
+
+#: templates/all_queues.html:110 templates/queue.html:104
+#: templates/fs/queue.html:109
+msgid "Wait"
+msgstr "Ожидание"
+
+#: templates/all_queues.html:213 templates/queue.html:181
+msgid "was"
+msgstr ""
+
+#: templates/all_queues.html:213 templates/queue.html:181
+msgid "ago"
+msgstr ""
+
+#: templates/all_queues.html:218 templates/queue.html:186
+msgid "paused"
+msgstr "пауза"
 
 #: templates/footer.html:4
 msgid "Developed by"
@@ -159,66 +242,6 @@ msgstr ""
 #: templates/logout_button.html:2
 msgid "Logout"
 msgstr ""
-
-#: templates/queue.html:64 templates/fs/queue.html:63
-msgid "Agents"
-msgstr "Операторы"
-
-#: templates/queue.html:68 templates/fs/queue.html:67
-msgid "Name"
-msgstr "Имя"
-
-#: templates/queue.html:69
-msgid "Interface"
-msgstr "Оператор"
-
-#: templates/queue.html:70 templates/fs/queue.html:69
-msgid "Status"
-msgstr "Статус"
-
-#: templates/queue.html:71 templates/fs/queue.html:71
-msgid "Attend calls"
-msgstr "Принятых звонков."
-
-#: templates/queue.html:71 templates/fs/queue.html:71
-msgid "Calls"
-msgstr "Звонков"
-
-#: templates/queue.html:72 templates/fs/queue.html:72
-msgid "Last call at"
-msgstr "Последний звонок в"
-
-#: templates/queue.html:98 templates/fs/queue.html:103
-msgid "Callers"
-msgstr "Звонков"
-
-#: templates/queue.html:102 templates/fs/queue.html:107
-msgid "Id Name"
-msgstr "Id Имени"
-
-#: templates/queue.html:103 templates/fs/queue.html:108
-msgid "Id Number"
-msgstr "Id Номера"
-
-#: templates/queue.html:104
-msgid "Position"
-msgstr "Позиция"
-
-#: templates/queue.html:105 templates/fs/queue.html:109
-msgid "Wait"
-msgstr "Ожидание"
-
-#: templates/queue.html:182
-msgid "was"
-msgstr ""
-
-#: templates/queue.html:182
-msgid "ago"
-msgstr ""
-
-#: templates/queue.html:187
-msgid "paused"
-msgstr "пауза"
 
 #: templates/row_general_data.html:10
 msgid "Attended calls."
