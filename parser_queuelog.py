@@ -21,7 +21,7 @@ def parse(file, verbose):
     try:
         with open(file) as fb:
             print("Reading file %s ..." % file)
-            content = fb.read().split("\n")
+            content = fb.read().splitlines()
     except IOError:
         print('File file %s not exits or not can read.' % file)
         sys.exit(1)
