@@ -9,19 +9,25 @@
 from libs.qpanel import model
 import click
 import sys
+import tailer
+
 
 @click.command()
 @click.option('--file', default='/var/log/asterisk/queue_log',
               help='Queue Log file.')
+@click.option('--lines', default=None, help='Get the last lines from file.')
 @click.option('--verbose', default=False)
-
-
-def parse(file, verbose):
+def parse(file, verbose, lines):
     inserted, not_inserted = 0, 0
     try:
-        with open(file) as fb:
-            print("Reading file %s ..." % file)
+        if lines is None:
+            fb = open(file)
             content = fb.read().splitlines()
+        else:
+            nlines = int(lines)
+            content = tailer.tail(open(file), nlines)
+        print("Reading file %s ..." % file)
+
     except IOError:
         print('File file %s not exits or not can read.' % file)
         sys.exit(1)
@@ -38,8 +44,8 @@ def parse(file, verbose):
             if verbose:
                 print ("Not insert record ",  record)
             not_inserted += 1
-    print ("Insert record: %i\nNo inserted record: %i" %
-        (inserted, not_inserted))
+    print ("Insert record: %i\nNo inserted record: %i" % (inserted,
+                                                          not_inserted))
 
 
 def exist_record(record):
