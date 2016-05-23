@@ -27,6 +27,7 @@ import libs.qpanel.utils as uqpanel
 
 from libs.qpanel.config import QPanelConfig
 from libs.qpanel.backend import Backend
+from libs.qpanel.model import queuelog_data_queue
 
 
 class User(flask_login.UserMixin):
@@ -222,6 +223,12 @@ def utility_processor():
         return backend.is_freeswitch()
     return dict(is_freeswitch=is_freeswitch)
 
+@app.context_processor
+def utility_processor():
+    def config():
+        return cfg
+    return dict(config=config)
+
 
 # ---------------------
 # ---- Routes ---------
@@ -291,6 +298,29 @@ def check_new_version():
 def logout():
     flask_login.logout_user()
     return redirect(url_for('login'))
+
+
+@app.route('/stats/<from_date>/<to_date>/<name>.json')
+def stats_json(name, from_date, to_date):
+    queue_values = queuelog_data_queue(from_date, to_date, None, name)
+    data = get_data_queues(name)
+    return jsonify(name=name, data=data, values=queue_values)
+
+
+@app.route('/stats', defaults={'name': None, 'from_date': uqpanel.init_day(),
+                               'to_date': uqpanel.end_day()})
+@app.route('/stats/<name>/<from_date>/<to_date>')
+def stats(name, from_date, to_date):
+    queues = get_data_queues()
+    if name is None:
+        name = uqpanel.first_data_dict(queues)
+    try:
+        data = queues[name]
+    except:
+        data = {}
+    return render_template('stats.html', data=data, queues=queues,  name=name,
+                           from_date=from_date, to_date=to_date)
+
 
 # ---------------------
 # ---- Main  ----------

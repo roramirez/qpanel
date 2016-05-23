@@ -7,6 +7,9 @@
             </div>
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
+                    {% if config().has_queuelog_config() and not is_freeswitch() %}
+                    <li><a class="logout" href="{{ url_for('.stats') }}">{{_('Stats') }}</a></li>
+                    {% endif %}
                     {% include 'language_selector.html' %}
                     {% include 'logout_button.html' %}
                 </ul>

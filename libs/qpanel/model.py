@@ -181,3 +181,31 @@ def queuelog_exists_record(log):
                where(QueueLog.queuename == log['queuename']).
                where(QueueLog.callid == log['callid'])
            ).scalar()
+
+def queuelog_data_queue(from_date, to_date, agent=None, queue=None):
+    data = {}
+    data['answered'] = queuelog_count_answered(from_date, to_date, agent,
+                                               queue)
+    data['inbound'] = queuelog_count_inbound(from_date, to_date, agent, queue)
+    abandon = queuelog_count_abandon(from_date, to_date, agent, queue)
+
+    # Some times the call only have ENTERQUEUE LOG. example
+    '''
+    SELECT id, time, callid, queuename, agent, event FROM queue_log
+         WHERE callid = '1453142984.7';
+    +-----+----------------------------+--------------+-----------+-------+------------+
+    | id  | time                       | callid       | queuename | agent | event      |
+    +-----+----------------------------+--------------+-----------+-------+------------+
+    | 458 | 2016-01-18 15:49:45.464058 | 1453142984.7 | 5001      | NONE  | DID        |
+    | 459 | 2016-01-18 15:49:45.464635 | 1453142984.7 | 5001      | NONE  | ENTERQUEUE |
+    +-----+----------------------------+--------------+-----------+-------+------------+
+    2 rows in set (0.00 sec)
+    '''
+
+    data['count_abandon'] =  abandon + (data['inbound'] - data['answered'] - abandon)
+    data['seconds_wait'] = queuelog_seconds_wait(from_date, to_date, agent, queue)
+    data['seconds_talking'] = queuelog_seconds_talking(from_date, to_date, agent, queue)
+    data['seconds_wait_abandon'] = queuelog_seconds_wait_abandon(from_date,
+                                                                 to_date,
+                                                                 agent, queue)
+    return data
