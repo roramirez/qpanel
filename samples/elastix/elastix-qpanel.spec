@@ -232,6 +232,8 @@ server {
 
 #Change por nginx
 sed -i 's/listen\s*80;/listen 8080;/' /etc/nginx/nginx.conf
+# hotfix issue #56
+sed -i 's/listen 8080;/listen 8082;/' /etc/nginx/nginx.conf
 chkconfig nginx on
 /etc/init.d/nginx start
 fi
