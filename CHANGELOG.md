@@ -1,5 +1,8 @@
 ## Change Log
 
+### 0.9.1  (2016-05-09)
+- [ed7f2ff](https://github.com/roramirez/qpanel/commit/ed7f2ff8db52ec886e861c870e7dce48d1674673) fixbug remove feature hide and rename queue names
+
 ### 0.9.0  (2016-05-09)
 - [011d675](https://github.com/roramirez/qpanel/commit/011d675bde87bbcc231e52bb2c2e9c96cfcfde6a) fixbug when sections is defined in config original and not into template
 - [48a0296](https://github.com/roramirez/qpanel/commit/48a0296e16d1277ac675d221f1709a9ea87dccd4) Refactor. Use function from QPanelConfig class for unified configs
