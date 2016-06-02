@@ -143,11 +143,11 @@ msgstr "Existe una nueva versión estable: "
 msgid ""
 ". Visit and update your QPanel <a "
 "href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
-"style=\"color:#ffd777\">from Github</a>."
+"style=\"color:#ffd777\">from GitHub</a>."
 msgstr ""
 ". Visita y actualiza QPanel <a "
 "href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
-"style=\"color:#ffd777\">desde Github</a>."
+"style=\"color:#ffd777\">desde GitHub</a>."
 
 #: templates/i18n_js.html:28
 msgid "Logged Out"

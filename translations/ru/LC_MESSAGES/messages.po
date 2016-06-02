@@ -143,7 +143,7 @@ msgstr "Существует более новая версия:"
 msgid ""
 ". Visit and update your QPanel <a "
 "href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
-"style=\"color:#ffd777\">from Github</a>."
+"style=\"color:#ffd777\">from GitHub</a>."
 msgstr ""
 
 #: templates/i18n_js.html:28
