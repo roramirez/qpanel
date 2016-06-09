@@ -68,10 +68,8 @@ if ! [ -x "$(command -v pip2.6)" ]; then
   python2.6 /tmp/get-pip.py
 fi
 
-#Flask and dependences
-pip2.6 install flask
-pip2.6 install flask-babel
-pip2.6 install flask-login
+# Dependencies
+pip2.6 install -r /opt/%{modname}/requirements.txt
 
 ###### UWSGI  ##########
 # install
