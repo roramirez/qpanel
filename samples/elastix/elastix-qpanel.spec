@@ -1,6 +1,6 @@
 %define modname qpanel
 Name:    elastix-%{modname}
-Version: 0.4.2
+Version: 0.10.0
 Release: 1%{?dist}
 Summary: Qpanel is dashboard for Queues in Asterisk
 Group:   Applications/Communications
