@@ -298,7 +298,7 @@ def logout():
 # ---------------------
 # ---- Main  ----------
 # ---------------------
-if __name__ == '__main__':
+def main():
 
     if cfg.is_debug:
         app.config['DEBUG'] = True
@@ -312,3 +312,7 @@ if __name__ == '__main__':
         })
         run_simple(cfg.host_bind, cfg.port_bind, application,
                    use_reloader=True, extra_files=[cfg.path_config_file])
+
+
+if __name__ == '__main__':
+    main()
