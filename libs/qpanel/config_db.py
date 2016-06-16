@@ -4,13 +4,11 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 import os
-import datetime
-import sys
 from sqlalchemy import create_engine, MetaData
-from sqlalchemy import Column, Integer, String, TIMESTAMP
+from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm.exc import NoResultFound
+from config import QPanelConfig
 
 
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -39,5 +37,21 @@ class Config(DeclarativeBase):
         self.namespace = namespace
         self.setting = setting
         self.value = value
+
+
+def parse_config_to_db():
+    """
+        Parser config file and add into config database
+    """
+    config_file = QPanelConfig().config
+    sections = config_file.sections()
+    for s in sections:
+        items = dict(config_file.items(s))
+        for i in items:
+            value = config_file.get(s, i)
+            new_cfg = Config(s, i, value)
+            session_dbconfig.add(new_cfg)
+            session_dbconfig.commit()
+
 
 DeclarativeBase.metadata.create_all(engine)
