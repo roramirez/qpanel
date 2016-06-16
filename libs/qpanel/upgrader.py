@@ -9,8 +9,7 @@ from distutils.version import LooseVersion
 
 BRANCH = 'stable'
 REPO = 'git@github.com:roramirez/qpanel.git'
-URL_STABLE_VERSION = 'https://raw.githubusercontent.com/roramirez/qpanel' + \
-                     '/%s/VERSION' % BRANCH
+URL_STABLE_VERSION = 'https://rodrigoramirez.com/qpanel/version/' + BRANCH
 
 
 def require_upgrade():

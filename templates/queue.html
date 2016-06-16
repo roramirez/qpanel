@@ -74,7 +74,7 @@
                               </thead>
                               <tbody>
                               {% for agent_id, agent in data.members.iteritems() %}
-                              <tr id="agent-{{ format_id_agent(agent_id) }}">
+                              <tr id="agent-{{ clean_str_to_div_id(agent_id) }}">
                                   <td>{{ agent.Name }}</td>
                                   <td class="hidden-phone">{{ agent.StateInterface }}</td>
                                   <td id="status">
@@ -155,7 +155,7 @@
           //agents
           var agents_ids = Array();
           for (agent in data.members) {
-            agent_id_div = div_agent(agent);
+            agent_id_div = clean_div_name(agent);
             $('#agent-' + agent_id_div + ' #calls').html(data.members[agent].CallsTaken)
 
             str_time_ago = ''
