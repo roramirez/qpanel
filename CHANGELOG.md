@@ -1,6 +1,6 @@
 ## Change Log
 
-### 0.9.1 (2016-06-16)
+### 0.10.0 (2016-06-16)
 - [c77edc9](https://github.com/roramirez/qpanel/commit/c77edc9658664ea6fad3d47174aa70d80b79d701) Install dependencies by requirements.txt file.
 - [#60](https://github.com/roramirez/qpanel/pull/60) Change URL stable version.
 - [24bd42d](https://github.com/roramirez/qpanel/commit/24bd42db7f84ac9acb30fd1caa20861db824cd3a) fix camelcase name GitHub keyword.
