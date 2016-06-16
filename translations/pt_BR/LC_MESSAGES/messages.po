@@ -131,6 +131,10 @@ msgstr "Desenvolvido por"
 msgid "with a Template by"
 msgstr "Com modelo de"
 
+#: templates/footer.html:4
+msgid "Version"
+msgstr ""
+
 #: templates/footer.html:42
 msgid "New version available"
 msgstr "Nova versão disponível"
