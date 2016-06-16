@@ -150,15 +150,6 @@ def get_locale():
 # Utilities helpers
 @app.context_processor
 def utility_processor():
-    # Deprecated function
-    def format_id_agent(value):
-        v = value.replace('/', '-')
-        return v.replace('@', '_')
-    return dict(format_id_agent=format_id_agent)
-
-
-@app.context_processor
-def utility_processor():
     def str_status_agent(value):
         try:
             value = int(value)
@@ -247,6 +238,18 @@ def queue(name=None):
     return render_template(template, data=data, name=name)
 
 
+@app.route('/all_queues')
+@flask_login.login_required
+def all_queues():
+    data = get_data_queues()
+    template = 'all_queues.html'
+    if backend.is_freeswitch():
+        abort(404)
+        # Not yet implement
+        #template = 'fs/all_queue.html'
+    return render_template(template, queues=data)
+
+
 @app.route('/queue/<name>.json')
 @flask_login.login_required
 def queue_json(name=None):
@@ -295,7 +298,7 @@ def logout():
 # ---------------------
 # ---- Main  ----------
 # ---------------------
-if __name__ == '__main__':
+def main():
 
     if cfg.is_debug:
         app.config['DEBUG'] = True
@@ -309,3 +312,7 @@ if __name__ == '__main__':
         })
         run_simple(cfg.host_bind, cfg.port_bind, application,
                    use_reloader=True, extra_files=[cfg.path_config_file])
+
+
+if __name__ == '__main__':
+    main()

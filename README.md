@@ -95,7 +95,7 @@ If dont have pip in your system. For install
   git submodule update
   cp config.ini-dist config.ini
  ```
-  Edit config.ini with Manager Asterisk parameters
+  Edit config.ini file with Manager Asterisk parameters
 
 ## 4.- Translations
  ```
@@ -111,7 +111,7 @@ If dont have pip in your system. For install
 Go url of machine http://IP:5000
 
 If you want run QPanel like a service, see the [samples configurations
-files](samples/configs). Here a example for use USWGI +  NGINX
+files](samples/configs).  There are a example for use with uWSGI + NGINX
 
 ## New features?
 If you like new features or something is wrong [please open a issue](https://github.com/roramirez/qpanel/issues/new)
