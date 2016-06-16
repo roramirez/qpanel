@@ -4,7 +4,7 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 import os
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine, MetaData, event
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
@@ -38,6 +38,10 @@ class Config(DeclarativeBase):
         self.setting = setting
         self.value = value
 
+    @staticmethod
+    def add_data(*args, **kw):
+        parse_config_to_db()
+
 
 def parse_config_to_db():
     """
@@ -54,4 +58,5 @@ def parse_config_to_db():
             session_dbconfig.commit()
 
 
+event.listen(Config.__table__, "after_create", Config.add_data)
 DeclarativeBase.metadata.create_all(engine)
