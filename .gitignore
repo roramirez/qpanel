@@ -2,7 +2,7 @@
 config.ini
 .DS_Store
 translations/*/*/messages.mo
-
+data/database.db
 
 # Distribution / packaging
 .Python
