@@ -131,6 +131,10 @@ msgstr "Разработан"
 msgid "with a Template by"
 msgstr "с шаблоном"
 
+#: templates/footer.html:4
+msgid "Version"
+msgstr ""
+
 #: templates/footer.html:42
 msgid "New version available"
 msgstr "недоступен"

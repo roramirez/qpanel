@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
-"PO-Revision-Date: 2016-03-17 22:57-0400\n"
+"PO-Revision-Date: 2016-06-16 08:57-0400\n"
 "Last-Translator: Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>\n"
 "Language: es\n"
 "Language-Team: LANGUAGE <a@rodrigoramirez.com>\n"
@@ -127,6 +127,10 @@ msgstr ""
 
 #: templates/footer.html:4
 msgid "with a Template by"
+msgstr ""
+
+#: templates/footer.html:4
+msgid "Version"
 msgstr ""
 
 #: templates/footer.html:42

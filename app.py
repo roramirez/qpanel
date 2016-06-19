@@ -213,6 +213,11 @@ def utility_processor():
         return backend.is_freeswitch()
     return dict(is_freeswitch=is_freeswitch)
 
+@app.context_processor
+def utility_processor():
+    def current_version():
+        return get_current_version()
+    return dict(current_version=current_version)
 
 # ---------------------
 # ---- Routes ---------
