@@ -70,7 +70,10 @@ def parse_config_to_db():
         items = dict(config_file.items(s))
         for i in items:
             value = config_file.get(s, i)
-            new_cfg = Config(s, i, value)
+            if s == 'users':
+                new_cfg = User(i, value)
+            else:
+                new_cfg = Config(s, i, value)
             session_dbconfig.add(new_cfg)
             session_dbconfig.commit()
 
