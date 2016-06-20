@@ -9,6 +9,7 @@ from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 from config import QPanelConfig
+import hashlib
 
 
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -41,6 +42,22 @@ class Config(DeclarativeBase):
     @staticmethod
     def add_data(*args, **kw):
         parse_config_to_db()
+
+
+class User(DeclarativeBase):
+
+    __tablename__ = "user"
+
+    username = Column(String, primary_key=True)
+    name = Column(String)
+    email = Column(String)
+    password = Column(String)
+
+    def __init__(self, username, password):
+        m = hashlib.md5()
+        m.update(password)
+        self.username = username
+        self.password = m.hexdigest()
 
 
 def parse_config_to_db():
