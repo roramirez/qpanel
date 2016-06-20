@@ -47,7 +47,7 @@ def __get_data_url(url):
 def __first_line(content):
     tmp = ''
     if content is not None:
-        tmp = content.split('\n')
+        tmp = content.splitlines()
     if len(tmp) >= 1:
         return tmp[0]
     return tmp
