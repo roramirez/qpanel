@@ -8,6 +8,7 @@ from sqlalchemy import create_engine, MetaData, event
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import func
 from config import QPanelConfig
 import hashlib
 
@@ -58,6 +59,10 @@ class User(DeclarativeBase):
         m.update(password)
         self.username = username
         self.password = m.hexdigest()
+
+    @staticmethod
+    def count():
+        return session_dbconfig.query(func.count(User.username)).scalar()
 
 
 def parse_config_to_db():
