@@ -8,4 +8,3 @@ class NotConfigFileQPanel(BaseException):
     def __init__(self, file_path):
         error = 'Error to open file config. Check if %s file exist' % file_path
         super(NotConfigFileQPanel, self).__init__(error)
-
