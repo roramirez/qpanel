@@ -9,9 +9,9 @@ from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import func
-import config
 import hashlib
-
+import config
+import utils
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PATH_DB = os.path.join(HERE, os.pardir, os.pardir, 'data', 'database.db')
@@ -63,6 +63,21 @@ class User(DeclarativeBase):
     @staticmethod
     def count():
         return session_dbconfig.query(func.count(User.username)).scalar()
+
+    @staticmethod
+    def get_by_username(username):
+        return session_dbconfig.query(User).\
+                filter(User.username == username).first()
+
+    @staticmethod
+    def valid_user(username, password):
+        user = User.get_by_username(username)
+        if not user:
+            return False
+        if user.password == utils.to_md5(password):
+            return True
+        return False
+
 
 
 def parse_config_to_db():

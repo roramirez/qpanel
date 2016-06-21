@@ -27,7 +27,7 @@ import libs.qpanel.utils as uqpanel
 
 from libs.qpanel.config import QPanelConfig
 from libs.qpanel.backend import Backend
-
+from libs.qpanel import config_db
 
 class User(flask_login.UserMixin):
     pass
@@ -49,13 +49,8 @@ def get_data_queues(queue=None):
 
 
 def get_user_config_by_name(username):
-    try:
-        user = User()
-        user.id = username
-        user.password = cfg.get('users', username)
-        return user
-    except:
-        return None
+    return config_db.User.get_by_username(username)
+
 
 # Flask env
 APPLICATION_ROOT = cfg.base_url
@@ -71,7 +66,7 @@ login_manager.init_app(app)
 
 def set_data_user(user_config):
     user = User()
-    user.id = user_config.id
+    user.id = user_config.username
     return user
 
 
@@ -120,7 +115,7 @@ def login():
     if user_config is None:
         return redirect(url_for('login'))
 
-    if user_config.password == request.form['pw']:
+    if user_config.password == uqpanel.to_md5(request.form['pw']):
         user = set_data_user(user_config)
         flask_login.login_user(user)
         return redirect(url_for('home'))
