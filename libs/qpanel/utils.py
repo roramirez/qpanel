@@ -79,4 +79,4 @@ def open_config_ini_file(file_path):
             cfg.readfp(f)
             return cfg
     except IOError:
-        raise  NotConfigFileQPanel(file_path)
+        raise NotConfigFileQPanel(file_path)
