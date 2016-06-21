@@ -7,7 +7,7 @@
 import ConfigParser
 from datetime import timedelta
 import time
-from exceptions import NotConfigFileQPanel
+from exception import NotConfigFileQPanel
 
 def unified_configs(file_config, file_template, sections=[]):
 
