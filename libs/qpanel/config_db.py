@@ -83,5 +83,5 @@ def parse_config_to_db():
             session_dbconfig.commit()
 
 
-event.listen(Config.__table__, "after_create", Config.add_data)
+event.listen(User.__table__, "after_create", Config.add_data)
 DeclarativeBase.metadata.create_all(engine)
