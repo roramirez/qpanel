@@ -9,6 +9,7 @@ import sys
 from distutils.util import strtobool
 import config_db
 from exceptions import NotConfigFileQPanel
+import utils
 
 
 class QPanelConfig:
@@ -45,13 +46,7 @@ class QPanelConfig:
                                            'show_service_level', False)
 
     def __open_config_file(self, file_path):
-        cfg = ConfigParser.ConfigParser()
-        try:
-            with open(file_path) as f:
-                cfg.readfp(f)
-                return cfg
-        except IOError:
-            raise NotConfigFileQPanel(file_path)
+        return utils.open_config_ini_file(file_path)
 
     def get_hide_config(self):
         tmp = self.__get_entry_ini_default('general', 'hide', '')

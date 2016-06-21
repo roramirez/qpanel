@@ -7,13 +7,12 @@
 import ConfigParser
 from datetime import timedelta
 import time
-import config as cfg
-
+from exceptions import NotConfigFileQPanel
 
 def unified_configs(file_config, file_template, sections=[]):
 
-    config = cfg.QPanelConfig(file_config).config
-    template = cfg.QPanelConfig(file_template).config
+    config = open_config_ini_file(file_config)
+    template = open_config_ini_file(file_template)
 
     # create new file based in template
     for s in sections:
@@ -63,3 +62,13 @@ def timedelta_from_field_dict(field, dic, current_timestamp=None,
                 seconds_ago = int(current_timestamp) - int(dic[field])
 
     return timedelta(seconds=seconds_ago)
+
+
+def open_config_ini_file(file_path):
+    cfg = ConfigParser.ConfigParser()
+    try:
+        with open(file_path) as f:
+            cfg.readfp(f)
+            return cfg
+    except IOError:
+        raise  NotConfigFileQPanel(file_path)
