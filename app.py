@@ -23,7 +23,7 @@ from datetime import timedelta
 import flask.ext.login as flask_login
 
 from libs.qpanel.upgrader import *
-import libs.qpanel.utils as uqpanel
+import libs.qpanel as qpanel
 
 from libs.qpanel.config import QPanelConfig
 from libs.qpanel.backend import Backend
@@ -115,7 +115,7 @@ def login():
     if user_config is None:
         return redirect(url_for('login'))
 
-    if user_config.password == uqpanel.to_md5(request.form['pw']):
+    if user_config.password == qpanel.utils.to_md5(request.form['pw']):
         user = set_data_user(user_config)
         flask_login.login_user(user)
         return redirect(url_for('home'))
