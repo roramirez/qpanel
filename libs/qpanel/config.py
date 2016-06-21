@@ -7,7 +7,7 @@ import ConfigParser
 import os
 import sys
 from distutils.util import strtobool
-
+import config_db
 
 class NotConfigFileQPanel(BaseException):
     '''
@@ -104,7 +104,7 @@ class QPanelConfig:
 
     def has_users(self):
         v = False
-        if self.count_element_sections_config('users', self.config) > 0:
+        if config_db.User.count() > 0:
             v = True
         return v
 

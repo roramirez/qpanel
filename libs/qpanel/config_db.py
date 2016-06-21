@@ -9,7 +9,7 @@ from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import func
-from config import QPanelConfig
+import config
 import hashlib
 
 
@@ -69,7 +69,7 @@ def parse_config_to_db():
     """
         Parser config file and add into config database
     """
-    config_file = QPanelConfig().config
+    config_file = config.QPanelConfig().config
     sections = config_file.sections()
     for s in sections:
         items = dict(config_file.items(s))
