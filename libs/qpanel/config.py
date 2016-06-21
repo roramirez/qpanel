@@ -3,25 +3,16 @@
 #
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
-import ConfigParser
-import os
-import sys
 from distutils.util import strtobool
 import config_db
-from exceptions import NotConfigFileQPanel
 import utils
+import settings
 
 
 class QPanelConfig:
 
-    def __init__(self, path_config_file=None):
-        dirname, filename = os.path.split(os.path.abspath(__file__))
-        if path_config_file:
-            self.path_config_file = path_config_file
-        else:
-            self.path_config_file = os.path.join(dirname, os.pardir,
-                                                 os.pardir, 'config.ini')
-
+    def __init__(self):
+        self.path_config_file = settings.PATH_FILE_CONFIG
         self.config = self.__open_config_file(self.path_config_file)
 
         # properties
