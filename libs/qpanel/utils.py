@@ -8,6 +8,8 @@ import ConfigParser
 from datetime import timedelta
 import time
 from exception import NotConfigFileQPanel
+import hashlib
+
 
 def unified_configs(file_config, file_template, sections=[]):
 
@@ -62,6 +64,12 @@ def timedelta_from_field_dict(field, dic, current_timestamp=None,
                 seconds_ago = int(current_timestamp) - int(dic[field])
 
     return timedelta(seconds=seconds_ago)
+
+
+def to_md5(val):
+    m = hashlib.md5()
+    m.update(val)
+    return m.hexdigest()
 
 
 def open_config_ini_file(file_path):
