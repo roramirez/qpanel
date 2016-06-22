@@ -198,7 +198,7 @@ def utility_processor():
 @app.context_processor
 def utility_processor():
     def clean_str_to_div_id(value):
-        return uqpanel.clean_str_to_div_id(value)
+        return qpanel.utils.clean_str_to_div_id(value)
     return dict(clean_str_to_div_id=clean_str_to_div_id)
 
 
