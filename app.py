@@ -308,6 +308,23 @@ def get_user(username):
     return jsonify(user=user.as_dict())
 
 
+@app.route('/user/', methods=['POST'])
+def create_user():
+    if not request.json or not 'username' in request.json:
+        abort(400)
+    try:
+        user = config_db.User(request.json.get('username'),
+                              request.json.get('password'))
+        user.name = request.json.get('name')
+        user.email = request.json.get('email')
+        config_db.session_dbconfig.add(user)
+        config_db.session_dbconfig.commit()
+    except:
+        config_db.session_dbconfig.rollback()
+        abort(400)
+    return jsonify({'user': user.as_dict()}), 201
+
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------
