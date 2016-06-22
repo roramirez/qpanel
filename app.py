@@ -290,12 +290,23 @@ def logout():
     flask_login.logout_user()
     return redirect(url_for('login'))
 
+
 # Users
-@app.route('/user/', methods = ['GET'])
+@app.route('/user/', methods=['GET'])
 def user():
     data = config_db.User.query.all()
     users = [d.as_dict() for d in data]
     return jsonify(users=users)
+
+
+@app.route('/user/<username>', methods=['GET'])
+def get_user(username):
+    user = config_db.User.query.\
+            filter(config_db.User.username == username).first()
+    if not user:
+        abort(404)
+    return jsonify(user=user.as_dict())
+
 
 # ---------------------
 # ---- Main  ----------
