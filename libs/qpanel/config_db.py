@@ -54,11 +54,17 @@ class User(DeclarativeBase):
     email = Column(String)
     password = Column(String)
 
+    query = session_dbconfig.query_property()
+
     def __init__(self, username, password):
         m = hashlib.md5()
         m.update(password)
         self.username = username
         self.password = m.hexdigest()
+
+    def as_dict(self):
+        return {'name': self.name, 'username': self.username,
+                'email': self.email}
 
     @staticmethod
     def count():
