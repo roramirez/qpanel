@@ -10,7 +10,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import func
 import hashlib
-import config
+import settings
 import utils
 
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -79,12 +79,11 @@ class User(DeclarativeBase):
         return False
 
 
-
 def parse_config_to_db():
     """
         Parser config file and add into config database
     """
-    config_file = config.QPanelConfig().config
+    config_file = utils.open_config_ini_file(settings.PATH_FILE_CONFIG)
     sections = config_file.sections()
     for s in sections:
         items = dict(config_file.items(s))
