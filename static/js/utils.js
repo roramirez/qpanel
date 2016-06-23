@@ -72,3 +72,11 @@ Number.prototype.isUnavailableInAsterisk = function(args) {
     if (unavailable_status.indexOf(parseInt(value)) > -1) { return true; }
     return false;
 }
+
+
+function cleanNull(val) {
+    if (val === null) {
+        return '';
+    }
+    return val;
+}

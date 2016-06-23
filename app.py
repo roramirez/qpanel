@@ -291,6 +291,11 @@ def logout():
     return redirect(url_for('login'))
 
 
+@app.route('/config/user/', methods=['GET'])
+def config_user():
+    return render_template('config_user.html')
+
+
 # Users
 @app.route('/user/', methods=['GET'])
 def user():

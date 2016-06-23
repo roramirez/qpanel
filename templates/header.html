@@ -4,6 +4,14 @@
             <a href="{{ url_for('.home') }}" class="logo"><img src="{{url_for('static', filename='img/logo_header.png') }}"></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
+                <ul class="nav top-menu">
+                    <!-- settings start -->
+                    <li class="dropdown">
+                        <a data-toggle="" class="dropdown-toggle" href="{{ url_for('.config_user') }}">
+                            <i class="fa fa-users"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
