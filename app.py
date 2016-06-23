@@ -292,12 +292,14 @@ def logout():
 
 
 @app.route('/config/user/', methods=['GET'])
+@flask_login.login_required
 def config_user():
     return render_template('config_user.html')
 
 
 # Users
 @app.route('/user/', methods=['GET'])
+@flask_login.login_required
 def user():
     data = config_db.User.query.all()
     users = [d.as_dict() for d in data]
@@ -305,6 +307,7 @@ def user():
 
 
 @app.route('/user/<username>', methods=['GET'])
+@flask_login.login_required
 def get_user(username):
     user = config_db.User.query.\
             filter(config_db.User.username == username).first()
@@ -314,6 +317,7 @@ def get_user(username):
 
 
 @app.route('/user/', methods=['POST'])
+@flask_login.login_required
 def create_user():
     if not request.json or not 'username' in request.json:
         abort(400)
