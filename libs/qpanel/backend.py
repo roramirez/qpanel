@@ -10,7 +10,7 @@ from datetime import timedelta
 from utils import timedelta_from_field_dict
 import os
 import sys
-from libs.qpanel.asterisk import *
+import asterisk
 # In case use Asterisk dont crash with ESL not in system
 try:
     from libs.qpanel.freeswitch import *
@@ -50,7 +50,8 @@ class Backend(object):
         return self._connect_ami()
 
     def _connect_ami(self):
-        manager = AsteriskAMI(self.host, self.port, self.user, self.password)
+        manager = asterisk.AsteriskAMI(self.host, self.port, self.user,
+                                       self.password)
         return manager
 
     def _connect_esl(self):
