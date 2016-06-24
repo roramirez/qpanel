@@ -300,15 +300,15 @@ def logout():
     flask_login.logout_user()
     return redirect(url_for('login'))
 
+
 @app.route('/spy', methods=['POST'])
 @flask_login.login_required
 def spy():
     channel = request.form['channel']
     to_exten = request.form['to_exten']
     r = backend.spy(channel, to_exten)
-    return jsonify(
-        result = r
-    )
+    return jsonify(result=r)
+
 
 @app.route('/whisper', methods=['POST'])
 @flask_login.login_required
@@ -316,9 +316,7 @@ def whisper():
     channel = request.form['channel']
     to_exten = request.form['to_exten']
     r = backend.whisper(channel, to_exten)
-    return jsonify(
-        result = r
-    )
+    return jsonify(result=r)
 
 
 @app.route('/barge', methods=['POST'])
