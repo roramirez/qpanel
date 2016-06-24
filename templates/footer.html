@@ -1,7 +1,7 @@
       <!--footer start-->
       <footer class="site-footer">
           <div class="text-center">
-              {{ _('Developed by') }} <a href="http://rodrigoramirez.com">Rodrigo Ramírez Norambuena</a> {{ _('with a Template by') }} <a href="http://alvarez.is">Carlos Alvarez</a>
+              {{ _('Developed by') }} <a href="http://rodrigoramirez.com">Rodrigo Ramírez Norambuena</a> {{ _('with a Template by') }} <a href="http://alvarez.is">Carlos Alvarez</a> {{ _('Version')  }}: {{ current_version() }}
               <a href="#" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
@@ -40,8 +40,8 @@
     function showPopupUpdate(actual_version) {
         var unique_id = $.gritter.add({
             title: '{{ _('New version available') }}',
-            text: '{{ _('Exist a new version stable: ') }}' + actual_version + '{{ _('. Visit and update your QPanel <a href="https://github.com/roramirez/qpanel" target="_blank" style="color:#ffd777">from Github</a>.') }}',
-            image: '{{ url_for('static', filename='img/logo.png') }}',
+            text: '{{ _('Exist a new version stable: ') }}' + actual_version + '{{ _('. Visit and update your QPanel <a href="https://github.com/roramirez/qpanel" target="_blank" style="color:#ffd777">from GitHub</a>.') }}',
+            image: '{{ url_for('static', filename='img/fa-download_55.png') }}',
             sticky: true,
             time: '',
             class_name: 'my-sticky-class'

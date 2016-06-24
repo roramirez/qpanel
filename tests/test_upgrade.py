@@ -27,6 +27,7 @@ class UpgradeTestClass(unittest.TestCase):
         f.write(version)
         f.close()
         self.assertEqual(get_current_version(version_file), version)
+        self.assertNotEqual(get_current_version(version_file), '0.11.0')
 
 
 # runs the unit tests

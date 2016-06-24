@@ -9,8 +9,7 @@ from distutils.version import LooseVersion
 
 BRANCH = 'stable'
 REPO = 'git@github.com:roramirez/qpanel.git'
-URL_STABLE_VERSION = 'https://raw.githubusercontent.com/roramirez/qpanel' + \
-                     '/%s/VERSION' % BRANCH
+URL_STABLE_VERSION = 'https://rodrigoramirez.com/qpanel/version/' + BRANCH
 
 
 def require_upgrade():
@@ -48,7 +47,7 @@ def __get_data_url(url):
 def __first_line(content):
     tmp = ''
     if content is not None:
-        tmp = content.split('\n')
+        tmp = content.splitlines()
     if len(tmp) >= 1:
         return tmp[0]
     return tmp

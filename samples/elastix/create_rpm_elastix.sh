@@ -10,7 +10,7 @@
 # config
 BRANCH=stable
 REPO="https://github.com/roramirez/qpanel.git"
-URL_STABLE_VERSION="https://raw.githubusercontent.com/roramirez/qpanel/$BRANCH/VERSION"
+URL_STABLE_VERSION="https://rodrigoramirez.com/qpanel/version/$BRANCH"
 
 if ! [ -x "$(command -v git)" ]; then
   echo "Please install git"
@@ -28,7 +28,7 @@ if ! [ -x "$(command -v curl)" ]; then
 fi
 
 
-VERSION_STABLE=$(curl $URL_STABLE_VERSION)
+VERSION_STABLE=$(curl -L $URL_STABLE_VERSION)
 CLONE_DIR="/tmp/qpanel-$VERSION_STABLE"
 FILE_TAR="qpanel-$VERSION_STABLE.tar.gz"
 if [ -d "$CLONE_DIR" ]; then

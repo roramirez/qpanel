@@ -1,5 +1,19 @@
 ## Change Log
 
+### 0.10.0 (2016-06-16)
+- [c77edc9](https://github.com/roramirez/qpanel/commit/c77edc9658664ea6fad3d47174aa70d80b79d701) Install dependencies by requirements.txt file.
+- [#60](https://github.com/roramirez/qpanel/pull/60) Change URL stable version.
+- [24bd42d](https://github.com/roramirez/qpanel/commit/24bd42db7f84ac9acb30fd1caa20861db824cd3a) fix camelcase name GitHub keyword.
+- [3035a0c](https://github.com/roramirez/qpanel/commit/3035a0c630e4516872fffee9259b23d8b648ebce) Change icon for tooltip notice of new stable version.
+- [f09176f](https://github.com/roramirez/qpanel/commit/f09176f9033bade7046b9c2f28a34a16e723fcbf) remove deprecated function format_id_agent.
+- [44cc4ef](https://github.com/roramirez/qpanel/commit/44cc4ef57b0adb99fbd560023af17e62201632d5) fix set name var for seconds ago into utils function.
+- [4ce32ed](https://github.com/roramirez/qpanel/commit/4ce32ed5321f2bc24fc28df45e6cabdd24a7d0c8) remove deprecated Javascript function.
+- [#55](https://github.com/roramirez/qpanel/pull/55) Add consolidated view feature.
+- [303e08b](https://github.com/roramirez/qpanel/commit/303e08b53f8ddf53f38d758ab52e554e9442fa0e) Change port nginx close issue #56
+
+### 0.9.1 (2016-05-30)
+- [ed7f2ff](https://github.com/roramirez/qpanel/commit/ed7f2ff8db52ec886e861c870e7dce48d1674673) Fixbug  introduce in backend for hide and rename queue names.
+
 ### 0.9.0  (2016-05-09)
 - [011d675](https://github.com/roramirez/qpanel/commit/011d675bde87bbcc231e52bb2c2e9c96cfcfde6a) fixbug when sections is defined in config original and not into template
 - [48a0296](https://github.com/roramirez/qpanel/commit/48a0296e16d1277ac675d221f1709a9ea87dccd4) Refactor. Use function from QPanelConfig class for unified configs

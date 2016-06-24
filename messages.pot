@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
-"PO-Revision-Date: 2016-03-17 22:57-0400\n"
+"PO-Revision-Date: 2016-06-16 08:57-0400\n"
 "Last-Translator: Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>\n"
 "Language: es\n"
 "Language-Team: LANGUAGE <a@rodrigoramirez.com>\n"
@@ -129,6 +129,10 @@ msgstr ""
 msgid "with a Template by"
 msgstr ""
 
+#: templates/footer.html:4
+msgid "Version"
+msgstr ""
+
 #: templates/footer.html:42
 msgid "New version available"
 msgstr ""
@@ -141,7 +145,7 @@ msgstr ""
 msgid ""
 ". Visit and update your QPanel <a "
 "href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
-"style=\"color:#ffd777\">from Github</a>."
+"style=\"color:#ffd777\">from GitHub</a>."
 msgstr ""
 
 #: templates/i18n_js.html:28
