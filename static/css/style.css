@@ -2264,3 +2264,8 @@ label {
     font-weight: 900;
     src: local('Ruda Black'), local('Ruda-Black'), url(../fonts/Ruda-Black.ttf) format('truetype');
 }
+
+.form-group.required .control-label:after {
+    content:"*";
+    color:red;
+}

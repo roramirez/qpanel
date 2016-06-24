@@ -319,8 +319,12 @@ def get_user(username):
 @app.route('/user/', methods=['POST'])
 @flask_login.login_required
 def create_user():
-    if not request.json or not 'username' in request.json:
+    app.logger.debug(request.json)
+    if (not request.json or not 'username' in request.json
+        or len(request.json.get('username')) == 0
+        or len(request.json.get('password')) == 0):
         abort(400)
+
     try:
         user = config_db.User(request.json.get('username'),
                               request.json.get('password'))

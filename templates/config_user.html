@@ -52,6 +52,7 @@
                             <h4>
                                 <i class="fa fa-angle-right"></i> {{ _('Users') }}:
                                 <span id="total_users" class="label label-default"></span>
+                                <button type="button" class="btn btn-primary add-new">{{ _('Add new') }}</button>
                             </h4>
                             <hr>
                               <thead>
@@ -69,6 +70,76 @@
                 </div><!-- /col-md-12 -->
           </section>
       </section>
+
+
+    <!-- Modal new user -->
+    <div id="modal-new_user" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="swModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> 
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="col-lg-2">
+                    <h4><i class="fa fa-user fa-5x"></i> </h4>
+                </div>
+                <div class="col-lg-10">
+                    <br/>
+
+                    <div class="form-horizontal" id="form-new-user">
+                        <fieldset>
+                            <legend>
+                                {{ _('Create a new user')}}
+                            </legend>
+                            <div class="form-group required">
+                                <label class="col-md-2 control-label" for="user">{{ _('Username')}}</label>
+                                    <div class="col-md-8">
+                                        <input id="username" name="username" placeholder="" class="form-control input-md" type="text" required="true">
+                                    </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label class="col-md-2 control-label" for="password">{{ _('Password') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="password" name="password" placeholder="" class="form-control input-md" type="password" required="true">
+                                    </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="name">{{ _('Name')}}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" name="name" placeholder="" class="form-control input-md" type="text">
+                                    </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="email">{{ _('Email')}}</label>
+                                    <div class="col-md-8">
+                                        <input id="email" name="email" placeholder="" class="form-control input-md" type="text">
+                                    </div>
+                            </div>
+
+
+                            <button class="btn btn-primary  pull-right" id="new_user"  title="{{_('Create new user') }}">
+                                {{ _('Create user') }}
+                            </button>
+
+                        </fieldset>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="modal-message"></label>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                </div>
+            </div>
+         </div>
+    </div>
+    <!-- End new user modal -->
+
 
       <!--main content end-->
       {% include 'footer.html' %}
@@ -98,17 +169,7 @@
 
                     for (u in response.users) {
                         user = response.users[u];
-                        var tr = '<tr id="user-' + user.username + '">'
-                            + '<td>' + user.username + '</td>'
-                            + '<td>' + cleanNull(user.name) + '</td>'
-                            + '<td>' + cleanNull(user.email) + '</td>'
-                            + '</tr>'
-
-                        if ($('#users tbody tr:last').length > 0) {
-                            $('#users tbody tr:last').after(tr);
-                        } else {
-                            $('#users tbody').append(tr);
-                        }
+                        addUserToTable(user);
                     }
 
                     $('#total_users').html("{total}".format({total:  Object.keys(response.users).length}));
@@ -119,6 +180,65 @@
 
             r.always(function () {
             });
+        }
+
+        $('#new_user').on('click', function() {
+            var data = {
+                'username': $('#username').val(),
+                'password': $('#password').val(),
+                'name': $('#name').val(),
+                'email': $('#email').val(),
+            }
+            console.log(data);
+            var r = $.ajax({
+                    url: '{{ url_for('.user') }}',
+                    method: 'POST',
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+            });
+            r.done(function (response) {
+                console.log('done...');
+                $('.modal').modal('hide');
+                resetModal();
+                addUserToTable(response.user);
+                var total_users = (parseInt($('#total_users').html()) + 1);
+                $('#total_users').html("{total}".format({total:  total_users}));
+            });
+            r.fail(function (response) {
+                console.log('fail...');
+                $('.modal-message').html("{{ _('Failed to create new user') }}");
+                $('.modal-message').addClass('has-error')
+            });
+            r.always(function () {
+                console.log('always...');
+            });
+        });
+
+        $('.add-new').on('click', function() {
+            resetModal();
+            $('.modal').modal()
+        });
+
+        function resetModal() {
+            $('#username').val("");
+            $('#password').val("");
+            $('#name').val("");
+            $('#email').val("");
+            $('.modal-message').html("");
+            $('.modal-message').removeClass('has-error')
+        }
+        function addUserToTable(user) {
+            var tr = '<tr id="user-' + user.username + '">'
+                + '<td>' + user.username + '</td>'
+                + '<td>' + cleanNull(user.name) + '</td>'
+                + '<td>' + cleanNull(user.email) + '</td>'
+                + '</tr>'
+                if ($('#users tbody tr:last').length > 0) {
+                    $('#users tbody tr:last').after(tr);
+                } else {
+                    $('#users tbody').append(tr);
+                }
         }
     </script>
 
