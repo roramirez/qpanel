@@ -301,6 +301,7 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route('/spy', methods=['POST'])
+@flask_login.login_required
 def spy():
     channel = request.form['channel']
     to_exten = request.form['to_exten']
@@ -310,6 +311,7 @@ def spy():
     )
 
 @app.route('/whisper', methods=['POST'])
+@flask_login.login_required
 def whisper():
     channel = request.form['channel']
     to_exten = request.form['to_exten']
@@ -320,6 +322,7 @@ def whisper():
 
 
 @app.route('/barge', methods=['POST'])
+@flask_login.login_required
 def barge():
     channel = request.form['channel']
     to_exten = request.form['to_exten']
