@@ -8,10 +8,9 @@
 
 import os
 import sys
-# get current names for directory and file
-dirname, filename = os.path.split(os.path.abspath(__file__))
+import settings
 # py-asterisk
-sys.path.append(os.path.join(dirname, os.pardir, 'py-asterisk'))
+sys.path.append(os.path.join(settings.ROOT_PATH, 'libs', 'py-asterisk'))
 from Asterisk.Manager import *
 
 
