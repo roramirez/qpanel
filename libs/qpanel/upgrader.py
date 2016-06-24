@@ -13,8 +13,12 @@ URL_STABLE_VERSION = 'https://rodrigoramirez.com/qpanel/version/' + BRANCH
 
 
 def require_upgrade():
-    a = LooseVersion(get_current_version())
-    b = LooseVersion(get_stable_version())
+    return check_require_upgrade(get_current_version(), get_stable_version())
+
+
+def check_require_upgrade(current, stable):
+    a = LooseVersion(current)
+    b = LooseVersion(stable)
     if a < b:
         return True
     return False
