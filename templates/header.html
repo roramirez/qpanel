@@ -15,7 +15,7 @@
             </div>
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
-                    {% if not is_freeswitch() %}
+                    {% if not config().is_freeswitch() %}
                     <li>
                         <a class="logout" href="{{url_for('.all_queues')}}">{{_('Consolidate view') }}</a>
                     </li>

@@ -68,7 +68,7 @@
                             <div class="weather-2 pn photo-wrapper transparent-background">
                               <a href="{{ url_for('.queue', name=queue_name) }}">
                                 <div class="weather-2-header">
-                                    <div class="row header-{{ clean_str_to_div_id(queue_name) }}">
+                                    <div class="row header-{{ utils().clean_str_to_div_id(queue_name) }}">
                                         <div class="panel-title centered">
                                             <p>{{ queue_name }} - <span id="strategy"></span></p>
                                         </div>
@@ -76,18 +76,18 @@
                                 </div><!-- /weather-2 header -->
 
 
-                                <div class="row data" id="data-{{ clean_str_to_div_id(queue_name) }}">
+                                <div class="row data" id="data-{{ utils().clean_str_to_div_id(queue_name) }}">
 
                                     <div class="col-sm-4 col-xs-4 voffset20 goleft">
                                         <h5><b>{{ _('Answered') }}:</b> <span id="queue_completed">{{ queue.CallsAnswered }}</span></h5>
                                         <h5>{{ _('Abandoned') }}: <span id="queue_abandoned">{{ queue.CallsAbandoned }} </span></h5>
                                         <h5>{{ _('Incoming') }}: <span id="queue_incoming">{{ queue.Calls }} </span></h5>
-                                        {% if show_service_level() %}
+                                        {% if config().show_service_level() %}
                                         <h5>{{ _('Service Level') }}: <span id="queue_servicelevel">{{ queues.ServicelevelPerf }}%</span></h5>
                                         {% endif %}
                                     </div>
                                      <div class="col-lg-4 col-md-4 col-sm-4 mb voffset20">
-                                            <canvas id="graph_{{ clean_str_to_div_id(queue_name) }}" height="120" width="120"></canvas>
+                                            <canvas id="graph_{{ utils().clean_str_to_div_id(queue_name) }}" height="120" width="120"></canvas>
                                     </div>
                                     <div class="col-sm-4 col-xs-4 goright voffset20">
                                         <h5><i class="fa fa-users fa-2x"> <span id="queue_users">{{ queue.members | count }} </span></i>
@@ -97,7 +97,7 @@
                                     </div>
                                 </div>
                                 <div class="row centered"  style="margin-top: -20px;">
-                                    <h2>{{ _('Abandoned:') }} <span id="{{ clean_str_to_div_id(queue_name) }}-percent_abandoned">0</span>%</h2>
+                                    <h2>{{ _('Abandoned:') }} <span id="{{ utils().clean_str_to_div_id(queue_name) }}-percent_abandoned">0</span>%</h2>
                                 </div>
                                 <script>
                                     dataGraph['{{ queue_name }}'] = [

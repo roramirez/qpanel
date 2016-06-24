@@ -15,7 +15,7 @@
 <link href="{{ url_for('static', filename='gritter/css/jquery.gritter.css') }}" rel="stylesheet">
 
 <script>
-    var config_check_update = {{ check_upgrade()|lower}};
+    var config_check_update = {{ config().check_upgrade|lower}};
     if (config_check_update) {
         if (typeof Cookies.get('check_version') === "undefined") {
 

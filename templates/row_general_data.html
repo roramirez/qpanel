@@ -1,4 +1,4 @@
-                        {% if show_service_level() and not is_freeswitch() %}
+                        {% if config().show_service_level and not config().is_freeswitch() %}
                         <div class="col-md-2 col-sm-2 box0">
                         {% else %}
                         <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
@@ -16,7 +16,7 @@
                             </div>
                             <p>{{ _('Calls not attended by agents.') }}</p>
                         </div>
-                        {% if show_service_level() and not is_freeswitch() %}
+                        {% if config().show_service_level and not config().is_freeswitch() %}
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
                                 <span class="">{{ _('SL') }}</span>
@@ -33,7 +33,7 @@
                             <p>{{ _('Call on line.') }}</p>
                         </div>
 
-                        {% if not is_freeswitch() %}
+                        {% if not config().is_freeswitch() %}
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
                                 <span class="">{{ _('Av. time') }}</span>

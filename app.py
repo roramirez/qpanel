@@ -176,43 +176,24 @@ def page_not_found(e):
 
 @app.context_processor
 def utility_processor():
-    def check_upgrade():
-        return cfg.check_upgrade
-    return dict(check_upgrade=check_upgrade)
-
-
-@app.context_processor
-def utility_processor():
-    def show_service_level():
-        return cfg.show_service_level
-    return dict(show_service_level=show_service_level)
-
-
-@app.context_processor
-def utility_processor():
-    def has_users():
-        return cfg.has_users()
-    return dict(has_users=has_users)
-
-
-@app.context_processor
-def utility_processor():
-    def clean_str_to_div_id(value):
-        return qpanel.utils.clean_str_to_div_id(value)
-    return dict(clean_str_to_div_id=clean_str_to_div_id)
-
-
-@app.context_processor
-def utility_processor():
-    def is_freeswitch():
-        return backend.is_freeswitch()
-    return dict(is_freeswitch=is_freeswitch)
-
-@app.context_processor
-def utility_processor():
     def current_version():
         return get_current_version()
     return dict(current_version=current_version)
+
+
+@app.context_processor
+def utility_processor():
+    def config():
+        return cfg
+    return dict(config=config)
+
+
+@app.context_processor
+def utility_processor():
+    def utils():
+        return qpanel.utils
+    return dict(utils=utils)
+
 
 # ---------------------
 # ---- Routes ---------

@@ -82,7 +82,7 @@
                                         <h5><b>{{ _('Answered') }}:</b> <span id="queue_completed">{{ queue.Completed }}</span></h5>
                                         <h5>{{ _('Abandoned') }}: <span id="queue_abandoned">{{ queue.Abandoned }} </span></h5>
                                         <h5>{{ _('Incoming') }}: <span id="queue_incoming">{{ queue.Calls }} </span></h5>
-                                        {% if show_service_level() %}
+                                        {% if config().show_service_level %}
                                         <h5>{{ _('Service Level') }}: <span id="queue_servicelevel">{{ queue.ServicelevelPerf }}%</span></h5>
                                         {% endif %}
                                     </div>
@@ -180,7 +180,7 @@
                 $("[id='data-"+ d + "'] #queue_users").html(len(data[d].members));
                 $(".header-"+ d + " #strategy").html(data[d].Strategy);
 
-                {% if show_service_level() %}
+                {% if config().show_service_level %}
                 $("[id='data-"+ d + "'] #queue_servicelevel").html(data[d].ServicelevelPerf + '%');
                 call_in_service_level +=  data[d].Completed * parseFloat(data[d].ServicelevelPerf) / 100;
                 {% endif %}
@@ -243,7 +243,7 @@
               $('#av_time').html(parseInt((talktime / c_talk)).toString().toMMSS());
             }
 
-            {% if show_service_level() %}
+            {% if config().show_service_level %}
                 if (answers == 0) {
                     $('#servicelevel').html( "{percent}%".format({percent: 0.0}));
                 } else {

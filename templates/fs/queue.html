@@ -75,7 +75,7 @@
                               </thead>
                               <tbody>
                               {% for agent_name, agent in data.members.iteritems() %}
-                              <tr id="agent-{{ clean_str_to_div_id(agent_name) }}">
+                              <tr id="agent-{{ utils().clean_str_to_div_id(agent_name) }}">
                                   <td>{{ agent.Name }}</td>
                                   <td class="hidden-phone">{{ agent.Contact }}</td>
                                   <td id="status">

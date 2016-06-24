@@ -77,7 +77,7 @@
 
                             {% for queue_name, queue in queues.iteritems()  %}
                               {% for agent_id, agent in queue.members.iteritems() %}
-                              <tr data-queue="{{ queue_name }}" data-agent="{{ clean_str_to_div_id(agent_id) }}">
+                              <tr data-queue="{{ queue_name }}" data-agent="{{ utils().clean_str_to_div_id(agent_id) }}">
                                   <td>{{ queue_name }}</td>
                                   <td>{{ agent.Name }}</td>
                                   <td class="hidden-phone">{{ agent.StateInterface }}</td>
@@ -169,7 +169,7 @@
                 unattended = unattended + parseInt(queue.Abandoned);
                 incoming = incoming + parseInt(queue.Calls);
 
-                {% if show_service_level() %}
+                {% if config().show_service_level %}
                 call_in_service_level +=  queue.Completed * parseFloat(queue.ServicelevelPerf) / 100;
                 {% endif %}
 
@@ -295,7 +295,7 @@
             if (c_talk > 0){
               $('#av_time').html(parseInt((talktime / c_talk)).toString().toMMSS());
             }
-            {% if show_service_level() %}
+            {% if config().show_service_level %}
                 if (answers == 0) {
                     $('#servicelevel').html( "{percent}%".format({percent: 0.0}));
                 } else {
