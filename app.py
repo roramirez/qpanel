@@ -213,6 +213,11 @@ def utility_processor():
         return backend.is_freeswitch()
     return dict(is_freeswitch=is_freeswitch)
 
+@app.context_processor
+def utility_processor():
+    def current_version():
+        return get_current_version()
+    return dict(current_version=current_version)
 
 # ---------------------
 # ---- Routes ---------
@@ -294,6 +299,34 @@ def check_new_version():
 def logout():
     flask_login.logout_user()
     return redirect(url_for('login'))
+
+
+@app.route('/spy', methods=['POST'])
+@flask_login.login_required
+def spy():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.spy(channel, to_exten)
+    return jsonify(result=r)
+
+
+@app.route('/whisper', methods=['POST'])
+@flask_login.login_required
+def whisper():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.whisper(channel, to_exten)
+    return jsonify(result=r)
+
+
+@app.route('/barge', methods=['POST'])
+@flask_login.login_required
+def barge():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.barge(channel, to_exten)
+    return jsonify(result=r)
+
 
 # ---------------------
 # ---- Main  ----------
