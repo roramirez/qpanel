@@ -328,6 +328,14 @@ def barge():
     return jsonify(result=r)
 
 
+@app.route('/hangup', methods=['POST'])
+@flask_login.login_required
+def hangup_call():
+    channel = request.form['channel']
+    r = backend.hangup(channel)
+    return jsonify(result=r)
+
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------

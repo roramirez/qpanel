@@ -115,7 +115,13 @@
                                   <td>{{ caller.CallerIDName }}</td>
                                   <td class="hidden-phone">{{ caller.CallerIDNum }}</td>
                                   <td id="position">{{ caller.Position }}</td>
-                                  <td id="wait">{{ caller.Wait }}</td>
+                                  <td> <span id="wait">{{ caller.Wait }}</span>
+                                      <button class="btn btn-danger btn-xs" id="stop-call">
+                                          <i class="fa fa-ban"></i>
+                                      </button>
+                                  </td>
+
+
                               </tr>
                               {% endfor %}
                               </tbody>
@@ -259,7 +265,12 @@
                         + c.CallerIDName + '</td>'
                         + '<td>' + c.CallerIDNum + '</td>'
                         + '<td id="position">'  + c.Position + '</td>'
-                        + '<td id="wait">' + c.WaitAgo + '</td></tr>'
+                        + '<td id="wait">' + c.WaitAgo
+                        +    '<button class="btn btn-danger btn-xs" id="stop-call">'
+                        +       '<i class="fa fa-ban"></i>'
+                        +     '</button>'
+                        + '</td>'
+                        + '</tr>'
 
               if ($('#callers tbody tr:last').length > 0){
                 $('#callers tbody tr:last').after(tr);
@@ -374,6 +385,44 @@
                 $('#execute-action').prop("disabled", false);
             });
         });
+
+        $('#stop-call').on('click', function() {
+            var tr = $(this).closest("tr");
+            var uniqueid = tr.data('uniqueid');
+            console.log('stop call %s...', uniqueid );
+            button = $(this);
+            $('.message-hangup').remove();
+
+            var r = $.ajax({
+                type: 'post',
+                url: '/hangup',
+                data: {channel: uniqueid}
+            });
+            r.done(function (response) {
+                if (response) {
+                    console.log(response.result.Response);
+                    msg = '<span class="btn btn-xs message-hangup">'
+                        + response.result.Message + '</span>';
+
+                    $(button).after(msg);
+                    var status = response.result.Response;
+                    console.log(status);
+                    if (status == 'failed') {
+                        $('.message-hangup').addClass('btn-danger');
+                    } else {
+                        $('.message-hangup').addClass('btn-success');
+                        setTimeout(function() { tr.remove(); }, 1000);
+                        var total_callers = (parseInt($('#total_callers').html()) - 1);
+                        $('#total_callers').html("{total}".format({total:  total_callers}));
+                    }
+                }
+            });
+            r.fail(function (response) {
+                console.log(response);
+            });
+
+        });
+
     </script>
 
     {% include 'i18n_js.html' %}
