@@ -78,7 +78,7 @@
                                         },
                                         {
                                             value: {{ queue.CallsAnswered }},
-                                            color : "#fdfdfd"
+                                            color : "#5cb85c"
                                         }
                                     ];
                                     graph['{{ queue_name }}'] = new Chart(document.getElementById("graph_{{ clean_str_to_div_id(queue_name) }}").getContext("2d")).Doughnut(dataGraph['{{ queue_name }}']);
@@ -117,7 +117,7 @@
             },
             {
               value: parseInt(data_queue.CallsAnswered),
-              color: "#fdfdfd",
+              color: "#5cb85c",
               label: "{{ _('Answered') }}"
             }
           ];
