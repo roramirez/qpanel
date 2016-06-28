@@ -186,7 +186,13 @@
                          + data.members[agent].Status.toStrStatusAgent()
                          + '</span></td>'
                          + '<td id="calls">'+ data.members[agent].CallsTaken +'</td>'
-                         + '<td id="last_call"></td></tr>';
+                         + '<td id="last_call"></td>'
+                         + '<td id="actions" data-channel="' + data.members[agent].StateInterface + '">'
+                         +      '<a href="#" data-action="spy">{{ _('Spy') }}</a> |'
+                         +      '<a href="#" data-action="whisper">{{ _('Whisper') }}</a> |'
+                         +      '<a href="#" data-action="barge">{{ _('Barge') }}</a>'
+                         + '</td>'
+                         + '</tr>';
 
                 if ($('#agents tbody tr:last').length > 0){
                     $('#agents tbody tr:last').after(tr);
