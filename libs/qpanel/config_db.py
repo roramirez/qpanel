@@ -26,8 +26,8 @@ DeclarativeBase = declarative_base()
 metadata = MetaData()
 
 
-class Config(DeclarativeBase):
-
+# class Config(DeclarativeBase):
+class Config():  # remove this when config by interface when will be ready.
     __tablename__ = "config"
 
     id = Column(Integer, primary_key=True)
