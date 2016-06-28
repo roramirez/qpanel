@@ -84,6 +84,10 @@ class User(DeclarativeBase):
             return True
         return False
 
+    @staticmethod
+    def add_data(*args, **kw):
+        parse_user_into_db()
+
 
 def parse_config_to_db():
     """
@@ -96,12 +100,40 @@ def parse_config_to_db():
         for i in items:
             value = config_file.get(s, i)
             if s == 'users':
-                new_cfg = User(i, value)
+                continue  # User is into other handler function
             else:
                 new_cfg = Config(s, i, value)
-            session_dbconfig.add(new_cfg)
-            session_dbconfig.commit()
+                commit_object_db(new_cfg)
 
 
-event.listen(User.__table__, "after_create", Config.add_data)
+def parse_user_into_db():
+    """
+        Add users into db
+    """
+    items = get_value_sections('users')
+    for i in items:
+        u = User(i[0], i[1])
+        commit_object_db(u)
+
+
+def commit_object_db(obj):
+    """
+        add object into session and commit to database
+    """
+    session_dbconfig.add(obj)
+    session_dbconfig.commit()
+
+
+def get_value_sections(section):
+    """
+        get section from config file
+    """
+    config_file = utils.open_config_ini_file(settings.PATH_FILE_CONFIG)
+    try:
+        return config_file.items(section)
+    except:
+        return []
+
+
+event.listen(User.__table__, "after_create", User.add_data)
 DeclarativeBase.metadata.create_all(engine)
