@@ -136,4 +136,5 @@ def get_value_sections(section):
 
 
 event.listen(User.__table__, "after_create", User.add_data)
+event.listen(Config.__table__, "after_create", Config.add_data)
 DeclarativeBase.metadata.create_all(engine)
