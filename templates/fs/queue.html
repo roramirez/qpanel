@@ -139,6 +139,8 @@
                 } else {
                     $('#agents tbody').append(tr);
                 }
+                addLabelDivStatusAgent($('#agent-' + agent_id_div + ' #status .state'));
+                addLabelDivStatusAgent($('#agent-' + agent_id_div + ' #state .state'));
             }
 
             agents_ids.push(agent_id_div);

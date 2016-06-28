@@ -199,6 +199,7 @@
                 } else {
                     $('#agents tbody').append(tr);
                 }
+                addLabelDivStatusAgent($('#agent-' + agent_id_div + ' #status .state'));
             }
 
             agents_ids.push(agent_id_div);
