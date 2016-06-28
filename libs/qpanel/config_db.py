@@ -128,8 +128,8 @@ def get_value_sections(section):
     """
         get section from config file
     """
-    config_file = utils.open_config_ini_file(settings.PATH_FILE_CONFIG)
     try:
+        config_file = utils.open_config_ini_file(settings.PATH_FILE_CONFIG)
         return config_file.items(section)
     except:
         return []
