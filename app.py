@@ -5,8 +5,10 @@
 #
 
 
-from flask import Flask, render_template, jsonify, redirect, request, session, url_for
-import os, sys
+from flask import Flask, render_template, jsonify, redirect,\
+    request, session, url_for
+import os
+import sys
 import ConfigParser
 import json
 from werkzeug.serving import run_simple
@@ -17,7 +19,7 @@ from werkzeug.exceptions import abort
 from flask.ext.babel import Babel, gettext, dates, format_timedelta
 from datetime import timedelta
 
-#flask-login
+# flask-login
 import flask.ext.login as flask_login
 
 from libs.qpanel.upgrader import *
@@ -34,7 +36,7 @@ cfg = QPanelConfig()
 backend = Backend()
 
 
-def get_data_queues(queue = None):
+def get_data_queues(queue=None):
     data = backend.get_data_queues()
     if queue is not None:
         try:
@@ -44,6 +46,7 @@ def get_data_queues(queue = None):
     if cfg.is_debug:
         app.logger.debug(data)
     return data
+
 
 def get_user_config_by_name(username):
     try:
@@ -65,14 +68,17 @@ app.secret_key = cfg.secret_key
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
+
 def set_data_user(user_config):
     user = User()
     user.id = user_config.id
     return user
 
+
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     return redirect(url_for('login'))
+
 
 @login_manager.user_loader
 def user_loader(username):
@@ -80,6 +86,7 @@ def user_loader(username):
     if user_config is None:
         return
     return set_data_user(user_config)
+
 
 @login_manager.request_loader
 def request_loader(request):
@@ -98,6 +105,7 @@ def request_loader(request):
     user = set_data_user(user_config)
     user.is_authenticated = user_config == request.form['pw']
     return user
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -130,24 +138,16 @@ def setup_logging():
 # babel
 @babel.localeselector
 def get_locale():
-    browser = request.accept_languages.best_match(['en', 'es', 'de'])
+    langs = ['en', 'es', 'de', 'pt_BR', 'ru']
+    browser = request.accept_languages.best_match(langs)
     try:
-      return session['language']
+        return session['language']
     except KeyError:
-      session['language'] = browser
-      return browser
+        session['language'] = browser
+        return browser
 
 
-#Utilities helpers
-@app.context_processor
-def utility_processor():
-    # Deprecated function
-    def format_id_agent(value):
-        v = value.replace('/', '-')
-        return v.replace('@', '_')
-    return dict(format_id_agent=format_id_agent)
-
-
+# Utilities helpers
 @app.context_processor
 def utility_processor():
     def str_status_agent(value):
@@ -157,11 +157,14 @@ def utility_processor():
             value = 0
         unavailable = [0, 4, 5]
         free = [1]
+        in_call = [10]
 
         if value in unavailable:
             return gettext('unavailable')
         elif value in free:
             return gettext('free')
+        elif value in in_call:
+            return gettext('in call')
         else:
             return gettext('busy')
     return dict(str_status_agent=str_status_agent)
@@ -178,11 +181,13 @@ def utility_processor():
 def page_not_found(e):
     return render_template('404.html'), 404
 
+
 @app.context_processor
 def utility_processor():
     def check_upgrade():
         return cfg.check_upgrade
     return dict(check_upgrade=check_upgrade)
+
 
 @app.context_processor
 def utility_processor():
@@ -190,11 +195,13 @@ def utility_processor():
         return cfg.show_service_level
     return dict(show_service_level=show_service_level)
 
+
 @app.context_processor
 def utility_processor():
     def has_users():
         return cfg.has_users()
     return dict(has_users=has_users)
+
 
 @app.context_processor
 def utility_processor():
@@ -202,11 +209,18 @@ def utility_processor():
         return uqpanel.clean_str_to_div_id(value)
     return dict(clean_str_to_div_id=clean_str_to_div_id)
 
+
 @app.context_processor
 def utility_processor():
     def is_freeswitch():
         return backend.is_freeswitch()
     return dict(is_freeswitch=is_freeswitch)
+
+@app.context_processor
+def utility_processor():
+    def current_version():
+        return get_current_version()
+    return dict(current_version=current_version)
 
 # ---------------------
 # ---- Routes ---------
@@ -219,28 +233,36 @@ def home():
     template = 'index.html'
     if backend.is_freeswitch():
         template = 'fs/index.html'
-    return render_template(template, queues = data)
+    return render_template(template, queues=data)
 
 
 @app.route('/queue/<name>')
 @flask_login.login_required
-def queue(name = None):
+def queue(name=None):
     data = get_data_queues(name)
     template = 'queue.html'
     if backend.is_freeswitch():
         template = 'fs/queue.html'
-    return render_template(template, data = data, name = name)
+    return render_template(template, data=data, name=name)
+
+
+@app.route('/all_queues')
+@flask_login.login_required
+def all_queues():
+    data = get_data_queues()
+    template = 'all_queues.html'
+    if backend.is_freeswitch():
+        abort(404)
+        # Not yet implement
+        #template = 'fs/all_queue.html'
+    return render_template(template, queues=data)
 
 
 @app.route('/queue/<name>.json')
 @flask_login.login_required
-def queue_json(name = None):
+def queue_json(name=None):
     data = get_data_queues(name)
-    return jsonify(
-        name = name,
-        data = data
-    )
-
+    return jsonify(name=name, data=data)
 
 
 # data queue
@@ -248,19 +270,13 @@ def queue_json(name = None):
 @flask_login.login_required
 def queues():
     data = get_data_queues()
-    return jsonify(
-        data = data
-    )
-
+    return jsonify(data=data)
 
 
 @app.route('/lang')
-@flask_login.login_required
-def fake_language():
-    return redirect(url_for('home'))
 @app.route('/lang/<language>')
 @flask_login.login_required
-def language(language = None):
+def language(language=None):
     session['language'] = language
     return redirect(url_for('home'))
 
@@ -276,28 +292,63 @@ def check_new_version():
         pass
 
     return jsonify(
-        require_upgrade = need_upgrade,
-        current_version = get_current_version(),
-        last_stable_version = get_stable_version()
+        require_upgrade=need_upgrade,
+        current_version=get_current_version(),
+        last_stable_version=get_stable_version()
     )
+
 
 @app.route('/logout')
 def logout():
     flask_login.logout_user()
     return redirect(url_for('login'))
 
+
+@app.route('/spy', methods=['POST'])
+@flask_login.login_required
+def spy():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.spy(channel, to_exten)
+    return jsonify(result=r)
+
+
+@app.route('/whisper', methods=['POST'])
+@flask_login.login_required
+def whisper():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.whisper(channel, to_exten)
+    return jsonify(result=r)
+
+
+@app.route('/barge', methods=['POST'])
+@flask_login.login_required
+def barge():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.barge(channel, to_exten)
+    return jsonify(result=r)
+
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------
-if __name__ == '__main__':
+def main():
 
     if cfg.is_debug:
         app.config['DEBUG'] = True
 
     if APPLICATION_ROOT == '/':
-        app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=True, extra_files=[cfg.path_config_file])
+        app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=True,
+                extra_files=[cfg.path_config_file])
     else:
         application = DispatcherMiddleware(Flask('dummy_app'), {
             app.config['APPLICATION_ROOT']: app,
         })
-        run_simple(cfg.host_bind, cfg.port_bind, application, use_reloader=True, extra_files=[cfg.path_config_file])
+        run_simple(cfg.host_bind, cfg.port_bind, application,
+                   use_reloader=True, extra_files=[cfg.path_config_file])
+
+
+if __name__ == '__main__':
+    main()

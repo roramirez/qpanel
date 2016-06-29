@@ -17,8 +17,8 @@ defaultESLpassword = 'ClueCon'
 
 class NotConnected(BaseException):
     '''
-    This exception is raised when is not possible or is not connected to ELS for a
-    requested action.
+    This exception is raised when is not possible or is not connected
+    to ELS for a requested action.
     '''
     _error = 'Not Connected'
 
@@ -31,9 +31,11 @@ class Freeswitch:
         Initialise a class for Freeswitch
         '''
         self.host = host or '127.0.0.1'
-        self.port =  int(port or defaultESLport)
+        self.port = int(port or defaultESLport)
         self.password = password or defaultESLpassword
-        self.connection = ESL.ESLconnection(self.host, self.port, self.password)
+        self.connection = ESL.ESLconnection(self.host,
+                                            self.port,
+                                            self.password)
 
     def getQueues(self):
         cmd = self.command('callcenter_config queue list')
@@ -41,7 +43,8 @@ class Freeswitch:
         return cmd
 
     def getAgents(self, queue_name):
-        cmd = self.command('callcenter_config queue list agents %s' % queue_name)
+        cmd = self.command('callcenter_config queue list agents %s' %
+                           queue_name)
         cmd = self._parserBodyCommand(cmd)
         return cmd
 
@@ -51,7 +54,7 @@ class Freeswitch:
         cmd = self._parserBodyCommand(cmd, ',')
         for channel in cmd:
             if cmd[channel]['Application'] == 'callcenter':
-                if  cmd[channel]['ApplicationData'] == queue_name:
+                if cmd[channel]['ApplicationData'] == queue_name:
                     output[channel] = cmd[channel]
 
         return output
@@ -72,7 +75,7 @@ class Freeswitch:
         if e:
             return e.getBody()
 
-    def _parserBodyCommand(self, body, delimiter = '|'):
+    def _parserBodyCommand(self, body, delimiter='|'):
         output = {}
 
         if body:

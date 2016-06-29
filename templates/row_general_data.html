@@ -4,49 +4,49 @@
                         <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                         {% endif %}
                             <div class="box1">
-                                <span class="">{{_('Answered')}}</span>
+                                <span class="">{{ _('Answered') }}</span>
                                 <h3><span id="answered"></span></h3>
                             </div>
-                            <p>{{_('Attended calls.')}}</p>
+                            <p>{{ _('Attended calls.') }}</p>
                         </div>
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
-                                <span class="">{{_('Abandoned')}}</span>
+                                <span class="">{{ _('Abandoned') }}</span>
                                 <h3><span id="abandoned"></span></h3>
                             </div>
-                            <p>{{_('Calls not attended by agents.')}}</p>
+                            <p>{{ _('Calls not attended by agents.') }}</p>
                         </div>
                         {% if show_service_level() and not is_freeswitch() %}
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
-                                <span class="">{{_('SL')}}</span>
+                                <span class="">{{ _('SL') }}</span>
                                 <h3><span id="servicelevel"></span></h3>
                             </div>
-                            <p>{{_('Service Level.')}}</p>
+                            <p>{{ _('Service Level.') }}</p>
                         </div>
                         {% endif %}
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
-                                <span class="">{{_('Incoming')}}</span>
+                                <span class="">{{ _('Incoming') }}</span>
                                 <h3><span id="incoming"></span></h3>
                             </div>
-                            <p>{{_('Call on line.')}}</p>
+                            <p>{{ _('Call on line.') }}</p>
                         </div>
 
                         {% if not is_freeswitch() %}
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
-                                <span class="">{{_('Av. time')}}</span>
+                                <span class="">{{ _('Av. time') }}</span>
                                 <h3><span id="av_time">0:00</span></h3>
                             </div>
-                            <p>{{_('Average time for answered calls.')}}</p>
+                            <p>{{ _('Average time for answered calls.') }}</p>
                         </div>
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
-                                <span class="">{{_('Av. Wait')}}</span>
+                                <span class="">{{ _('Av. Wait') }}</span>
                                 <h3><span id="av_wait">0:00</span></h3>
                             </div>
-                            <p>{{_('Average time waiting for calls.')}}</p>
+                            <p>{{ _('Average time waiting for calls.') }}</p>
                         </div>
                         {% endif %}
 

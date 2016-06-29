@@ -8,44 +8,58 @@ import os
 import sys
 from distutils.util import strtobool
 
+
 class NotConfigFileQPanel(BaseException):
     '''
-        This exception is raised when is not possible iread file of config for QPane.
+        This exception is raised when is not possible read file for
+        QPanel config.
     '''
-    _error = 'Errot to open file config. Check if config.ini file exist'
+    def __init__(self, file_path):
+        error = 'Error to open file config. Check if %s file exist' % file_path
+        super(NotConfigFileQPanel, self).__init__(error)
 
 
 class QPanelConfig:
 
-    def __init__(self, path_config_file = None):
-        dirname, filename =  os.path.split(os.path.abspath(__file__))
+    def __init__(self, path_config_file=None):
+        dirname, filename = os.path.split(os.path.abspath(__file__))
         if path_config_file:
             self.path_config_file = path_config_file
         else:
-            self.path_config_file = os.path.join(dirname,  os.pardir, os.pardir, 'config.ini')
+            self.path_config_file = os.path.join(dirname, os.pardir,
+                                                 os.pardir, 'config.ini')
 
-        self.config = self.__open_config_file()
+        self.config = self.__open_config_file(self.path_config_file)
 
         # properties
         self.is_debug = self.__get_bool_value_config('general', 'debug', False)
-        self.port_bind = int(self.__get_entry_ini_default('general', 'port', 5000))
-        self.host_bind = self.__get_entry_ini_default('general', 'host', '0.0.0.0')
-        self.base_url = self.__get_entry_ini_default('general', 'base_url', '/')
-        self.language = self.__get_entry_ini_default('general', 'language', 'en')
-        self.secret_key = self.__get_entry_ini_default('general', 'secret_key', 'CHANGEME_ON_CONFIG')
-        self.interval = self.__get_entry_int_min_value('general', 'interval', 1)
-        self.check_upgrade = self.__get_bool_value_config('general', 'check_upgrade', True)
-        self.show_service_level = self.__get_bool_value_config('general', 'show_service_level', False)
+        self.port_bind \
+            = int(self.__get_entry_ini_default('general', 'port', 5000))
+        self.host_bind \
+            = self.__get_entry_ini_default('general', 'host', '0.0.0.0')
+        self.base_url \
+            = self.__get_entry_ini_default('general', 'base_url', '/')
+        self.language \
+            = self.__get_entry_ini_default('general', 'language', 'en')
+        self.secret_key \
+            = self.__get_entry_ini_default('general', 'secret_key',
+                                           'CHANGEME_ON_CONFIG')
+        self.interval \
+            = self.__get_entry_int_min_value('general', 'interval', 1)
+        self.check_upgrade \
+            = self.__get_bool_value_config('general', 'check_upgrade', True)
+        self.show_service_level \
+            = self.__get_bool_value_config('general',
+                                           'show_service_level', False)
 
-    def  __open_config_file(self):
+    def __open_config_file(self, file_path):
         cfg = ConfigParser.ConfigParser()
         try:
-            with open(self.path_config_file)  as f:
+            with open(file_path) as f:
                 cfg.readfp(f)
                 return cfg
         except IOError:
-            raise NotConfigFileQPanel
-
+            raise NotConfigFileQPanel(file_path)
 
     def get_hide_config(self):
         tmp = self.__get_entry_ini_default('general', 'hide', '')
@@ -68,7 +82,7 @@ class QPanelConfig:
             return default
         return v
 
-    def __get_entry_int_min_value(self, section, option, min = 0):
+    def __get_entry_int_min_value(self, section, option, min=0):
         v = int(self.__get_entry_ini_default(section, option, min))
         if v < min:
             return min

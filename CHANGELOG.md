@@ -1,5 +1,44 @@
 ## Change Log
 
+### 0.10.0 (2016-06-16)
+- [c77edc9](https://github.com/roramirez/qpanel/commit/c77edc9658664ea6fad3d47174aa70d80b79d701) Install dependencies by requirements.txt file.
+- [#60](https://github.com/roramirez/qpanel/pull/60) Change URL stable version.
+- [24bd42d](https://github.com/roramirez/qpanel/commit/24bd42db7f84ac9acb30fd1caa20861db824cd3a) fix camelcase name GitHub keyword.
+- [3035a0c](https://github.com/roramirez/qpanel/commit/3035a0c630e4516872fffee9259b23d8b648ebce) Change icon for tooltip notice of new stable version.
+- [f09176f](https://github.com/roramirez/qpanel/commit/f09176f9033bade7046b9c2f28a34a16e723fcbf) remove deprecated function format_id_agent.
+- [44cc4ef](https://github.com/roramirez/qpanel/commit/44cc4ef57b0adb99fbd560023af17e62201632d5) fix set name var for seconds ago into utils function.
+- [4ce32ed](https://github.com/roramirez/qpanel/commit/4ce32ed5321f2bc24fc28df45e6cabdd24a7d0c8) remove deprecated Javascript function.
+- [#55](https://github.com/roramirez/qpanel/pull/55) Add consolidated view feature.
+- [303e08b](https://github.com/roramirez/qpanel/commit/303e08b53f8ddf53f38d758ab52e554e9442fa0e) Change port nginx close issue #56
+
+### 0.9.1 (2016-05-30)
+- [ed7f2ff](https://github.com/roramirez/qpanel/commit/ed7f2ff8db52ec886e861c870e7dce48d1674673) Fixbug  introduce in backend for hide and rename queue names.
+
+### 0.9.0  (2016-05-09)
+- [011d675](https://github.com/roramirez/qpanel/commit/011d675bde87bbcc231e52bb2c2e9c96cfcfde6a) fixbug when sections is defined in config original and not into template
+- [48a0296](https://github.com/roramirez/qpanel/commit/48a0296e16d1277ac675d221f1709a9ea87dccd4) Refactor. Use function from QPanelConfig class for unified configs
+- [ca042dd](https://github.com/roramirez/qpanel/commit/ca042dde1e99112c5c5992a2d298b0224e9ef8ca) add requirements file to install dependencies
+- [1dd11b8](https://github.com/roramirez/qpanel/commit/1dd11b8ffd50208ba4139dd344f2742c625cfef2) refactor exception for not file config
+- [ea145c2](https://github.com/roramirez/qpanel/commit/ea145c204add6382b0b83b531f6dbd4dd1f0b306) add Port patches Asterisk 11.X for app_queue
+- [29d183a](https://github.com/roramirez/qpanel/commit/29d183a53b06734c4c2382df74aeb51d456d5f42) Change behavior when the members (agent) is paused set counter as busy
+- [#50](https://github.com/roramirez/qpanel/pull/50) Update repository of  py-asterisk submodule.
+- [#49](https://github.com/roramirez/qpanel/pull/49) massive fix format space for open/close brackets in templates
+- [#48](https://github.com/roramirez/qpanel/pull/48) Refactor loops into templates and minimal fix format code bracket
+
+### 0.8.1 (2016-04-11)
+- [9abe336](https://github.com/roramirez/qpanel/commit/be33697b13ef5a544e3ea51e3f7674eb5f31cf) Add missing section into script migrate configs
+
+### 0.8.0 (2016-03-17)
+- [ca98b39](https://github.com/roramirez/qpanel/commit/ca98b39512e0235d0e76d917ef37db4d78c5c9c4) Add FreeSWITCH support.
+
+### 0.7.3 (2016-03-02)
+- [242e53e](https://github.com/roramirez/qpanel/commit/242e53eb302b94e1990c44c3184af7db61ac5af0) Fix a bug missing language for automatic best match
+
+### 0.7.2 (2016-02-19)
+- [59260cf](https://github.com/roramirez/qpanel/commit/59260cf3c732bbd014110a5f1f8ed362bb151118) Fix current_time parameter by default in function
+- [77dd847](https://github.com/roramirez/qpanel/commit/77dd8472e910f634db1cdcb6d0b85e6ebab9c19e) fix refresh data call and last_call for new agents add in the list.
+- [fbc3c6c](https://github.com/roramirez/qpanel/commit/fbc3c6cc105ee6ff6557bcef83949e017bdcf6f9) Fix wait time for a call
+
 ### 0.7.1 (2016-02-17)
 - [9666392](https://github.com/roramirez/qpanel/commit/9666392c348457123b8daa8479d4b980156481da) Fix a bug not reload when used base_url /
 - [#40](https://github.com/roramirez/qpanel/pull/40) Update german Translations by @DoM1niC
