@@ -35,6 +35,8 @@ class Config(DeclarativeBase):
     setting = Column(String)
     value = Column(String)
 
+    query = session_dbconfig.query_property()
+
     def __init__(self, namespace, setting, value):
         self.namespace = namespace
         self.setting = setting

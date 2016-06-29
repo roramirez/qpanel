@@ -338,6 +338,18 @@ def create_user():
     return jsonify({'user': user.as_dict()}), 201
 
 
+# Settings
+@app.route('/setting/', methods=['GET'])
+@flask_login.login_required
+def setting():
+    result = {}
+    for setting in config_db.Config.query.all():
+        if setting.namespace not in result.keys():
+            result[setting.namespace] = {}
+        result[setting.namespace][setting.setting] = setting.value
+    return jsonify(settings=result)
+
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------
