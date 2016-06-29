@@ -9,6 +9,8 @@
         var value = this;
         if (C.status_agent.NOT_INUSE == value) {
             return "{{ _('free') }}";
+        } else if (C.status_agent.INCALL == value) {
+            return "{{ _('in call') }}";
         } else if (parseInt(value).isUnavailableInAsterisk()) {
             return "{{ _('unavailable') }}";
         } else {
