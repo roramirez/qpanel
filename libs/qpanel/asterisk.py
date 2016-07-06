@@ -93,6 +93,12 @@ class AsteriskAMI:
         except PermissionDenied, msg:
             return  {'Response': 'failed', 'Message': 'Permission Denied'}
 
+    def reset_stats(self, queue):
+        'Reset stats for <queue>.'
+        id = self.connection._write_action('QueueReset', {'Queue': queue})
+        return self.connection._translate_response(
+            self.connection.read_response(id))
+
     def isConnected(self):
         if not self.connection:
             return False

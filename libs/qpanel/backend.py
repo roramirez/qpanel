@@ -150,3 +150,6 @@ class Backend(object):
 
     def barge(self, channel, to_exten):
         return self._call_spy(channel, to_exten, 'B')
+
+    def reset_stats(self, queue):
+        return self.connection.reset_stats(queue)
