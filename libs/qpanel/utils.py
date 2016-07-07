@@ -70,3 +70,16 @@ def timedelta_from_field_dict(field, dic, current_timestamp=None,
                 seconds_ago = int(current_timestamp) - int(dic[field])
 
     return timedelta(seconds=seconds_ago)
+
+
+def convert_time_when_param(value, splitter=','):
+    var = value.split(splitter)
+    hour = '00:00:00'
+    if len(var) > 1:
+        hour = var[1].strip()
+    try:
+        hour = time.strptime(hour, "%H:%M:%S")
+    except:
+        hour = time.strptime('00:00:00', "%H:%M:%S")
+    hour = time.strftime('%M:%M:%S', hour)
+    return {'when': var[0], 'hour': hour}

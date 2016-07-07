@@ -7,6 +7,7 @@ import ConfigParser
 import os
 import sys
 from distutils.util import strtobool
+import utils
 
 
 class NotConfigFileQPanel(BaseException):
@@ -110,3 +111,11 @@ class QPanelConfig:
 
     def is_freeswitch(self):
         return self.__get_bool_value_config('general', 'freeswitch', False)
+
+    def queues_for_reset_stats(self):
+        values = {}
+        if self.count_element_sections_config('reset_stats', self.config) > 0:
+            elements = self.config.items('reset_stats')
+            for queue, v in elements:
+                values[queue] = utils.convert_time_when_param(v)
+        return values
