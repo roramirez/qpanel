@@ -7,7 +7,7 @@ import ConfigParser
 import os
 import sys
 from distutils.util import strtobool
-import utils
+import convert
 
 
 class NotConfigFileQPanel(BaseException):
@@ -117,5 +117,5 @@ class QPanelConfig:
         if self.count_element_sections_config('reset_stats', self.config) > 0:
             elements = self.config.items('reset_stats')
             for queue, v in elements:
-                values[queue] = utils.convert_time_when_param(v)
+                values[queue] = convert.convert_time_when_param(v)
         return values
