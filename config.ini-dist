@@ -37,4 +37,4 @@ show_service_level = False ; Show information of service level of a queue
 ;; namequeue = when,hour
 ;; when can by daily, weekly, monthly, sun, mon, tue, wed, thu, fri or sat
 [reset_stats]
-; queuename = daily,00:00:00
+;queuename = daily,00:00:00
