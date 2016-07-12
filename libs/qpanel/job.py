@@ -16,7 +16,8 @@ def reset_stats_queue(queuename, when, hour):
     if not exists_job_onqueue(queuename, when, hour):
         return False
     b = backend.Backend()
-    return b.reset_stats(queuename)
+    b.reset_stats(queuename)
+    return True
 
 
 def job_reset_stats_queue(queuename, when, hour):
