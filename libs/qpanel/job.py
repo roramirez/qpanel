@@ -84,3 +84,24 @@ def seconds_from_config_interval(val):
 
 def datetime_from_config(when, hour):
     return datetime.datetime.utcnow()
+
+
+def start_jobs():
+    """
+        Check if processs enqueue_reset_stats is working on queue if not
+        enqueue function
+    """
+    start_enqueue_reset_stats = True
+    scheduler = Scheduler(connection=Redis())
+    jobs = scheduler.get_jobs()
+    for job in jobs:
+        if 'enqueue_reset_stats' in job.func_name:
+            start_enqueue_reset_stats = True
+            break
+
+    if start_enqueue_reset_stats:
+        scheduler.schedule(
+            scheduled_time=datetime.datetime.utcnow(),
+            func=enqueue_reset_stats,
+            interval=60
+        )
