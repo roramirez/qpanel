@@ -20,15 +20,15 @@ show_service_level = False ; Show information of service level of a queue
 [rename]
 ; This section if for rename name of queue
 ; Example:
-; 5000 = support. This rename queue "5000"  by "support"
+;5000 = support. This rename queue "5000"  by "support"
 
 [users]
 ; add user and password
 ; example
-; username = password
+;username = password
 
 ;; Config for Freeswitch
 ;[freeswitch]
-; host = 127.0.0.1
-; port = 8021
-; password = ClueCon
+;host = 127.0.0.1
+;port = 8021
+;password = ClueCon

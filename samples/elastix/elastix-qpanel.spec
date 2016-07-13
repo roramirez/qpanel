@@ -38,7 +38,7 @@ if ! [ -f "$CONFIG_FILE" ]; then
 
   #Manager config
   RAN_PASS=$(date +%s | sha256sum | base64 | head -c 32 ; echo)
-  cp /opt/%{modname}/config.ini-dist /opt/%{modname}/config.ini
+  cp /opt/%{modname}/samples/config.ini-dist /opt/%{modname}/config.ini
   sed -i "s/= password/= $RAN_PASS/" /opt/%{modname}/config.ini
   sed -i "s/= username/= qpanel/" /opt/%{modname}/config.ini
   sed -i "s/;base_url = /base_url =  \/qpanel/" /opt/%{modname}/config.ini
@@ -56,7 +56,7 @@ write = command
 " > /etc/asterisk/manager_qpanel.conf
 
 else
-  python2.6 /opt/%{modname}/update_config.py $CONFIG_FILE /opt/%{modname}/config.ini-dist
+  python2.6 /opt/%{modname}/update_config.py $CONFIG_FILE /opt/%{modname}/samples/config.ini-dist
 fi
 
 
