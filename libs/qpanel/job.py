@@ -3,6 +3,7 @@ import config
 from redis import Redis
 from rq_scheduler import Scheduler
 import datetime
+from rq import Connection, Worker
 
 
 def reset_stats_queue(queuename, when, hour):
@@ -106,3 +107,14 @@ def start_jobs():
             func=enqueue_reset_stats,
             interval=60
         )
+
+
+def start_process():
+    start_jobs()
+    start_workers()
+
+
+def start_workers(qs=['default']):
+    with Connection():
+        w = Worker(qs)
+        w.work()

@@ -28,6 +28,7 @@ import libs.qpanel.utils as uqpanel
 from libs.qpanel.config import QPanelConfig
 from libs.qpanel.backend import Backend
 import libs.qpanel.job as job
+import rq_worker
 
 
 class User(flask_login.UserMixin):
@@ -337,8 +338,7 @@ def barge():
 # ---------------------
 def main():
 
-    job.start_jobs()
-
+    rq_worker.start_jobs()
     if cfg.is_debug:
         app.config['DEBUG'] = True
 
