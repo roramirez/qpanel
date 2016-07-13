@@ -339,6 +339,7 @@ def barge():
 def main():
 
     rq_worker.start_jobs()
+
     if cfg.is_debug:
         app.config['DEBUG'] = True
 
