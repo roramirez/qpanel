@@ -9,6 +9,7 @@ import config
 from redis import Redis
 from rq_scheduler import Scheduler
 import datetime
+import time
 from rq import Connection, Worker
 
 
@@ -75,23 +76,65 @@ def enqueue_reset_stats():
         job_reset_stats_queue(queue, val['when'], val['hour'])
 
 
-def seconds_from_config_interval(val):
-    """
-        Get interval value for a configuration by parameter
-    """
+def get_days_from_val(val):
     val = val.lower()
     day = 0
     if val == 'daily':
         day = 1
-    elif val in ['weekly', 'sun', 'mon', 'tue', 'wed', 'thu', 'fri' 'sat']:
+    elif val in ['weekly', 'sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']:
         day = 7
     elif val == 'monthly':
         day = 30
-    return day * 24 * 60 * 60  # day *  hour * minute * seconds
+    return day
+
+
+def seconds_from_config_interval(val):
+    """
+        Get interval value for a configuration by parameter
+    """
+    # day * hour * minute * seconds
+    return get_days_from_val(val) * 24 * 60 * 60
 
 
 def datetime_from_config(when, hour):
-    return datetime.datetime.utcnow()
+    when = when.lower()  # Fixme
+    days = get_days_from_val(when)
+    now = datetime.datetime.now()
+    ldays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+
+    st = time.strptime(hour, "%H:%M:%S")
+    hour = datetime.time(st.tm_hour, st.tm_min, st.tm_sec)
+
+    at_time = datetime.datetime(now.year, now.month, now.day,
+                                hour.hour, hour.minute, hour.second)
+    if days == 1:
+        if now.time() > hour:
+            # scheduler next day
+            at_time = at_time + datetime.timedelta(days=1)
+    elif days == 7:
+        if ((now.weekday() == 0 or (now.weekday() == ldays.index(when) + 1))
+            and now.time() < hour):
+            # scheduler today
+            at_time = at_time
+        else:
+            # scheduler next week
+            next_day = 0
+            if when is not 'weekly':
+                next_day = ldays.index(when)
+            at_time = at_time + datetime.timedelta((next_day - now.weekday()) % 7)
+    elif days == 30:
+        if now.day == 1 and now.time() < hour:
+            at_time = at_time
+        else:
+            # scheduler next month
+            at_time = last_day_of_month(at_time) + datetime.timedelta(days=1)
+    return at_time
+
+
+def last_day_of_month(date):
+    if date.month == 12:
+        return date.replace(day=31)
+    return date.replace(month=date.month+1, day=1) - datetime.timedelta(days=1)
 
 
 def start_jobs():
