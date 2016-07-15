@@ -316,6 +316,18 @@ def get_user(username):
     return jsonify(user=user.as_dict())
 
 
+@app.route('/user')
+@app.route('/user/<username>', methods=['DELETE'])
+@flask_login.login_required
+def delete_user(username):
+    user = config_db.User.query.\
+            filter(config_db.User.username == username).first()
+    if not user:
+        abort(404)
+    user.delete_me()
+    return jsonify({'result': True})
+
+
 @app.route('/user/', methods=['POST'])
 @flask_login.login_required
 def create_user():

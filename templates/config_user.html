@@ -60,6 +60,7 @@
                                   <th><i class="fa fa-user"></i> {{ _('Username') }}</th>
                                   <th><i class="fa"></i> {{ _('Name') }}</th>
                                   <th><i class="fa fa-envelope"></i> {{ _('Email') }}</th>
+                                  <th></th>
                               </tr>
                               </thead>
                               <tbody>
@@ -228,11 +229,13 @@
             $('.modal-message').html("");
             $('.modal-message').removeClass('has-error')
         }
+
         function addUserToTable(user) {
-            var tr = '<tr id="user-' + user.username + '">'
+            var tr = '<tr id="user-' + user.username + '" data-username="' + user.username + '">'
                 + '<td>' + user.username + '</td>'
                 + '<td>' + cleanNull(user.name) + '</td>'
                 + '<td>' + cleanNull(user.email) + '</td>'
+                + '<td><button class="btn btn-danger btn-xs" id="delete-user" onclick="deleteUser(this)"><i class="fa fa-trash-o"></i></button><td>'
                 + '</tr>'
                 if ($('#users tbody tr:last').length > 0) {
                     $('#users tbody tr:last').after(tr);
@@ -240,6 +243,36 @@
                     $('#users tbody').append(tr);
                 }
         }
+
+        // Fixme: Create another kind of bind event
+        function deleteUser(element) {
+
+            if(!confirm("{{ _('Are you sure?') }}")){
+                return false;
+            }
+
+            var tr = $(element).closest("tr");
+            var username = tr.data('username');
+
+            var r = $.ajax({
+                url: '{{ url_for('.delete_user') }}/' + username,
+                method: 'DELETE',
+            });
+            r.done(function (response) {
+                tr.remove();
+                var total_users = (parseInt($('#total_users').html()) - 1);
+                $('#total_users').html("{total}".format({total:  total_users}));
+            });
+            r.fail(function (response) {
+                console.log('fail...');
+                $('.modal-message').html("{{ _('Failed to delete user') }}");
+                $('.modal-message').addClass('has-error')
+            });
+            r.always(function () {
+                console.log('always...');
+            });
+        }
+
     </script>
 
     {% include 'i18n_js.html' %}

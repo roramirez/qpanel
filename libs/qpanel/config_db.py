@@ -66,6 +66,10 @@ class User(DeclarativeBase):
         return {'name': self.name, 'username': self.username,
                 'email': self.email}
 
+    def delete_me(self):
+        session_dbconfig.delete(self)
+        session_dbconfig.commit()
+
     @staticmethod
     def count():
         return session_dbconfig.query(func.count(User.username)).scalar()
