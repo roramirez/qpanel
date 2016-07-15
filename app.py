@@ -157,11 +157,14 @@ def utility_processor():
             value = 0
         unavailable = [0, 4, 5]
         free = [1]
+        in_call = [10]
 
         if value in unavailable:
             return gettext('unavailable')
         elif value in free:
             return gettext('free')
+        elif value in in_call:
+            return gettext('in call')
         else:
             return gettext('busy')
     return dict(str_status_agent=str_status_agent)
@@ -213,6 +216,11 @@ def utility_processor():
         return backend.is_freeswitch()
     return dict(is_freeswitch=is_freeswitch)
 
+@app.context_processor
+def utility_processor():
+    def current_version():
+        return get_current_version()
+    return dict(current_version=current_version)
 
 # ---------------------
 # ---- Routes ---------
@@ -295,10 +303,38 @@ def logout():
     flask_login.logout_user()
     return redirect(url_for('login'))
 
+
+@app.route('/spy', methods=['POST'])
+@flask_login.login_required
+def spy():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.spy(channel, to_exten)
+    return jsonify(result=r)
+
+
+@app.route('/whisper', methods=['POST'])
+@flask_login.login_required
+def whisper():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.whisper(channel, to_exten)
+    return jsonify(result=r)
+
+
+@app.route('/barge', methods=['POST'])
+@flask_login.login_required
+def barge():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.barge(channel, to_exten)
+    return jsonify(result=r)
+
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------
-if __name__ == '__main__':
+def main():
 
     if cfg.is_debug:
         app.config['DEBUG'] = True
@@ -312,3 +348,7 @@ if __name__ == '__main__':
         })
         run_simple(cfg.host_bind, cfg.port_bind, application,
                    use_reloader=True, extra_files=[cfg.path_config_file])
+
+
+if __name__ == '__main__':
+    main()

@@ -13,8 +13,12 @@ URL_STABLE_VERSION = 'https://rodrigoramirez.com/qpanel/version/' + BRANCH
 
 
 def require_upgrade():
-    a = LooseVersion(get_current_version())
-    b = LooseVersion(get_stable_version())
+    return check_require_upgrade(get_current_version(), get_stable_version())
+
+
+def check_require_upgrade(current, stable):
+    a = LooseVersion(current)
+    b = LooseVersion(stable)
     if a < b:
         return True
     return False
@@ -25,13 +29,13 @@ def last_check_update():
     return True
 
 
-def get_current_version():
-    current_version = open('VERSION')
+def get_current_version(version_file='VERSION'):
+    current_version = open(version_file)
     return __first_line(current_version.read())
 
 
-def get_stable_version():
-    stable_version = __get_data_url(URL_STABLE_VERSION)
+def get_stable_version(url=URL_STABLE_VERSION):
+    stable_version = __get_data_url(url)
     return __first_line(stable_version)
 
 
@@ -47,7 +51,7 @@ def __get_data_url(url):
 def __first_line(content):
     tmp = ''
     if content is not None:
-        tmp = content.split('\n')
-    if len(tmp) > 1:
+        tmp = content.splitlines()
+    if len(tmp) >= 1:
         return tmp[0]
     return tmp
