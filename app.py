@@ -340,13 +340,19 @@ def create_user():
 
 # Settings
 @app.route('/setting/', methods=['GET'])
+@app.route('/setting/<section>', methods=['GET'])
 @flask_login.login_required
-def setting():
+def setting(section=None):
     result = {}
     for setting in config_db.Config.query.all():
         if setting.namespace not in result.keys():
             result[setting.namespace] = {}
         result[setting.namespace][setting.setting] = setting.value
+    if section is not None:
+        tmp = {}
+        if section in result.keys():
+            tmp = result[section]
+        result = tmp
     return jsonify(settings=result)
 
 
