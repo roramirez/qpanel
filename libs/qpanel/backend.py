@@ -7,7 +7,7 @@
 from config import QPanelConfig
 from flask.ext.babel import format_timedelta
 from datetime import timedelta
-from utils import timedelta_from_field_dict
+from utils import timedelta_from_field_dict, realname_queue_rename
 import os
 import sys
 from libs.qpanel.asterisk import *
@@ -150,3 +150,12 @@ class Backend(object):
 
     def barge(self, channel, to_exten):
         return self._call_spy(channel, to_exten, 'B')
+
+    def remove_from_queue(self, agent, queue):
+        queue = realname_queue_rename(queue)
+        self.connection = self._connect()
+        try:
+            return self.connection.remove_from_queue(agent, queue)
+        except Exception, e:
+            print str(e)
+            return {}

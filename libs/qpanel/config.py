@@ -110,3 +110,9 @@ class QPanelConfig:
 
     def is_freeswitch(self):
         return self.__get_bool_value_config('general', 'freeswitch', False)
+
+    def get_items(self, section):
+        try:
+            return self.config.items(section)
+        except:
+            return None

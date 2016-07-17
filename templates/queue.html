@@ -50,7 +50,8 @@
                                   <td id="actions" data-channel="{{ agent.StateInterface }}">
                                     <a href="#" data-action="spy">{{ _('Spy') }}</a> |
                                     <a href="#" data-action="whisper">{{ _('Whisper') }}</a> |
-                                    <a href="#" data-action="barge">{{ _('Barge') }}</a>
+                                    <a href="#" data-action="barge">{{ _('Barge') }}</a> |
+                                    <button data-queue="{{ name }}" class="remove-queue">{{ _('Remove from queue') }}</button>
                                   </td>
                               </tr>
                               {% endfor %}
@@ -190,7 +191,8 @@
                          + '<td id="actions" data-channel="' + data.members[agent].StateInterface + '">'
                          +      '<a href="#" data-action="spy">{{ _('Spy') }}</a> |'
                          +      '<a href="#" data-action="whisper">{{ _('Whisper') }}</a> |'
-                         +      '<a href="#" data-action="barge">{{ _('Barge') }}</a>'
+                         +      '<a href="#" data-action="barge">{{ _('Barge') }}</a> |'
+                         +      '<button data-queue="{{ name }}" class="remove-queue">{{ _('Remove from queue') }}</button>'
                          + '</td>'
                          + '</tr>';
 
@@ -271,7 +273,7 @@
 
 
         //handle show modal for Spy and Whisper
-        $('#actions* a').on('click', function() {
+        $('#actions* a').not('.remove-queue').on('click', function() {
             var action = $(this).data('action');
             channel = $(this.closest('td')).data('channel');
             $('#spy_whisperk #execute-action').data('channel', channel);
@@ -333,5 +335,46 @@
                 $('#execute-action').prop("disabled", false);
             });
         });
+
+
+        $('.remove-queue').on('click', function() {
+            var tr = $(this).closest("tr");
+            var queue = $(this).data('queue');
+            var agent = $(this.closest('td')).data('channel');
+
+            console.log('remove agent  %s from %s', agent, queue);
+            button = $(this);
+            $('.message-hangup').remove();
+
+            var r = $.ajax({
+                type: 'post',
+                url: '{{ url_for('.remove_from_queue') }}',
+                data: {agent: agent, queue: queue}
+            });
+            r.done(function (response) {
+                if (response) {
+                    console.log(response.result.Response);
+                    msg = '<span class="btn btn-xs message-hangup">'
+                        + response.result.Message + '</span>';
+
+                    $(button).after(msg);
+                    var status = response.result.Response;
+                    console.log(status);
+                    if (status == 'failed') {
+                        $('.message-hangup').addClass('btn-danger');
+                    } else {
+                        $('.message-hangup').addClass('btn-success');
+                        setTimeout(function() { tr.remove(); }, 1000);
+                        var total_agents = (parseInt($('#total_agent').html()) - 1);
+                        $('#total_agent').html("{total}".format({total:  total_agents}));
+                    }
+                }
+            });
+            r.fail(function (response) {
+                console.log(response);
+            });
+
+        });
+
     </script>
     {% endblock %}

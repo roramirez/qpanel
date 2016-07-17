@@ -70,3 +70,13 @@ def timedelta_from_field_dict(field, dic, current_timestamp=None,
                 seconds_ago = int(current_timestamp) - int(dic[field])
 
     return timedelta(seconds=seconds_ago)
+
+
+def realname_queue_rename(queuename):
+    renames = QPanelConfig().get_items('rename')
+    if renames is not None:
+        for val, idx in renames:
+            print idx
+            if idx == queuename:
+                return val
+    return queuename
