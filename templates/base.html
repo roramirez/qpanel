@@ -18,9 +18,9 @@
 
     {% block css_head %}
     <!-- Bootstrap core CSS -->
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!--external css-->
-    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='components/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lineicons/style.css') }}">
     {% endblock %}
 
@@ -30,7 +30,7 @@
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/style-responsive.css') }}" rel="stylesheet">
 
-    <script src="{{ url_for('static', filename='js/chart-master/Chart.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/Chart.js/Chart.js') }}"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -63,9 +63,9 @@
 
     {% block tail_js %}
     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.scrollTo.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.nicescroll.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/jquery.scrollTo/jquery.scrollTo.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/jquery.nicescroll/jquery.nicescroll.js') }}" type="text/javascript"></script>
 
     <!--common script for all pages-->
     <script src="{{ url_for('static', filename='js/common-scripts.js') }}"></script>
