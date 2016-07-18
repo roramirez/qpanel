@@ -7,17 +7,12 @@
 
 from flask import Flask, render_template, jsonify, redirect,\
     request, session, url_for
-import os
-import sys
-import ConfigParser
-import json
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
 
 # babel
-from flask.ext.babel import Babel, gettext, dates, format_timedelta
-from datetime import timedelta
+from flask.ext.babel import Babel, gettext
 
 # flask-login
 import flask.ext.login as flask_login
@@ -216,11 +211,13 @@ def utility_processor():
         return backend.is_freeswitch()
     return dict(is_freeswitch=is_freeswitch)
 
+
 @app.context_processor
 def utility_processor():
     def current_version():
         return get_current_version()
     return dict(current_version=current_version)
+
 
 # ---------------------
 # ---- Routes ---------
@@ -254,7 +251,7 @@ def all_queues():
     if backend.is_freeswitch():
         abort(404)
         # Not yet implement
-        #template = 'fs/all_queue.html'
+        # template = 'fs/all_queue.html'
     return render_template(template, queues=data)
 
 
