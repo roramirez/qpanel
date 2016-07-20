@@ -11,12 +11,14 @@ Qpanel is a panel for queues on Asterisk and FreeSWITCH, powerful and simple mon
 * General resume for calls. Abandoned, Incoming, Answer time and Waiting time.
 * Show information on detail by queue.
 * Show agents status if these are free, busy or unavailable.
-* Pause reason and time to agents
+* Pause reason and time to agents.
 * Percent of abandoned calls.
 * Allows rename the queue name or hide in case if required not show a determined queue.
 * Show callers by queue with the priority and wait time.
+* Spy, Whisper and Barge for agents on queues.
+* Authentication Access.
 * Simple configuration. Just use Asterisk manager.
-* Multi languages: English, Spanish, German, Russian and Portuguese
+* Multi languages availables: English, Spanish, German, Russian and Portuguese.
 * Written on Python.
 * Responsive design.
 * Opensource by MIT licence.
