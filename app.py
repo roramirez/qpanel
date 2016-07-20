@@ -10,6 +10,7 @@ from flask import Flask, render_template, jsonify, redirect,\
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
+import logging
 
 # babel
 from flask.ext.babel import Babel, gettext
