@@ -14,6 +14,7 @@ import json
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
+import logging
 
 # babel
 from flask.ext.babel import Babel, gettext, dates, format_timedelta
