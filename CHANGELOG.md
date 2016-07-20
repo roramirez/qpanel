@@ -1,5 +1,7 @@
 ## Change Log
 
+### 0.11.1 (2016-07-20)
+- [a22c0f7](https://github.com/roramirez/qpanel/commit/a4c0fdbaacfe6aba4d80801846fe76eee8d299f8) Fix a bug import logging
 
 ### 0.11.0 (2016-07-15)
 - [#66](https://github.com/roramirez/qpanel/pull/66) Move file sample config.ini-dist into samples
