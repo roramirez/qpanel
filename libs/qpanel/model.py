@@ -5,7 +5,8 @@
 #
 import os
 from sqlalchemy import create_engine, MetaData
-from sqlalchemy import Column, String, Integer, TIMESTAMP, DateTime
+from sqlalchemy import Column, String, Integer, TIMESTAMP, DateTime, Text,\
+        Boolean, ForeignKey
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 import datetime
@@ -27,6 +28,38 @@ def _get_now():
     return datetime.datetime.now()
 
 
+class ColumnList(DeclarativeBase):
+    __tablename__ = "column_list"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    type = Column(String)
+    key = Column(Boolean, default=False)
+    list_id = Column(Integer, ForeignKey('list.id'), nullable=False)
+    created_at = Column(DateTime, default=_get_now())
+    created_at = Column(DateTime, onupdate=_get_now())
+
+
+class List(DeclarativeBase):
+    __tablename__ = "list"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    created_at = Column(DateTime, default=_get_now())
+    created_at = Column(DateTime, onupdate=_get_now())
+
+
+class Contact(DeclarativeBase):
+    __tablename__ = "contact"
+
+    id = Column(Integer, primary_key=True)
+    number = Column(String)
+    data = Column(Text)
+    list_id = Column(Integer, ForeignKey('list.id'), nullable=False)
+    created_at = Column(DateTime, default=_get_now())
+    created_at = Column(DateTime, onupdate=_get_now())
+
+
 class Campaign(DeclarativeBase):
     __tablename__ = "campaign"
 
@@ -36,6 +69,7 @@ class Campaign(DeclarativeBase):
     text = Column(String)
     init = Column(TIMESTAMP)
     end = Column(TIMESTAMP)
+    list_id = Column(Integer, ForeignKey('list.id'), nullable=False)
     created_at = Column(DateTime, default=_get_now())
     created_at = Column(DateTime, onupdate=_get_now())
 
