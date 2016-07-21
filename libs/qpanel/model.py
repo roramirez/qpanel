@@ -18,7 +18,7 @@ engine = create_engine('sqlite:///' + PATH_DB, echo=True)
 # session
 session_db = scoped_session(sessionmaker(bind=engine,
                                          autoflush=False,
-                                         autocommit=True))
+                                         autocommit=False))
 
 DeclarativeBase = declarative_base()
 metadata = MetaData()
