@@ -69,7 +69,7 @@ class Campaign(DeclarativeBase):
     text = Column(String)
     init = Column(TIMESTAMP)
     end = Column(TIMESTAMP)
-    list_id = Column(Integer, ForeignKey('list.id'), nullable=False)
+    list_id = Column(Integer, ForeignKey('list.id'), nullable=True)
     created_at = Column(DateTime, default=_get_now())
     created_at = Column(DateTime, onupdate=_get_now())
 
