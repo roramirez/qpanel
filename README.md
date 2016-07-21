@@ -127,3 +127,14 @@ If you want check the development version get checkout of master branch
  ```
  git clone -b master  https://github.com/roramirez/qpanel.git
  ```
+
+
+## How to contribute
+
+ * Fork the project
+ * Create a feature branch (git checkout -b my-feature)
+ * Commit your changes (git commit -m "add my feature")
+ * Push to the branch (git push origin my-feature)
+ * Create a pull request
+
+Happy coding :)
