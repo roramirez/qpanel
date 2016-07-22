@@ -92,6 +92,14 @@ class Campaign(DeclarativeBase):
             self.id, self.name, self.init, self.end)
 
 
+class TmpContactList(DeclarativeBase):
+    __tablename__ = "tmp_contact_list"
+
+    key = Column(String)
+    content = Column(Text)
+    list_id = Column(Integer, ForeignKey('list.id'), nullable=True)
+
+
 def _commit_object_db(obj):
     """
         add object into session and commit to database
