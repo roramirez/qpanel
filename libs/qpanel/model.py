@@ -4,12 +4,11 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 import os
-from sqlalchemy import create_engine, MetaData
 from sqlalchemy import Column, String, Integer, TIMESTAMP, DateTime, Text,\
-        Boolean, ForeignKey
+        Boolean, ForeignKey, create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session, relationship
 from sqlalchemy.ext.declarative import declarative_base
-import datetime
+import utils
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PATH_DB = os.path.join(HERE, os.pardir, os.pardir, 'data', 'database.db')
@@ -20,24 +19,26 @@ session_db = scoped_session(sessionmaker(bind=engine,
                                          autoflush=False,
                                          autocommit=False))
 
-DeclarativeBase = declarative_base()
-metadata = MetaData()
+
+class Base(object):
+    id = Column(Integer, primary_key=True)
+    created_at = Column(DateTime, default=utils.get_now())
+    updated_at = Column(DateTime, onupdate=utils.get_now())
+
+    def save(self):
+        _commit_object_db(self)
 
 
-def _get_now():
-    return datetime.datetime.now()
+DeclarativeBase = declarative_base(cls=Base)
 
 
 class ColumnList(DeclarativeBase):
     __tablename__ = "column_list"
 
-    id = Column(Integer, primary_key=True)
     name = Column(String)
     type = Column(String)
     key = Column(Boolean, default=False)
     list_id = Column(Integer, ForeignKey('list.id'), nullable=False)
-    created_at = Column(DateTime, default=_get_now())
-    created_at = Column(DateTime, onupdate=_get_now())
 
     def __repr__(self):
         return "<ColumnList(id='%s', name='%s', type='%s')>" % (
@@ -47,10 +48,7 @@ class ColumnList(DeclarativeBase):
 class List(DeclarativeBase):
     __tablename__ = "list"
 
-    id = Column(Integer, primary_key=True)
     name = Column(String)
-    created_at = Column(DateTime, default=_get_now())
-    created_at = Column(DateTime, onupdate=_get_now())
     contacts = relationship("Contact", order_by="Contact.id", backref="list")
     campaigns = relationship("Campaign", back_populates="list")
 
@@ -64,12 +62,9 @@ class List(DeclarativeBase):
 class Contact(DeclarativeBase):
     __tablename__ = "contact"
 
-    id = Column(Integer, primary_key=True)
     number = Column(String)
     data = Column(Text)
     list_id = Column(Integer, ForeignKey('list.id'), nullable=False)
-    created_at = Column(DateTime, default=_get_now())
-    created_at = Column(DateTime, onupdate=_get_now())
 
     def __repr__(self):
         return "<Contact(id='%s', number='%s', data='%s')>" % (
@@ -79,7 +74,6 @@ class Contact(DeclarativeBase):
 class Campaign(DeclarativeBase):
     __tablename__ = "campaign"
 
-    id = Column(Integer, primary_key=True)
     status = Column(Integer)
     name = Column(String)
     text = Column(String)
@@ -87,8 +81,6 @@ class Campaign(DeclarativeBase):
     end = Column(TIMESTAMP)
     list_id = Column(Integer, ForeignKey('list.id'), nullable=True)
     list = relationship("List", back_populates="campaigns")
-    created_at = Column(DateTime, default=_get_now())
-    created_at = Column(DateTime, onupdate=_get_now())
 
     def __init__(self, name, init, end):
         self.name = name
