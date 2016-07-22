@@ -7,7 +7,7 @@ import os
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy import Column, String, Integer, TIMESTAMP, DateTime, Text,\
         Boolean, ForeignKey
-from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm import sessionmaker, scoped_session, relationship
 from sqlalchemy.ext.declarative import declarative_base
 import datetime
 
@@ -51,10 +51,14 @@ class List(DeclarativeBase):
     name = Column(String)
     created_at = Column(DateTime, default=_get_now())
     created_at = Column(DateTime, onupdate=_get_now())
+    contacts = relationship("Contact", order_by="Contact.id", backref="list")
+    campaigns = relationship("Campaign", back_populates="list")
+
+    def __init__(self, name):
+        self.name = name
 
     def __repr__(self):
         return "<List(id='%s', name='%s')>" % (self.id, self.name)
-
 
 
 class Contact(DeclarativeBase):
@@ -82,6 +86,7 @@ class Campaign(DeclarativeBase):
     init = Column(TIMESTAMP)
     end = Column(TIMESTAMP)
     list_id = Column(Integer, ForeignKey('list.id'), nullable=True)
+    list = relationship("List", back_populates="campaigns")
     created_at = Column(DateTime, default=_get_now())
     created_at = Column(DateTime, onupdate=_get_now())
 
