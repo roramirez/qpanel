@@ -28,6 +28,10 @@ class Base(object):
     def save(self):
         _commit_object_db(self)
 
+    def as_dict(self):
+        return dict((col, getattr(self, col)) for col in
+                    self.__table__.columns.keys())
+
 
 DeclarativeBase = declarative_base(cls=Base)
 
