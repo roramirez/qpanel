@@ -3,6 +3,7 @@ import sys
 import os
 import collections
 import utils
+import platform
 
 
 def get_mount_partition(types=None):
@@ -93,4 +94,16 @@ def get_info_partitions(types=None):
                          'percent': percent_free}}
 
         info.append(tmp)
+    return info
+
+
+def system_info():
+    info = {}
+    info['machine'] = platform.machine()
+    info['architecture'] = platform.machine()
+    info['hostname'] = platform.node()
+    info['platform'] = platform.platform()
+    info['python_version'] = platform.python_version()
+    info['system'] = platform.system()
+    info['uname'] = platform.uname()
     return info
