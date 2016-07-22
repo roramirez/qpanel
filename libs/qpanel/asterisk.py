@@ -6,12 +6,6 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-import os
-import sys
-# get current names for directory and file
-dirname, filename = os.path.split(os.path.abspath(__file__))
-# py-asterisk
-sys.path.append(os.path.join(dirname, os.pardir, 'py-asterisk'))
 from Asterisk.Manager import *
 
 
