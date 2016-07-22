@@ -39,6 +39,10 @@ class ColumnList(DeclarativeBase):
     created_at = Column(DateTime, default=_get_now())
     created_at = Column(DateTime, onupdate=_get_now())
 
+    def __repr__(self):
+        return "<ColumnList(id='%s', name='%s', type='%s')>" % (
+            self.id, self.name, self.type)
+
 
 class List(DeclarativeBase):
     __tablename__ = "list"
@@ -47,6 +51,10 @@ class List(DeclarativeBase):
     name = Column(String)
     created_at = Column(DateTime, default=_get_now())
     created_at = Column(DateTime, onupdate=_get_now())
+
+    def __repr__(self):
+        return "<List(id='%s', name='%s')>" % (self.id, self.name)
+
 
 
 class Contact(DeclarativeBase):
@@ -58,6 +66,10 @@ class Contact(DeclarativeBase):
     list_id = Column(Integer, ForeignKey('list.id'), nullable=False)
     created_at = Column(DateTime, default=_get_now())
     created_at = Column(DateTime, onupdate=_get_now())
+
+    def __repr__(self):
+        return "<Contact(id='%s', number='%s', data='%s')>" % (
+            self.id, self.number, self.data)
 
 
 class Campaign(DeclarativeBase):
@@ -77,6 +89,10 @@ class Campaign(DeclarativeBase):
         self.name = name
         self.init = init
         self.end = end
+
+    def __repr__(self):
+        return "<Campaign(id='%s', name='%s', init='%s', end='%s')>" % (
+            self.id, self.name, self.init, self.end)
 
 
 def _commit_object_db(obj):
