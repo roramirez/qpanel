@@ -20,13 +20,26 @@ session_db = scoped_session(sessionmaker(bind=engine,
                                          autocommit=False))
 
 
-class Base(object):
+class OperationCrud():
+    def save(self):
+        """
+            add object into session and commit to database
+        """
+        session_db.add(self)
+        return session_db.commit()
+
+    def update(self):
+        return session_db.commit()
+
+    def delete(self):
+        session_db.delete(self)
+        return session_db.commit()
+
+
+class Base(object, OperationCrud):
     id = Column(Integer, primary_key=True)
     created_at = Column(DateTime, default=utils.get_now())
     updated_at = Column(DateTime, onupdate=utils.get_now())
-
-    def save(self):
-        _commit_object_db(self)
 
     def as_dict(self):
         return dict((col, getattr(self, col)) for col in
@@ -102,13 +115,5 @@ class TmpContactList(DeclarativeBase):
     key = Column(String)
     content = Column(Text)
     list_id = Column(Integer, ForeignKey('list.id'), nullable=True)
-
-
-def _commit_object_db(obj):
-    """
-        add object into session and commit to database
-    """
-    session_db.add(obj)
-    session_db.commit()
 
 DeclarativeBase.metadata.create_all(engine)
