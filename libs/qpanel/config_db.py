@@ -137,6 +137,20 @@ def get_value_sections(section):
         return []
 
 
+def get_settings(section=None):
+    result = {}
+    for setting in Config.query.all():
+        if setting.namespace not in result.keys():
+            result[setting.namespace] = {}
+        result[setting.namespace][setting.setting] = setting.value
+    if section is not None:
+        tmp = {}
+        if section in result.keys():
+            tmp = result[section]
+        result = tmp
+    return result
+
+
 event.listen(User.__table__, "after_create", User.add_data)
 event.listen(Config.__table__, "after_create", Config.add_data)
 DeclarativeBase.metadata.create_all(engine)
