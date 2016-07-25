@@ -347,6 +347,14 @@ def setting(section=None):
     return jsonify(result)
 
 
+@app.route('/setting', methods=['POST'])
+@flask_login.login_required
+def save_setting():
+    data = request.json
+    config_db.update_config_from_dict(data)
+    return jsonify(config_db.get_settings()), 202
+
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------
