@@ -5,7 +5,7 @@
 #
 
 from config import QPanelConfig
-from flask.ext.babel import format_timedelta
+from flask_babel import format_timedelta
 from datetime import timedelta
 from utils import timedelta_from_field_dict
 import os

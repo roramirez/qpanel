@@ -12,11 +12,8 @@ from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
 import logging
 
-# babel
-from flask.ext.babel import Babel, gettext
-
-# flask-login
-import flask.ext.login as flask_login
+from flask_babel import Babel, gettext
+import flask_login
 
 from libs.qpanel.upgrader import *
 import libs.qpanel.utils as uqpanel
