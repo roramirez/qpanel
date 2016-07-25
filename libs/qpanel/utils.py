@@ -5,7 +5,7 @@
 #
 
 import ConfigParser
-from datetime import timedelta
+from datetime import timedelta, datetime
 import time
 from exception import NotConfigFileQPanel
 import hashlib
@@ -80,3 +80,6 @@ def open_config_ini_file(file_path):
             return cfg
     except IOError:
         raise NotConfigFileQPanel(file_path)
+
+def get_now():
+    return datetime.now()

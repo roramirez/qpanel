@@ -4,18 +4,17 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 import os
-from sqlalchemy import create_engine, MetaData, event
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, DateTime, create_engine, event
+from sqlalchemy import func
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import func
 import hashlib
 import settings
 import utils
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PATH_DB = os.path.join(HERE, os.pardir, os.pardir, 'data', 'database.db')
-engine = create_engine('sqlite:///' + PATH_DB, echo=True)
+engine = create_engine('sqlite:///' + PATH_DB, echo=False)
 
 # session
 session_dbconfig = scoped_session(sessionmaker(bind=engine,
@@ -23,14 +22,38 @@ session_dbconfig = scoped_session(sessionmaker(bind=engine,
                                                autocommit=False))
 
 DeclarativeBase = declarative_base()
-metadata = MetaData()
+
+class OperationCrud():
+    def save(self):
+        """
+        add object into session and commit to database
+        """
+        session_dbconfig.add(self)
+        return session_dbconfig.commit()
+
+    def update(self):
+        return session_dbconfig.commit()
+
+    def delete(self):
+        session_dbconfig.delete(self)
+        return session_dbconfig.commit()
 
 
-class Config(DeclarativeBase):
+class Base(object, OperationCrud):
+    id = Column(Integer, primary_key=True)
+    created_at = Column(DateTime, default=utils.get_now())
+    updated_at = Column(DateTime, onupdate=utils.get_now())
+
+    def as_dict(self):
+        return dict((col, getattr(self, col)) for col in
+                    self.__table__.columns.keys())
+
+
+
+class Config(DeclarativeBase, Base):
 
     __tablename__ = "config"
 
-    id = Column(Integer, primary_key=True)
     namespace = Column(String)
     setting = Column(String)
     value = Column(String)
@@ -149,6 +172,25 @@ def get_settings(section=None):
             tmp = result[section]
         result = tmp
     return result
+
+
+def update_config_from_dict(data):
+    for section in data:
+        for cfg in data[section]:
+            value = data[section][cfg]
+
+            # FIXME: valid before insert data namespace/setting is ok
+            # prevent trash data
+
+            c = Config.query.filter(Config.namespace == section,
+                                    Config.setting == cfg)
+            if c.count() == 0:
+                print("no exists into config", cfg, section)
+                new_config = Config(section, cfg, value)
+                new_config.save()
+            else:
+                c.update({'value': value})
+                session_dbconfig.commit()
 
 
 event.listen(User.__table__, "after_create", User.add_data)
