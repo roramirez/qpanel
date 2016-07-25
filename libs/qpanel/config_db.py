@@ -12,8 +12,7 @@ import hashlib
 import settings
 import utils
 
-HERE = os.path.abspath(os.path.dirname(__file__))
-PATH_DB = os.path.join(HERE, os.pardir, os.pardir, 'data', 'database.db')
+PATH_DB = os.path.join(settings.ROOT_PATH, 'data', 'database.db')
 engine = create_engine('sqlite:///' + PATH_DB, echo=False)
 
 # session
@@ -22,6 +21,7 @@ session_dbconfig = scoped_session(sessionmaker(bind=engine,
                                                autocommit=False))
 
 DeclarativeBase = declarative_base()
+
 
 class OperationCrud():
     def save(self):
@@ -47,7 +47,6 @@ class Base(object, OperationCrud):
     def as_dict(self):
         return dict((col, getattr(self, col)) for col in
                     self.__table__.columns.keys())
-
 
 
 class Config(DeclarativeBase, Base):
