@@ -150,3 +150,10 @@ class Backend(object):
 
     def barge(self, channel, to_exten):
         return self._call_spy(channel, to_exten, 'B')
+
+    def hangup(self, channel):
+        try:
+            return self.connection.hangup(channel)
+        except Exception, e:
+            print str(e)
+            return {}
