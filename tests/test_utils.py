@@ -1,8 +1,9 @@
 import unittest
 from libs.qpanel.utils import clean_str_to_div_id, underscore_to_camelcase, \
-    timedelta_from_field_dict
+    timedelta_from_field_dict, to_md5
 import time
 import datetime
+
 
 class UtilsTestClass(unittest.TestCase):
 
@@ -23,17 +24,29 @@ class UtilsTestClass(unittest.TestCase):
     def test_timedelta_from_field_dict(self):
         now = time.time()
         d = {'time': now, 'time2': 'hola'}
-        self.assertEqual(timedelta_from_field_dict('time', d, now + 1), datetime.timedelta(0, 1))
-        self.assertNotEqual(timedelta_from_field_dict('time', d, now + 1), datetime.timedelta(0, 10))
-        self.assertEqual(timedelta_from_field_dict('time', d, now + 100), datetime.timedelta(0, 100))
-        self.assertEqual(timedelta_from_field_dict('timeno', d, now + 100), datetime.timedelta(0, 0))
-        self.assertEqual(str(timedelta_from_field_dict('time', d, now + 1)), '0:00:01')
-        self.assertEqual(timedelta_from_field_dict('time', d, now), datetime.timedelta(0, 0))
-        self.assertEqual(str(timedelta_from_field_dict('time', d, now)), '0:00:00')
+        self.assertEqual(timedelta_from_field_dict('time', d, now + 1),
+                         datetime.timedelta(0, 1))
+        self.assertNotEqual(timedelta_from_field_dict('time', d, now + 1),
+                            datetime.timedelta(0, 10))
+        self.assertEqual(timedelta_from_field_dict('time', d, now + 100),
+                         datetime.timedelta(0, 100))
+        self.assertEqual(timedelta_from_field_dict('timeno', d, now + 100),
+                         datetime.timedelta(0, 0))
+        self.assertEqual(str(timedelta_from_field_dict('time', d, now + 1)),
+                         '0:00:01')
+        self.assertEqual(timedelta_from_field_dict('time', d, now),
+                         datetime.timedelta(0, 0))
+        self.assertEqual(str(timedelta_from_field_dict('time', d, now)),
+                         '0:00:00')
 
         d2 = {'time': 60, 'time2': 6001}
-        self.assertEqual(str(timedelta_from_field_dict('time', d2, None, True)), '0:01:00')
-        self.assertEqual(str(timedelta_from_field_dict('time2', d2, None, True)), '1:40:01')
+        self.assertEqual(str(timedelta_from_field_dict('time', d2, None, True)),
+                         '0:01:00')
+        self.assertEqual(str(timedelta_from_field_dict('time2', d2, None, True)),
+                         '1:40:01')
+
+    def test_to_md5(self):
+        self.assertEqual(to_md5('123456'), 'e10adc3949ba59abbe56e057f20f883e')
 
 
 # runs the unit tests
