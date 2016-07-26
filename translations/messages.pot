@@ -1,40 +1,39 @@
-# Portuguese (Brazil) translations for QPanel.
-# Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena
+# Translations template for QPanel.
+# Copyright (C) 2015-2016  Rodrigo Ramírez Norambuena
 # This file is distributed under the same license as the QPanel project.
-# Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015-2016.
+# Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
+
 msgid ""
 msgstr ""
-"Project-Id-Version:  0.6.1\n"
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
-"PO-Revision-Date: 2015-11-22 15:44-0400\n"
-"Last-Translator: Max Araujo <max.araujo@outlook.com>\n"
-"Language: pt_BR\n"
-"Language-Team: pt_BR <a@rodrigoramirez.com>\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"PO-Revision-Date: 2016-07-14 14:57-0400\n"
+"Last-Translator: Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>\n"
+"Language: es\n"
+"Language-Team: LANGUAGE <a@rodrigoramirez.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.1.1\n"
 
-#: app.py:163 templates/fs/index.html:181 templates/i18n_js.html:15
-#: templates/i18n_js.html:27 templates/index.html:185
+#: app.py:163 templates/i18n_js.html:15 templates/i18n_js.html:27
+#: templates/index.html:185 templates/fs/index.html:181
 msgid "unavailable"
-msgstr "indisponivel"
+msgstr ""
 
-#: app.py:165 templates/fs/index.html:174 templates/i18n_js.html:11
-#: templates/i18n_js.html:25 templates/index.html:178
+#: app.py:165 templates/i18n_js.html:11 templates/i18n_js.html:25
+#: templates/index.html:178 templates/fs/index.html:174
 msgid "free"
-msgstr "livre"
+msgstr ""
 
 #: app.py:167 templates/i18n_js.html:13
 msgid "in call"
 msgstr ""
 
-#: app.py:169 templates/fs/index.html:177 templates/i18n_js.html:17
-#: templates/index.html:181
+#: app.py:169 templates/i18n_js.html:17 templates/index.html:181
+#: templates/fs/index.html:177
 msgid "busy"
-msgstr "ocupado"
+msgstr ""
 
 #: templates/404.html:2
 msgid "Not found"
@@ -42,11 +41,11 @@ msgstr ""
 
 #: templates/404.html:7
 msgid "404 Not Found"
-msgstr "404 Não encontrado"
+msgstr ""
 
 #: templates/404.html:10
 msgid "The request the was not found on this server."
-msgstr "A requisição não foi encontrada no servidor"
+msgstr ""
 
 #: templates/all_queues.html:5
 msgid "Consolidated view"
@@ -56,68 +55,67 @@ msgstr ""
 msgid "Consolidate view"
 msgstr ""
 
-#: templates/all_queues.html:29 templates/fs/queue.html:27
-#: templates/queue.html:25
+#: templates/all_queues.html:29 templates/queue.html:25
+#: templates/fs/queue.html:27
 msgid "Agents"
-msgstr "Agentes"
+msgstr ""
 
 #: templates/all_queues.html:33 templates/all_queues.html:71
-#, fuzzy
 msgid "Queue"
-msgstr "Fila"
+msgstr ""
 
-#: templates/all_queues.html:34 templates/fs/queue.html:31
-#: templates/queue.html:29
+#: templates/all_queues.html:34 templates/queue.html:29
+#: templates/fs/queue.html:31
 msgid "Name"
-msgstr "Nome"
+msgstr ""
 
 #: templates/all_queues.html:35 templates/queue.html:30
 msgid "Interface"
-msgstr "Interface"
+msgstr ""
 
-#: templates/all_queues.html:36 templates/fs/queue.html:33
-#: templates/queue.html:31
+#: templates/all_queues.html:36 templates/queue.html:31
+#: templates/fs/queue.html:33
 msgid "Status"
-msgstr "Estado"
+msgstr ""
 
-#: templates/all_queues.html:37 templates/fs/queue.html:35
-#: templates/queue.html:32
+#: templates/all_queues.html:37 templates/queue.html:32
+#: templates/fs/queue.html:35
 msgid "Attend calls"
-msgstr "Ligações atendidas"
+msgstr ""
 
-#: templates/all_queues.html:37 templates/fs/queue.html:35
-#: templates/queue.html:32
+#: templates/all_queues.html:37 templates/queue.html:32
+#: templates/fs/queue.html:35
 msgid "Calls"
-msgstr "Ligações"
+msgstr ""
 
-#: templates/all_queues.html:38 templates/fs/queue.html:36
-#: templates/queue.html:33
+#: templates/all_queues.html:38 templates/queue.html:33
+#: templates/fs/queue.html:36
 msgid "Last call at"
-msgstr "Ultima ligação"
+msgstr ""
 
-#: templates/all_queues.html:67 templates/fs/queue.html:67
-#: templates/queue.html:65
+#: templates/all_queues.html:67 templates/queue.html:65
+#: templates/fs/queue.html:67
 msgid "Callers"
-msgstr "Clientes"
+msgstr ""
 
-#: templates/all_queues.html:72 templates/fs/queue.html:71
-#: templates/queue.html:69
+#: templates/all_queues.html:72 templates/queue.html:69
+#: templates/fs/queue.html:71
 msgid "Id Name"
-msgstr "Nome"
+msgstr ""
 
-#: templates/all_queues.html:73 templates/fs/queue.html:72
-#: templates/queue.html:70
+#: templates/all_queues.html:73 templates/queue.html:70
+#: templates/fs/queue.html:72
 msgid "Id Number"
-msgstr "Numero"
+msgstr ""
 
 #: templates/all_queues.html:74 templates/queue.html:71
 msgid "Position"
-msgstr "Posição"
+msgstr ""
 
-#: templates/all_queues.html:75 templates/fs/queue.html:73
-#: templates/queue.html:72
+#: templates/all_queues.html:75 templates/queue.html:72
+#: templates/fs/queue.html:73
 msgid "Wait"
-msgstr "Espera"
+msgstr ""
 
 #: templates/all_queues.html:168 templates/queue.html:169
 msgid "was"
@@ -129,15 +127,15 @@ msgstr ""
 
 #: templates/all_queues.html:173 templates/queue.html:174
 msgid "paused"
-msgstr "pausado"
+msgstr ""
 
 #: templates/footer.html:4
 msgid "Developed by"
-msgstr "Desenvolvido por"
+msgstr ""
 
 #: templates/footer.html:4
 msgid "with a Template by"
-msgstr "Com modelo de"
+msgstr ""
 
 #: templates/footer.html:4
 msgid "Version"
@@ -145,11 +143,11 @@ msgstr ""
 
 #: templates/footer.html:42
 msgid "New version available"
-msgstr "Nova versão disponível"
+msgstr ""
 
 #: templates/footer.html:43
 msgid "Exist a new version stable: "
-msgstr "Nova versão estavel"
+msgstr ""
 
 #: templates/footer.html:43
 msgid ""
@@ -164,7 +162,7 @@ msgstr ""
 
 #: templates/i18n_js.html:32
 msgid "Available"
-msgstr "indisponivel"
+msgstr ""
 
 #: templates/i18n_js.html:34
 msgid "Available (On Demand)"
@@ -190,34 +188,34 @@ msgstr ""
 msgid "In a queue call"
 msgstr ""
 
-#: templates/fs/index.html:34 templates/index.html:23
+#: templates/index.html:23 templates/fs/index.html:34
 msgid "Queues"
-msgstr "Fila"
+msgstr ""
 
-#: templates/fs/index.html:53 templates/fs/index.html:121
 #: templates/index.html:42 templates/index.html:113
-#: templates/row_general_data.html:7
+#: templates/row_general_data.html:7 templates/fs/index.html:53
+#: templates/fs/index.html:121
 msgid "Answered"
-msgstr "Atendidas"
+msgstr ""
 
-#: templates/fs/index.html:54 templates/fs/index.html:116
 #: templates/index.html:43 templates/index.html:108
-#: templates/row_general_data.html:14
+#: templates/row_general_data.html:14 templates/fs/index.html:54
+#: templates/fs/index.html:116
 msgid "Abandoned"
-msgstr "Abandonos"
+msgstr ""
 
-#: templates/fs/index.html:55 templates/index.html:44
-#: templates/row_general_data.html:30
+#: templates/index.html:44 templates/row_general_data.html:30
+#: templates/fs/index.html:55
 msgid "Incoming"
-msgstr "Em fila"
+msgstr ""
 
-#: templates/fs/index.html:57 templates/index.html:46
+#: templates/index.html:46 templates/fs/index.html:57
 msgid "Service Level"
-msgstr "Nivel de serviço"
+msgstr ""
 
-#: templates/fs/index.html:71 templates/index.html:60
+#: templates/index.html:60 templates/fs/index.html:71
 msgid "Abandoned:"
-msgstr "Abandonos:"
+msgstr ""
 
 #: templates/language_selector.html:3
 msgid "English"
@@ -249,7 +247,7 @@ msgstr ""
 
 #: templates/login.html:12
 msgid "User id"
-msgstr "pausado"
+msgstr ""
 
 #: templates/login.html:14
 msgid "Password"
@@ -297,39 +295,39 @@ msgstr ""
 
 #: templates/row_general_data.html:10
 msgid "Attended calls."
-msgstr "Ligações atendidas"
+msgstr ""
 
 #: templates/row_general_data.html:17
 msgid "Calls not attended by agents."
-msgstr "Ligações não atendidas"
+msgstr ""
 
 #: templates/row_general_data.html:22
 msgid "SL"
-msgstr "NS"
+msgstr ""
 
 #: templates/row_general_data.html:25
 msgid "Service Level."
-msgstr "Nivel de Serviço"
+msgstr ""
 
 #: templates/row_general_data.html:33
 msgid "Call on line."
-msgstr "Ligação na fila"
+msgstr ""
 
 #: templates/row_general_data.html:39
 msgid "Av. time"
-msgstr "Tempo"
+msgstr ""
 
 #: templates/row_general_data.html:42
 msgid "Average time for answered calls."
-msgstr "Tempo de conversação médio"
+msgstr ""
 
 #: templates/row_general_data.html:46
 msgid "Av. Wait"
-msgstr "Espera"
+msgstr ""
 
 #: templates/row_general_data.html:49
 msgid "Average time waiting for calls."
-msgstr "Tempo médio de espera"
+msgstr ""
 
 #: templates/fs/queue.html:32
 msgid "Contact"

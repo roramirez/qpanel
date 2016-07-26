@@ -28,3 +28,7 @@ var/
 # swap
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
+
+# diff patch
+*.orig
+*.rej

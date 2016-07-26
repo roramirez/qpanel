@@ -5,7 +5,7 @@
 #
 
 from config import QPanelConfig
-from flask.ext.babel import format_timedelta
+from flask_babel import format_timedelta
 from datetime import timedelta
 from utils import timedelta_from_field_dict
 import os
@@ -105,6 +105,11 @@ class Backend(object):
                 member['LastCallAgo'] = format_timedelta(timedelta_from_field_dict('LastCall', member), granularity='second')
                 # Time last pause
                 member['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', member), granularity='second')
+
+                # introduced in_call flag
+                # asterisk commit 90b06d1a3cc14998cd2083bd0c4c1023c0ca7a1f
+                if 'InCall' in member and member['InCall'] == "1":
+                    member['Status'] = "10"
 
             for c in data[q]['entries']:
                 data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c], True), granularity='second')

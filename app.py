@@ -7,20 +7,13 @@
 
 from flask import Flask, render_template, jsonify, redirect,\
     request, session, url_for
-import os
-import sys
-import ConfigParser
-import json
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
+import logging
 
-# babel
-from flask.ext.babel import Babel, gettext, dates, format_timedelta
-from datetime import timedelta
-
-# flask-login
-import flask.ext.login as flask_login
+from flask_babel import Babel, gettext
+import flask_login
 
 from libs.qpanel.upgrader import *
 import libs.qpanel.utils as uqpanel
@@ -157,11 +150,14 @@ def utility_processor():
             value = 0
         unavailable = [0, 4, 5]
         free = [1]
+        in_call = [10]
 
         if value in unavailable:
             return gettext('unavailable')
         elif value in free:
             return gettext('free')
+        elif value in in_call:
+            return gettext('in call')
         else:
             return gettext('busy')
     return dict(str_status_agent=str_status_agent)
@@ -213,11 +209,13 @@ def utility_processor():
         return backend.is_freeswitch()
     return dict(is_freeswitch=is_freeswitch)
 
+
 @app.context_processor
 def utility_processor():
     def current_version():
         return get_current_version()
     return dict(current_version=current_version)
+
 
 # ---------------------
 # ---- Routes ---------
@@ -251,7 +249,7 @@ def all_queues():
     if backend.is_freeswitch():
         abort(404)
         # Not yet implement
-        #template = 'fs/all_queue.html'
+        # template = 'fs/all_queue.html'
     return render_template(template, queues=data)
 
 

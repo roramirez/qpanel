@@ -11,11 +11,14 @@ Qpanel is a panel for queues on Asterisk and FreeSWITCH, powerful and simple mon
 * General resume for calls. Abandoned, Incoming, Answer time and Waiting time.
 * Show information on detail by queue.
 * Show agents status if these are free, busy or unavailable.
-* Pause reason and time to agents
+* Pause reason and time to agents.
 * Percent of abandoned calls.
 * Allows rename the queue name or hide in case if required not show a determined queue.
 * Show callers by queue with the priority and wait time.
+* Spy, Whisper and Barge for agents on queues.
+* Authentication Access.
 * Simple configuration. Just use Asterisk manager.
+* Multi languages availables: English, Spanish, German, Russian and Portuguese.
 * Written on Python.
 * Responsive design.
 * Opensource by MIT licence.
@@ -97,7 +100,7 @@ If dont have pip in your system. For install
   cd qpanel
   git submodule init
   git submodule update
-  cp config.ini-dist config.ini
+  cp samples/config.ini-dist config.ini
  ```
   Edit config.ini file with Manager Asterisk parameters
 
@@ -125,3 +128,14 @@ If you want check the development version get checkout of master branch
  ```
  git clone -b master  https://github.com/roramirez/qpanel.git
  ```
+
+
+## How to contribute
+
+ * Fork the project
+ * Create a feature branch (git checkout -b my-feature)
+ * Commit your changes (git commit -m "add my feature")
+ * Push to the branch (git push origin my-feature)
+ * Create a pull request
+
+Happy coding :)
