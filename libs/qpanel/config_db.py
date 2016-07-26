@@ -178,9 +178,6 @@ def update_config_from_dict(data):
         for cfg in data[section]:
             value = data[section][cfg]
 
-            # FIXME: valid before insert data namespace/setting is ok
-            # prevent trash data
-
             c = Config.query.filter(Config.namespace == section,
                                     Config.setting == cfg)
             if c.count() == 0:

@@ -1,0 +1,72 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "required": true,
+  "properties":{
+
+    "freeswitch": {
+      "type": "object",
+      "required": false,
+      "properties":{
+        "host":     {"type": "string", "required": true},
+        "password": {"type": "string", "required": true},
+        "port":     {"type": "string", "required": true}
+      }
+    },
+    "manager": {
+      "type": "object",
+      "required": false,
+      "properties":{
+        "host":     {"type": "string", "required": true},
+        "password": {"type": "string", "required": true},
+        "port":     {"type": "string", "required": true},
+        "user":     {"type": "string", "required": true}
+      }
+    },
+    "queue_log": {
+      "type": "object",
+      "required": false,
+      "properties": {
+        "adapter":  {"type": "string", "required": true},
+        "database": {"type": "string", "required": true},
+        "host":     {"type": "string", "required": true},
+        "port":     {"type": "string", "required": true},
+        "table":    {"type": "string", "required": true},
+        "user":     {"type": "string", "required": true}
+      }
+    },
+
+    "general": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "check_upgrade":      {"type": "string", "required": true},
+        "debug":              {"type": "string", "required": true},
+        "host":               {"type": "string", "required": true},
+        "interval":           {"type": "string", "required": true},
+        "hide":               {"type": "string", "required": false},
+        "base_url":           {"type": "string", "required": false},
+        "secret_key":         {"type": "string", "required": false},
+        "language":           {"type": "string", "required": true},
+        "freeswitch":         {"type": "string", "required": false},
+        "show_service_level": {"type": "string", "required": false}
+      }
+    },
+
+    "rename": {
+      "type": "object",
+      "required": false,
+      "properties": {
+      }
+    },
+
+    "reset_stats": {
+      "type": "object",
+      "required": false,
+      "properties": {
+      }
+    }
+
+  },
+  "additionalProperties": false
+}
