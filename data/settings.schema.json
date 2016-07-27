@@ -40,16 +40,16 @@
       "type": "object",
       "required": true,
       "properties": {
-        "check_upgrade":      {"type": "string", "required": true},
-        "debug":              {"type": "string", "required": true},
+        "check_upgrade":      {"type": "boolean", "required": true},
+        "debug":              {"type": "boolean", "required": true},
         "host":               {"type": "string", "required": true},
         "interval":           {"type": "string", "required": true},
         "hide":               {"type": "string", "required": false},
         "base_url":           {"type": "string", "required": false},
         "secret_key":         {"type": "string", "required": false},
         "language":           {"type": "string", "required": true},
-        "freeswitch":         {"type": "string", "required": false},
-        "show_service_level": {"type": "string", "required": false}
+        "freeswitch":         {"type": "boolean", "required": false},
+        "show_service_level": {"type": "boolean", "required": false}
       }
     },
 
