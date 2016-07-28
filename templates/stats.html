@@ -139,11 +139,27 @@
 
           $('#inbound').html(data.values.inbound );
           $('#n_answered').html(data.values.answered);
-          $('#p_answered').html(Math.round(data.values.answered  * 100  /data.values.inbound) +'%');
           $('#n_abandoned').html(data.values.count_abandon);
-          $('#p_abandoned').html(Math.round(data.values.count_abandon  * 100  /data.values.inbound) + '%');
-          $('#av_wait_answered').html(parseInt((data.values.seconds_wait / data.values.answered )).toString().toMMSS());
-          $('#av_wait_abandoned').html(parseInt((data.values.seconds_wait_abandon / data.values.count_abandon )).toString().toMMSS());
+
+          var p_answered = Math.round(data.values.answered  * 100  /data.values.inbound);
+          if (isNaN(p_answered))
+              p_answered = 0;
+          $('#p_answered').html(p_answered +'%');
+
+          var p_abandoned = Math.round(data.values.count_abandon  * 100  /data.values.inbound) ;
+          if (isNaN(p_abandoned))
+              p_abandoned = 0;
+          $('#p_abandoned').html(p_abandoned + '%');
+
+          var av_wait_answered = parseInt(data.values.seconds_wait / data.values.answered);
+          if (isNaN(av_wait_answered))
+                  av_wait_answered = 0;
+          $('#av_wait_answered').html(av_wait_answered.toString().toMMSS());
+
+          var av_wait_abandoned = parseInt(data.values.seconds_wait_abandon / data.values.count_abandon);
+          if (isNaN(av_wait_abandoned))
+                av_wait_abandoned = 0;
+          $('#av_wait_abandoned').html(av_wait_abandoned.toString().toMMSS());
         }
 
         function getDataQueue() {
