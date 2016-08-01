@@ -364,6 +364,15 @@ def stats(name, from_date, to_date):
                            from_date=from_date, to_date=to_date)
 
 
+@app.route('/remove_from_queue', methods=['POST'])
+@flask_login.login_required
+def remove_from_queue():
+    queue = request.form['queue']
+    agent = request.form['agent']
+    r = backend.remove_from_queue(agent, queue)
+    return jsonify(result=r)
+
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------

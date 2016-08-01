@@ -7,7 +7,7 @@
 from config import QPanelConfig
 from flask_babel import format_timedelta
 from datetime import timedelta
-from utils import timedelta_from_field_dict
+from utils import timedelta_from_field_dict, realname_queue_rename
 import os
 import sys
 from libs.qpanel.asterisk import *
@@ -154,6 +154,15 @@ class Backend(object):
     def hangup(self, channel):
         try:
             return self.connection.hangup(channel)
+        except Exception, e:
+            print str(e)
+            return {}
+
+    def remove_from_queue(self, agent, queue):
+        queue = realname_queue_rename(queue)
+        self.connection = self._connect()
+        try:
+            return self.connection.remove_from_queue(agent, queue)
         except Exception, e:
             print str(e)
             return {}
