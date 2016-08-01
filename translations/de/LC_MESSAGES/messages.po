@@ -29,7 +29,7 @@ msgstr "aktiv"
 
 #: app.py:167 templates/i18n_js.html:13
 msgid "in call"
-msgstr ""
+msgstr "Anruf angenommen"
 
 #: app.py:169 templates/fs/index.html:177 templates/i18n_js.html:17
 #: templates/index.html:181
@@ -38,7 +38,7 @@ msgstr "im Gespräch"
 
 #: templates/404.html:2
 msgid "Not found"
-msgstr ""
+msgstr "Nicht gefunden"
 
 #: templates/404.html:7
 msgid "404 Not Found"
@@ -46,11 +46,11 @@ msgstr "404 nicht gefunden"
 
 #: templates/404.html:10
 msgid "The request the was not found on this server."
-msgstr ""
+msgstr "Die Anfrage vom Server wurde nicht gefunden."
 
 #: templates/all_queues.html:5
 msgid "Consolidated view"
-msgstr ""
+msgstr "Konsolidiert Ansicht"
 
 #: templates/all_queues.html:14 templates/header.html:12
 msgid "Consolidate view"
@@ -172,7 +172,7 @@ msgstr ""
 
 #: templates/i18n_js.html:36
 msgid "On Break"
-msgstr ""
+msgstr "In Pause"
 
 #: templates/i18n_js.html:38
 msgid "Idle"
@@ -184,11 +184,11 @@ msgstr ""
 
 #: templates/i18n_js.html:42
 msgid "Receiving"
-msgstr ""
+msgstr "Empfange"
 
 #: templates/i18n_js.html:44
 msgid "In a queue call"
-msgstr ""
+msgstr "In der Warteschlange"
 
 #: templates/fs/index.html:34 templates/index.html:23
 msgid "Queues"
@@ -241,7 +241,7 @@ msgstr "Portugiesisch"
 
 #: templates/login.html:2
 msgid "Login"
-msgstr ""
+msgstr "Anmeldung"
 
 #: templates/login.html:10 templates/login.html:19
 msgid "Sign in"
@@ -261,39 +261,39 @@ msgstr "Ausloggen"
 
 #: templates/queue.html:35
 msgid "Actions"
-msgstr ""
+msgstr "Aktionen"
 
 #: templates/queue.html:51 templates/queue.html:191
 msgid "Spy"
-msgstr ""
+msgstr "Spionieren"
 
 #: templates/queue.html:52 templates/queue.html:192
 msgid "Whisper"
-msgstr ""
+msgstr "Flüstern"
 
 #: templates/queue.html:53 templates/queue.html:193
 msgid "Barge"
-msgstr ""
+msgstr "Anrufen"
 
 #: templates/queue.html:105
 msgid "Insert where  you listen the call, example: <i>SIP/1001</i>"
-msgstr ""
+msgstr "Wo möchtest du den Anruf hören? Beispiel: <i>SIP/1001</i>"
 
 #: templates/queue.html:109
 msgid "Listen "
-msgstr ""
+msgstr "Höre"
 
 #: templates/queue.html:280
 msgid "Execute a "
-msgstr ""
+msgstr "Führe aus "
 
 #: templates/queue.html:287
 msgid "Insert where do need listen"
-msgstr ""
+msgstr "Wem möchtest du hören?"
 
 #: templates/queue.html:293
 msgid "Try..."
-msgstr ""
+msgstr "Versuche..."
 
 #: templates/row_general_data.html:10
 msgid "Attended calls."
@@ -333,7 +333,7 @@ msgstr "Durch. Zeit für wartente Anrufe."
 
 #: templates/fs/queue.html:32
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 #: templates/fs/queue.html:34
 msgid "State"
