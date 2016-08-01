@@ -42,10 +42,17 @@ def unified_configs(file_config, file_template, sections=[]):
 
 # http://stackoverflow.com/a/6425628
 def underscore_to_camelcase(word):
+    """
+        Convert word to camelcase format
+    """
     return ''.join(x.capitalize() or '_' for x in word.split('_'))
 
 
 def clean_str_to_div_id(value):
+    """ Clean String for a div name.
+        Convert character like @ / and . for more easy use in JQuery
+        Parameter: value = string
+    """
     v = value.replace('/', '-')
     v = v.replace('.', '_')
     return v.replace('@', '_')

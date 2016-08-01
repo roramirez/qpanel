@@ -16,6 +16,7 @@ Qpanel is a panel for queues on Asterisk and FreeSWITCH, powerful and simple mon
 * Allows rename the queue name or hide in case if required not show a determined queue.
 * Show callers by queue with the priority and wait time.
 * Simple configuration. Just use Asterisk manager.
+* Multi languages: English, Spanish, German, Russian and Portuguese
 * Written on Python.
 * Responsive design.
 * Opensource by MIT licence.
@@ -38,8 +39,11 @@ On /etc/asterisk/manager.conf do you set command permission for read and write, 
     [qpanel]
     secret = mi_super_secret_password
     read = command
-    write = command
+    write = command,originate
 ```
+
+_originate_ option is for feature spy, whisper and barge.
+
 Some features maybe not included in your Asterisk version. In the [patch
 directory](patches) you can find the patchs for add more powerfull to the QPanel.
 
@@ -93,9 +97,9 @@ If dont have pip in your system. For install
   cd qpanel
   git submodule init
   git submodule update
-  cp config.ini-dist config.ini
+  cp samples/config.ini-dist config.ini
  ```
-  Edit config.ini with Manager Asterisk parameters
+  Edit config.ini file with Manager Asterisk parameters
 
 ## 4.- Translations
  ```
@@ -111,7 +115,7 @@ If dont have pip in your system. For install
 Go url of machine http://IP:5000
 
 If you want run QPanel like a service, see the [samples configurations
-files](samples/configs). Here a example for use USWGI +  NGINX
+files](samples/configs).  There are a example for use with uWSGI + NGINX
 
 ## New features?
 If you like new features or something is wrong [please open a issue](https://github.com/roramirez/qpanel/issues/new)

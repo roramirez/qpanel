@@ -68,9 +68,7 @@ class Backend(object):
 
     def get_data_queues(self):
         data = self._get_data_queue_from_backend()
-        if self.is_freeswitch():
-            return self.parse_fs(data)
-        return self.parse_asterisk(data)
+        return self.parse_data(data)
 
     def parse_data(self, data):
         data = self.hide_queue(data)
@@ -109,6 +107,11 @@ class Backend(object):
                 # Time last pause
                 member['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', member), granularity='second')
 
+                # introduced in_call flag
+                # asterisk commit 90b06d1a3cc14998cd2083bd0c4c1023c0ca7a1f
+                if 'InCall' in member and member['InCall'] == "1":
+                    member['Status'] = "10"
+
             for c in data[q]['entries']:
                 data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c], True), granularity='second')
 
@@ -116,7 +119,7 @@ class Backend(object):
 
     def hide_queue(self, data):
         tmp_data = {}
-        hide = config.get_hide_config()
+        hide = self.config.get_hide_config()
         for q in data:
             if q not in hide:
                 tmp_data[q] = data[q]
@@ -125,9 +128,26 @@ class Backend(object):
     def rename_queue(self, data):
         tmp_data = {}
         for q in data:
-            rename = config.get_value_set_default('rename', q, None)
+            rename = self.config.get_value_set_default('rename', q, None)
             if rename is not None:
                 tmp_data[rename] = data[q]
             else:
                 tmp_data[q] = data[q]
         return tmp_data
+
+    def _call_spy(self, channel, to_exten, with_whisper=False):
+        self.connection = self._connect()
+        try:
+            return self.connection.spy(channel, to_exten, with_whisper)
+        except Exception, e:
+            print str(e)
+            return {}
+
+    def whisper(self, channel, to_exten):
+        return self._call_spy(channel, to_exten, 'w')
+
+    def spy(self, channel, to_exten):
+        return self._call_spy(channel, to_exten)
+
+    def barge(self, channel, to_exten):
+        return self._call_spy(channel, to_exten, 'B')

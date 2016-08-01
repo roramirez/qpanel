@@ -7,17 +7,12 @@
 
 from flask import Flask, render_template, jsonify, redirect,\
     request, session, url_for
-import os
-import sys
-import ConfigParser
-import json
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
 
 # babel
-from flask.ext.babel import Babel, gettext, dates, format_timedelta
-from datetime import timedelta
+from flask.ext.babel import Babel, gettext
 
 # flask-login
 import flask.ext.login as flask_login
@@ -154,11 +149,14 @@ def utility_processor():
             value = 0
         unavailable = [0, 4, 5]
         free = [1]
+        in_call = [10]
 
         if value in unavailable:
             return gettext('unavailable')
         elif value in free:
             return gettext('free')
+        elif value in in_call:
+            return gettext('in call')
         else:
             return gettext('busy')
     return dict(str_status_agent=str_status_agent)
@@ -211,6 +209,13 @@ def utility_processor():
     return dict(is_freeswitch=is_freeswitch)
 
 
+@app.context_processor
+def utility_processor():
+    def current_version():
+        return get_current_version()
+    return dict(current_version=current_version)
+
+
 # ---------------------
 # ---- Routes ---------
 # ---------------------
@@ -243,7 +248,7 @@ def all_queues():
     if backend.is_freeswitch():
         abort(404)
         # Not yet implement
-        #template = 'fs/all_queue.html'
+        # template = 'fs/all_queue.html'
     return render_template(template, queues=data)
 
 
@@ -369,7 +374,7 @@ def save_setting():
 # ---------------------
 # ---- Main  ----------
 # ---------------------
-if __name__ == '__main__':
+def main():
 
     if cfg.is_debug:
         app.config['DEBUG'] = True
@@ -383,3 +388,7 @@ if __name__ == '__main__':
         })
         run_simple(cfg.host_bind, cfg.port_bind, application,
                    use_reloader=True, extra_files=[cfg.path_config_file])
+
+
+if __name__ == '__main__':
+    main()
