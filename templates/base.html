@@ -22,14 +22,13 @@
     <!--external css-->
     <link href="{{ url_for('static', filename='components/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lineicons/style.css') }}">
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style-responsive.css') }}" rel="stylesheet">
     {% endblock %}
 
 
     {% block js_head %}
-    <!-- Custom styles for this template -->
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/style-responsive.css') }}" rel="stylesheet">
-
     <script src="{{ url_for('static', filename='components/Chart.js/Chart.js') }}"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
