@@ -344,7 +344,8 @@ def hangup_call():
 
 @app.route('/stats/<from_date>/<to_date>/<name>.json')
 def stats_json(name, from_date, to_date):
-    queue_values = queuelog_data_queue(from_date, to_date, None, name)
+    real_name = uqpanel.realname_queue_rename(name)
+    queue_values = queuelog_data_queue(from_date, to_date, None, real_name)
     data = get_data_queues(name)
     return jsonify(name=name, data=data, values=queue_values)
 
