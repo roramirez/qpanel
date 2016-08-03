@@ -1,206 +1,202 @@
+
+
 <div class="container-fluid">
-<div class="row">
-    <div class="col-md-12">
-        <!--Body content-->
+    <h3><i class="fa fa-angle-right"></i>  Settings
+        <button class="btn btn-primary glyphicon glyphicon-save" ng-click="$ctrl.save()">Save</button>
+    </h3>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row col-md-12">
+                <div class="col-lg-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">General</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="host">Bind:</label>
+                                <input type="text" class="form-control" id="host" ng-model="$ctrl.settings.general.host">
+                            </div>
+                            <div class="form-group">
+                                <label for="interval">Interval:</label>
+                                <input type="text" class="form-control" id="interval" ng-model="$ctrl.settings.general.interval">
+                            </div>
+                            <div class="form-group">
+                                <label for="base_url">Base URL:</label>
+                                <input type="text" class="form-control" id="base_url" ng-model="$ctrl.settings.general.base_url">
+                            </div>
+                            <div class="form-group">
+                                <label for="base_url">Secret key:</label>
+                                <input type="text" class="form-control" id="secret_key" ng-model="$ctrl.settings.general.secret_key">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Rename
+                        </div>
+                        <div class="panel-body">
+
+                            <ul class="renames list-group">
+                                <div ng-repeat="(key, prop) in $ctrl.settings.rename track by key">
+                                    <li class="list-group-item">
+                                        {{key}} <input type="input" ng-model="$ctrl.settings.rename[key]">
+                                    </li>
+                                </div>
+                            </ul>
+
+                        </div>
+                    </div>
 
 
-        <div class="row col-md-12">
+                </div>
 
-            <div class="col-lg-5">
-                <div class="panel panel-default">
-                    <div class="panel-heading">General</div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label for="host">Bind:</label>
-                            <input type="text" class="form-control" id="host" ng-model="$ctrl.settings.general.host">
+                <div class="col-lg-3">
+                    <div class="panel panel-default .ami" ng-show="!$ctrl.isFreeSWITCH()">
+                        <div class="panel-heading">
+                            Asterisk Manager Interface (AMI)
                         </div>
-                        <div class="form-group">
-                            <label for="interval">Interval:</label>
-                            <input type="text" class="form-control" id="interval" ng-model="$ctrl.settings.general.interval">
+                        <div class="panel-body">
+
+
+                            <div class="form-group">
+                                <label for="ami_user">User:</label>
+                                <input type="text" class="form-control" id="ami_user" ng-model="$ctrl.settings.manager.user">
+                            </div>
+                            <div class="form-group">
+                                <label for="ami_password">Password:</label>
+                                <input type="text" class="form-control" id="ami_passwordl" ng-model="$ctrl.settings.manager.password">
+                            </div>
+                            <div class="form-group">
+                                <label for="ami_host">Host:</label>
+                                <input type="text" class="form-control" id="ami_host" ng-model="$ctrl.settings.manager.host">
+                            </div>
+                            <div class="form-group">
+                                <label for="ami_port">Port</label>
+                                <input type="text" class="form-control" id="ami_port" ng-model="$ctrl.settings.manager.port">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="base_url">Base URL:</label>
-                            <input type="text" class="form-control" id="base_url" ng-model="$ctrl.settings.general.base_url">
+                    </div>
+
+                    <div class="panel panel-default .esl" ng-show="$ctrl.isFreeSWITCH()">
+                        <div class="panel-heading">
+                            FreeSWITCH ESL
                         </div>
-                        <div class="form-group">
-                            <label for="base_url">Secret key:</label>
-                            <input type="text" class="form-control" id="secret_key" ng-model="$ctrl.settings.general.secret_key">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="els_user">User:</label>
+                                <input type="text" class="form-control" id="els_user" ng-model="$ctrl.settings.freeswitch.user">
+                            </div>
+                            <div class="form-group">
+                                <label for="els_password">Password:</label>
+                                <input type="text" class="form-control" id="els_passwordl" ng-model="$ctrl.settings.freeswitch.password">
+                            </div>
+                            <div class="form-group">
+                                <label for="els_host">Host:</label>
+                                <input type="text" class="form-control" id="els_host" ng-model="$ctrl.settings.freeswitch.host">
+                            </div>
+                            <div class="form-group">
+                                <label for="els_port">Port</label>
+                                <input type="text" class="form-control" id="els_port" ng-model="$ctrl.settings.freeswitch.port">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Reset stats
+                        </div>
+                        <div class="panel-body">
+                            <ul class="resets list-group">
+                                <div ng-repeat="(key, prop) in $ctrl.settings.reset_stats track by key">
+                                    <li class="list-group-item">
+                                        {{key}} <input type="input" ng-model="$ctrl.settings.reset_stats[key]">
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-3">
+                    <div class="panel panel-default .ami" ng-show="!$ctrl.isFreeSWITCH()">
+                        <div class="panel-heading">
+                            Options
+                        </div>
+                        <div class="panel-body">
+
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span class="">
+                                        <input type="checkbox" ng-model="$ctrl.settings.general.freeswitch" true-false-checkbox ng-click="$ctrl.hideAmiOrEls()">
+                                    </span>
+                                    Use FreeSWITCH?
+                                </li>
+                                <li class="list-group-item">
+                                    <input type="checkbox" ng-model="$ctrl.settings.general.check_upgrade" true-false-checkbox>
+                                    Check new upgrades
+                                </li>
+                                <li class="list-group-item">
+                                    <input type="checkbox" ng-model="$ctrl.settings.general.debug" true-false-checkbox>
+                                    Debug
+                                </li>
+                                <li class="list-group-item">
+                                    <input type="checkbox" ng-model="$ctrl.settings.general.show_service_level" true-false-checkbox>
+                                    Show service level
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-5">
-                <div class="panel panel-default .ami" ng-show="!$ctrl.isFreeSWITCH()">
-                    <div class="panel-heading">
-                        Asterisk Manager Interface (AMI)
-                    </div>
-                    <div class="panel-body">
+                <div class="col-lg-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Queue_log config for data reports
+                        </div>
+                        <div class="panel-body">
 
+                            <div class="form-group">
+                                <label for="ql_database">Database</label>
+                                <input type="text" class="form-control" id="ql_database" ng-model="$ctrl.settings.queue_log.database">
+                            </div>
+                            <div class="form-group">
+                                <label for="ql_adapter">Type</label>
+                                <input type="text" class="form-control" id="ql_" ng-model="$ctrl.settings.queue_log.adapter">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="ami_user">User:</label>
-                            <input type="text" class="form-control" id="ami_user" ng-model="$ctrl.settings.manager.user">
-                        </div>
-                        <div class="form-group">
-                            <label for="ami_password">Password:</label>
-                            <input type="text" class="form-control" id="ami_passwordl" ng-model="$ctrl.settings.manager.password">
-                        </div>
-                        <div class="form-group">
-                            <label for="ami_host">Host:</label>
-                            <input type="text" class="form-control" id="ami_host" ng-model="$ctrl.settings.manager.host">
-                        </div>
-                        <div class="form-group">
-                            <label for="ami_port">Port</label>
-                            <input type="text" class="form-control" id="ami_port" ng-model="$ctrl.settings.manager.port">
-                        </div>
-                    </div>
-                </div>
+                            <div class="form-group">
+                                <label for="ql_host">Host</label>
+                                <input type="text" class="form-control" id="ql_host" ng-model="$ctrl.settings.queue_log.host">
+                            </div>
 
-                <div class="panel panel-default .esl" ng-show="$ctrl.isFreeSWITCH()">
-                    <div class="panel-heading">
-                        FreeSWITCH ESL
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label for="els_user">User:</label>
-                            <input type="text" class="form-control" id="els_user" ng-model="$ctrl.settings.freeswitch.user">
-                        </div>
-                        <div class="form-group">
-                            <label for="els_password">Password:</label>
-                            <input type="text" class="form-control" id="els_passwordl" ng-model="$ctrl.settings.freeswitch.password">
-                        </div>
-                        <div class="form-group">
-                            <label for="els_host">Host:</label>
-                            <input type="text" class="form-control" id="els_host" ng-model="$ctrl.settings.freeswitch.host">
-                        </div>
-                        <div class="form-group">
-                            <label for="els_port">Port</label>
-                            <input type="text" class="form-control" id="els_port" ng-model="$ctrl.settings.freeswitch.port">
+                            <div class="form-group">
+                                <label for="ql_port">Port</label>
+                                <input type="text" class="form-control" id="ql_port" ng-model="$ctrl.settings.queue_log.port">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ql_table">Table</label>
+                                <input type="text" class="form-control" id="ql_table" ng-model="$ctrl.settings.queue_log.table">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ql_user">User</label>
+                                <input type="text" class="form-control" id="ql_user" ng-model="$ctrl.settings.queue_log.user">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ql_password">Password</label>
+                                <input type="text" class="form-control" id="ql_password" ng-model="$ctrl.settings.queue_log.password">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-2">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <span class="">
-                            <input type="checkbox" ng-model="$ctrl.settings.general.freeswitch" true-false-checkbox ng-click="$ctrl.hideAmiOrEls()">
-                        </span>
-                        Use FreeSWITCH?
-                    </li>
-                    <li class="list-group-item">
-                        <input type="checkbox" ng-model="$ctrl.settings.general.check_upgrade" true-false-checkbox>
-                        Check new upgrades
-                    </li>
-                    <li class="list-group-item">
-                        <input type="checkbox" ng-model="$ctrl.settings.general.debug" true-false-checkbox>
-                        Debug
-                    </li>
-                    <li class="list-group-item">
-                        <input type="checkbox" ng-model="$ctrl.settings.general.show_service_level" true-false-checkbox>
-                        Show service level
-                    </li>
-                </ul>
             </div>
 
         </div>
-        <div class="row">
-
-            <div class="col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Rename
-                    </div>
-                    <div class="panel-body">
-
-                        <ul class="renames list-group">
-                            <div ng-repeat="(key, prop) in $ctrl.settings.rename track by key">
-                                <li class="list-group-item">
-                                    {{key}} <input type="input" ng-model="$ctrl.settings.rename[key]">
-                                </li>
-                            </div>
-                        </ul>
 
 
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Reset stats
-                    </div>
-                    <div class="panel-body">
-                        <ul class="resets list-group">
-                            <div ng-repeat="(key, prop) in $ctrl.settings.reset_stats track by key">
-                                <li class="list-group-item">
-                                    {{key}} <input type="input" ng-model="$ctrl.settings.reset_stats[key]">
-                                </li>
-                            </div>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-            <div class="col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Queue_log config for data reports
-                    </div>
-                    <div class="panel-body">
-
-                        <div class="form-group">
-                            <label for="ql_database">Database</label>
-                            <input type="text" class="form-control" id="ql_database" ng-model="$ctrl.settings.queue_log.database">
-                        </div>
-                        <div class="form-group">
-                            <label for="ql_adapter">Type</label>
-                            <input type="text" class="form-control" id="ql_" ng-model="$ctrl.settings.queue_log.adapter">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ql_host">Host</label>
-                            <input type="text" class="form-control" id="ql_host" ng-model="$ctrl.settings.queue_log.host">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ql_port">Port</label>
-                            <input type="text" class="form-control" id="ql_port" ng-model="$ctrl.settings.queue_log.port">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ql_table">Table</label>
-                            <input type="text" class="form-control" id="ql_table" ng-model="$ctrl.settings.queue_log.table">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ql_user">User</label>
-                            <input type="text" class="form-control" id="ql_user" ng-model="$ctrl.settings.queue_log.user">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ql_password">Password</label>
-                            <input type="text" class="form-control" id="ql_password" ng-model="$ctrl.settings.queue_log.password">
-                        </div>
-
-
-
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
 
     </div>
-
-    <button class="btn btn-primary glyphicon-save" ng-click="$ctrl.save()">Save</button>
-
-</div>
-</div>
 </div>
