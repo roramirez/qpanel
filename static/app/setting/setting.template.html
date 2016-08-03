@@ -17,8 +17,8 @@
                                 <input type="text" class="form-control" id="host" ng-model="$ctrl.settings.general.host">
                             </div>
                             <div class="form-group">
-                                <label for="interval">Interval:</label>
-                                <input type="text" class="form-control" id="interval" ng-model="$ctrl.settings.general.interval">
+                                <label for="interval">Seconds Interval:</label>
+                                <input type="number" class="form-control" id="interval" ng-model="$ctrl.settings.general.interval">
                             </div>
                             <div class="form-group">
                                 <label for="base_url">Base URL:</label>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="ami_port">Port</label>
-                                <input type="text" class="form-control" id="ami_port" ng-model="$ctrl.settings.manager.port">
+                                <input type="number" class="form-control" id="ami_port" ng-model="$ctrl.settings.manager.port">
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="els_port">Port</label>
-                                <input type="text" class="form-control" id="els_port" ng-model="$ctrl.settings.freeswitch.port">
+                                <input type="number" class="form-control" id="els_port" ng-model="$ctrl.settings.freeswitch.port">
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
 
                             <div class="form-group">
                                 <label for="ql_port">Port</label>
-                                <input type="text" class="form-control" id="ql_port" ng-model="$ctrl.settings.queue_log.port">
+                                <input type="number" class="form-control" id="ql_port" ng-model="$ctrl.settings.queue_log.port">
                             </div>
 
                             <div class="form-group">

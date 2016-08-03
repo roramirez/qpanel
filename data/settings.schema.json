@@ -10,7 +10,7 @@
       "properties":{
         "host":     {"type": "string", "required": true},
         "password": {"type": "string", "required": true},
-        "port":     {"type": "string", "required": true}
+        "port":     {"type": "integer", "required": true}
       }
     },
     "manager": {
@@ -19,7 +19,7 @@
       "properties":{
         "host":     {"type": "string", "required": true},
         "password": {"type": "string", "required": true},
-        "port":     {"type": "string", "required": true},
+        "port":     {"type": "integer", "required": true},
         "user":     {"type": "string", "required": true}
       }
     },
@@ -30,7 +30,7 @@
         "adapter":  {"type": "string", "required": true},
         "database": {"type": "string", "required": true},
         "host":     {"type": "string", "required": true},
-        "port":     {"type": "string", "required": true},
+        "port":     {"type": "integer", "required": true},
         "table":    {"type": "string", "required": true},
         "user":     {"type": "string", "required": true}
       }
@@ -43,7 +43,7 @@
         "check_upgrade":      {"type": "boolean", "required": true},
         "debug":              {"type": "boolean", "required": true},
         "host":               {"type": "string", "required": true},
-        "interval":           {"type": "string", "required": true},
+        "interval":           {"type": "integer", "required": true},
         "hide":               {"type": "string", "required": false},
         "base_url":           {"type": "string", "required": false},
         "secret_key":         {"type": "string", "required": false},
