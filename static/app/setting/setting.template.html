@@ -162,7 +162,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="ql_adapter">Type</label>
-                                <input type="text" class="form-control" id="ql_" ng-model="$ctrl.settings.queue_log.adapter">
+                                <select ng-model="$ctrl.settings.queue_log.adapter" id="ql_adapter" class="form-control">
+                                    <option value=""></option>
+                                    <option value="postgres">PostgreSQL</option>
+                                    <option value="mysql">MySQL</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
