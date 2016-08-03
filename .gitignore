@@ -37,3 +37,4 @@ var/
 # Node and Bower
 node_modules/
 static/components
+npm-debug.log*
