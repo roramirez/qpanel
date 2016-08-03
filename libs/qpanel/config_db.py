@@ -117,7 +117,12 @@ def parse_config_to_db():
     """
         Parser config file and add into config database
     """
-    config_file = utils.open_config_ini_file(settings.PATH_FILE_CONFIG)
+    try:
+        config_file = utils.open_config_ini_file(settings.PATH_FILE_CONFIG)
+    except:
+        config_file = utils.open_config_ini_file(
+            os.path.join(settings.ROOT_PATH, 'samples', 'config.ini-dist'))
+
     sections = config_file.sections()
     for s in sections:
         items = dict(config_file.items(s))
