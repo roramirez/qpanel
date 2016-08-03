@@ -371,6 +371,12 @@ def save_setting():
         return e, 400
 
 
+@app.route('/config', methods=['GET'])
+@flask_login.login_required
+def config_setting():
+    return render_template('config_setting.html')
+
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------

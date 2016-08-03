@@ -12,7 +12,10 @@
     "jquery.nicescroll": "3.5.x",
     "jquery.scrollTo": "1.4.x",
     "jquery.gritter": "1.7.x",
-    "font-awesome": "4.4.x"
+    "font-awesome": "4.4.x",
+    "angular": "1.5.x",
+    "angular-resource": "1.5.x",
+    "angular-route": "1.5.x"
   },
   "authors": [
     "Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>"
