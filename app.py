@@ -350,7 +350,8 @@ def create_user():
 @app.route('/setting/<section>', methods=['GET'])
 @flask_login.login_required
 def setting(section=None):
-    result = config_db.get_settings(section)
+    result = qpanel.utils.casting_from_schema(
+        config_db.get_settings(section), settings.schema_settings)
     return jsonify(result)
 
 
@@ -364,7 +365,8 @@ def save_setting():
     try:
         jsonschema.validate(data, settings.schema_settings)
         config_db.update_config_from_dict(data)
-        return jsonify(config_db.get_settings()), 202
+        return jsonify(qpanel.utils.casting_from_schema(
+            config_db.get_settings(), settings.schema_settings)), 202
     except jsonschema.ValidationError as e:
         return e.message, 400
     except jsonschema.SchemaError as e:

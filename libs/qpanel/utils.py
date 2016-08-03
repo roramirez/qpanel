@@ -9,6 +9,7 @@ from datetime import timedelta, datetime
 import time
 from exception import NotConfigFileQPanel
 import hashlib
+from distutils.util import strtobool
 
 
 def unified_configs(file_config, file_template, sections=[]):
@@ -90,3 +91,20 @@ def open_config_ini_file(file_path):
 
 def get_now():
     return datetime.now()
+
+
+def casting_from_schema(dic, schema):
+    #FIXME: Kuma casting
+    for section in dic:
+        for prop in dic[section]:
+            try:
+                typo = schema['properties'][section]['properties'][prop]['type']
+                val = dic[section][prop]
+                if typo == 'boolean':
+                    val = True if strtobool(val) == 1 else False
+                elif typo == 'integer':
+                    val = int(val)
+                dic[section][prop] = val
+            except:
+                pass
+    return dic
