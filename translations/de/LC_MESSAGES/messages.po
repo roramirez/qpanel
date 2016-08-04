@@ -50,11 +50,11 @@ msgstr "Die Anfrage vom Server wurde nicht gefunden."
 
 #: templates/all_queues.html:5
 msgid "Consolidated view"
-msgstr "Konsolidiert Ansicht"
+msgstr "Konsolidierte Ansicht"
 
 #: templates/all_queues.html:14 templates/header.html:12
 msgid "Consolidate view"
-msgstr ""
+msgstr "Konsolidierte Ansicht"
 
 #: templates/all_queues.html:29 templates/fs/queue.html:27
 #: templates/queue.html:25
@@ -64,7 +64,7 @@ msgstr "Agenten"
 #: templates/all_queues.html:33 templates/all_queues.html:71
 #, fuzzy
 msgid "Queue"
-msgstr "Warteschlangen"
+msgstr "Warteschlange"
 
 #: templates/all_queues.html:34 templates/fs/queue.html:31
 #: templates/queue.html:29
@@ -83,7 +83,7 @@ msgstr ""
 #: templates/all_queues.html:37 templates/fs/queue.html:35
 #: templates/queue.html:32
 msgid "Attend calls"
-msgstr "Beanwortete Anrufe."
+msgstr "Beantwortete Anrufe."
 
 #: templates/all_queues.html:37 templates/fs/queue.html:35
 #: templates/queue.html:32
@@ -103,12 +103,12 @@ msgstr "Anrufer"
 #: templates/all_queues.html:72 templates/fs/queue.html:71
 #: templates/queue.html:69
 msgid "Id Name"
-msgstr "ID Name"
+msgstr "Name / Rufnummer"
 
 #: templates/all_queues.html:73 templates/fs/queue.html:72
 #: templates/queue.html:70
 msgid "Id Number"
-msgstr "ID Nummer"
+msgstr "Rufnummer"
 
 #: templates/all_queues.html:74 templates/queue.html:71
 msgid "Position"
@@ -167,8 +167,8 @@ msgid "Available"
 msgstr "inaktiv"
 
 #: templates/i18n_js.html:34
-msgid "Available (On Demand)"
-msgstr ""
+msgid "Available ()"
+msgstr "Verfügbar (auf Nachfrage)"
 
 #: templates/i18n_js.html:36
 msgid "On Break"
@@ -176,15 +176,15 @@ msgstr "In Pause"
 
 #: templates/i18n_js.html:38
 msgid "Idle"
-msgstr ""
+msgstr "Untätig"
 
 #: templates/i18n_js.html:40
 msgid "Waiting"
-msgstr ""
+msgstr "Wartende"
 
 #: templates/i18n_js.html:42
 msgid "Receiving"
-msgstr "Empfange"
+msgstr "Empfangen"
 
 #: templates/i18n_js.html:44
 msgid "In a queue call"
@@ -209,7 +209,7 @@ msgstr "Abgebrochen"
 #: templates/fs/index.html:55 templates/index.html:44
 #: templates/row_general_data.html:30
 msgid "Incoming"
-msgstr "Wartente"
+msgstr "Wartende"
 
 #: templates/fs/index.html:57 templates/index.html:46
 msgid "Service Level"
@@ -313,7 +313,7 @@ msgstr ""
 
 #: templates/row_general_data.html:33
 msgid "Call on line."
-msgstr "Anrufe in der Line"
+msgstr "Anrufe in der Warteschlange"
 
 #: templates/row_general_data.html:39
 msgid "Av. time"
@@ -339,3 +339,18 @@ msgstr "Kontakt"
 msgid "State"
 msgstr ""
 
+#: templates/header.html:16
+msgid "Stats"
+msgstr "Statistik"
+
+msgid "Inbound"
+msgstr "Eingegangen"
+
+msgid "From:"
+msgstr "Vom:"
+
+msgid "To:"
+msgstr "bis:"
+
+msgid "Remove from queue"
+msgstr "Von Warteschlange löschen"
