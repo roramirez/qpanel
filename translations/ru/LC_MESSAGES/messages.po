@@ -17,21 +17,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: app.py:163 templates/fs/index.html:181 templates/i18n_js.html:15
+#: app.py:157 templates/fs/index.html:181 templates/i18n_js.html:15
 #: templates/i18n_js.html:27 templates/index.html:185
 msgid "unavailable"
 msgstr "недоступен"
 
-#: app.py:165 templates/fs/index.html:174 templates/i18n_js.html:11
+#: app.py:159 templates/fs/index.html:174 templates/i18n_js.html:11
 #: templates/i18n_js.html:25 templates/index.html:178
 msgid "free"
 msgstr "свободный"
 
-#: app.py:167 templates/i18n_js.html:13
+#: app.py:161 templates/i18n_js.html:13
 msgid "in call"
 msgstr ""
 
-#: app.py:169 templates/fs/index.html:177 templates/i18n_js.html:17
+#: app.py:163 templates/fs/index.html:177 templates/i18n_js.html:17
 #: templates/index.html:181
 msgid "busy"
 msgstr "занят"
@@ -96,38 +96,38 @@ msgid "Last call at"
 msgstr "Последний звонок в"
 
 #: templates/all_queues.html:67 templates/fs/queue.html:67
-#: templates/queue.html:65
+#: templates/queue.html:66
 msgid "Callers"
 msgstr "Звонков"
 
 #: templates/all_queues.html:72 templates/fs/queue.html:71
-#: templates/queue.html:69
+#: templates/queue.html:70
 msgid "Id Name"
 msgstr "Id Имени"
 
 #: templates/all_queues.html:73 templates/fs/queue.html:72
-#: templates/queue.html:70
+#: templates/queue.html:71
 msgid "Id Number"
 msgstr "Id Номера"
 
-#: templates/all_queues.html:74 templates/queue.html:71
+#: templates/all_queues.html:74 templates/queue.html:72
 msgid "Position"
 msgstr "Позиция"
 
 #: templates/all_queues.html:75 templates/fs/queue.html:73
-#: templates/queue.html:72
+#: templates/queue.html:73
 msgid "Wait"
 msgstr "Ожидание"
 
-#: templates/all_queues.html:168 templates/queue.html:169
+#: templates/all_queues.html:168 templates/queue.html:173
 msgid "was"
 msgstr ""
 
-#: templates/all_queues.html:168 templates/queue.html:169
+#: templates/all_queues.html:168 templates/queue.html:173
 msgid "ago"
 msgstr ""
 
-#: templates/all_queues.html:173 templates/queue.html:174
+#: templates/all_queues.html:173 templates/queue.html:178
 msgid "paused"
 msgstr "пауза"
 
@@ -156,6 +156,10 @@ msgid ""
 ". Visit and update your QPanel <a "
 "href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
 "style=\"color:#ffd777\">from GitHub</a>."
+msgstr ""
+
+#: templates/header.html:16 templates/stats.html:10 templates/stats.html:61
+msgid "Stats"
 msgstr ""
 
 #: templates/i18n_js.html:30
@@ -196,13 +200,13 @@ msgstr "Очередь"
 
 #: templates/fs/index.html:53 templates/fs/index.html:121
 #: templates/index.html:42 templates/index.html:113
-#: templates/row_general_data.html:7
+#: templates/row_general_data.html:7 templates/stats.html:80
 msgid "Answered"
 msgstr "Отвеч."
 
 #: templates/fs/index.html:54 templates/fs/index.html:116
 #: templates/index.html:43 templates/index.html:108
-#: templates/row_general_data.html:14
+#: templates/row_general_data.html:14 templates/stats.html:88
 msgid "Abandoned"
 msgstr "Пропущ."
 
@@ -263,43 +267,47 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: templates/queue.html:51 templates/queue.html:191
+#: templates/queue.html:51 templates/queue.html:195
 msgid "Spy"
 msgstr ""
 
-#: templates/queue.html:52 templates/queue.html:192
+#: templates/queue.html:52 templates/queue.html:196
 msgid "Whisper"
 msgstr ""
 
-#: templates/queue.html:53 templates/queue.html:193
+#: templates/queue.html:53 templates/queue.html:197
 msgid "Barge"
 msgstr ""
 
-#: templates/queue.html:105
-msgid "Insert where  you listen the call, example: <i>SIP/1001</i>"
+#: templates/queue.html:54 templates/queue.html:198
+msgid "Remove from queue"
 msgstr ""
 
 #: templates/queue.html:109
+msgid "Insert where  you listen the call, example: <i>SIP/1001</i>"
+msgstr ""
+
+#: templates/queue.html:113
 msgid "Listen "
 msgstr ""
 
-#: templates/queue.html:280
+#: templates/queue.html:291
 msgid "Execute a "
 msgstr ""
 
-#: templates/queue.html:287
+#: templates/queue.html:298
 msgid "Insert where do need listen"
 msgstr ""
 
-#: templates/queue.html:293
+#: templates/queue.html:304
 msgid "Try..."
 msgstr ""
 
-#: templates/row_general_data.html:10
+#: templates/row_general_data.html:10 templates/stats.html:84
 msgid "Attended calls."
 msgstr "Принятых звонков."
 
-#: templates/row_general_data.html:17
+#: templates/row_general_data.html:17 templates/stats.html:92
 msgid "Calls not attended by agents."
 msgstr "Непринятых звонков операторами"
 
@@ -315,21 +323,37 @@ msgstr "Уровень обслуживания."
 msgid "Call on line."
 msgstr "Звонков онлайн"
 
-#: templates/row_general_data.html:39
+#: templates/row_general_data.html:39 templates/stats.html:96
 msgid "Av. time"
 msgstr "Ср. время"
 
-#: templates/row_general_data.html:42
+#: templates/row_general_data.html:42 templates/stats.html:99
 msgid "Average time for answered calls."
 msgstr "Среднее время разговора"
 
-#: templates/row_general_data.html:46
+#: templates/row_general_data.html:46 templates/stats.html:103
 msgid "Av. Wait"
 msgstr "Ср. время ожидания"
 
-#: templates/row_general_data.html:49
+#: templates/row_general_data.html:49 templates/stats.html:106
 msgid "Average time waiting for calls."
 msgstr "Среднее время ожидания в очереди"
+
+#: templates/stats.html:52
+msgid "From:"
+msgstr ""
+
+#: templates/stats.html:53
+msgid "To:"
+msgstr ""
+
+#: templates/stats.html:71
+msgid "Inbound"
+msgstr ""
+
+#: templates/stats.html:74
+msgid "Total incomming calls"
+msgstr ""
 
 #: templates/fs/queue.html:32
 msgid "Contact"
