@@ -44,9 +44,11 @@ On /etc/asterisk/manager.conf do you set command permission for read and write, 
     write = command,originate,call,agent
 ```
 
-_originate_ option is for feature spy, whisper and barge.
-_call_ option is for feature hangup calls.
-_agent_ option is for remove agent from the queues.
+#### AMI options
+  * _originate_ ofor  spy, whisper and barge.
+  * _call_ feature hangup calls.
+  * _agent_ remove agents from the queues.
+
 
 Some features maybe not included in your Asterisk version. In the [patch
 directory](patches) you can find the patchs for add more powerfull to the QPanel.
