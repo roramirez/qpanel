@@ -77,7 +77,12 @@ In general section set config
 
  If you used a CentOS 5.X or Elastix check [how to install Python 2.6 and Flask](doc/README.Centos5.md)
 
-## 1. Install dependencies
+## 1. Clone this repository
+```
+ git clone -b stable  https://github.com/roramirez/qpanel.git
+```
+
+## 2. Install dependencies
 ```
  $ pip install -r requirements.txt
 ```
@@ -94,10 +99,6 @@ If dont have pip in your system. For install
  ```
 
 
-## 2. Clone this repository
-```
- git clone -b stable  https://github.com/roramirez/qpanel.git
-```
 ##  3. Go and prepair environment
  ```
   cd qpanel
