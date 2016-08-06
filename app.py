@@ -20,7 +20,8 @@ import libs.qpanel.utils as uqpanel
 
 from libs.qpanel.config import QPanelConfig
 from libs.qpanel.backend import Backend
-from libs.qpanel.model import queuelog_data_queue
+if QPanelConfig().has_queuelog_config():
+    from libs.qpanel.model import queuelog_data_queue
 
 
 class User(flask_login.UserMixin):
