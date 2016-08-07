@@ -138,6 +138,7 @@ If you want check the development version get checkout of master branch
 
  * Fork the project
  * Create a feature branch (git checkout -b my-feature)
+ * Add your files changed (git add file_change1 file_change2, etc..)
  * Commit your changes (git commit -m "add my feature")
  * Push to the branch (git push origin my-feature)
  * Create a pull request
