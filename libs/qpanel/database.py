@@ -20,7 +20,7 @@ engine = create_engine('%s://%s:%s@%s:%s/%s' %
                         cfg.get('queue_log', 'host'),
                         cfg.get('queue_log', 'port'),
                         cfg.get('queue_log', 'database')
-                        ), echo=False)
+                        ), echo=cfg.is_debug)
 
 # session
 session_db = scoped_session(sessionmaker(bind=engine,
