@@ -362,8 +362,7 @@ def save_setting():
 
     # valid before insert data namespace/setting is ok
     # prevent trash data
-    v = qpanel.utils.validate_schema_data.validate(data,
-                                                   settings.schema_settings)
+    v = qpanel.utils.validate_schema_data(data, settings.schema_settings)
     if v is True:
         config_db.update_config_from_dict(data)
         return jsonify(qpanel.utils.casting_from_schema(
