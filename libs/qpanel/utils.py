@@ -10,6 +10,7 @@ import time
 from exception import NotConfigFileQPanel
 import hashlib
 from distutils.util import strtobool
+import jsonschema
 
 
 def unified_configs(file_config, file_template, sections=[]):
@@ -89,12 +90,13 @@ def open_config_ini_file(file_path):
     except IOError:
         raise NotConfigFileQPanel(file_path)
 
+
 def get_now():
     return datetime.now()
 
 
 def casting_from_schema(dic, schema):
-    #FIXME: Kuma casting
+    # FIXME: Kuma casting
     for section in dic:
         for prop in dic[section]:
             try:
@@ -108,3 +110,13 @@ def casting_from_schema(dic, schema):
             except:
                 pass
     return dic
+
+
+def validate_schema_data(data, schema):
+    try:
+        jsonschema.validate(data, schema)
+        return True
+    except jsonschema.ValidationError as e:
+        return e.message
+    except jsonschema.SchemaError as e:
+        return e

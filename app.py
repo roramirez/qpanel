@@ -24,7 +24,7 @@ from libs.qpanel.config import QPanelConfig
 from libs.qpanel.backend import Backend
 from libs.qpanel import config_db
 from libs.qpanel import settings
-import jsonschema
+
 
 class User(flask_login.UserMixin):
     pass
@@ -362,15 +362,14 @@ def save_setting():
 
     # valid before insert data namespace/setting is ok
     # prevent trash data
-    try:
-        jsonschema.validate(data, settings.schema_settings)
+    v = qpanel.utils.validate_schema_data.validate(data,
+                                                   settings.schema_settings)
+    if v is True:
         config_db.update_config_from_dict(data)
         return jsonify(qpanel.utils.casting_from_schema(
             config_db.get_settings(), settings.schema_settings)), 202
-    except jsonschema.ValidationError as e:
-        return e.message, 400
-    except jsonschema.SchemaError as e:
-        return e, 400
+    else:
+        return v, 400
 
 
 @app.route('/config', methods=['GET'])
