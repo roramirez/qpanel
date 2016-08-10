@@ -102,14 +102,18 @@ def casting_from_schema(dic, schema):
             try:
                 typo = schema['properties'][section]['properties'][prop]['type']
                 val = dic[section][prop]
-                if typo == 'boolean':
-                    val = True if strtobool(val) == 1 else False
-                elif typo == 'integer':
-                    val = int(val)
-                dic[section][prop] = val
+                dic[section][prop] = casting_by_string_type(typo, val)
             except:
                 pass
     return dic
+
+
+def casting_by_string_type(typo, val):
+    if typo == 'boolean':
+        val = True if strtobool(val) == 1 else False
+    elif typo == 'integer':
+        val = int(val)
+    return val
 
 
 def validate_schema_data(data, schema):

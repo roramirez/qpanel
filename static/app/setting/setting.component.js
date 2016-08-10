@@ -12,6 +12,14 @@ angular.
             // do somethings
         });
 
+        self.addResetStats = function() {
+            self.settings.reset_stats.push({'name': null, 'value': null});
+        }
+
+        self.addRename = function() {
+            self.settings.rename.push({'name': null, 'value': null});
+        }
+
         self.save = function save() {
             self.settings.$save();
         };

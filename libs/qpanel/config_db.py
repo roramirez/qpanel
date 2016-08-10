@@ -178,7 +178,47 @@ def get_settings(section=None):
     return result
 
 
+def parser_config_from_dict(data):
+    # convert values like
+    # ... reset_stats[{'name': 'queue', 'values': 'now'},
+    #                 {'name': 'queue2', 'values': 'now'}]
+    # to
+    # ... reset_stats{'queue': 'now', 'queue2': 'now'}
+    # FIXME: Other way more smart please
+    tmp = {}
+    for key, value in data.items():
+        tmp[key] = {}
+        if type(value) is list:
+            for l in value:
+                if set(['name', 'value']).issubset(l.keys()):
+                    tmp[key][l['name']] = l['value']
+            continue
+        for k, v in value.items():
+            tmp[key][k] = v
+    return tmp
+
+
+def response_parser_config_from_schema(data, schema):
+    for section in data:
+        typo = schema['properties'][section]['type']
+        if typo == 'array':
+            tmp = []
+            for v, k in data[section].items():
+                tmp.append({'name': v, 'value': k})
+            data[section] = tmp
+
+    return data
+
+
+def config_for_response(section=None):
+   schema = settings.schema_settings
+   data = get_settings(section)
+   data = response_parser_config_from_schema(data, schema)
+   return utils.casting_from_schema(data, schema)
+
+
 def update_config_from_dict(data):
+    data = parser_config_from_dict(data)
     for section in data:
         for cfg in data[section]:
             value = data[section][cfg]

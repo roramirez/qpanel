@@ -54,19 +54,30 @@
     },
 
     "rename": {
-      "type": "object",
+      "type": "array",
       "required": false,
-      "properties": {
+      "items": {
+          "type": "object",
+          "required": true,
+          "properties": {
+            "name":  {"type": "string", "required": true},
+            "value": {"type": "string", "required": true}
+          }
       }
     },
 
     "reset_stats": {
-      "type": "object",
+      "type": "array",
       "required": false,
-      "properties": {
+      "items": {
+          "type": "object",
+          "required": true,
+          "properties": {
+            "name":  {"type": "string", "required": true},
+            "value": {"type": "string", "required": true}
+          }
       }
     }
-
   },
   "additionalProperties": false
 }
