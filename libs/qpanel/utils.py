@@ -5,9 +5,10 @@
 #
 
 import ConfigParser
-from datetime import timedelta
+from datetime import timedelta, date, datetime
 import time
 from config import QPanelConfig
+import calendar
 
 
 def unified_configs(file_config, file_template, sections=[]):
@@ -41,10 +42,17 @@ def unified_configs(file_config, file_template, sections=[]):
 
 # http://stackoverflow.com/a/6425628
 def underscore_to_camelcase(word):
+    """
+        Convert word to camelcase format
+    """
     return ''.join(x.capitalize() or '_' for x in word.split('_'))
 
 
 def clean_str_to_div_id(value):
+    """ Clean String for a div name.
+        Convert character like @ / and . for more easy use in JQuery
+        Parameter: value = string
+    """
     v = value.replace('/', '-')
     v = v.replace('.', '_')
     return v.replace('@', '_')
@@ -63,3 +71,41 @@ def timedelta_from_field_dict(field, dic, current_timestamp=None,
                 seconds_ago = int(current_timestamp) - int(dic[field])
 
     return timedelta(seconds=seconds_ago)
+
+
+def first_data_dict(data):
+    if data:
+        return data.keys()[0]
+    else:
+        return ''
+
+
+def init_day(d=None):
+    if d is None:
+        d = date.today()
+    return datetime(d.year, d.month, d.day, 0, 0, 0)
+
+
+def end_day(d=None):
+    if d is None:
+        d = date.today()
+    return datetime(d.year, d.month, d.day, 23, 59, 59)
+
+
+# http://stackoverflow.com/a/13260981
+# Convert a unix time u to a datetime object d, and vice versa
+def dt(u):
+    return datetime.utcfromtimestamp(u)
+
+
+def ut(d):
+    return calendar.timegm(d.timetuple())
+
+
+def realname_queue_rename(queuename):
+    renames = QPanelConfig().get_items('rename')
+    if renames is not None:
+        for val, idx in renames:
+            if idx == queuename:
+                return val
+    return queuename

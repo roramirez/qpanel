@@ -1,5 +1,16 @@
 ## Change Log
 
+
+### 0.11.0 (2016-07-15)
+- [#66](https://github.com/roramirez/qpanel/pull/66) Move file sample config.ini-dist into samples
+- [#64](https://github.com/roramirez/qpanel/pull/64) Add In call Feature
+- [a4c0fdb](https://github.com/roramirez/qpanel/commit/a4c0fdbaacfe6aba4d80801846fe76eee8d299f8) Fix a bug for update color label when new agent is added
+- [af36976](https://github.com/roramirez/qpanel/commit/af36976a9dbc6ae6257edf69fabedabf4e1f1093) Add features Spy, Whisper and Barge
+- [#63](https://github.com/roramirez/qpanel/pull/63) Show version id in footer
+- [#62](https://github.com/roramirez/qpanel/pull/62) Add Tests
+- [#61](https://github.com/roramirez/qpanel/pull/61) Refactor init app. Add __init__ and __main__ file
+
+
 ### 0.10.0 (2016-06-16)
 - [c77edc9](https://github.com/roramirez/qpanel/commit/c77edc9658664ea6fad3d47174aa70d80b79d701) Install dependencies by requirements.txt file.
 - [#60](https://github.com/roramirez/qpanel/pull/60) Change URL stable version.

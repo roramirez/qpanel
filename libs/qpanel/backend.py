@@ -5,9 +5,9 @@
 #
 
 from config import QPanelConfig
-from flask.ext.babel import format_timedelta
+from flask_babel import format_timedelta
 from datetime import timedelta
-from utils import timedelta_from_field_dict
+from utils import timedelta_from_field_dict, realname_queue_rename
 import os
 import sys
 from libs.qpanel.asterisk import *
@@ -106,6 +106,11 @@ class Backend(object):
                 # Time last pause
                 member['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', member), granularity='second')
 
+                # introduced in_call flag
+                # asterisk commit 90b06d1a3cc14998cd2083bd0c4c1023c0ca7a1f
+                if 'InCall' in member and member['InCall'] == "1":
+                    member['Status'] = "10"
+
             for c in data[q]['entries']:
                 data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c], True), granularity='second')
 
@@ -145,3 +150,19 @@ class Backend(object):
 
     def barge(self, channel, to_exten):
         return self._call_spy(channel, to_exten, 'B')
+
+    def hangup(self, channel):
+        try:
+            return self.connection.hangup(channel)
+        except Exception, e:
+            print str(e)
+            return {}
+
+    def remove_from_queue(self, agent, queue):
+        queue = realname_queue_rename(queue)
+        self.connection = self._connect()
+        try:
+            return self.connection.remove_from_queue(agent, queue)
+        except Exception, e:
+            print str(e)
+            return {}

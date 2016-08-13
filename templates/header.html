@@ -12,6 +12,9 @@
                         <a class="logout" href="{{url_for('.all_queues')}}">{{_('Consolidate view') }}</a>
                     </li>
                     {% endif %}
+                    {% if config().has_queuelog_config() and not is_freeswitch() %}
+                    <li><a class="logout" href="{{ url_for('.stats') }}">{{_('Stats') }}</a></li>
+                    {% endif %}
                     {% include 'language_selector.html' %}
                     {% include 'logout_button.html' %}
                 </ul>
