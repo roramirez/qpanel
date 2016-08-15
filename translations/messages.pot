@@ -7,30 +7,30 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
-"PO-Revision-Date: 2016-07-14 14:57-0400\n"
+"PO-Revision-Date: 2016-08-05 15:57-0400\n"
 "Last-Translator: Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>\n"
 "Language: es\n"
 "Language-Team: LANGUAGE <a@rodrigoramirez.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.1.1\n"
+"Generated-By: Babel 2.3.4\n"
 
-#: app.py:163 templates/i18n_js.html:15 templates/i18n_js.html:27
+#: app.py:157 templates/i18n_js.html:15 templates/i18n_js.html:27
 #: templates/index.html:185 templates/fs/index.html:181
 msgid "unavailable"
 msgstr ""
 
-#: app.py:165 templates/i18n_js.html:11 templates/i18n_js.html:25
+#: app.py:159 templates/i18n_js.html:11 templates/i18n_js.html:25
 #: templates/index.html:178 templates/fs/index.html:174
 msgid "free"
 msgstr ""
 
-#: app.py:167 templates/i18n_js.html:13
+#: app.py:161 templates/i18n_js.html:13
 msgid "in call"
 msgstr ""
 
-#: app.py:169 templates/i18n_js.html:17 templates/index.html:181
+#: app.py:163 templates/i18n_js.html:17 templates/index.html:181
 #: templates/fs/index.html:177
 msgid "busy"
 msgstr ""
@@ -93,39 +93,39 @@ msgstr ""
 msgid "Last call at"
 msgstr ""
 
-#: templates/all_queues.html:67 templates/queue.html:65
+#: templates/all_queues.html:67 templates/queue.html:66
 #: templates/fs/queue.html:67
 msgid "Callers"
 msgstr ""
 
-#: templates/all_queues.html:72 templates/queue.html:69
+#: templates/all_queues.html:72 templates/queue.html:70
 #: templates/fs/queue.html:71
 msgid "Id Name"
 msgstr ""
 
-#: templates/all_queues.html:73 templates/queue.html:70
+#: templates/all_queues.html:73 templates/queue.html:71
 #: templates/fs/queue.html:72
 msgid "Id Number"
 msgstr ""
 
-#: templates/all_queues.html:74 templates/queue.html:71
+#: templates/all_queues.html:74 templates/queue.html:72
 msgid "Position"
 msgstr ""
 
-#: templates/all_queues.html:75 templates/queue.html:72
+#: templates/all_queues.html:75 templates/queue.html:73
 #: templates/fs/queue.html:73
 msgid "Wait"
 msgstr ""
 
-#: templates/all_queues.html:168 templates/queue.html:169
+#: templates/all_queues.html:168 templates/queue.html:173
 msgid "was"
 msgstr ""
 
-#: templates/all_queues.html:168 templates/queue.html:169
+#: templates/all_queues.html:168 templates/queue.html:173
 msgid "ago"
 msgstr ""
 
-#: templates/all_queues.html:173 templates/queue.html:174
+#: templates/all_queues.html:173 templates/queue.html:178
 msgid "paused"
 msgstr ""
 
@@ -154,6 +154,10 @@ msgid ""
 ". Visit and update your QPanel <a "
 "href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
 "style=\"color:#ffd777\">from GitHub</a>."
+msgstr ""
+
+#: templates/header.html:16 templates/stats.html:10 templates/stats.html:61
+msgid "Stats"
 msgstr ""
 
 #: templates/i18n_js.html:30
@@ -193,14 +197,14 @@ msgid "Queues"
 msgstr ""
 
 #: templates/index.html:42 templates/index.html:113
-#: templates/row_general_data.html:7 templates/fs/index.html:53
-#: templates/fs/index.html:121
+#: templates/row_general_data.html:7 templates/stats.html:80
+#: templates/fs/index.html:53 templates/fs/index.html:121
 msgid "Answered"
 msgstr ""
 
 #: templates/index.html:43 templates/index.html:108
-#: templates/row_general_data.html:14 templates/fs/index.html:54
-#: templates/fs/index.html:116
+#: templates/row_general_data.html:14 templates/stats.html:88
+#: templates/fs/index.html:54 templates/fs/index.html:116
 msgid "Abandoned"
 msgstr ""
 
@@ -261,43 +265,47 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: templates/queue.html:51 templates/queue.html:191
+#: templates/queue.html:51 templates/queue.html:195
 msgid "Spy"
 msgstr ""
 
-#: templates/queue.html:52 templates/queue.html:192
+#: templates/queue.html:52 templates/queue.html:196
 msgid "Whisper"
 msgstr ""
 
-#: templates/queue.html:53 templates/queue.html:193
+#: templates/queue.html:53 templates/queue.html:197
 msgid "Barge"
 msgstr ""
 
-#: templates/queue.html:105
-msgid "Insert where  you listen the call, example: <i>SIP/1001</i>"
+#: templates/queue.html:54 templates/queue.html:198
+msgid "Remove from queue"
 msgstr ""
 
 #: templates/queue.html:109
+msgid "Insert where  you listen the call, example: <i>SIP/1001</i>"
+msgstr ""
+
+#: templates/queue.html:113
 msgid "Listen "
 msgstr ""
 
-#: templates/queue.html:280
+#: templates/queue.html:291
 msgid "Execute a "
 msgstr ""
 
-#: templates/queue.html:287
+#: templates/queue.html:298
 msgid "Insert where do need listen"
 msgstr ""
 
-#: templates/queue.html:293
+#: templates/queue.html:304
 msgid "Try..."
 msgstr ""
 
-#: templates/row_general_data.html:10
+#: templates/row_general_data.html:10 templates/stats.html:84
 msgid "Attended calls."
 msgstr ""
 
-#: templates/row_general_data.html:17
+#: templates/row_general_data.html:17 templates/stats.html:92
 msgid "Calls not attended by agents."
 msgstr ""
 
@@ -313,20 +321,36 @@ msgstr ""
 msgid "Call on line."
 msgstr ""
 
-#: templates/row_general_data.html:39
+#: templates/row_general_data.html:39 templates/stats.html:96
 msgid "Av. time"
 msgstr ""
 
-#: templates/row_general_data.html:42
+#: templates/row_general_data.html:42 templates/stats.html:99
 msgid "Average time for answered calls."
 msgstr ""
 
-#: templates/row_general_data.html:46
+#: templates/row_general_data.html:46 templates/stats.html:103
 msgid "Av. Wait"
 msgstr ""
 
-#: templates/row_general_data.html:49
+#: templates/row_general_data.html:49 templates/stats.html:106
 msgid "Average time waiting for calls."
+msgstr ""
+
+#: templates/stats.html:52
+msgid "From:"
+msgstr ""
+
+#: templates/stats.html:53
+msgid "To:"
+msgstr ""
+
+#: templates/stats.html:71
+msgid "Inbound"
+msgstr ""
+
+#: templates/stats.html:74
+msgid "Total incomming calls"
 msgstr ""
 
 #: templates/fs/queue.html:32

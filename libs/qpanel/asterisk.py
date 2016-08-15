@@ -93,7 +93,54 @@ class AsteriskAMI:
         except PermissionDenied, msg:
             return  {'Response': 'failed', 'Message': 'Permission Denied'}
 
+
+
+    def hangup(self, channel):
+        '''Hangup Channel
+
+        Parameters
+        ----------
+        channel: str
+            channel to hangup
+        Returns
+        -------
+        hangup result action : Dictionary
+            if case the fail return return  {'Response': 'failed',
+                                             'Message': str(msg)}
+        '''
+        try:
+            # hangup channels
+            return self.connection.Hangup(channel)
+        except Asterisk.Manager.ActionFailed, msg:
+            return  {'Response': 'failed', 'Message': str(msg)}
+        except PermissionDenied, msg:
+            return  {'Response': 'failed', 'Message': 'Permission Denied'}
+
+
     def isConnected(self):
         if not self.connection:
             return False
         return True
+
+    def remove_from_queue(self, agent, queue):
+
+        '''Remove a <agent> from a <queue>
+
+        Parameters
+        ----------
+        agent: str
+            Agent or Inteface to remove
+        queue: str
+            name of queue from remove agent
+        Returns
+        -------
+        originate result command : Dictionary
+            if case the fail return return  {'Response': 'failed',
+                                             'Message': str(msg)}
+        '''
+        try:
+            return self.connection.QueueRemove(queue, agent)
+        except Asterisk.Manager.ActionFailed, msg:
+            return  {'Response': 'failed', 'Message': str(msg)}
+        except PermissionDenied, msg:
+            return  {'Response': 'failed', 'Message': 'Permission Denied'}

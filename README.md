@@ -11,12 +11,14 @@ Qpanel is a panel for queues on Asterisk and FreeSWITCH, powerful and simple mon
 * General resume for calls. Abandoned, Incoming, Answer time and Waiting time.
 * Show information on detail by queue.
 * Show agents status if these are free, busy or unavailable.
-* Pause reason and time to agents
+* Pause reason and time to agents.
 * Percent of abandoned calls.
 * Allows rename the queue name or hide in case if required not show a determined queue.
 * Show callers by queue with the priority and wait time.
+* Spy, Whisper and Barge for agents on queues.
+* Authentication Access.
 * Simple configuration. Just use Asterisk manager.
-* Multi languages: English, Spanish, German, Russian and Portuguese
+* Multi languages availables: English, Spanish, German, Russian and Portuguese.
 * Written on Python.
 * Responsive design.
 * Opensource by MIT licence.
@@ -39,10 +41,14 @@ On /etc/asterisk/manager.conf do you set command permission for read and write, 
     [qpanel]
     secret = mi_super_secret_password
     read = command
-    write = command,originate
+    write = command,originate,call,agent
 ```
 
-_originate_ option is for feature spy, whisper and barge.
+#### AMI options
+  * _originate_ ofor  spy, whisper and barge.
+  * _call_ feature hangup calls.
+  * _agent_ remove agents from the queues.
+
 
 Some features maybe not included in your Asterisk version. In the [patch
 directory](patches) you can find the patchs for add more powerfull to the QPanel.
@@ -71,7 +77,12 @@ In general section set config
 
  If you used a CentOS 5.X or Elastix check [how to install Python 2.6 and Flask](doc/README.Centos5.md)
 
-## 1. Install dependencies
+## 1. Clone this repository
+```
+ git clone -b stable  https://github.com/roramirez/qpanel.git
+```
+
+## 2. Install dependencies
 ```
  $ pip install -r requirements.txt
 ```
@@ -88,10 +99,6 @@ If dont have pip in your system. For install
  ```
 
 
-## 2. Clone this repository
-```
- git clone -b stable  https://github.com/roramirez/qpanel.git
-```
 ##  3. Go and prepair environment
  ```
   cd qpanel
@@ -125,3 +132,15 @@ If you want check the development version get checkout of master branch
  ```
  git clone -b master  https://github.com/roramirez/qpanel.git
  ```
+
+
+## How to contribute
+
+ * Fork the project
+ * Create a feature branch (git checkout -b my-feature)
+ * Add your files changed (git add file_change1 file_change2, etc..)
+ * Commit your changes (git commit -m "add my feature")
+ * Push to the branch (git push origin my-feature)
+ * Create a pull request
+
+Happy coding :)
