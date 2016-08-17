@@ -25,7 +25,7 @@ msgstr "недоступен"
 #: app.py:159 templates/fs/index.html:174 templates/i18n_js.html:11
 #: templates/i18n_js.html:25 templates/index.html:178
 msgid "free"
-msgstr "свободный"
+msgstr "свободен"
 
 #: app.py:161 templates/i18n_js.html:13
 msgid "in call"
@@ -50,11 +50,11 @@ msgstr "Этот запрос не найден на сервере"
 
 #: templates/all_queues.html:5
 msgid "Consolidated view"
-msgstr "Общий обзор"
+msgstr "Все очереди"
 
 #: templates/all_queues.html:14 templates/header.html:12
 msgid "Consolidate view"
-msgstr "Общий обзор"
+msgstr "Все очереди"
 
 #: templates/all_queues.html:29 templates/fs/queue.html:27
 #: templates/queue.html:25
@@ -93,22 +93,22 @@ msgstr "Звонков"
 #: templates/all_queues.html:38 templates/fs/queue.html:36
 #: templates/queue.html:33
 msgid "Last call at"
-msgstr "Последний звонок в"
+msgstr "Последний звонок"
 
 #: templates/all_queues.html:67 templates/fs/queue.html:67
 #: templates/queue.html:66
 msgid "Callers"
-msgstr "Звонков"
+msgstr "Звонки"
 
 #: templates/all_queues.html:72 templates/fs/queue.html:71
 #: templates/queue.html:70
 msgid "Id Name"
-msgstr "Id Имени"
+msgstr "Имя"
 
 #: templates/all_queues.html:73 templates/fs/queue.html:72
 #: templates/queue.html:71
 msgid "Id Number"
-msgstr "Id Номера"
+msgstr "Номер"
 
 #: templates/all_queues.html:74 templates/queue.html:72
 msgid "Position"
@@ -288,7 +288,7 @@ msgstr "Удалить из очереди"
 
 #: templates/queue.html:109
 msgid "Insert where  you listen the call, example: <i>SIP/1001</i>"
-msgstr "Вствьте номер для прослушки, пример: <i>SIP/1001</i>"
+msgstr "Укажите номер для соединения, пример: <i>SIP/1001</i>"
 
 #: templates/queue.html:113
 msgid "Listen "
@@ -300,7 +300,7 @@ msgstr "Выполнить "
 
 #: templates/queue.html:298
 msgid "Insert where do need listen"
-msgstr "Вставьте где необходимо слушать"
+msgstr "Вы не указали номер"
 
 #: templates/queue.html:304
 msgid "Try..."
