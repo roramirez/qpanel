@@ -2,3 +2,33 @@
 config.ini
 .DS_Store
 translations/*/*/messages.mo
+
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+
+
+## Vim
+# swap
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+
+# diff patch
+*.orig
+*.rej

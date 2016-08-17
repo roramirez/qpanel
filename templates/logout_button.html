@@ -1,0 +1,4 @@
+                    {% if has_users() %}
+                    <li><a class="logout" href="{{ url_for('.logout') }}">{{_('Logout') }}</a></li>
+                    {% endif %}
+

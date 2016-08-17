@@ -1,170 +1,125 @@
-# coding=utf8
+# -*- coding: utf-8 -*-
 
-# Copyright (C) 2015 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+#
+# Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
 
-from flask import Flask, render_template, jsonify, redirect, request, session, url_for
-import os, sys
-import ConfigParser
-import json
-from distutils.util import strtobool
+from flask import Flask, render_template, jsonify, redirect,\
+    request, session, url_for
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
+import logging
 
-# babel
-from flask.ext.babel import Babel, gettext, dates, format_timedelta
-from datetime import timedelta
-# get current names for directory and file
-dirname, filename = os.path.split(os.path.abspath(__file__))
+from flask_babel import Babel, gettext
+import flask_login
 
-# py-asterisk
-sys.path.append(os.path.join(dirname,  'libs','py-asterisk'))
-from Asterisk.Manager import *
-from upgrader import *
+from libs.qpanel.upgrader import *
+import libs.qpanel.utils as uqpanel
 
-# config file
-cfg_file = os.path.join(dirname, 'config.ini')
-cfg = ConfigParser.ConfigParser()
-try:
-    with open(cfg_file)  as f:
-        cfg.readfp(f)
-except IOError:
-    print 'Error open file config. Check if config.ini exists'
-    sys.exit()
+from libs.qpanel.config import QPanelConfig
+from libs.qpanel.backend import Backend
+if QPanelConfig().has_queuelog_config():
+    from libs.qpanel.model import queuelog_data_queue
 
 
-def __connect_manager():
-    host = cfg.get('manager', 'host')
-    port = int(cfg.get('manager', 'port'))
-    user = cfg.get('manager', 'user')
-    password = cfg.get('manager', 'password')
-    try:
-        manager = Manager((host, port), user, password)
-        return manager
-    except:
-        app.logger.info('Error to connect to Asterisk Manager. Check config.ini and manager.conf of asterisk')
+class User(flask_login.UserMixin):
+    pass
+
+cfg = QPanelConfig()
+backend = Backend()
 
 
-def is_debug():
-    return __get_bool_value_config('general', 'debug', False)
-
-def port_bind():
-    return int(__get_entry_ini_default('general', 'port', 5000))
-
-
-def host_bind():
-    return __get_entry_ini_default('general', 'host', '0.0.0.0')
-
-
-def get_hide_config():
-    tmp = __get_entry_ini_default('general', 'hide', '')
-    tmp = tmp.replace('\'', '')
-    return tmp.split(',')
-
-
-def __get_entry_ini_default(section, var, default):
-    try:
-        var = cfg.get(section, var)
-        v = var
-    except:
-        return default
-    return v
-
-def __get_bool_value_config(section, option, default):
-    try:
-        var = cfg.get(section, option)
-        v = True if strtobool(var) == 1 else False
-    except:
-        return default
-    return v
-
-
-def __get_data_queues_manager():
-    manager = __connect_manager()
-    try:
-        data = manager.QueueStatus()
-    except:
-        app.logger.info('Error to connect to Asterisk Manager. Check config.ini and manager.conf of asterisk')
-        data = []
-    return data
-
-
-def get_data_queues(queue = None):
-    data = parser_data_queue(__get_data_queues_manager())
+def get_data_queues(queue=None):
+    data = backend.get_data_queues()
     if queue is not None:
         try:
             data = data[queue]
         except:
             abort(404)
-    if is_debug():
+    if cfg.is_debug:
         app.logger.debug(data)
     return data
 
 
-def hide_queue(data):
-    tmp_data = {}
-    hide = get_hide_config()
-    for q in data:
-        if q not in hide:
-            tmp_data[q] = data[q]
-    return tmp_data
-
-
-def rename_queue(data):
-    tmp_data = {}
-    for q in data:
-        rename = __get_entry_ini_default('rename', q, None)
-        if rename is not None:
-            tmp_data[rename] = data[q]
-        else:
-            tmp_data[q] = data[q]
-    return tmp_data
-
-
-def parser_data_queue(data):
-    data = hide_queue(data)
-    data = rename_queue(data)
-    current_timestamp = int(time.time())
-    # convert references manager to string
-    for q in data:
-        for e in data[q]['entries']:
-            tmp = data[q]['entries'].pop(e)
-            data[q]['entries'][str(e)] = tmp
-            tmp = data[q]['entries'][str(e)]['Channel']
-            data[q]['entries'][str(e)]['Channel']  = str(tmp)
-        for m in data[q]['members']:
-            #Asterisk 1.8 dont have StateInterface
-            if 'StateInterface' not in data[q]['members'][m]:
-                data[q]['members'][m]['StateInterface'] = m
-
-            second_ago = 0
-            if 'LastCall' in data[q]['members'][m]:
-                if int(data[q]['members'][m]['LastCall']) > 0:
-                    second_ago = current_timestamp - int(data[q]['members'][m]['LastCall'])
-            data[q]['members'][m]['LastCallAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
-
-        #REFACTORME
-        for c in data[q]['entries']:
-            second_ago = 0
-            if 'Wait' in data[q]['entries'][c]:
-                if int(data[q]['entries'][c]['Wait']) > 0:
-                    second_ago = int(data[q]['entries'][c]['Wait'])
-            data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta(seconds=second_ago), granularity='second')
-
-
-
-    return data
-
+def get_user_config_by_name(username):
+    try:
+        user = User()
+        user.id = username
+        user.password = cfg.get('users', username)
+        return user
+    except:
+        return None
 
 # Flask env
-APPLICATION_ROOT = __get_entry_ini_default('general', 'base_url', '/')
+APPLICATION_ROOT = cfg.base_url
 app = Flask(__name__)
 app.config.from_object(__name__)
 babel = Babel(app)
-app.config['BABEL_DEFAULT_LOCALE'] = __get_entry_ini_default('general', 'language', 'en')
-app.secret_key = __get_entry_ini_default('general', 'secret_key', 'CHANGEME_ON_CONFIG')
+app.config['BABEL_DEFAULT_LOCALE'] = cfg.language
+app.secret_key = cfg.secret_key
+
+login_manager = flask_login.LoginManager()
+login_manager.init_app(app)
+
+
+def set_data_user(user_config):
+    user = User()
+    user.id = user_config.id
+    return user
+
+
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+    return redirect(url_for('login'))
+
+
+@login_manager.user_loader
+def user_loader(username):
+    user_config = get_user_config_by_name(username)
+    if user_config is None:
+        return
+    return set_data_user(user_config)
+
+
+@login_manager.request_loader
+def request_loader(request):
+    username = request.form.get('username')
+    user_config = get_user_config_by_name(username)
+
+    if not cfg.has_users():
+        # fake login
+        user = User()
+        user.id = 'withoutlogin'
+        return user
+
+    if user_config is None:
+        return
+
+    user = set_data_user(user_config)
+    user.is_authenticated = user_config == request.form['pw']
+    return user
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if not cfg.has_users():
+        return redirect(url_for('home'))
+
+    if request.method == 'GET':
+        return render_template('login.html')
+
+    username = request.form['username']
+    user_config = get_user_config_by_name(username)
+    if user_config is None:
+        return redirect(url_for('login'))
+
+    if user_config.password == request.form['pw']:
+        user = set_data_user(user_config)
+        flask_login.login_user(user)
+        return redirect(url_for('home'))
+    return redirect(url_for('login'))
 
 
 @app.before_first_request
@@ -178,25 +133,16 @@ def setup_logging():
 # babel
 @babel.localeselector
 def get_locale():
-    browser = request.accept_languages.best_match(['en', 'es', 'de'])
+    langs = ['en', 'es', 'de', 'pt_BR', 'ru']
+    browser = request.accept_languages.best_match(langs)
     try:
-      app.logger.debug(session['language'])
-      return session['language']
+        return session['language']
     except KeyError:
-      session['language'] = browser
-      app.logger.debug(session['language'])
-      return browser
+        session['language'] = browser
+        return browser
 
 
-#Utilities helpers
-@app.context_processor
-def utility_processor():
-    def format_id_agent(value):
-        v = value.replace('/', '-')
-        return v.replace('@', '_')
-    return dict(format_id_agent=format_id_agent)
-
-
+# Utilities helpers
 @app.context_processor
 def utility_processor():
     def str_status_agent(value):
@@ -206,11 +152,14 @@ def utility_processor():
             value = 0
         unavailable = [0, 4, 5]
         free = [1]
+        in_call = [10]
 
         if value in unavailable:
             return gettext('unavailable')
         elif value in free:
             return gettext('free')
+        elif value in in_call:
+            return gettext('in call')
         else:
             return gettext('busy')
     return dict(str_status_agent=str_status_agent)
@@ -219,7 +168,7 @@ def utility_processor():
 @app.context_processor
 def utility_processor():
     def request_interval():
-        return int(__get_entry_ini_default('general', 'interval', 5)) * 1000
+        return (cfg.interval * 1000)
     return dict(request_interval=request_interval)
 
 
@@ -227,62 +176,117 @@ def utility_processor():
 def page_not_found(e):
     return render_template('404.html'), 404
 
+
 @app.context_processor
 def utility_processor():
     def check_upgrade():
-        return __get_bool_value_config('general', 'check_upgrade', True)
+        return cfg.check_upgrade
     return dict(check_upgrade=check_upgrade)
+
 
 @app.context_processor
 def utility_processor():
     def show_service_level():
-        return __get_bool_value_config('general', 'show_service_level', False)
+        return cfg.show_service_level
     return dict(show_service_level=show_service_level)
+
+
+@app.context_processor
+def utility_processor():
+    def has_users():
+        return cfg.has_users()
+    return dict(has_users=has_users)
+
+
+@app.context_processor
+def utility_processor():
+    def clean_str_to_div_id(value):
+        return uqpanel.clean_str_to_div_id(value)
+    return dict(clean_str_to_div_id=clean_str_to_div_id)
+
+
+@app.context_processor
+def utility_processor():
+    def is_freeswitch():
+        return backend.is_freeswitch()
+    return dict(is_freeswitch=is_freeswitch)
+
+
+@app.context_processor
+def utility_processor():
+    def config():
+        return cfg
+    return dict(config=config)
+
+
+@app.context_processor
+def utility_processor():
+    def current_version():
+        return get_current_version()
+    return dict(current_version=current_version)
+
 
 # ---------------------
 # ---- Routes ---------
 # ---------------------
 # home
 @app.route('/')
+@flask_login.login_required
 def home():
     data = get_data_queues()
-    return render_template('index.html', queues = data)
+    template = 'index.html'
+    if backend.is_freeswitch():
+        template = 'fs/index.html'
+    return render_template(template, queues=data)
 
 
 @app.route('/queue/<name>')
-def queue(name = None):
+@flask_login.login_required
+def queue(name=None):
     data = get_data_queues(name)
-    return render_template('queue.html', data = data, name = name)
+    template = 'queue.html'
+    if backend.is_freeswitch():
+        template = 'fs/queue.html'
+    return render_template(template, data=data, name=name)
+
+
+@app.route('/all_queues')
+@flask_login.login_required
+def all_queues():
+    data = get_data_queues()
+    template = 'all_queues.html'
+    if backend.is_freeswitch():
+        abort(404)
+        # Not yet implement
+        # template = 'fs/all_queue.html'
+    return render_template(template, queues=data)
 
 
 @app.route('/queue/<name>.json')
-def queue_json(name = None):
+@flask_login.login_required
+def queue_json(name=None):
     data = get_data_queues(name)
-    return jsonify(
-        name = name,
-        data = data
-    )
+    return jsonify(name=name, data=data)
 
 
 # data queue
 @app.route('/queues')
+@flask_login.login_required
 def queues():
     data = get_data_queues()
-    return jsonify(
-        data = data
-    )
+    return jsonify(data=data)
 
 
 @app.route('/lang')
-def fake_language():
-    return redirect(url_for('home'))
 @app.route('/lang/<language>')
-def language(language = None):
+@flask_login.login_required
+def language(language=None):
     session['language'] = language
     return redirect(url_for('home'))
 
 
 @app.route('/check_new_version')
+@flask_login.login_required
 def check_new_version():
     need_upgrade = False
     try:
@@ -292,24 +296,103 @@ def check_new_version():
         pass
 
     return jsonify(
-        require_upgrade = need_upgrade,
-        current_version = get_current_version(),
-        last_stable_version = get_stable_version()
+        require_upgrade=need_upgrade,
+        current_version=get_current_version(),
+        last_stable_version=get_stable_version()
     )
+
+
+@app.route('/logout')
+def logout():
+    flask_login.logout_user()
+    return redirect(url_for('login'))
+
+
+@app.route('/spy', methods=['POST'])
+@flask_login.login_required
+def spy():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.spy(channel, to_exten)
+    return jsonify(result=r)
+
+
+@app.route('/whisper', methods=['POST'])
+@flask_login.login_required
+def whisper():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.whisper(channel, to_exten)
+    return jsonify(result=r)
+
+
+@app.route('/barge', methods=['POST'])
+@flask_login.login_required
+def barge():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.barge(channel, to_exten)
+    return jsonify(result=r)
+
+
+@app.route('/hangup', methods=['POST'])
+@flask_login.login_required
+def hangup_call():
+    channel = request.form['channel']
+    r = backend.hangup(channel)
+    return jsonify(result=r)
+
+
+@app.route('/stats/<from_date>/<to_date>/<name>.json')
+def stats_json(name, from_date, to_date):
+    real_name = uqpanel.realname_queue_rename(name)
+    queue_values = queuelog_data_queue(from_date, to_date, None, real_name)
+    data = get_data_queues(name)
+    return jsonify(name=name, data=data, values=queue_values)
+
+
+@app.route('/stats', defaults={'name': None, 'from_date': uqpanel.init_day(),
+                               'to_date': uqpanel.end_day()})
+@app.route('/stats/<name>/<from_date>/<to_date>')
+def stats(name, from_date, to_date):
+    queues = get_data_queues()
+    if name is None:
+        name = uqpanel.first_data_dict(queues)
+    try:
+        data = queues[name]
+    except:
+        data = {}
+    return render_template('stats.html', data=data, queues=queues,  name=name,
+                           from_date=from_date, to_date=to_date)
+
+
+@app.route('/remove_from_queue', methods=['POST'])
+@flask_login.login_required
+def remove_from_queue():
+    queue = request.form['queue']
+    agent = request.form['agent']
+    r = backend.remove_from_queue(agent, queue)
+    return jsonify(result=r)
+
 
 # ---------------------
 # ---- Main  ----------
 # ---------------------
-if __name__ == '__main__':
+def main():
 
-    if is_debug():
+    if cfg.is_debug:
         app.config['DEBUG'] = True
 
-
     if APPLICATION_ROOT == '/':
-        app.run(host=host_bind(), port=port_bind(), extra_files=[cfg_file])
+        app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=True,
+                extra_files=[cfg.path_config_file])
     else:
         application = DispatcherMiddleware(Flask('dummy_app'), {
             app.config['APPLICATION_ROOT']: app,
         })
-        run_simple(host_bind(), port_bind(), application, use_reloader=True, extra_files=[cfg_file])
+        run_simple(cfg.host_bind, cfg.port_bind, application,
+                   use_reloader=True, extra_files=[cfg.path_config_file])
+
+
+if __name__ == '__main__':
+    main()

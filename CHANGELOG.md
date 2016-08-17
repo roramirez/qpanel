@@ -1,6 +1,91 @@
 ## Change Log
 
 
+### 0.12.0 (2016-08-15)
+- [22d2f1d](https://github.com/roramirez/qpanel/commit/22d2f1d359378de86e48f41ea582a792f7af0616) Add Stats from queue_log
+- [0c9634c](https://github.com/roramirez/qpanel/commit/0c9634cb2dc4731b97c28e97b328983527367384) Add feature for hangup incoming calls
+- [4a0657f](https://github.com/roramirez/qpanel/commit/4a0657f874750e5bd246c3e6a68de40622aebe7c) fix ExtDeprecationWarning for flask_login and flask_babel
+- [#69](https://github.com/roramirez/qpanel/pull/69) move babel.cfg and messages.pot into translations directory for clean
+- [#68](https://github.com/roramirez/qpanel/pull/68) Update Flask version to 0.11
+- [c8d6113](https://github.com/roramirez/qpanel/commit/c8d6113b44fd84df2f687219ad4292e3433b672e) add feature remove agent from a queue
+
+### 0.11.1 (2016-07-20)
+- [a22c0f7](https://github.com/roramirez/qpanel/commit/a22c0f7230914f3ec6aebc2eddd6c91a3e1cd740) Fix import logging detect for issue #56 (@roramirez)
+
+### 0.11.0 (2016-07-15)
+- [#66](https://github.com/roramirez/qpanel/pull/66) Move file sample config.ini-dist into samples
+- [#64](https://github.com/roramirez/qpanel/pull/64) Add In call Feature
+- [a4c0fdb](https://github.com/roramirez/qpanel/commit/a4c0fdbaacfe6aba4d80801846fe76eee8d299f8) Fix a bug for update color label when new agent is added
+- [af36976](https://github.com/roramirez/qpanel/commit/af36976a9dbc6ae6257edf69fabedabf4e1f1093) Add features Spy, Whisper and Barge
+- [#63](https://github.com/roramirez/qpanel/pull/63) Show version id in footer
+- [#62](https://github.com/roramirez/qpanel/pull/62) Add Tests
+- [#61](https://github.com/roramirez/qpanel/pull/61) Refactor init app. Add __init__ and __main__ file
+
+### 0.10.0 (2016-06-16)
+- [c77edc9](https://github.com/roramirez/qpanel/commit/c77edc9658664ea6fad3d47174aa70d80b79d701) Install dependencies by requirements.txt file.
+- [#60](https://github.com/roramirez/qpanel/pull/60) Change URL stable version.
+- [24bd42d](https://github.com/roramirez/qpanel/commit/24bd42db7f84ac9acb30fd1caa20861db824cd3a) fix camelcase name GitHub keyword.
+- [3035a0c](https://github.com/roramirez/qpanel/commit/3035a0c630e4516872fffee9259b23d8b648ebce) Change icon for tooltip notice of new stable version.
+- [f09176f](https://github.com/roramirez/qpanel/commit/f09176f9033bade7046b9c2f28a34a16e723fcbf) remove deprecated function format_id_agent.
+- [44cc4ef](https://github.com/roramirez/qpanel/commit/44cc4ef57b0adb99fbd560023af17e62201632d5) fix set name var for seconds ago into utils function.
+- [4ce32ed](https://github.com/roramirez/qpanel/commit/4ce32ed5321f2bc24fc28df45e6cabdd24a7d0c8) remove deprecated Javascript function.
+- [#55](https://github.com/roramirez/qpanel/pull/55) Add consolidated view feature.
+- [303e08b](https://github.com/roramirez/qpanel/commit/303e08b53f8ddf53f38d758ab52e554e9442fa0e) Change port nginx close issue #56
+
+### 0.9.1 (2016-05-30)
+- [ed7f2ff](https://github.com/roramirez/qpanel/commit/ed7f2ff8db52ec886e861c870e7dce48d1674673) Fixbug  introduce in backend for hide and rename queue names.
+
+### 0.9.0  (2016-05-09)
+- [011d675](https://github.com/roramirez/qpanel/commit/011d675bde87bbcc231e52bb2c2e9c96cfcfde6a) fixbug when sections is defined in config original and not into template
+- [48a0296](https://github.com/roramirez/qpanel/commit/48a0296e16d1277ac675d221f1709a9ea87dccd4) Refactor. Use function from QPanelConfig class for unified configs
+- [ca042dd](https://github.com/roramirez/qpanel/commit/ca042dde1e99112c5c5992a2d298b0224e9ef8ca) add requirements file to install dependencies
+- [1dd11b8](https://github.com/roramirez/qpanel/commit/1dd11b8ffd50208ba4139dd344f2742c625cfef2) refactor exception for not file config
+- [ea145c2](https://github.com/roramirez/qpanel/commit/ea145c204add6382b0b83b531f6dbd4dd1f0b306) add Port patches Asterisk 11.X for app_queue
+- [29d183a](https://github.com/roramirez/qpanel/commit/29d183a53b06734c4c2382df74aeb51d456d5f42) Change behavior when the members (agent) is paused set counter as busy
+- [#50](https://github.com/roramirez/qpanel/pull/50) Update repository of  py-asterisk submodule.
+- [#49](https://github.com/roramirez/qpanel/pull/49) massive fix format space for open/close brackets in templates
+- [#48](https://github.com/roramirez/qpanel/pull/48) Refactor loops into templates and minimal fix format code bracket
+
+### 0.8.1 (2016-04-11)
+- [9abe336](https://github.com/roramirez/qpanel/commit/be33697b13ef5a544e3ea51e3f7674eb5f31cf) Add missing section into script migrate configs
+
+### 0.8.0 (2016-03-17)
+- [ca98b39](https://github.com/roramirez/qpanel/commit/ca98b39512e0235d0e76d917ef37db4d78c5c9c4) Add FreeSWITCH support.
+
+### 0.7.3 (2016-03-02)
+- [242e53e](https://github.com/roramirez/qpanel/commit/242e53eb302b94e1990c44c3184af7db61ac5af0) Fix a bug missing language for automatic best match
+
+### 0.7.2 (2016-02-19)
+- [59260cf](https://github.com/roramirez/qpanel/commit/59260cf3c732bbd014110a5f1f8ed362bb151118) Fix current_time parameter by default in function
+- [77dd847](https://github.com/roramirez/qpanel/commit/77dd8472e910f634db1cdcb6d0b85e6ebab9c19e) fix refresh data call and last_call for new agents add in the list.
+- [fbc3c6c](https://github.com/roramirez/qpanel/commit/fbc3c6cc105ee6ff6557bcef83949e017bdcf6f9) Fix wait time for a call
+
+### 0.7.1 (2016-02-17)
+- [9666392](https://github.com/roramirez/qpanel/commit/9666392c348457123b8daa8479d4b980156481da) Fix a bug not reload when used base_url /
+- [#40](https://github.com/roramirez/qpanel/pull/40) Update german Translations by @DoM1niC
+
+###0.7.0 (2016-02-12)
+- [aafe5c1](https://github.com/roramirez/qpanel/commit/aafe5c1286d58ec15377fe0de35d0e8dc8f07384) Improved message error to connect Asterisk Manager API.
+- [b55940e](https://github.com/roramirez/qpanel/commit/b55940e0d4b795be73b71e032af5290c2cb0268e) Add Port patches Asterisk 13.7.X for app_queue.
+- [585adcf](https://github.com/roramirez/qpanel/commit/585adcf86f0808a613f782a16fd4d8c70d927c76) Add pause time of a pause of agent.
+- [f514279](https://github.com/roramirez/qpanel/commit/f5142794259d51e2a8a0b0a6a7b1e851aa0daa27) Add a code of conduct.
+- [cb942b3](https://github.com/roramirez/qpanel/commit/cb942b3322ce6d0431ab663131afb54f5719330d) Create patches directory add partches for Asterisk.
+- [f8cc1ff](https://github.com/roramirez/qpanel/commit/f8cc1ffccc9b6e088aa191368b9a441585c2a846) Create package libs.qpanel.
+- [9a55ce4](https://github.com/roramirez/qpanel/commit/9a55ce40a03d412751f9a821b14be39b880696df) Add information about queue strategy.
+- [0c3a2fd](https://github.com/roramirez/qpanel/commit/0c3a2fda8e9cb78d4ff5064ef8e015e3133023b3) Update chart.js.
+- [2f820df](https://github.com/roramirez/qpanel/commit/2f820df49ab98e0df53d37b83d0406d436e6ea55) add API documentation.
+- [93c2f39](https://github.com/roramirez/qpanel/commit/93c2f39e2d02c1f2b54ff34c5100b22e37d7276c) add tooltips [\#23](https://github.com/roramirez/qpanel/issues/23)
+
+### 0.6.1 (2016-01-23)
+- [d2fa842](https://github.com/roramirez/qpanel/commit/d2fa842e36cec7b2f6fb12d27b3c9a667bde082a) Fix a bug for preserver old values in update_config
+
+### 0.6.0 (2016-01-05)
+- [6333e75](https://github.com/roramirez/qpanel/commit/6333e753de3b1c008fee32c39e9d6bd21166da3c) Add pt_BR translations
+- [6262ccc](https://github.com/roramirez/qpanel/commit/6262ccc490f60c7fffceb75bb75e5cdcb875430a) Fix a bug in value NaN by division by 0 for Service Level
+- [f830a5b](https://github.com/roramirez/qpanel/commit/f830a5bb3225fa345f54f3ec6f49f263529392b9) Improve prevent if set to 0 interval many requests
+- [ce63c33](https://github.com/roramirez/qpanel/commit/ce63c33e84281fd758ec7fc516b6ff87661e75c8) Add feature login auth Issue [\#34](https://github.com/roramirez/qpanel/issues/34)
+
+
 ### 0.5.0 (2015-11-30)
 - [47f4c10](https://github.com/roramirez/qpanel/commit/47f4c10e38dd40d41eeea5e810725879c4e31f09) Add feature show Service Level.  Issue [\#5](https://github.com/roramirez/qpanel/issues/5)
 - [89b07c4](https://github.com/roramirez/qpanel/commit/89b07c4ce06026a36090c10208d788d7c1d06356) Add favicon.
