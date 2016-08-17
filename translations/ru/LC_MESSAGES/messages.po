@@ -29,7 +29,7 @@ msgstr "свободный"
 
 #: app.py:161 templates/i18n_js.html:13
 msgid "in call"
-msgstr ""
+msgstr "вызов"
 
 #: app.py:163 templates/fs/index.html:177 templates/i18n_js.html:17
 #: templates/index.html:181
@@ -157,6 +157,9 @@ msgid ""
 "href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
 "style=\"color:#ffd777\">from GitHub</a>."
 msgstr ""
+". Для обновления QPanel пройдите по ссылке <a "
+"href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
+"style=\"color:#ffd777\">from GitHub</a>."
 
 #: templates/header.html:16 templates/stats.html:10 templates/stats.html:61
 msgid "Stats"
