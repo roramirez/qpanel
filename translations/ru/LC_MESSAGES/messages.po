@@ -316,7 +316,7 @@ msgstr "Непринятых звонков операторами."
 
 #: templates/row_general_data.html:22
 msgid "SL"
-msgstr "SL"
+msgstr "SLA"
 
 #: templates/row_general_data.html:25
 msgid "Service Level."
