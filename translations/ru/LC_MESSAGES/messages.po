@@ -38,11 +38,11 @@ msgstr "занят"
 
 #: templates/404.html:2
 msgid "Not found"
-msgstr ""
+msgstr "Страница не найдена"
 
 #: templates/404.html:7
 msgid "404 Not Found"
-msgstr "404 Не Найдено"
+msgstr "404 Страница не найдена"
 
 #: templates/404.html:10
 msgid "The request the was not found on this server."
@@ -83,7 +83,7 @@ msgstr "Статус"
 #: templates/all_queues.html:37 templates/fs/queue.html:35
 #: templates/queue.html:32
 msgid "Attend calls"
-msgstr "Принятых звонков."
+msgstr "Принятых звонков"
 
 #: templates/all_queues.html:37 templates/fs/queue.html:35
 #: templates/queue.html:32
@@ -145,7 +145,7 @@ msgstr "Версия"
 
 #: templates/footer.html:42
 msgid "New version available"
-msgstr "недоступен"
+msgstr "Доступна новая версия"
 
 #: templates/footer.html:43
 msgid "Exist a new version stable: "
@@ -252,11 +252,11 @@ msgstr "Логин"
 
 #: templates/login.html:10 templates/login.html:19
 msgid "Sign in"
-msgstr "Войти"
+msgstr "Вход в систему"
 
 #: templates/login.html:12
 msgid "User id"
-msgstr "пауза"
+msgstr "Логин"
 
 #: templates/login.html:14
 msgid "Password"
@@ -312,7 +312,7 @@ msgstr "Принятых звонков."
 
 #: templates/row_general_data.html:17 templates/stats.html:92
 msgid "Calls not attended by agents."
-msgstr "Непринятых звонков операторами"
+msgstr "Непринятых звонков операторами."
 
 #: templates/row_general_data.html:22
 msgid "SL"
@@ -324,7 +324,7 @@ msgstr "Уровень обслуживания."
 
 #: templates/row_general_data.html:33
 msgid "Call on line."
-msgstr "Звонков онлайн"
+msgstr "Звонков онлайн."
 
 #: templates/row_general_data.html:39 templates/stats.html:96
 msgid "Av. time"
@@ -332,7 +332,7 @@ msgstr "Ср. время"
 
 #: templates/row_general_data.html:42 templates/stats.html:99
 msgid "Average time for answered calls."
-msgstr "Среднее время разговора"
+msgstr "Среднее время разговора."
 
 #: templates/row_general_data.html:46 templates/stats.html:103
 msgid "Av. Wait"
@@ -340,7 +340,7 @@ msgstr "Ср. время ожидания"
 
 #: templates/row_general_data.html:49 templates/stats.html:106
 msgid "Average time waiting for calls."
-msgstr "Среднее время ожидания в очереди"
+msgstr "Среднее время ожидания в очереди."
 
 #: templates/stats.html:52
 msgid "From:"
