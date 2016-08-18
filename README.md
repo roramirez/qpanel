@@ -102,8 +102,6 @@ If dont have pip in your system. For install
 ##  3. Go and prepair environment
  ```
   cd qpanel
-  git submodule init
-  git submodule update
   cp samples/config.ini-dist config.ini
  ```
   Edit config.ini file with Manager Asterisk parameters
