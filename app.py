@@ -20,6 +20,8 @@ import libs.qpanel.utils as uqpanel
 
 from libs.qpanel.config import QPanelConfig
 from libs.qpanel.backend import Backend
+import flask_restless
+import libs.qpanel as qpanel
 if QPanelConfig().has_queuelog_config():
     from libs.qpanel.model import queuelog_data_queue
 
@@ -62,6 +64,13 @@ app.secret_key = cfg.secret_key
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
+
+
+# Api
+manager = flask_restless.APIManager(app, session=qpanel.database.session_db)
+manager.create_api(qpanel.model.Calls,
+                   methods=['GET'],
+                   collection_name='calls')
 
 
 def set_data_user(user_config):

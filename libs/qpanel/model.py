@@ -50,6 +50,15 @@ class QueueLog(DeclarativeBase):
                 'data5': self.data5}
 
 
+class Calls(QueueLog):
+    @classmethod
+    def query(cls):
+        event_calls = ['ABANDON', 'COMPLETEAGENT', 'COMPLETEAGENT']
+        original_query = session_db.query(cls)
+        condition = (QueueLog.event.in_(event_calls))
+        return original_query.filter(condition)
+
+
 def queuelog_event_by_range_and_types(start_date, end_date, events=None,
                                       agent=None, queue=None):
     try:
