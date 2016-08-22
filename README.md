@@ -98,6 +98,13 @@ If dont have pip in your system. For install
  sudo yum install python-pip
  ```
 
+### Get Javascript, CSS and external web libraries
+Is necessary have installed Node.
+
+ ```
+    npm install
+ ```
+
 
 ##  3. Go and prepair environment
  ```
