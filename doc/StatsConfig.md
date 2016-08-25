@@ -34,11 +34,11 @@ Into file /etc/asterisk/logger.conf set the follow configs
 
 ```
 
-For /etc/asterisk/logger.conf set the follow configs 
+For /etc/asterisk/logger.conf & /etc/asterisk/extconfig.conf set the follow configs 
 
 
 ```
-queue_log => odbc,general
+queue_log => odbc,general,queue_log (e.g. Adapter,Database,Table)
 
 ```
 
