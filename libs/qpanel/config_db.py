@@ -13,7 +13,7 @@ import settings
 import utils
 
 PATH_DB = os.path.join(settings.ROOT_PATH, 'data', 'database.db')
-engine = create_engine('sqlite:///' + PATH_DB, echo=False)
+engine = create_engine('sqlite:///' + PATH_DB, echo=False, pool_recycle=3600)
 
 # session
 session_dbconfig = scoped_session(sessionmaker(bind=engine,
