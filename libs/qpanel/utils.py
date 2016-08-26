@@ -8,7 +8,6 @@ import ConfigParser
 from datetime import timedelta, date, datetime
 import time
 from exception import NotConfigFileQPanel
-from config import QPanelConfig
 import hashlib
 import calendar
 
@@ -122,12 +121,3 @@ def dt(u):
 
 def ut(d):
     return calendar.timegm(d.timetuple())
-
-
-def realname_queue_rename(queuename):
-    renames = QPanelConfig().get_items('rename')
-    if renames is not None:
-        for val, idx in renames:
-            if idx == queuename:
-                return val
-    return queuename

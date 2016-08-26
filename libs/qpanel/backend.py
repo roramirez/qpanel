@@ -4,10 +4,9 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-from config import QPanelConfig
+from config import QPanelConfig, realname_queue_rename
 from utils import timedelta_from_field_dict
 from flask_babel import format_timedelta
-from utils import realname_queue_rename
 import asterisk
 # In case use Asterisk dont crash with ESL not in system
 try:
