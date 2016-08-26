@@ -4,7 +4,7 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-from urllib2 import Request, urlopen
+import requests
 from distutils.version import LooseVersion
 
 BRANCH = 'stable'
@@ -40,10 +40,9 @@ def get_stable_version(url=URL_STABLE_VERSION):
 
 
 def __get_data_url(url):
-    req = Request(url)
+    req = requests.get(url)
     try:
-        response = urlopen(req)
-        return response.read()
+        return req.text
     except:
         return None
 
