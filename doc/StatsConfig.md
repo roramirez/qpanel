@@ -34,7 +34,7 @@ Into file /etc/asterisk/logger.conf set the follow configs
 
 ```
 
-For /etc/asterisk/logger.conf & /etc/asterisk/extconfig.conf set the follow configs 
+For /etc/asterisk/extconfig.conf set the follow configs 
 
 
 ```
