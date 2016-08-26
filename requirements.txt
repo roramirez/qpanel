@@ -7,3 +7,4 @@ Tailer==0.4.1
 py-asterisk==0.5.7
 Flask_Restles==0.17.0
 requests==2.11.1
+jsonschema==2.5.1

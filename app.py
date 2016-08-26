@@ -20,6 +20,7 @@ from libs.qpanel.backend import Backend
 from libs.qpanel import config_db
 from libs.qpanel import upgrader
 import libs.qpanel.utils as uqpanel
+from libs.qpanel import settings
 
 import flask_restless
 import libs.qpanel as qpanel
@@ -361,25 +362,6 @@ def create_user():
 
 
 @app.route('/spy', methods=['POST'])
-@flask_login.login_required
-def spy():
-    channel = request.form['channel']
-    to_exten = request.form['to_exten']
-    r = backend.spy(channel, to_exten)
-    return jsonify(result=r)
-
-
-@app.route('/whisper', methods=['POST'])
-@flask_login.login_required
-def whisper():
-    channel = request.form['channel']
-    to_exten = request.form['to_exten']
-    r = backend.whisper(channel, to_exten)
-    return jsonify(result=r)
-
-
-@app.route('/barge', methods=['POST'])
-@flask_login.login_required
 def barge():
     channel = request.form['channel']
     to_exten = request.form['to_exten']
@@ -425,6 +407,35 @@ def remove_from_queue():
     agent = request.form['agent']
     r = backend.remove_from_queue(agent, queue)
     return jsonify(result=r)
+
+
+# Settings
+@app.route('/setting', methods=['GET'])
+@app.route('/setting/<section>', methods=['GET'])
+@flask_login.login_required
+def setting(section=None):
+    return jsonify(config_db.config_for_response(section))
+
+
+@app.route('/setting', methods=['POST'])
+@flask_login.login_required
+def save_setting():
+    data = request.json
+
+    # valid before insert data namespace/setting is ok
+    # prevent trash data
+    v = qpanel.utils.validate_schema_data(data, settings.schema_settings)
+    if v is True:
+        config_db.update_config_from_dict(data)
+        return jsonify(config_db.config_for_response()), 202
+    else:
+        return v, 400
+
+
+@app.route('/config', methods=['GET'])
+@flask_login.login_required
+def config_setting():
+    return render_template('config_setting.html')
 
 
 # ---------------------

@@ -10,6 +10,8 @@ import time
 from exception import NotConfigFileQPanel
 import hashlib
 import calendar
+from distutils.util import strtobool
+import jsonschema
 
 
 def unified_configs(file_config, file_template, sections=[]):
@@ -121,3 +123,34 @@ def dt(u):
 
 def ut(d):
     return calendar.timegm(d.timetuple())
+
+
+def casting_from_schema(dic, schema):
+    # FIXME: Kuma casting
+    for section in dic:
+        for prop in dic[section]:
+            try:
+                typo = schema['properties'][section]['properties'][prop]['type']
+                val = dic[section][prop]
+                dic[section][prop] = casting_by_string_type(typo, val)
+            except:
+                pass
+    return dic
+
+
+def casting_by_string_type(typo, val):
+    if typo == 'boolean':
+        val = True if strtobool(val) == 1 else False
+    elif typo == 'integer':
+        val = int(val)
+    return val
+
+
+def validate_schema_data(data, schema):
+    try:
+        jsonschema.validate(data, schema)
+        return True
+    except jsonschema.ValidationError as e:
+        return e.message
+    except jsonschema.SchemaError as e:
+        return e
