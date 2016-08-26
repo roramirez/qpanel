@@ -11,6 +11,11 @@
                             <i class="fa fa-users"></i>
                         </a>
                     </li>
+                    <li class="dropdown">
+                        <a data-toggle="" class="dropdown-toggle" href="{{ url_for('.config_setting') }}">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="top-menu">
@@ -19,6 +24,9 @@
                     <li>
                         <a class="logout" href="{{url_for('.all_queues')}}">{{_('Consolidate view') }}</a>
                     </li>
+                    {% endif %}
+                    {% if config().has_queuelog_config() and not is_freeswitch() %}
+                    <li><a class="logout" href="{{ url_for('.stats') }}">{{_('Stats') }}</a></li>
                     {% endif %}
                     {% include 'language_selector.html' %}
                     {% include 'logout_button.html' %}

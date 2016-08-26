@@ -1,6 +1,6 @@
 %define modname qpanel
 Name:    elastix-%{modname}
-Version: 0.4.2
+Version: 0.10.0
 Release: 1%{?dist}
 Summary: Qpanel is dashboard for Queues in Asterisk
 Group:   Applications/Communications
@@ -38,7 +38,7 @@ if ! [ -f "$CONFIG_FILE" ]; then
 
   #Manager config
   RAN_PASS=$(date +%s | sha256sum | base64 | head -c 32 ; echo)
-  cp /opt/%{modname}/config.ini-dist /opt/%{modname}/config.ini
+  cp /opt/%{modname}/samples/config.ini-dist /opt/%{modname}/config.ini
   sed -i "s/= password/= $RAN_PASS/" /opt/%{modname}/config.ini
   sed -i "s/= username/= qpanel/" /opt/%{modname}/config.ini
   sed -i "s/;base_url = /base_url =  \/qpanel/" /opt/%{modname}/config.ini
@@ -56,7 +56,7 @@ write = command
 " > /etc/asterisk/manager_qpanel.conf
 
 else
-  python2.6 /opt/%{modname}/update_config.py $CONFIG_FILE /opt/%{modname}/config.ini-dist
+  python2.6 /opt/%{modname}/update_config.py $CONFIG_FILE /opt/%{modname}/samples/config.ini-dist
 fi
 
 
@@ -68,10 +68,8 @@ if ! [ -x "$(command -v pip2.6)" ]; then
   python2.6 /tmp/get-pip.py
 fi
 
-#Flask and dependences
-pip2.6 install flask
-pip2.6 install flask-babel
-pip2.6 install flask-login
+# Dependencies
+pip2.6 install -r /opt/%{modname}/requirements.txt
 
 ###### UWSGI  ##########
 # install

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %} {{ _('Settings') }} {% endblock %}
+{% block js_head %}
+    <script src="{{ url_for('static', filename='components/jquery/dist/jquery.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='components/angular/angular.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='components/angular-resource/angular-resource.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='components/angular-route/angular-route.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='app/app.module.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='app/app.config.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='app/core/core.module.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='app/core/qpanel/qpanel.module.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='app/core/qpanel/qpanel.service.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='app/setting/setting.module.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='app/setting/setting.component.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+    {% block main %}
+      <!--main content start-->
+      <section id="main-content" style="margin-left: 0px;" ng-app="qpanelApp">
+
+
+          <section class="wrapper">
+              <div class="row">
+                  <div class="view-container">
+                      <div ng-view class="view-frame"></div>
+                  </div>
+              </div>
+
+          </section>
+      </section>
+
+    {% endblock %}
+

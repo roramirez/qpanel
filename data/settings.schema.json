@@ -1,0 +1,83 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "required": true,
+  "properties":{
+
+    "freeswitch": {
+      "type": "object",
+      "required": false,
+      "properties":{
+        "host":     {"type": "string", "required": true},
+        "password": {"type": "string", "required": true},
+        "port":     {"type": "integer", "required": true}
+      }
+    },
+    "manager": {
+      "type": "object",
+      "required": false,
+      "properties":{
+        "host":     {"type": "string", "required": true},
+        "password": {"type": "string", "required": true},
+        "port":     {"type": "integer", "required": true},
+        "user":     {"type": "string", "required": true}
+      }
+    },
+    "queue_log": {
+      "type": "object",
+      "required": false,
+      "properties": {
+        "adapter":  {"type": "string", "required": true},
+        "database": {"type": "string", "required": true},
+        "host":     {"type": "string", "required": true},
+        "port":     {"type": "integer", "required": true},
+        "table":    {"type": "string", "required": true},
+        "user":     {"type": "string", "required": true}
+      }
+    },
+
+    "general": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "check_upgrade":      {"type": "boolean", "required": true},
+        "debug":              {"type": "boolean", "required": true},
+        "host":               {"type": "string", "required": true},
+        "interval":           {"type": "integer", "required": true},
+        "hide":               {"type": "string", "required": false},
+        "base_url":           {"type": "string", "required": false},
+        "secret_key":         {"type": "string", "required": false},
+        "language":           {"type": "string", "required": true},
+        "freeswitch":         {"type": "boolean", "required": false},
+        "show_service_level": {"type": "boolean", "required": false}
+      }
+    },
+
+    "rename": {
+      "type": "array",
+      "required": false,
+      "items": {
+          "type": "object",
+          "required": true,
+          "properties": {
+            "name":  {"type": "string", "required": true},
+            "value": {"type": "string", "required": true}
+          }
+      }
+    },
+
+    "reset_stats": {
+      "type": "array",
+      "required": false,
+      "items": {
+          "type": "object",
+          "required": true,
+          "properties": {
+            "name":  {"type": "string", "required": true},
+            "value": {"type": "string", "required": true}
+          }
+      }
+    }
+  },
+  "additionalProperties": false
+}

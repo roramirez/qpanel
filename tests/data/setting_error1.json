@@ -1,0 +1,44 @@
+{
+     "freeswitch": {
+          "host": "1",
+          "password": "1",
+          "port": 1
+     },
+     "general": {
+          "check_upgrade": 1,
+          "debug": true,
+          "freeswitch": false,
+          "hide": "1",
+          "host": "0.0.0.0",
+          "interval": 5,
+          "language": "1",
+          "otr": "1",
+          "port": "1",
+          "rename": null,
+          "secret_key": "1",
+          "show_service_level": true,
+          "useme": "1"
+     },
+     "manager": {
+          "host": "localhost",
+          "password": "123456",
+          "port": 5438,
+          "user": "rodrigo"
+     },
+
+     "rename": [{
+          "name": "support",
+          "value": "Soporte"
+     }, {
+          "name": "default",
+          "value": "Entrada"
+     }],
+
+     "reset_stats": [{
+          "name": "queuename",
+          "value": "daily, 00:00:00"
+     }, {
+          "name": "queuename1",
+          "value": "sun, 00:00:00"
+     }]
+}

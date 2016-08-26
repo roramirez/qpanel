@@ -2,7 +2,8 @@ import shutil
 import tempfile
 from os import path
 import unittest
-from libs.qpanel.upgrader import __first_line as firstline, get_current_version
+from libs.qpanel.upgrader import __first_line as firstline,\
+        get_current_version, check_require_upgrade
 
 
 class UpgradeTestClass(unittest.TestCase):
@@ -27,6 +28,15 @@ class UpgradeTestClass(unittest.TestCase):
         f.write(version)
         f.close()
         self.assertEqual(get_current_version(version_file), version)
+        self.assertNotEqual(get_current_version(version_file), '0.11.0')
+
+    def test_check_require_upgrade(self):
+        stable = '0.10'
+        current = '0.9'
+        dev = '1.11.0'
+
+        self.assertEqual(check_require_upgrade(dev, stable), False)
+        self.assertEqual(check_require_upgrade(current, stable), True)
 
 
 # runs the unit tests

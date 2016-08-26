@@ -1,0 +1,154 @@
+
+{% extends 'base.html' %}
+
+
+    {% block title %}
+    QPanel - {{ _('Stats') }} {{name}}
+    {% endblock %}
+
+      {% block main %}
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/jquery.datetimepicker.css')}}">
+
+      <section id="main-content" style="margin-left: 0px;">
+
+          <section class="wrapper">
+              <h3><i class="fa fa-angle-right"></i> 
+                {{ name }}
+              </h3>
+              <div class="row col-lg-10 form-inline">
+        {{ _('From:') }} <input id="from_date" type="text"  class="form-control" value="{{from_date}}">
+        {{ _('To:') }} <input id="to_date" type="text" class="form-control" value="{{to_date}}">
+                  <select id="queue" class="form-control logout">
+                            {% for queue in queues %}
+                            <option value="{{queue}}">
+                                {{ queue }}
+                            </option>
+                            {% endfor %}
+                        </select>
+             <button type="button" id="get_atentions" class="btn btn-primary"> {{ _('Stats') }}</button>
+             </div>
+
+
+              <div class="row">
+                  <div class="col-lg-12 main-chart">
+
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2 col-md-offset-0 box0">
+                            <div class="box1">
+                                <span class="">{{ _('Inbound') }}</span>
+                                <h3><span id="inbound"></span></h3>
+                            </div>
+                            <p>{{ _('Total incomming calls') }}.</p>
+                        </div>
+
+                        <div class="col-md-2 col-sm-2 box0">
+                            <div class="box1">
+
+                                <span class="">{{ _('Answered') }}</span>
+                                <h3><span class="label label-default" id="n_answered"></span></h3>
+                                <h3><span class="label label-info" id="p_answered"></span></h3>
+                            </div>
+                            <p>{{ _('Attended calls.') }}</p>
+                        </div>
+                        <div class="col-md-2 col-sm-2 box0">
+                            <div class="box1">
+                                 <span class="">{{ _('Abandoned') }}</span>
+                                <h3><span class="label label-default" id="n_abandoned"></span></h3>
+                                <h3><span class="label label-info" id="p_abandoned"></span></h3>
+                            </div>
+                            <p>{{ _('Calls not attended by agents.') }}</p>
+                        </div>
+                        <div class="col-md-2 col-sm-2 box0">
+                            <div class="box1">
+                                <span class="">{{ _('Av. time') }}</span>
+                                <h3><span id="av_wait_answered"></span></h3>
+                            </div>
+                            <p>{{ _('Average time for answered calls.') }}</p>
+                        </div>
+                        <div class="col-md-2 col-sm-2 box0">
+                            <div class="box1">
+                                <span class="">{{ _('Av. Wait') }}</span>
+                                <h3><span id="av_wait_abandoned"></span></h3>
+                            </div>
+                            <p>{{ _('Average time waiting for calls.') }}</p>
+                        </div>
+                    </div><!-- /row mt -->
+
+          </section>
+        </section>
+
+
+      {% endblock %}
+
+
+    {% block script_end %}
+    <script src="{{url_for('static', filename='js/jquery.datetimepicker.full.min.js')}}" type="text/javascript"></script>
+    <script src="{{url_for('static', filename='js/custom-datetimepicker.js')}}" type="text/javascript"></script>
+
+    <script type="application/javascript">
+        $(document).ready(function () {
+            getDataQueue(); //load data on page ready :)
+        });
+
+        // parse data and put values on view
+        function parseDataQueue(data){
+
+          $('#inbound').html(data.values.inbound );
+          $('#n_answered').html(data.values.answered);
+          $('#n_abandoned').html(data.values.count_abandon);
+
+          var p_answered = Math.round(data.values.answered  * 100  /data.values.inbound);
+          if (isNaN(p_answered))
+              p_answered = 0;
+          $('#p_answered').html(p_answered +'%');
+
+          var p_abandoned = Math.round(data.values.count_abandon  * 100  /data.values.inbound) ;
+          if (isNaN(p_abandoned))
+              p_abandoned = 0;
+          $('#p_abandoned').html(p_abandoned + '%');
+
+          var av_wait_answered = parseInt(data.values.seconds_wait / data.values.answered);
+          if (isNaN(av_wait_answered))
+                  av_wait_answered = 0;
+          $('#av_wait_answered').html(av_wait_answered.toString().toMMSS());
+
+          var av_wait_abandoned = parseInt(data.values.seconds_wait_abandon / data.values.count_abandon);
+          if (isNaN(av_wait_abandoned))
+                av_wait_abandoned = 0;
+          $('#av_wait_abandoned').html(av_wait_abandoned.toString().toMMSS());
+        }
+
+        function getDataQueue() {
+            var result;
+            var r = $.ajax({
+                type: 'GET',
+                url: '{{url_for('.stats_json', name=name, from_date=from_date, to_date=to_date)}}'
+            });
+            r.done(function (response) {
+                if (response) {
+                    result = response;
+                    parseDataQueue(result);
+                }
+            });
+            r.fail(function (response) {
+            });
+
+            r.always(function () {
+            });
+        }
+
+        $('#queue').val('{{name}}')
+
+        $('#get_atentions').on('click', function (e) {
+            var queue = $('#queue').val();
+            var from_date= $('#from_date').val();
+            var to_date = $('#to_date').val();
+            url_history = '{{url_for('.stats')}}' + '/'+ queue + '/' + from_date + '/' + to_date;
+            window.location.href = url_history;
+        });
+
+    </script>
+
+
+
+    {% endblock %}
