@@ -18,6 +18,8 @@ Qpanel is a panel for queues on Asterisk and FreeSWITCH, powerful and simple mon
 * Allows rename the queue name or hide in case if required not show a determined queue.
 * Show callers by queue with the priority and wait time.
 * Spy, Whisper and Barge for agents on queues.
+* Show service level of queues
+* Hangup incomming calls
 * Authentication Access.
 * Simple configuration. Just use Asterisk manager.
 * Multi languages availables: English, Spanish, German, Russian and Portuguese.
