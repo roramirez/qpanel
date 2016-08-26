@@ -5,7 +5,6 @@
 #
 import ConfigParser
 import os
-import sys
 from distutils.util import strtobool
 
 

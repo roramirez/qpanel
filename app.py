@@ -15,7 +15,7 @@ import logging
 from flask_babel import Babel, gettext
 import flask_login
 
-from libs.qpanel.upgrader import *
+from libs.qpanel import upgrader
 import libs.qpanel.utils as uqpanel
 
 from libs.qpanel.config import QPanelConfig
@@ -222,7 +222,7 @@ def utility_processor():
 @app.context_processor
 def utility_processor():
     def current_version():
-        return get_current_version()
+        return upgrader.get_current_version()
     return dict(current_version=current_version)
 
 
@@ -290,15 +290,15 @@ def language(language=None):
 def check_new_version():
     need_upgrade = False
     try:
-        if require_upgrade():
+        if upgrader.require_upgrade():
             need_upgrade = True
     except:
         pass
 
     return jsonify(
         require_upgrade=need_upgrade,
-        current_version=get_current_version(),
-        last_stable_version=get_stable_version()
+        current_version=upgrader.get_current_version(),
+        last_stable_version=upgrader.get_stable_version()
     )
 
 
