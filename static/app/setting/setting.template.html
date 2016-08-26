@@ -136,7 +136,7 @@
                                 <ul class="resets list-group">
                                     <div ng-repeat="(key, prop) in $ctrl.settings.reset_stats track by key">
                                         <li class="list-group-item">
-                                            <input type="input" ng-model="$ctrl.settings.reset_stats[key].name">
+                                            <input type="input" ng-model="$ctrl.settings.reset_stats[key].name" placeholder="Queue name">
                                             <input type="input" ng-model="$ctrl.settings.reset_stats[key].value">
                                             <button class="btn btn-primary btn-sm glyphicon glyphicon-minus-sign" ng-click="$ctrl.addRemoveResetStats(key)"></button>
                                         </li>
@@ -157,8 +157,8 @@
                                 <ul class="renames list-group">
                                     <div ng-repeat="(key, prop) in $ctrl.settings.rename track by key">
                                         <li class="list-group-item">
-                                            <input type="input" ng-model="$ctrl.settings.rename[key].name">
-                                            <input type="input" ng-model="$ctrl.settings.rename[key].value">
+                                            <input type="input" ng-model="$ctrl.settings.rename[key].name" placeholder="Original name">
+                                            <input type="input" ng-model="$ctrl.settings.rename[key].value" placeholder="Rename to">
                                             <button class="btn btn-primary btn-sm glyphicon glyphicon-minus-sign" ng-click="$ctrl.addRemoveRename(key)"></button>
 
                                         </li>
