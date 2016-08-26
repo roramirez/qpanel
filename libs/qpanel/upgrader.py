@@ -4,18 +4,21 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-from urllib2 import Request, urlopen
+import requests
 from distutils.version import LooseVersion
 
 BRANCH = 'stable'
 REPO = 'git@github.com:roramirez/qpanel.git'
-URL_STABLE_VERSION = 'https://raw.githubusercontent.com/roramirez/qpanel' + \
-                     '/%s/VERSION' % BRANCH
+URL_STABLE_VERSION = 'https://rodrigoramirez.com/qpanel/version/' + BRANCH
 
 
 def require_upgrade():
-    a = LooseVersion(get_current_version())
-    b = LooseVersion(get_stable_version())
+    return check_require_upgrade(get_current_version(), get_stable_version())
+
+
+def check_require_upgrade(current, stable):
+    a = LooseVersion(current)
+    b = LooseVersion(stable)
     if a < b:
         return True
     return False
@@ -37,10 +40,9 @@ def get_stable_version(url=URL_STABLE_VERSION):
 
 
 def __get_data_url(url):
-    req = Request(url)
+    req = requests.get(url)
     try:
-        response = urlopen(req)
-        return response.read()
+        return req.text
     except:
         return None
 
@@ -48,7 +50,7 @@ def __get_data_url(url):
 def __first_line(content):
     tmp = ''
     if content is not None:
-        tmp = content.split('\n')
+        tmp = content.splitlines()
     if len(tmp) >= 1:
         return tmp[0]
     return tmp

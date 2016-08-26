@@ -1,46 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Rodrigo Ramírez Norambuena">
-    <meta name="keyword" content="Dashboard, Panel, Queue, app_queue, Asterisk">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+{% extends 'base.html' %}
+{% block title %} QPanel - {{ name }} {% endblock %}
 
-    <title>QPanel - {{ name }}</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <!--external css-->
-    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lineicons/style.css') }}">
-
-    <!-- Custom styles for this template -->
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/style-responsive.css') }}" rel="stylesheet">
-
-    <script src="{{ url_for('static', filename='js/chart-master/Chart.js') }}"></script>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-  <section id="container" class="sidebar-closed">
-      <!--
-          TOP BAR CONTENT & NOTIFICATIONS
-        -->
-      {% include 'header.html' %}
-
-      <!--sidebar start-->
-      <aside>
-      </aside>
-      <!--sidebar end-->
-
+    {% block main %}
       <!--main content start-->
       <section id="main-content" style="margin-left: 0px;">
 
@@ -69,7 +30,10 @@
                                   <th><i class="fa fa-plug"></i> {{ _('Interface') }}</th>
                                   <th><i class=" fa fa-question-circle "></i> {{ _('Status') }}</th>
                                   <th><i class="fa fa-bookmark"></i> <span data-toggle="tooltip" data-placement="left" title="{{ _('Attend calls') }}"></i> {{ _('Calls') }}</span></th>
-                                  <th><i class="fa fa-clock-o"></i> {{ _('Last call at') }}</th>
+                                  <th><i class="fa fa-clock-o"></i> {{ _('Last call at') }}</th>
+
+                                  <th><i class="fa fa-action-o"></i> {{_('Actions')}}</th>
+
                               </tr>
                               </thead>
                               <tbody>
@@ -83,6 +47,12 @@
                                     </span>
                                   <td id="calls">{{ agent.CallsTaken }}</td>
                                   <td id="last_call">{{ agent.LastCall }}</td>
+                                  <td id="actions" data-channel="{{ agent.StateInterface }}">
+                                    <a href="#" data-action="spy">{{ _('Spy') }}</a> |
+                                    <a href="#" data-action="whisper">{{ _('Whisper') }}</a> |
+                                    <a href="#" data-action="barge">{{ _('Barge') }}</a> |
+                                    <button data-queue="{{ name }}" class="remove-queue">{{ _('Remove from queue') }}</button>
+                                  </td>
                               </tr>
                               {% endfor %}
                               </tbody>
@@ -110,6 +80,9 @@
                                   <td class="hidden-phone">{{ caller.CallerIDNum }}</td>
                                   <td id="position">{{ caller.Position }}</td>
                                   <td id="wait">{{ caller.Wait }}</td>
+                                      <button class="btn btn-danger btn-xs" id="stop-call">
+                                          <i class="fa fa-ban"></i>
+                                      </button>
                               </tr>
                               {% endfor %}
                               </tbody>
@@ -120,19 +93,39 @@
           </section>
       </section>
 
-      <!--main content end-->
-      {% include 'footer.html' %}
-  </section>
+    <!-- Modal spy and whisper -->
+    <div id="spy_whisperk" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="swModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> 
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="col-lg-2">
+                    <h4><i class="fa fa-headphones fa-5x"></i> </h4>
+                </div>
+                <div class="col-lg-10">
+                    <br/>
+                    <p>{{ _('Insert where  you listen the call, example: <i>SIP/1001</i>')}}</p>
+                    <div class="input-group">
+                        <input id="to_exten" type="text" class="form-control" value="">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" id="execute-action" data-action="" data-channel=""  title="{{_('Listen ')}}"></button>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <label class="modal-message"></label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+         </div>
+    </div>
+    <!-- End Modal spy and whisper -->
+    {% endblock %}
 
-    <!-- js placed at the end of the document so the pages load faster -->
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.scrollTo.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.nicescroll.js') }}" type="text/javascript"></script>
-
-    <!--common script for all pages-->
-    <script src="{{ url_for('static', filename='js/common-scripts.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
-
+    {% block script_end %}
     <script type="application/javascript">
         $(document).ready(function () {
             getDataQueue(); //load data on page ready :)
@@ -197,13 +190,21 @@
                          + data.members[agent].Status.toStrStatusAgent()
                          + '</span></td>'
                          + '<td id="calls">'+ data.members[agent].CallsTaken +'</td>'
-                         + '<td id="last_call"></td></tr>';
+                         + '<td id="last_call"></td>'
+                         + '<td id="actions" data-channel="' + data.members[agent].StateInterface + '">'
+                         +      '<a href="#" data-action="spy">{{ _('Spy') }}</a> |'
+                         +      '<a href="#" data-action="whisper">{{ _('Whisper') }}</a> |'
+                         +      '<a href="#" data-action="barge">{{ _('Barge') }}</a> |'
+                         +      '<button data-queue="{{ name }}" class="remove-queue">{{ _('Remove from queue') }}</button>'
+                         + '</td>'
+                         + '</tr>';
 
                 if ($('#agents tbody tr:last').length > 0){
                     $('#agents tbody tr:last').after(tr);
                 } else {
                     $('#agents tbody').append(tr);
                 }
+                addLabelDivStatusAgent($('#agent-' + agent_id_div + ' #status .state'));
             }
 
             agents_ids.push(agent_id_div);
@@ -222,7 +223,13 @@
                         + c.CallerIDName + '</td>'
                         + '<td>' + c.CallerIDNum + '</td>'
                         + '<td id="position">'  + c.Position + '</td>'
-                        + '<td id="wait">' + c.WaitAgo + '</td></tr>'
+                        + '<td id="wait">' + c.WaitAgo
+                        +    '<button class="btn btn-danger btn-xs" id="stop-call">'
+                        +       '<i class="fa fa-ban"></i>'
+                        +     '</button>'
+                        + '</td>'
+                        + '</tr>'
+
 
               if ($('#callers tbody tr:last').length > 0){
                 $('#callers tbody tr:last').after(tr);
@@ -272,8 +279,150 @@
             r.always(function () {
             });
         }
-    </script>
 
-    {% include 'i18n_js.html' %}
-  </body>
-</html>
+
+        //handle show modal for Spy and Whisper
+        $('#actions* a').not('.remove-queue').on('click', function() {
+            var action = $(this).data('action');
+            channel = $(this.closest('td')).data('channel');
+            $('#spy_whisperk #execute-action').data('channel', channel);
+            $('#spy_whisperk #execute-action').data('action', action);
+            $('#spy_whisperk #execute-action').html(action);
+            $('#spy_whisperk .modal-header h4').html('{{_('Execute a ')}}' + action);
+            $('#spy_whisperk').modal();
+        });
+        var r=null;
+        $('#execute-action').on('click', function() {
+            var to_exten = $('#spy_whisperk  #to_exten').val();
+            if (to_exten == "") {
+                $('.modal-message').html('{{_('Insert where do need listen')}}');
+                $('.modal-message').addClass('has-error')
+                return 0;
+            }
+
+            $('.modal-message').removeClass('has-error');
+            $('.modal-message').html('{{_('Try...')}}');
+
+            $('#execute-action').prop("disabled", true);
+
+            var channel = $(this).data('channel');
+            var action = $(this).data('action');
+
+            console.log("do a %s to channel %s", action, channel);
+
+            var url_action = ''
+            if (action == 'spy') {
+                url_action = '{{url_for('.spy')}}';
+            } else if (action == 'whisper') {
+                url_action = '{{url_for('.whisper')}}';
+            } else if (action == 'barge') {
+                url_action = '{{url_for('.barge')}}';
+            }
+            var r = $.ajax({
+                type: 'post',
+                url: url_action,
+                data: {channel: channel, to_exten: to_exten}
+            });
+            r.done(function (response) {
+                if (response) {
+                    var status = response.result.Response;
+                    console.log(status);
+                    if (status == 'failed') {
+                        $('.modal-message').html("Failed:" +  response.result.Message);
+                        $('.modal-message').addClass('has-error')
+                    } else {
+                        $('.modal-message').html(response.result.Message);
+                        $('.modal-message').removeClass('has-error')
+                    }
+                }
+            });
+            r.fail(function (response) {
+                console.log(response);
+            });
+
+            r.always(function () {
+                $('#execute-action').prop("disabled", false);
+            });
+        });
+
+
+
+        $('#stop-call').on('click', function() {
+            var tr = $(this).closest("tr");
+            var uniqueid = tr.data('uniqueid');
+            console.log('stop call %s...', uniqueid );
+            button = $(this);
+            $('.message-hangup').remove();
+
+            var r = $.ajax({
+                type: 'post',
+                url: '/hangup',
+                data: {channel: uniqueid}
+            });
+            r.done(function (response) {
+                if (response) {
+                    console.log(response.result.Response);
+                    msg = '<span class="btn btn-xs message-hangup">'
+                        + response.result.Message + '</span>';
+
+                    $(button).after(msg);
+                    var status = response.result.Response;
+                    console.log(status);
+                    if (status == 'failed') {
+                        $('.message-hangup').addClass('btn-danger');
+                    } else {
+                        $('.message-hangup').addClass('btn-success');
+                        setTimeout(function() { tr.remove(); }, 1000);
+                        var total_callers = (parseInt($('#total_callers').html()) - 1);
+                        $('#total_callers').html("{total}".format({total:  total_callers}));
+                    }
+                }
+            });
+            r.fail(function (response) {
+                console.log(response);
+            });
+
+        });
+
+        $('.remove-queue').on('click', function() {
+            var tr = $(this).closest("tr");
+            var queue = $(this).data('queue');
+            var agent = $(this.closest('td')).data('channel');
+
+            console.log('remove agent  %s from %s', agent, queue);
+            button = $(this);
+            $('.message-hangup').remove();
+
+            var r = $.ajax({
+                type: 'post',
+                url: '{{ url_for('.remove_from_queue') }}',
+                data: {agent: agent, queue: queue}
+            });
+            r.done(function (response) {
+                if (response) {
+                    console.log(response.result.Response);
+                    msg = '<span class="btn btn-xs message-hangup">'
+                        + response.result.Message + '</span>';
+
+                    $(button).after(msg);
+                    var status = response.result.Response;
+                    console.log(status);
+                    if (status == 'failed') {
+                        $('.message-hangup').addClass('btn-danger');
+                    } else {
+                        $('.message-hangup').addClass('btn-success');
+                        setTimeout(function() { tr.remove(); }, 1000);
+                        var total_agents = (parseInt($('#total_agent').html()) - 1);
+                        $('#total_agent').html("{total}".format({total:  total_agents}));
+                    }
+                }
+            });
+            r.fail(function (response) {
+                console.log(response);
+            });
+
+        });
+
+
+    </script>
+    {% endblock %}

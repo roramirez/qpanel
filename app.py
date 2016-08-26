@@ -7,27 +7,25 @@
 
 from flask import Flask, render_template, jsonify, redirect,\
     request, session, url_for
-import os
-import sys
-import ConfigParser
-import json
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
+import logging
 
-# babel
-from flask.ext.babel import Babel, gettext, dates, format_timedelta
-from datetime import timedelta
-
-# flask-login
-import flask.ext.login as flask_login
-
-from libs.qpanel.upgrader import *
-import libs.qpanel as qpanel
+from flask_babel import Babel, gettext
+import flask_login
 
 from libs.qpanel.config import QPanelConfig
 from libs.qpanel.backend import Backend
 from libs.qpanel import config_db
+from libs.qpanel import upgrader
+import libs.qpanel.utils as uqpanel
+
+import flask_restless
+import libs.qpanel as qpanel
+if QPanelConfig().has_queuelog_config():
+    from libs.qpanel.model import queuelog_data_queue
+
 
 class User(flask_login.UserMixin):
     pass
@@ -62,6 +60,13 @@ app.secret_key = cfg.secret_key
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
+
+
+# Api
+manager = flask_restless.APIManager(app, session=qpanel.database.session_db)
+manager.create_api(qpanel.model.Calls,
+                   methods=['GET'],
+                   collection_name='calls')
 
 
 def set_data_user(user_config):
@@ -152,11 +157,14 @@ def utility_processor():
             value = 0
         unavailable = [0, 4, 5]
         free = [1]
+        in_call = [10]
 
         if value in unavailable:
             return gettext('unavailable')
         elif value in free:
             return gettext('free')
+        elif value in in_call:
+            return gettext('in call')
         else:
             return gettext('busy')
     return dict(str_status_agent=str_status_agent)
@@ -209,6 +217,20 @@ def utility_processor():
     return dict(is_freeswitch=is_freeswitch)
 
 
+@app.context_processor
+def utility_processor():
+    def config():
+        return cfg
+    return dict(config=config)
+
+
+@app.context_processor
+def utility_processor():
+    def current_version():
+        return upgrader.get_current_version()
+    return dict(current_version=current_version)
+
+
 # ---------------------
 # ---- Routes ---------
 # ---------------------
@@ -241,7 +263,7 @@ def all_queues():
     if backend.is_freeswitch():
         abort(404)
         # Not yet implement
-        #template = 'fs/all_queue.html'
+        # template = 'fs/all_queue.html'
     return render_template(template, queues=data)
 
 
@@ -273,15 +295,15 @@ def language(language=None):
 def check_new_version():
     need_upgrade = False
     try:
-        if require_upgrade():
+        if upgrader.require_upgrade():
             need_upgrade = True
     except:
         pass
 
     return jsonify(
         require_upgrade=need_upgrade,
-        current_version=get_current_version(),
-        last_stable_version=get_stable_version()
+        current_version=upgrader.get_current_version(),
+        last_stable_version=upgrader.get_stable_version()
     )
 
 
@@ -338,10 +360,77 @@ def create_user():
     return jsonify({'user': user.as_dict()}), 201
 
 
+@app.route('/spy', methods=['POST'])
+@flask_login.login_required
+def spy():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.spy(channel, to_exten)
+    return jsonify(result=r)
+
+
+@app.route('/whisper', methods=['POST'])
+@flask_login.login_required
+def whisper():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.whisper(channel, to_exten)
+    return jsonify(result=r)
+
+
+@app.route('/barge', methods=['POST'])
+@flask_login.login_required
+def barge():
+    channel = request.form['channel']
+    to_exten = request.form['to_exten']
+    r = backend.barge(channel, to_exten)
+    return jsonify(result=r)
+
+
+@app.route('/hangup', methods=['POST'])
+@flask_login.login_required
+def hangup_call():
+    channel = request.form['channel']
+    r = backend.hangup(channel)
+    return jsonify(result=r)
+
+
+@app.route('/stats/<from_date>/<to_date>/<name>.json')
+def stats_json(name, from_date, to_date):
+    real_name = uqpanel.realname_queue_rename(name)
+    queue_values = queuelog_data_queue(from_date, to_date, None, real_name)
+    data = get_data_queues(name)
+    return jsonify(name=name, data=data, values=queue_values)
+
+
+@app.route('/stats', defaults={'name': None, 'from_date': uqpanel.init_day(),
+                               'to_date': uqpanel.end_day()})
+@app.route('/stats/<name>/<from_date>/<to_date>')
+def stats(name, from_date, to_date):
+    queues = get_data_queues()
+    if name is None:
+        name = uqpanel.first_data_dict(queues)
+    try:
+        data = queues[name]
+    except:
+        data = {}
+    return render_template('stats.html', data=data, queues=queues,  name=name,
+                           from_date=from_date, to_date=to_date)
+
+
+@app.route('/remove_from_queue', methods=['POST'])
+@flask_login.login_required
+def remove_from_queue():
+    queue = request.form['queue']
+    agent = request.form['agent']
+    r = backend.remove_from_queue(agent, queue)
+    return jsonify(result=r)
+
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------
-if __name__ == '__main__':
+def main():
 
     if cfg.is_debug:
         app.config['DEBUG'] = True
@@ -355,3 +444,7 @@ if __name__ == '__main__':
         })
         run_simple(cfg.host_bind, cfg.port_bind, application,
                    use_reloader=True, extra_files=[cfg.path_config_file])
+
+
+if __name__ == '__main__':
+    main()

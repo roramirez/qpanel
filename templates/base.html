@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Rodrigo Ramírez Norambuena">
+    <meta name="keyword" content="Dashboard, Panel, Queue, app_queue, Asterisk">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+    <title>
+        {% block title %}
+        QPanel
+        {% endblock %}
+    </title>
+
+
+    {% block css_head %}
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!--external css-->
+    <link href="{{ url_for('static', filename='components/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lineicons/style.css') }}">
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style-responsive.css') }}" rel="stylesheet">
+    {% endblock %}
+
+
+    {% block js_head %}
+    <script src="{{ url_for('static', filename='components/Chart.js/Chart.js') }}"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {% endblock %}
+
+  {% endblock %}
+  </head>
+
+ {% block body %}
+  <body>
+
+  <section id="container" class="sidebar-closed">
+      {% include 'header.html' %}
+      <!--sidebar start-->
+      <aside>
+      </aside>
+      <!--sidebar end-->
+
+      <!--main content start-->
+      {% block main %}
+
+      {% endblock %}
+      <!--main content end-->
+      {% include 'footer.html' %}
+  </section>
+
+
+    {% block tail_js %}
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{{ url_for('static', filename='components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/jquery.scrollTo/jquery.scrollTo.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/jquery.nicescroll/jquery.nicescroll.js') }}" type="text/javascript"></script>
+
+    <!--common script for all pages-->
+    <script src="{{ url_for('static', filename='js/common-scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    {% endblock %}
+
+
+    {% block script_end %}
+    {% endblock %}
+
+    {% include 'i18n_js.html' %}
+
+  </body>
+ {% endblock %}
+</html>
