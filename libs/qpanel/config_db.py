@@ -219,6 +219,7 @@ def config_for_response(section=None):
 
 def update_config_from_dict(data):
     data = parser_config_from_dict(data)
+    clean_multi_config(data)
     for section in data:
         for cfg in data[section]:
             value = data[section][cfg]
@@ -232,6 +233,13 @@ def update_config_from_dict(data):
             else:
                 c.update({'value': value})
                 session_dbconfig.commit()
+
+
+def clean_multi_config(data):
+    for k, v in settings.schema_settings['properties'].items():
+        if v['type'] == 'array':
+            if k in data.keys():
+                Config.query.filter(Config.namespace == k).delete()
 
 
 event.listen(User.__table__, "after_create", User.add_data)

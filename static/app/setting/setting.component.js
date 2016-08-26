@@ -20,6 +20,16 @@ angular.
             self.settings.rename.push({'name': null, 'value': null});
         }
 
+        self.addRemoveRename = function(index) {
+            self.settings.rename.splice(index, 1);
+            delete self.settings.rename[index];
+        }
+
+        self.addRemoveResetStats = function(index) {
+            self.settings.reset_stats.splice(index, 1);
+            delete self.reset_stats.rename[index];
+        }
+
         self.save = function save() {
             self.settings.$save();
         };

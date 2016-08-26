@@ -42,6 +42,7 @@
                                     <li class="list-group-item">
                                         <input type="input" ng-model="$ctrl.settings.rename[key].name">
                                         <input type="input" ng-model="$ctrl.settings.rename[key].value">
+                                        <button class="btn btn-primary btn-sm glyphicon glyphicon-minus-sign" ng-click="$ctrl.addRemoveRename(key)"></button>
 
                                     </li>
                                 </div>
@@ -115,6 +116,7 @@
                                     <li class="list-group-item">
                                         <input type="input" ng-model="$ctrl.settings.reset_stats[key].name">
                                         <input type="input" ng-model="$ctrl.settings.reset_stats[key].value">
+                                        <button class="btn btn-primary btn-sm glyphicon glyphicon-minus-sign" ng-click="$ctrl.addRemoveResetStats(key)"></button>
                                     </li>
                                 </div>
                             </ul>
