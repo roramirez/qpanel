@@ -211,10 +211,10 @@ def response_parser_config_from_schema(data, schema):
 
 
 def config_for_response(section=None):
-   schema = settings.schema_settings
-   data = get_settings(section)
-   data = response_parser_config_from_schema(data, schema)
-   return utils.casting_from_schema(data, schema)
+    schema = settings.schema_settings
+    data = get_settings(section)
+    data = response_parser_config_from_schema(data, schema)
+    return utils.casting_from_schema(data, schema)
 
 
 def update_config_from_dict(data):
