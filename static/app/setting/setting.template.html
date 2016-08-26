@@ -22,6 +22,17 @@
                                     <input type="number" class="form-control" id="interval" ng-model="$ctrl.settings.general.interval">
                                 </div>
                                 <div class="form-group">
+                                    <label for="base_url">Default Language:</label>
+                                    <select ng-model="$ctrl.settings.general.language" id="general_language" class="form-control">
+                                        <option value=""></option>
+                                        <option value="en">English</option>
+                                        <option value="es">Spanish</option>
+                                        <option value="de">German</option>
+                                        <option value="ru">Russian</option>
+                                        <option value="pt_BR">Portuguese</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="base_url">Base URL:</label>
                                     <input type="text" class="form-control" id="base_url" ng-model="$ctrl.settings.general.base_url">
                                 </div>
