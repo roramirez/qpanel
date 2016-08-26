@@ -6,7 +6,7 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-import Asterisk.Manager
+from Asterisk.Manager import *
 
 
 class ConnectionErrorAMI(Exception):
@@ -33,8 +33,7 @@ class AsteriskAMI:
 
     def connect_ami(self):
         try:
-            manager = Asterisk.Manager((self.host, self.port),
-                                       self.user, self.password)
+            manager = Manager((self.host, self.port), self.user, self.password)
             return manager
         except:
             return None
@@ -86,7 +85,7 @@ class AsteriskAMI:
                                              async='yes')
         except Asterisk.Manager.ActionFailed, msg:
             return {'Response': 'failed', 'Message': str(msg)}
-        except Asterisk.Manager.PermissionDenied, msg:
+        except PermissionDenied, msg:
             return {'Response': 'failed', 'Message': 'Permission Denied'}
 
     def hangup(self, channel):
@@ -107,7 +106,7 @@ class AsteriskAMI:
             return self.connection.Hangup(channel)
         except Asterisk.Manager.ActionFailed, msg:
             return {'Response': 'failed', 'Message': str(msg)}
-        except Asterisk.Manager.PermissionDenied, msg:
+        except PermissionDenied, msg:
             return {'Response': 'failed', 'Message': 'Permission Denied'}
 
     def isConnected(self):
@@ -134,5 +133,5 @@ class AsteriskAMI:
             return self.connection.QueueRemove(queue, agent)
         except Asterisk.Manager.ActionFailed, msg:
             return {'Response': 'failed', 'Message': str(msg)}
-        except Asterisk.Manager.PermissionDenied, msg:
+        except PermissionDenied, msg:
             return {'Response': 'failed', 'Message': 'Permission Denied'}
