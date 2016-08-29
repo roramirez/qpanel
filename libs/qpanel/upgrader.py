@@ -6,11 +6,16 @@
 
 import requests
 from distutils.version import LooseVersion
+import os
+import sys
+
+dirname, filename = os.path.split(os.path.abspath(__file__))
+ROOT_PATH = os.path.join(dirname, os.pardir, os.pardir)
 
 BRANCH = 'stable'
 REPO = 'git@github.com:roramirez/qpanel.git'
 URL_STABLE_VERSION = 'https://rodrigoramirez.com/qpanel/version/' + BRANCH
-
+VERSION_FILE = os.path.join(ROOT_PATH, 'VERSION')
 
 def require_upgrade():
     return check_require_upgrade(get_current_version(), get_stable_version())
@@ -29,7 +34,7 @@ def last_check_update():
     return True
 
 
-def get_current_version(version_file='VERSION'):
+def get_current_version(version_file=VERSION_FILE):
     current_version = open(version_file)
     return __first_line(current_version.read())
 
