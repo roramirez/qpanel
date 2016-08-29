@@ -19,6 +19,10 @@ There configs samples:
  * site-apache2.conf: Virtualhost configuration for Apache2
  * uwsgi-qpanel.ini: Config app into uwsgi, some times you need add into /etc/uwsgi/apps-enabled
 
+
+## Apache2 + WSGI
+ * site-apache2-wsgi.conf: Virtualhost config for Apache using wsgi script
+
 ### Trouble?
 
 ### No plugin loaded
