@@ -7,7 +7,7 @@ There some samples configs.
 manager_asterisk.conf: Example config for Asterisk manager for used with QPanel
 
 
-## Nginx + UWSGI
+## Nginx or Apache + UWSGI
 
 If you like deploy system like a service without run like python app.py
 
@@ -16,6 +16,7 @@ Can you use a Nginx + UWSGI
 There configs samples:
 
  * site-nginx.config: Virtualhost config for Nginx
+ * site-apache2.conf: Virtualhost configuration for Apache2
  * uwsgi-qpanel.ini: Config app into uwsgi, some times you need add into /etc/uwsgi/apps-enabled
 
 ### Trouble?
