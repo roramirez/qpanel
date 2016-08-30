@@ -66,8 +66,14 @@ def remove_jobs_not_config():
     for job in jobs:
         if 'reset_stats_queue' in job.func_name:
             q = job.args[0]
-            if q not in queue_for_reset.keys():
-                job.delete()
+            delete = True
+            for qr in queue_for_reset:
+                if queue_for_reset.has_key(qr):
+                    if (queue_for_reset[qr]['when'] == job.args[1] and
+                        queue_for_reset[qr]['hour'] == job.args[2]):
+                        delete = False
+                if delete:
+                    job.delete()
 
 
 def enqueue_reset_stats():
