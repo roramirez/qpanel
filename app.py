@@ -382,6 +382,7 @@ def main():
 
     if cfg.is_debug:
         app.config['DEBUG'] = True
+        uqpanel.add_debug_toolbar(app)
 
     if APPLICATION_ROOT == '/':
         app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=True,
