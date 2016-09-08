@@ -12,6 +12,12 @@ import datetime
 import time
 from rq import Connection, Worker
 
+def check_connect_redis():
+    try:
+        Redis().echo("Check connection")
+        return True
+    except:
+        return False
 
 def reset_stats_queue(queuename, when, hour):
     '''

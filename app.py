@@ -338,10 +338,15 @@ def barge():
 # ---------------------
 def main():
 
-    rq_worker.start_jobs()
-
     if cfg.is_debug:
         app.config['DEBUG'] = True
+
+    if cfg.queues_for_reset_stats():
+        if job.check_connect_redis():
+            rq_worker.start_jobs()
+        else:
+            print("Error: There not connection to Redis")
+            print("       Reset stats will not work\n")
 
     if APPLICATION_ROOT == '/':
         app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=True,
