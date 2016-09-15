@@ -6,12 +6,6 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-import os
-import sys
-# get current names for directory and file
-dirname, filename = os.path.split(os.path.abspath(__file__))
-# py-asterisk
-sys.path.append(os.path.join(dirname, os.pardir, 'py-asterisk'))
 from Asterisk.Manager import *
 
 
@@ -80,20 +74,19 @@ class AsteriskAMI:
                                              'Message': str(msg)}
         '''
 
-        out = []
         options = ',q'
         if option:
             options = options + option
         try:
             # create a originate call for Spy a exten
-            return self.connection.Originate(where_listen, application = 'ChanSpy',
-                                             data = channel + options, async = 'yes')
+            return self.connection.Originate(where_listen,
+                                             application='ChanSpy',
+                                             data=channel + options,
+                                             async='yes')
         except Asterisk.Manager.ActionFailed, msg:
-            return  {'Response': 'failed', 'Message': str(msg)}
+            return {'Response': 'failed', 'Message': str(msg)}
         except PermissionDenied, msg:
-            return  {'Response': 'failed', 'Message': 'Permission Denied'}
-
-
+            return {'Response': 'failed', 'Message': 'Permission Denied'}
 
     def hangup(self, channel):
         '''Hangup Channel
@@ -112,10 +105,9 @@ class AsteriskAMI:
             # hangup channels
             return self.connection.Hangup(channel)
         except Asterisk.Manager.ActionFailed, msg:
-            return  {'Response': 'failed', 'Message': str(msg)}
+            return {'Response': 'failed', 'Message': str(msg)}
         except PermissionDenied, msg:
-            return  {'Response': 'failed', 'Message': 'Permission Denied'}
-
+            return {'Response': 'failed', 'Message': 'Permission Denied'}
 
     def isConnected(self):
         if not self.connection:
@@ -123,7 +115,6 @@ class AsteriskAMI:
         return True
 
     def remove_from_queue(self, agent, queue):
-
         '''Remove a <agent> from a <queue>
 
         Parameters
@@ -141,6 +132,6 @@ class AsteriskAMI:
         try:
             return self.connection.QueueRemove(queue, agent)
         except Asterisk.Manager.ActionFailed, msg:
-            return  {'Response': 'failed', 'Message': str(msg)}
+            return {'Response': 'failed', 'Message': str(msg)}
         except PermissionDenied, msg:
-            return  {'Response': 'failed', 'Message': 'Permission Denied'}
+            return {'Response': 'failed', 'Message': 'Permission Denied'}

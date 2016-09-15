@@ -1,5 +1,7 @@
 # Qpanel
 
+[![Join the chat at https://gitter.im/qpanel/Lobby](https://badges.gitter.im/qpanel/Lobby.svg)](https://gitter.im/qpanel/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Qpanel is dashboard for Queues in Asterisk and FreeSWITCH
 
 ![Demo](samples/animation.gif)
@@ -16,6 +18,8 @@ Qpanel is a panel for queues on Asterisk and FreeSWITCH, powerful and simple mon
 * Allows rename the queue name or hide in case if required not show a determined queue.
 * Show callers by queue with the priority and wait time.
 * Spy, Whisper and Barge for agents on queues.
+* Show service level of queues
+* Hangup incomming calls
 * Authentication Access.
 * Simple configuration. Just use Asterisk manager.
 * Multi languages availables: English, Spanish, German, Russian and Portuguese.
@@ -98,12 +102,17 @@ If dont have pip in your system. For install
  sudo yum install python-pip
  ```
 
+### Get Javascript, CSS and external web libraries
+Is necessary have installed Node.
+
+ ```
+    npm install
+ ```
+
 
 ##  3. Go and prepair environment
  ```
   cd qpanel
-  git submodule init
-  git submodule update
   cp samples/config.ini-dist config.ini
  ```
   Edit config.ini file with Manager Asterisk parameters

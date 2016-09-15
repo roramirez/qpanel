@@ -6,10 +6,7 @@
 
 from config import QPanelConfig
 from flask_babel import format_timedelta
-from datetime import timedelta
 from utils import timedelta_from_field_dict, realname_queue_rename
-import os
-import sys
 from libs.qpanel.asterisk import *
 # In case use Asterisk dont crash with ESL not in system
 try:
@@ -80,11 +77,18 @@ class Backend(object):
         for q in data:
             for m in data[q]['members']:
                 member = data[q]['members'][m]
-                member['LastBridgeEndAgo'] = format_timedelta(timedelta_from_field_dict('LastBridgeEnd', member), granularity='second')
-                member['LastStatusChangeAgo'] = format_timedelta(timedelta_from_field_dict('LastStatusChange', member), granularity='second')
+                member['LastBridgeEndAgo'] = format_timedelta(
+                    timedelta_from_field_dict('LastBridgeEnd', member),
+                    granularity='second')
+                member['LastStatusChangeAgo'] = format_timedelta(
+                    timedelta_from_field_dict('LastStatusChange', member),
+                    granularity='second')
 
             for c in data[q]['entries']:
-                data[q]['entries'][c]['CreatedEpochAgo'] = format_timedelta(timedelta_from_field_dict('CreatedEpoch', data[q]['entries'][c]), granularity='second')
+                data[q]['entries'][c]['CreatedEpochAgo'] = format_timedelta(
+                    timedelta_from_field_dict('CreatedEpoch',
+                                              data[q]['entries'][c]),
+                    granularity='second')
 
         return data
 
@@ -102,9 +106,13 @@ class Backend(object):
                 if 'StateInterface' not in member:
                     member['StateInterface'] = m
 
-                member['LastCallAgo'] = format_timedelta(timedelta_from_field_dict('LastCall', member), granularity='second')
+                member['LastCallAgo'] = format_timedelta(
+                    timedelta_from_field_dict('LastCall', member),
+                    granularity='second')
                 # Time last pause
-                member['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', member), granularity='second')
+                member['LastPauseAgo'] = format_timedelta(
+                    timedelta_from_field_dict('LastPause', member),
+                    granularity='second')
 
                 # introduced in_call flag
                 # asterisk commit 90b06d1a3cc14998cd2083bd0c4c1023c0ca7a1f
@@ -112,7 +120,10 @@ class Backend(object):
                     member['Status'] = "10"
 
             for c in data[q]['entries']:
-                data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c], True), granularity='second')
+                data[q]['entries'][c]['WaitAgo'] = format_timedelta(
+                    timedelta_from_field_dict('Wait',
+                                              data[q]['entries'][c], True),
+                    granularity='second')
 
         return data
 

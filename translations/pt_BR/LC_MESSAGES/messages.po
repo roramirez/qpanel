@@ -29,7 +29,7 @@ msgstr "livre"
 
 #: app.py:161 templates/i18n_js.html:13
 msgid "in call"
-msgstr ""
+msgstr "Em Atendimento"
 
 #: app.py:163 templates/fs/index.html:177 templates/i18n_js.html:17
 #: templates/index.html:181
@@ -38,7 +38,7 @@ msgstr "ocupado"
 
 #: templates/404.html:2
 msgid "Not found"
-msgstr ""
+msgstr "Nao Encontrado"
 
 #: templates/404.html:7
 msgid "404 Not Found"
@@ -50,11 +50,11 @@ msgstr "A requisição não foi encontrada no servidor"
 
 #: templates/all_queues.html:5
 msgid "Consolidated view"
-msgstr ""
+msgstr "Visao Consolidada"
 
 #: templates/all_queues.html:14 templates/header.html:12
 msgid "Consolidate view"
-msgstr ""
+msgstr "Visao Consolidada"
 
 #: templates/all_queues.html:29 templates/fs/queue.html:27
 #: templates/queue.html:25
@@ -160,7 +160,7 @@ msgstr ""
 
 #: templates/header.html:16 templates/stats.html:10 templates/stats.html:61
 msgid "Stats"
-msgstr ""
+msgstr "Estatisticas"
 
 #: templates/i18n_js.html:30
 msgid "Logged Out"

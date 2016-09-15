@@ -1,3 +1,0 @@
-[submodule "libs/py-asterisk"]
-	path = libs/py-asterisk
-	url = https://github.com/jeansch/py-asterisk.git
