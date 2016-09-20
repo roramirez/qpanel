@@ -130,9 +130,16 @@ class Backend(object):
     def hide_queue(self, data):
         tmp_data = {}
         hide = self.config.get_hide_config()
-        for q in data:
-            if q not in hide:
-                tmp_data[q] = data[q]
+        show = self.config.get_show_config()
+        if len(show) == 0:
+            for q in data:
+                if q not in hide:
+                    tmp_data[q] = data[q]
+        else:
+            s = set(show)
+            inter = s & data.viewkeys()
+            tmp_data = {x:data[x] for x in inter if x in data}
+
         return tmp_data
 
     def rename_queue(self, data):

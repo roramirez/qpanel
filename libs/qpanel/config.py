@@ -65,6 +65,13 @@ class QPanelConfig:
         tmp = tmp.replace('\'', '')
         return [s.strip() for s in tmp.split(',')]
 
+    def get_show_config(self):
+        ''' Get show config from config.ini '''
+        tmp = self.__get_entry_ini_default('general', 'show', '')
+        tmp = tmp.replace('\'', '')
+        tmp = [s.strip() for s in tmp.split(',')]
+        return[s for s in tmp if len(s) >= 1]
+
     def __get_entry_ini_default(self, section, var, default):
         try:
             var = self.config.get(section, var)
