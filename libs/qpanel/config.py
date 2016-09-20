@@ -63,7 +63,7 @@ class QPanelConfig:
     def get_hide_config(self):
         tmp = self.__get_entry_ini_default('general', 'hide', '')
         tmp = tmp.replace('\'', '')
-        return tmp.split(',')
+        return [s.strip() for s in tmp.split(',')]
 
     def __get_entry_ini_default(self, section, var, default):
         try:
