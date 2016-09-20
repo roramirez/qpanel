@@ -26,7 +26,7 @@ def parse(file, verbose, lines):
         else:
             nlines = int(lines)
             content = tailer.tail(open(file), nlines)
-        print("Reading file %s ..." % file)
+        print('Reading file %s ...' % file)
 
     except IOError:
         print('File file %s not exits or not can read.' % file)
@@ -39,12 +39,12 @@ def parse(file, verbose, lines):
         if not exist_record(record) and insert_record(record):
             inserted += 1
             if verbose:
-                print ("Insert record ",  record)
+                print ('Insert record ',  record)
         else:
             if verbose:
-                print ("Not insert record ",  record)
+                print ('Not insert record ',  record)
             not_inserted += 1
-    print ("Insert record: %i\nNo inserted record: %i" % (inserted,
+    print ('Insert record: %i\nNo inserted record: %i' % (inserted,
                                                           not_inserted))
 
 

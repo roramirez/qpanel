@@ -45,8 +45,8 @@ class AsteriskAMI:
         if self.connection is None:
             raise ConnectionErrorAMI(
                 "Failed to connect to server at '{}:{}' for user {}\n"
-                "Please check that Asterisk running and accepting AMI "
-                "connections.".format(self.host, self.port, self.user))
+                'Please check that Asterisk running and accepting AMI '
+                'connections.'.format(self.host, self.port, self.user))
 
         cmd = self.connection.QueueStatus()
         return cmd

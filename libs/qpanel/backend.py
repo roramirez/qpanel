@@ -116,8 +116,8 @@ class Backend(object):
 
                 # introduced in_call flag
                 # asterisk commit 90b06d1a3cc14998cd2083bd0c4c1023c0ca7a1f
-                if 'InCall' in member and member['InCall'] == "1":
-                    member['Status'] = "10"
+                if 'InCall' in member and member['InCall'] == '1':
+                    member['Status'] = '10'
 
             for c in data[q]['entries']:
                 data[q]['entries'][c]['WaitAgo'] = format_timedelta(
