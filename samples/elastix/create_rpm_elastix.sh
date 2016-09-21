@@ -39,8 +39,6 @@ else
 fi
 
 cd $CLONE_DIR
-git submodule init
-git submodule update
 pybabel compile -d translations
 
 cd /tmp
