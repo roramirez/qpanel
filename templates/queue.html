@@ -37,7 +37,7 @@
                               </tr>
                               </thead>
                               <tbody>
-                              {% for agent_id, agent in data.members.iteritems() %}
+                              {% for agent_id, agent in data.members.items() %}
                               <tr id="agent-{{ clean_str_to_div_id(agent_id) }}">
                                   <td>{{ agent.Name }}</td>
                                   <td class="hidden-phone">{{ agent.StateInterface }}</td>
@@ -74,7 +74,7 @@
                               </tr>
                               </thead>
                               <tbody>
-                              {% for key, caller in data.entries.iteritems() %}
+                              {% for key, caller in data.entries.items() %}
                               <tr id="caller-{{ caller.Uniqueid }}" data-uniqueid="{{ caller.Uniqueid }}">
                                   <td>{{ caller.CallerIDName }}</td>
                                   <td class="hidden-phone">{{ caller.CallerIDNum }}</td>

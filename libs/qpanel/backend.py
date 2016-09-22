@@ -4,10 +4,13 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-from config import QPanelConfig
+from __future__ import absolute_import
+from __future__ import print_function
+from .config import QPanelConfig
 from flask_babel import format_timedelta
-from utils import timedelta_from_field_dict, realname_queue_rename
+from .utils import timedelta_from_field_dict, realname_queue_rename
 from libs.qpanel.asterisk import *
+import six
 # In case use Asterisk dont crash with ESL not in system
 try:
     from libs.qpanel.freeswitch import *
@@ -58,8 +61,8 @@ class Backend(object):
         self.connection = self._connect()
         try:
             return self.connection.queueStatus()
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print(str(e))
             return {}
 
     def get_data_queues(self):
@@ -137,7 +140,7 @@ class Backend(object):
                     tmp_data[q] = data[q]
         else:
             s = set(show)
-            inter = s & data.viewkeys()
+            inter = s & six.viewkeys(data)
             tmp_data = {x:data[x] for x in inter if x in data}
 
         return tmp_data
@@ -156,8 +159,8 @@ class Backend(object):
         self.connection = self._connect()
         try:
             return self.connection.spy(channel, to_exten, with_whisper)
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print(str(e))
             return {}
 
     def whisper(self, channel, to_exten):
@@ -172,8 +175,8 @@ class Backend(object):
     def hangup(self, channel):
         try:
             return self.connection.hangup(channel)
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print(str(e))
             return {}
 
     def remove_from_queue(self, agent, queue):
@@ -181,6 +184,6 @@ class Backend(object):
         self.connection = self._connect()
         try:
             return self.connection.remove_from_queue(agent, queue)
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print(str(e))
             return {}

@@ -16,7 +16,7 @@ from flask_babel import Babel, gettext
 import flask_login
 
 from libs.qpanel import upgrader
-import libs.qpanel.utils as uqpanel
+from libs.qpanel import utils as uqpanel
 
 from libs.qpanel.config import QPanelConfig
 from libs.qpanel.backend import Backend

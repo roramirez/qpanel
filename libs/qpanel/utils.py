@@ -4,10 +4,11 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-import ConfigParser
+from __future__ import absolute_import
+import six.moves.configparser
 from datetime import timedelta, date, datetime
 import time
-from config import QPanelConfig
+from .config import QPanelConfig
 import calendar
 
 
@@ -31,7 +32,7 @@ def unified_configs(file_config, file_template, sections=[]):
         for i in items:
             try:
                 template.set(s, i, config.get(s, i))
-            except ConfigParser.NoSectionError:
+            except six.moves.configparser.NoSectionError:
                 template.add_section(s)
                 template.set(s, i, config.get(s, i))
 
@@ -75,7 +76,7 @@ def timedelta_from_field_dict(field, dic, current_timestamp=None,
 
 def first_data_dict(data):
     if data:
-        return data.keys()[0]
+        return list(data.keys())[0]
     else:
         return ''
 

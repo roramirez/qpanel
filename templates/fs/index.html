@@ -34,7 +34,7 @@
                       <h1><i class="fa fa-angle-right"></i> {{ _('Queues') }}</h1>
                     </div>
 
-                    {% for queue_name, queue in queues.iteritems() %}
+                    {% for queue_name, queue in queues.items() %}
                         <div class="col-lg-4 col-md-4 col-sm-4 mb project">
                             <div class="weather-2 pn photo-wrapper transparent-background">
                               <a href="{{ url_for('.queue', name=queue_name) }}">

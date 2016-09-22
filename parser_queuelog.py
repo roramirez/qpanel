@@ -6,10 +6,10 @@
 # Parse queue_log Asterisk file and add records into database.
 #
 
-from libs.qpanel import model
-import click
 import sys
 import tailer
+from libs.qpanel import model
+import click
 
 
 @click.command()
@@ -39,13 +39,13 @@ def parse(file, verbose, lines):
         if not exist_record(record) and insert_record(record):
             inserted += 1
             if verbose:
-                print ('Insert record ',  record)
+                print(('Insert record ', record))
         else:
             if verbose:
-                print ('Not insert record ',  record)
+                print(('Not insert record ', record))
             not_inserted += 1
-    print ('Insert record: %i\nNo inserted record: %i' % (inserted,
-                                                          not_inserted))
+    print('Insert record: %i\nNo inserted record: %i' % (inserted,
+                                                         not_inserted))
 
 
 def exist_record(record):

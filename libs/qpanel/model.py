@@ -6,12 +6,14 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
+from __future__ import absolute_import
+from __future__ import print_function
 from sqlalchemy import Table, Column, Integer, Text
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql import exists
-from database import session_db, metadata, DeclarativeBase
-import utils
-from config import QPanelConfig
+from .database import session_db, metadata, DeclarativeBase
+from . import utils
+from .config import QPanelConfig
 
 cfg = QPanelConfig()
 # Class queue_log Table
@@ -65,7 +67,7 @@ def queuelog_event_by_range_and_types(start_date, end_date, events=None,
         if queue:
             q = q.filter(QueueLog.queuename == queue)
         return q.order_by(QueueLog.id.asc()).all()
-    except NoResultFound, e:
+    except NoResultFound as e:
         print(e)
         return None
 
@@ -137,7 +139,7 @@ def parse_list_record(list):
         time = int(list[0])
         record['time'] = utils.dt(time)
     except:
-        print list
+        print(list)
         pass
 
     i = 1
@@ -166,8 +168,8 @@ def queuelog_insert(log):
         session_db.add(qlog)
         session_db.commit()
         return True
-    except Exception, e:
-        print(str(e))
+    except Exception as e:
+        print((str(e)))
         return False
 
 

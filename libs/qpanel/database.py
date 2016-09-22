@@ -6,10 +6,11 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
+from __future__ import absolute_import
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
-from config import QPanelConfig
+from .config import QPanelConfig
 
 
 cfg = QPanelConfig()

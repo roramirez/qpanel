@@ -40,8 +40,8 @@
                               </thead>
                               <tbody>
 
-                            {% for queue_name, queue in queues.iteritems()  %}
-                              {% for agent_id, agent in queue.members.iteritems() %}
+                            {% for queue_name, queue in queues.items()  %}
+                              {% for agent_id, agent in queue.members.items() %}
                               <tr data-queue="{{ queue_name }}" data-agent="{{ clean_str_to_div_id(agent_id) }}">
                                   <td>{{ queue_name }}</td>
                                   <td>{{ agent.Name }}</td>
@@ -76,8 +76,8 @@
                               </tr>
                               </thead>
                               <tbody>
-                            {% for queue_name, queue in queues.iteritems()  %}
-                              {% for callid, caller in queue.entries.iteritems()  %}
+                            {% for queue_name, queue in queues.items()  %}
+                              {% for callid, caller in queue.entries.items()  %}
                               <tr id="caller-{{ caller.Uniqueid }}" data-uniqueid="{{ caller.Uniqueid }}">
                                   <td>{{ queue_name }}</td>
                                   <td>{{ caller.CallerIDName }}</td>
