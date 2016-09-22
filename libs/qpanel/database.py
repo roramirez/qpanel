@@ -19,8 +19,8 @@ engine = create_engine('%s://%s:%s@%s:%s/%s' %
                         cfg.get('queue_log', 'password'),
                         cfg.get('queue_log', 'host'),
                         cfg.get('queue_log', 'port'),
-                        cfg.get('queue_log', 'database')
-                        ), echo=cfg.is_debug, pool_recycle=3600)
+                        cfg.get('queue_log', 'database')),
+                       echo=cfg.is_debug, pool_recycle=3600)
 
 # session
 session_db = scoped_session(sessionmaker(bind=engine,

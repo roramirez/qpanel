@@ -176,11 +176,11 @@ def queuelog_exists_record(log):
         log = parse_list_record(log)
 
     return session_db.query(
-               exists().where(QueueLog.time == log['time']).
-               where(QueueLog.event == log['event']).
-               where(QueueLog.queuename == log['queuename']).
-               where(QueueLog.callid == log['callid'])
-           ).scalar()
+        exists().where(QueueLog.time == log['time']).
+        where(QueueLog.event == log['event']).
+        where(QueueLog.queuename == log['queuename']).
+        where(QueueLog.callid == log['callid'])
+    ).scalar()
 
 
 def queuelog_data_queue(from_date, to_date, agent=None, queue=None):

@@ -21,7 +21,7 @@ def unified_configs(file_config, file_template, sections=[]):
         items = dict(template.items(s))
         for i in items:
             try:
-                template.set(s, i,  config.get(s, i))
+                template.set(s, i, config.get(s, i))
             except:
                 pass
 
@@ -30,10 +30,10 @@ def unified_configs(file_config, file_template, sections=[]):
         items = dict(config.items(s))
         for i in items:
             try:
-                template.set(s, i,  config.get(s, i))
+                template.set(s, i, config.get(s, i))
             except ConfigParser.NoSectionError:
                 template.add_section(s)
-                template.set(s, i,  config.get(s, i))
+                template.set(s, i, config.get(s, i))
 
     file = open(file_config, 'wr')
     template.write(file)
