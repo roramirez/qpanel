@@ -37,7 +37,7 @@
                               </tr>
                               </thead>
                               <tbody>
-                              {% for agent_id, agent in data.members.iteritems() %}
+                              {% for agent_id, agent in data.members.items() %}
                               <tr id="agent-{{ clean_str_to_div_id(agent_id) }}">
                                   <td>{{ agent.Name }}</td>
                                   <td class="hidden-phone">{{ agent.StateInterface }}</td>
@@ -50,7 +50,8 @@
                                   <td id="actions" data-channel="{{ agent.StateInterface }}">
                                     <a href="#" data-action="spy">{{ _('Spy') }}</a> |
                                     <a href="#" data-action="whisper">{{ _('Whisper') }}</a> |
-                                    <a href="#" data-action="barge">{{ _('Barge') }}</a>
+                                    <a href="#" data-action="barge">{{ _('Barge') }}</a> |
+                                    <button data-queue="{{ name }}" class="remove-queue">{{ _('Remove from queue') }}</button>
                                   </td>
                               </tr>
                               {% endfor %}
@@ -73,12 +74,15 @@
                               </tr>
                               </thead>
                               <tbody>
-                              {% for key, caller in data.entries.iteritems() %}
+                              {% for key, caller in data.entries.items() %}
                               <tr id="caller-{{ caller.Uniqueid }}" data-uniqueid="{{ caller.Uniqueid }}">
                                   <td>{{ caller.CallerIDName }}</td>
                                   <td class="hidden-phone">{{ caller.CallerIDNum }}</td>
                                   <td id="position">{{ caller.Position }}</td>
                                   <td id="wait">{{ caller.Wait }}</td>
+                                      <button class="btn btn-danger btn-xs" id="stop-call">
+                                          <i class="fa fa-ban"></i>
+                                      </button>
                               </tr>
                               {% endfor %}
                               </tbody>
@@ -190,7 +194,8 @@
                          + '<td id="actions" data-channel="' + data.members[agent].StateInterface + '">'
                          +      '<a href="#" data-action="spy">{{ _('Spy') }}</a> |'
                          +      '<a href="#" data-action="whisper">{{ _('Whisper') }}</a> |'
-                         +      '<a href="#" data-action="barge">{{ _('Barge') }}</a>'
+                         +      '<a href="#" data-action="barge">{{ _('Barge') }}</a> |'
+                         +      '<button data-queue="{{ name }}" class="remove-queue">{{ _('Remove from queue') }}</button>'
                          + '</td>'
                          + '</tr>';
 
@@ -218,7 +223,13 @@
                         + c.CallerIDName + '</td>'
                         + '<td>' + c.CallerIDNum + '</td>'
                         + '<td id="position">'  + c.Position + '</td>'
-                        + '<td id="wait">' + c.WaitAgo + '</td></tr>'
+                        + '<td id="wait">' + c.WaitAgo
+                        +    '<button class="btn btn-danger btn-xs" id="stop-call">'
+                        +       '<i class="fa fa-ban"></i>'
+                        +     '</button>'
+                        + '</td>'
+                        + '</tr>'
+
 
               if ($('#callers tbody tr:last').length > 0){
                 $('#callers tbody tr:last').after(tr);
@@ -271,7 +282,7 @@
 
 
         //handle show modal for Spy and Whisper
-        $('#actions* a').on('click', function() {
+        $('#actions* a').not('.remove-queue').on('click', function() {
             var action = $(this).data('action');
             channel = $(this.closest('td')).data('channel');
             $('#spy_whisperk #execute-action').data('channel', channel);
@@ -333,5 +344,85 @@
                 $('#execute-action').prop("disabled", false);
             });
         });
+
+
+
+        $('#stop-call').on('click', function() {
+            var tr = $(this).closest("tr");
+            var uniqueid = tr.data('uniqueid');
+            console.log('stop call %s...', uniqueid );
+            button = $(this);
+            $('.message-hangup').remove();
+
+            var r = $.ajax({
+                type: 'post',
+                url: '/hangup',
+                data: {channel: uniqueid}
+            });
+            r.done(function (response) {
+                if (response) {
+                    console.log(response.result.Response);
+                    msg = '<span class="btn btn-xs message-hangup">'
+                        + response.result.Message + '</span>';
+
+                    $(button).after(msg);
+                    var status = response.result.Response;
+                    console.log(status);
+                    if (status == 'failed') {
+                        $('.message-hangup').addClass('btn-danger');
+                    } else {
+                        $('.message-hangup').addClass('btn-success');
+                        setTimeout(function() { tr.remove(); }, 1000);
+                        var total_callers = (parseInt($('#total_callers').html()) - 1);
+                        $('#total_callers').html("{total}".format({total:  total_callers}));
+                    }
+                }
+            });
+            r.fail(function (response) {
+                console.log(response);
+            });
+
+        });
+
+        $('.remove-queue').on('click', function() {
+            var tr = $(this).closest("tr");
+            var queue = $(this).data('queue');
+            var agent = $(this.closest('td')).data('channel');
+
+            console.log('remove agent  %s from %s', agent, queue);
+            button = $(this);
+            $('.message-hangup').remove();
+
+            var r = $.ajax({
+                type: 'post',
+                url: '{{ url_for('.remove_from_queue') }}',
+                data: {agent: agent, queue: queue}
+            });
+            r.done(function (response) {
+                if (response) {
+                    console.log(response.result.Response);
+                    msg = '<span class="btn btn-xs message-hangup">'
+                        + response.result.Message + '</span>';
+
+                    $(button).after(msg);
+                    var status = response.result.Response;
+                    console.log(status);
+                    if (status == 'failed') {
+                        $('.message-hangup').addClass('btn-danger');
+                    } else {
+                        $('.message-hangup').addClass('btn-success');
+                        setTimeout(function() { tr.remove(); }, 1000);
+                        var total_agents = (parseInt($('#total_agent').html()) - 1);
+                        $('#total_agent').html("{total}".format({total:  total_agents}));
+                    }
+                }
+            });
+            r.fail(function (response) {
+                console.log(response);
+            });
+
+        });
+
+
     </script>
     {% endblock %}

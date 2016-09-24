@@ -1,5 +1,39 @@
 ## Change Log
 
+### 0.13.0 (2016-09-15)
+- [590df92](https://github.com/roramirez/qpanel/commit/590df92131e9d70e7a25b6b5fa42fbdae1527519) Minor fix background logo header
+- [f4067c7](https://github.com/roramirez/qpanel/commit/f4067c7a8de72ff7e6cc2d2e49a2699d59e5cc8f) restructure requirements files for dependencies
+- [dfbf19d](https://github.com/roramirez/qpanel/commit/dfbf19d46e022afec844dec36b885e5c679183f9) new update pt_BR translations
+- [059884a](https://github.com/roramirez/qpanel/commit/059884ad6215ca863ce6a0b12e5d7e96bc2addb3) add logo in vector format
+- [7f68b95](https://github.com/roramirez/qpanel/commit/7f68b9506680ac017a02c508cb8aa97314cf86e7) Add script for WSGI support
+- [35422b0](https://github.com/roramirez/qpanel/commit/35422b0517bef52b06c9f429ad4a986df8eb3994) sample config for apache2 + uwsgi
+- [1767ef4](https://github.com/roramirez/qpanel/commit/1767ef4be13d107fe6ea37f87ea796f62c051798) Change use urlib2 by requests library
+- [#84](https://github.com/roramirez/qpanel/pull/84) Use bower for manager of dependencies packages of JS and CSS utilities
+- [dd42cf0](https://github.com/roramirez/qpanel/commit/dd42cf0f534408505f57b0d387dffee2f3688711) Use py-asterisk into requirement file
+- [399a3d7](https://github.com/roramirez/qpanel/commit/399a3d7cf9ad68a35669884a156d845ab48ebcaa) Set time for pool_recycle to database connection on queuelog
+- [#82](https://github.com/roramirez/qpanel/pull/82) Russian translation update
+
+
+### 0.12.0 (2016-08-15)
+- [22d2f1d](https://github.com/roramirez/qpanel/commit/22d2f1d359378de86e48f41ea582a792f7af0616) Add Stats from queue_log
+- [0c9634c](https://github.com/roramirez/qpanel/commit/0c9634cb2dc4731b97c28e97b328983527367384) Add feature for hangup incoming calls
+- [4a0657f](https://github.com/roramirez/qpanel/commit/4a0657f874750e5bd246c3e6a68de40622aebe7c) fix ExtDeprecationWarning for flask_login and flask_babel
+- [#69](https://github.com/roramirez/qpanel/pull/69) move babel.cfg and messages.pot into translations directory for clean
+- [#68](https://github.com/roramirez/qpanel/pull/68) Update Flask version to 0.11
+- [c8d6113](https://github.com/roramirez/qpanel/commit/c8d6113b44fd84df2f687219ad4292e3433b672e) add feature remove agent from a queue
+
+### 0.11.1 (2016-07-20)
+- [a22c0f7](https://github.com/roramirez/qpanel/commit/a22c0f7230914f3ec6aebc2eddd6c91a3e1cd740) Fix import logging detect for issue #56 (@roramirez)
+
+### 0.11.0 (2016-07-15)
+- [#66](https://github.com/roramirez/qpanel/pull/66) Move file sample config.ini-dist into samples
+- [#64](https://github.com/roramirez/qpanel/pull/64) Add In call Feature
+- [a4c0fdb](https://github.com/roramirez/qpanel/commit/a4c0fdbaacfe6aba4d80801846fe76eee8d299f8) Fix a bug for update color label when new agent is added
+- [af36976](https://github.com/roramirez/qpanel/commit/af36976a9dbc6ae6257edf69fabedabf4e1f1093) Add features Spy, Whisper and Barge
+- [#63](https://github.com/roramirez/qpanel/pull/63) Show version id in footer
+- [#62](https://github.com/roramirez/qpanel/pull/62) Add Tests
+- [#61](https://github.com/roramirez/qpanel/pull/61) Refactor init app. Add __init__ and __main__ file
+
 ### 0.10.0 (2016-06-16)
 - [c77edc9](https://github.com/roramirez/qpanel/commit/c77edc9658664ea6fad3d47174aa70d80b79d701) Install dependencies by requirements.txt file.
 - [#60](https://github.com/roramirez/qpanel/pull/60) Change URL stable version.

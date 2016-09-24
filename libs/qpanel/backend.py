@@ -4,13 +4,13 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-from config import QPanelConfig
-from flask.ext.babel import format_timedelta
-from datetime import timedelta
-from utils import timedelta_from_field_dict
-import os
-import sys
-from asterisk import *
+from __future__ import absolute_import
+from __future__ import print_function
+from .config import QPanelConfig
+from flask_babel import format_timedelta
+from .utils import timedelta_from_field_dict, realname_queue_rename
+from .asterisk import *
+import six
 # In case use Asterisk dont crash with ESL not in system
 try:
     from libs.qpanel.freeswitch import *
@@ -61,8 +61,8 @@ class Backend(object):
         self.connection = self._connect()
         try:
             return self.connection.queueStatus()
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print(str(e))
             return {}
 
     def get_data_queues(self):
@@ -80,11 +80,18 @@ class Backend(object):
         for q in data:
             for m in data[q]['members']:
                 member = data[q]['members'][m]
-                member['LastBridgeEndAgo'] = format_timedelta(timedelta_from_field_dict('LastBridgeEnd', member), granularity='second')
-                member['LastStatusChangeAgo'] = format_timedelta(timedelta_from_field_dict('LastStatusChange', member), granularity='second')
+                member['LastBridgeEndAgo'] = format_timedelta(
+                    timedelta_from_field_dict('LastBridgeEnd', member),
+                    granularity='second')
+                member['LastStatusChangeAgo'] = format_timedelta(
+                    timedelta_from_field_dict('LastStatusChange', member),
+                    granularity='second')
 
             for c in data[q]['entries']:
-                data[q]['entries'][c]['CreatedEpochAgo'] = format_timedelta(timedelta_from_field_dict('CreatedEpoch', data[q]['entries'][c]), granularity='second')
+                data[q]['entries'][c]['CreatedEpochAgo'] = format_timedelta(
+                    timedelta_from_field_dict('CreatedEpoch',
+                                              data[q]['entries'][c]),
+                    granularity='second')
 
         return data
 
@@ -102,26 +109,40 @@ class Backend(object):
                 if 'StateInterface' not in member:
                     member['StateInterface'] = m
 
-                member['LastCallAgo'] = format_timedelta(timedelta_from_field_dict('LastCall', member), granularity='second')
+                member['LastCallAgo'] = format_timedelta(
+                    timedelta_from_field_dict('LastCall', member),
+                    granularity='second')
                 # Time last pause
-                member['LastPauseAgo'] = format_timedelta(timedelta_from_field_dict('LastPause', member), granularity='second')
+                member['LastPauseAgo'] = format_timedelta(
+                    timedelta_from_field_dict('LastPause', member),
+                    granularity='second')
 
                 # introduced in_call flag
                 # asterisk commit 90b06d1a3cc14998cd2083bd0c4c1023c0ca7a1f
-                if 'InCall' in member and member['InCall'] == "1":
-                    member['Status'] = "10"
+                if 'InCall' in member and member['InCall'] == '1':
+                    member['Status'] = '10'
 
             for c in data[q]['entries']:
-                data[q]['entries'][c]['WaitAgo'] = format_timedelta(timedelta_from_field_dict('Wait', data[q]['entries'][c], True), granularity='second')
+                data[q]['entries'][c]['WaitAgo'] = format_timedelta(
+                    timedelta_from_field_dict('Wait',
+                                              data[q]['entries'][c], True),
+                    granularity='second')
 
         return data
 
     def hide_queue(self, data):
         tmp_data = {}
         hide = self.config.get_hide_config()
-        for q in data:
-            if q not in hide:
-                tmp_data[q] = data[q]
+        show = self.config.get_show_config()
+        if len(show) == 0:
+            for q in data:
+                if q not in hide:
+                    tmp_data[q] = data[q]
+        else:
+            s = set(show)
+            inter = s & six.viewkeys(data)
+            tmp_data = {x:data[x] for x in inter if x in data}
+
         return tmp_data
 
     def rename_queue(self, data):
@@ -138,8 +159,8 @@ class Backend(object):
         self.connection = self._connect()
         try:
             return self.connection.spy(channel, to_exten, with_whisper)
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print(str(e))
             return {}
 
     def whisper(self, channel, to_exten):
@@ -153,3 +174,19 @@ class Backend(object):
 
     def reset_stats(self, queue):
         return self.connection.reset_stats(queue)
+
+    def hangup(self, channel):
+        try:
+            return self.connection.hangup(channel)
+        except Exception as e:
+            print(str(e))
+            return {}
+
+    def remove_from_queue(self, agent, queue):
+        queue = realname_queue_rename(queue)
+        self.connection = self._connect()
+        try:
+            return self.connection.remove_from_queue(agent, queue)
+        except Exception as e:
+            print(str(e))
+            return {}

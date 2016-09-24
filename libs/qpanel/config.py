@@ -3,11 +3,11 @@
 #
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
-import ConfigParser
+from __future__ import absolute_import
+import six.moves.configparser
 import os
-import sys
 from distutils.util import strtobool
-import convert
+from .convert import convert_time_when_param
 
 
 class NotConfigFileQPanel(BaseException):
@@ -54,7 +54,7 @@ class QPanelConfig:
                                            'show_service_level', False)
 
     def __open_config_file(self, file_path):
-        cfg = ConfigParser.ConfigParser()
+        cfg = six.moves.configparser.ConfigParser()
         try:
             with open(file_path) as f:
                 cfg.readfp(f)
@@ -65,7 +65,14 @@ class QPanelConfig:
     def get_hide_config(self):
         tmp = self.__get_entry_ini_default('general', 'hide', '')
         tmp = tmp.replace('\'', '')
-        return tmp.split(',')
+        return [s.strip() for s in tmp.split(',')]
+
+    def get_show_config(self):
+        ''' Get show config from config.ini '''
+        tmp = self.__get_entry_ini_default('general', 'show', '')
+        tmp = tmp.replace('\'', '')
+        tmp = [s.strip() for s in tmp.split(',')]
+        return[s for s in tmp if len(s) >= 1]
 
     def __get_entry_ini_default(self, section, var, default):
         try:
@@ -104,8 +111,14 @@ class QPanelConfig:
             return 0
 
     def has_users(self):
+        return self.has_section('users')
+
+    def has_queuelog_config(self):
+        return self.has_section('queue_log')
+
+    def has_section(self, section):
         v = False
-        if self.count_element_sections_config('users', self.config) > 0:
+        if self.count_element_sections_config(section, self.config) > 0:
             v = True
         return v
 
@@ -117,5 +130,11 @@ class QPanelConfig:
         if self.count_element_sections_config('reset_stats', self.config) > 0:
             elements = self.config.items('reset_stats')
             for queue, v in elements:
-                values[queue] = convert.convert_time_when_param(v)
+                values[queue] = convert_time_when_param(v)
         return values
+
+    def get_items(self, section):
+        try:
+            return self.config.items(section)
+        except:
+            return None

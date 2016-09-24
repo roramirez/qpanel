@@ -32,3 +32,10 @@ var/
 # diff patch
 *.orig
 *.rej
+*.bak
+
+
+# Node and Bower
+node_modules/
+static/components
+npm-debug.log*

@@ -428,7 +428,7 @@ a.logo {
     font-size: 20px;
     color: #ffffff;
     float: left;
-    margin-top: 5px;
+    margin-top: 10px;
     text-transform: uppercase;
 }
 
@@ -2263,4 +2263,25 @@ label {
     font-style: normal;
     font-weight: 900;
     src: local('Ruda Black'), local('Ruda-Black'), url(../fonts/Ruda-Black.ttf) format('truetype');
+}
+
+
+/* button remove agent from queue like a tag */
+.remove-queue:hover{
+    color: #23527c;
+    text-decoration: none;
+    outline: none;
+}
+.remove-queue {
+    background: none;
+    border: none;
+    display: inline;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    outline-offset: 0;
+    color: #337ab7;;
+    cursor: pointer;
+    text-decoration: none;
 }

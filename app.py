@@ -7,28 +7,23 @@
 
 from flask import Flask, render_template, jsonify, redirect,\
     request, session, url_for
-import os
-import sys
-import ConfigParser
-import json
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
+import logging
 
-# babel
-from flask.ext.babel import Babel, gettext, dates, format_timedelta
-from datetime import timedelta
+from flask_babel import Babel, gettext
+import flask_login
 
-# flask-login
-import flask.ext.login as flask_login
-
-from libs.qpanel.upgrader import *
-import libs.qpanel.utils as uqpanel
+from libs.qpanel import upgrader
+from libs.qpanel import utils as uqpanel
 
 from libs.qpanel.config import QPanelConfig
 from libs.qpanel.backend import Backend
 import libs.qpanel.job as job
 import rq_worker
+if QPanelConfig().has_queuelog_config():
+    from libs.qpanel.model import queuelog_data_queue
 
 
 class User(flask_login.UserMixin):
@@ -175,7 +170,7 @@ def utility_processor():
 @app.context_processor
 def utility_processor():
     def request_interval():
-        return (cfg.interval * 1000)
+        return cfg.interval * 1000
     return dict(request_interval=request_interval)
 
 
@@ -218,11 +213,20 @@ def utility_processor():
         return backend.is_freeswitch()
     return dict(is_freeswitch=is_freeswitch)
 
+
+@app.context_processor
+def utility_processor():
+    def config():
+        return cfg
+    return dict(config=config)
+
+
 @app.context_processor
 def utility_processor():
     def current_version():
-        return get_current_version()
+        return upgrader.get_current_version()
     return dict(current_version=current_version)
+
 
 # ---------------------
 # ---- Routes ---------
@@ -256,7 +260,7 @@ def all_queues():
     if backend.is_freeswitch():
         abort(404)
         # Not yet implement
-        #template = 'fs/all_queue.html'
+        # template = 'fs/all_queue.html'
     return render_template(template, queues=data)
 
 
@@ -288,15 +292,15 @@ def language(language=None):
 def check_new_version():
     need_upgrade = False
     try:
-        if require_upgrade():
+        if upgrader.require_upgrade():
             need_upgrade = True
     except:
         pass
 
     return jsonify(
         require_upgrade=need_upgrade,
-        current_version=get_current_version(),
-        last_stable_version=get_stable_version()
+        current_version=upgrader.get_current_version(),
+        last_stable_version=upgrader.get_stable_version()
     )
 
 
@@ -333,6 +337,46 @@ def barge():
     return jsonify(result=r)
 
 
+@app.route('/hangup', methods=['POST'])
+@flask_login.login_required
+def hangup_call():
+    channel = request.form['channel']
+    r = backend.hangup(channel)
+    return jsonify(result=r)
+
+
+@app.route('/stats/<from_date>/<to_date>/<name>.json')
+def stats_json(name, from_date, to_date):
+    real_name = uqpanel.realname_queue_rename(name)
+    queue_values = queuelog_data_queue(from_date, to_date, None, real_name)
+    data = get_data_queues(name)
+    return jsonify(name=name, data=data, values=queue_values)
+
+
+@app.route('/stats', defaults={'name': None, 'from_date': uqpanel.init_day(),
+                               'to_date': uqpanel.end_day()})
+@app.route('/stats/<name>/<from_date>/<to_date>')
+def stats(name, from_date, to_date):
+    queues = get_data_queues()
+    if name is None:
+        name = uqpanel.first_data_dict(queues)
+    try:
+        data = queues[name]
+    except:
+        data = {}
+    return render_template('stats.html', data=data, queues=queues, name=name,
+                           from_date=from_date, to_date=to_date)
+
+
+@app.route('/remove_from_queue', methods=['POST'])
+@flask_login.login_required
+def remove_from_queue():
+    queue = request.form['queue']
+    agent = request.form['agent']
+    r = backend.remove_from_queue(agent, queue)
+    return jsonify(result=r)
+
+
 # ---------------------
 # ---- Main  ----------
 # ---------------------
@@ -340,6 +384,7 @@ def main():
 
     if cfg.is_debug:
         app.config['DEBUG'] = True
+        uqpanel.add_debug_toolbar(app)
 
     if cfg.queues_for_reset_stats():
         if job.check_connect_redis():

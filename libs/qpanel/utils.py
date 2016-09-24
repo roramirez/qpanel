@@ -4,10 +4,12 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-import ConfigParser
-from datetime import timedelta
+from __future__ import absolute_import
+import six.moves.configparser
+from datetime import timedelta, date, datetime
 import time
-from config import QPanelConfig
+from .config import QPanelConfig
+import calendar
 
 
 def unified_configs(file_config, file_template, sections=[]):
@@ -20,7 +22,7 @@ def unified_configs(file_config, file_template, sections=[]):
         items = dict(template.items(s))
         for i in items:
             try:
-                template.set(s, i,  config.get(s, i))
+                template.set(s, i, config.get(s, i))
             except:
                 pass
 
@@ -29,10 +31,10 @@ def unified_configs(file_config, file_template, sections=[]):
         items = dict(config.items(s))
         for i in items:
             try:
-                template.set(s, i,  config.get(s, i))
-            except ConfigParser.NoSectionError:
+                template.set(s, i, config.get(s, i))
+            except six.moves.configparser.NoSectionError:
                 template.add_section(s)
-                template.set(s, i,  config.get(s, i))
+                template.set(s, i, config.get(s, i))
 
     file = open(file_config, 'wr')
     template.write(file)
@@ -70,3 +72,48 @@ def timedelta_from_field_dict(field, dic, current_timestamp=None,
                 seconds_ago = int(current_timestamp) - int(dic[field])
 
     return timedelta(seconds=seconds_ago)
+
+
+def first_data_dict(data):
+    if data:
+        return list(data.keys())[0]
+    else:
+        return ''
+
+
+def init_day(d=None):
+    if d is None:
+        d = date.today()
+    return datetime(d.year, d.month, d.day, 0, 0, 0)
+
+
+def end_day(d=None):
+    if d is None:
+        d = date.today()
+    return datetime(d.year, d.month, d.day, 23, 59, 59)
+
+
+# http://stackoverflow.com/a/13260981
+# Convert a unix time u to a datetime object d, and vice versa
+def dt(u):
+    return datetime.utcfromtimestamp(u)
+
+
+def ut(d):
+    return calendar.timegm(d.timetuple())
+
+
+def realname_queue_rename(queuename):
+    renames = QPanelConfig().get_items('rename')
+    if renames is not None:
+        for val, idx in renames:
+            if idx == queuename:
+                return val
+    return queuename
+
+def add_debug_toolbar(app):
+    try:
+        from flask_debugtoolbar import DebugToolbarExtension
+        toolbar = DebugToolbarExtension(app)
+    except:
+        pass
