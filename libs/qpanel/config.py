@@ -3,7 +3,8 @@
 #
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
-import ConfigParser
+from __future__ import absolute_import
+import six.moves.configparser
 import os
 from distutils.util import strtobool
 
@@ -52,7 +53,7 @@ class QPanelConfig:
                                            'show_service_level', False)
 
     def __open_config_file(self, file_path):
-        cfg = ConfigParser.ConfigParser()
+        cfg = six.moves.configparser.ConfigParser()
         try:
             with open(file_path) as f:
                 cfg.readfp(f)
