@@ -9,7 +9,7 @@ from __future__ import print_function
 from .config import QPanelConfig
 from flask_babel import format_timedelta
 from .utils import timedelta_from_field_dict, realname_queue_rename
-from libs.qpanel.asterisk import *
+from .asterisk import *
 import six
 # In case use Asterisk dont crash with ESL not in system
 try:
@@ -171,6 +171,9 @@ class Backend(object):
 
     def barge(self, channel, to_exten):
         return self._call_spy(channel, to_exten, 'B')
+
+    def reset_stats(self, queue):
+        return self.connection.reset_stats(queue)
 
     def hangup(self, channel):
         try:

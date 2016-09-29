@@ -7,6 +7,7 @@ from __future__ import absolute_import
 import six.moves.configparser
 import os
 from distutils.util import strtobool
+from .convert import convert_time_when_param
 
 
 class NotConfigFileQPanel(BaseException):
@@ -123,6 +124,14 @@ class QPanelConfig:
 
     def is_freeswitch(self):
         return self.__get_bool_value_config('general', 'freeswitch', False)
+
+    def queues_for_reset_stats(self):
+        values = {}
+        if self.count_element_sections_config('reset_stats', self.config) > 0:
+            elements = self.config.items('reset_stats')
+            for queue, v in elements:
+                values[queue] = convert_time_when_param(v)
+        return values
 
     def get_items(self, section):
         try:

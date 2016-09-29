@@ -20,6 +20,8 @@ from libs.qpanel import utils as uqpanel
 
 from libs.qpanel.config import QPanelConfig
 from libs.qpanel.backend import Backend
+import libs.qpanel.job as job
+import rq_worker
 if QPanelConfig().has_queuelog_config():
     from libs.qpanel.model import queuelog_data_queue
 
@@ -383,6 +385,13 @@ def main():
     if cfg.is_debug:
         app.config['DEBUG'] = True
         uqpanel.add_debug_toolbar(app)
+
+    if cfg.queues_for_reset_stats():
+        if job.check_connect_redis():
+            rq_worker.start_jobs()
+        else:
+            print("Error: There not connection to Redis")
+            print("       Reset stats will not work\n")
 
     if APPLICATION_ROOT == '/':
         app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=True,

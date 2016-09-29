@@ -37,6 +37,8 @@ Also you can use a [API of Qpanel](doc/api.md) for data query related to queues
  * [Flask](http://flask.pocoo.org/) 0.10+
  * [Asterisk](http://www.asterisk.org) 1.4+ and enabled manager or [FreeSWITCH](http://www.freeswitch.org) and connection permission to Event Socket Library.
 
+  The feature to scheduler reset stats a queue is required Redis Redis >= 2.6.0
+
 
 ### Asterisk
 On /etc/asterisk/manager.conf do you set command permission for read and write, example:
