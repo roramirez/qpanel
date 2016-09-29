@@ -17,9 +17,9 @@ Minimal necessary compiler and openssl
 Install Python from source
 
 ```
-wget https://www.python.org/ftp/python/2.6.6/Python-2.6.6.tgz
-tar -zxvf Python-2.6.6.tgz
-cd Python-2.6.6
+wget https://www.python.org/ftp/python/2.6.9/Python-2.6.9.tgz
+tar -zxvf Python-2.6.9.tgz
+cd Python-2.6.9
 ./configure && make && make install
 ```
 

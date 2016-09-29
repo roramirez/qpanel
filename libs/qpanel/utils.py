@@ -4,10 +4,11 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-import ConfigParser
+from __future__ import absolute_import
+import six.moves.configparser
 from datetime import timedelta, date, datetime
 import time
-from config import QPanelConfig
+from .config import QPanelConfig
 import calendar
 
 
@@ -21,7 +22,7 @@ def unified_configs(file_config, file_template, sections=[]):
         items = dict(template.items(s))
         for i in items:
             try:
-                template.set(s, i,  config.get(s, i))
+                template.set(s, i, config.get(s, i))
             except:
                 pass
 
@@ -30,10 +31,10 @@ def unified_configs(file_config, file_template, sections=[]):
         items = dict(config.items(s))
         for i in items:
             try:
-                template.set(s, i,  config.get(s, i))
-            except ConfigParser.NoSectionError:
+                template.set(s, i, config.get(s, i))
+            except six.moves.configparser.NoSectionError:
                 template.add_section(s)
-                template.set(s, i,  config.get(s, i))
+                template.set(s, i, config.get(s, i))
 
     file = open(file_config, 'wr')
     template.write(file)
@@ -75,7 +76,7 @@ def timedelta_from_field_dict(field, dic, current_timestamp=None,
 
 def first_data_dict(data):
     if data:
-        return data.keys()[0]
+        return list(data.keys())[0]
     else:
         return ''
 
@@ -109,3 +110,10 @@ def realname_queue_rename(queuename):
             if idx == queuename:
                 return val
     return queuename
+
+def add_debug_toolbar(app):
+    try:
+        from flask_debugtoolbar import DebugToolbarExtension
+        toolbar = DebugToolbarExtension(app)
+    except:
+        pass

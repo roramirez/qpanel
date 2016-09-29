@@ -1,5 +1,18 @@
 ## Change Log
 
+### 0.13.0 (2016-09-15)
+- [590df92](https://github.com/roramirez/qpanel/commit/590df92131e9d70e7a25b6b5fa42fbdae1527519) Minor fix background logo header
+- [f4067c7](https://github.com/roramirez/qpanel/commit/f4067c7a8de72ff7e6cc2d2e49a2699d59e5cc8f) restructure requirements files for dependencies
+- [dfbf19d](https://github.com/roramirez/qpanel/commit/dfbf19d46e022afec844dec36b885e5c679183f9) new update pt_BR translations
+- [059884a](https://github.com/roramirez/qpanel/commit/059884ad6215ca863ce6a0b12e5d7e96bc2addb3) add logo in vector format
+- [7f68b95](https://github.com/roramirez/qpanel/commit/7f68b9506680ac017a02c508cb8aa97314cf86e7) Add script for WSGI support
+- [35422b0](https://github.com/roramirez/qpanel/commit/35422b0517bef52b06c9f429ad4a986df8eb3994) sample config for apache2 + uwsgi
+- [1767ef4](https://github.com/roramirez/qpanel/commit/1767ef4be13d107fe6ea37f87ea796f62c051798) Change use urlib2 by requests library
+- [#84](https://github.com/roramirez/qpanel/pull/84) Use bower for manager of dependencies packages of JS and CSS utilities
+- [dd42cf0](https://github.com/roramirez/qpanel/commit/dd42cf0f534408505f57b0d387dffee2f3688711) Use py-asterisk into requirement file
+- [399a3d7](https://github.com/roramirez/qpanel/commit/399a3d7cf9ad68a35669884a156d845ab48ebcaa) Set time for pool_recycle to database connection on queuelog
+- [#82](https://github.com/roramirez/qpanel/pull/82) Russian translation update
+
 
 ### 0.12.0 (2016-08-15)
 - [22d2f1d](https://github.com/roramirez/qpanel/commit/22d2f1d359378de86e48f41ea582a792f7af0616) Add Stats from queue_log

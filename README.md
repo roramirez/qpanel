@@ -33,7 +33,7 @@ Also you can use a [API of Qpanel](doc/api.md) for data query related to queues
 
 
 ## Requirement
- * Python 2.6+
+ * Python 2.6, 2.7, 3.4
  * [Flask](http://flask.pocoo.org/) 0.10+
  * [Asterisk](http://www.asterisk.org) 1.4+ and enabled manager or [FreeSWITCH](http://www.freeswitch.org) and connection permission to Event Socket Library.
 

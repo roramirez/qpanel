@@ -32,6 +32,7 @@ var/
 # diff patch
 *.orig
 *.rej
+*.bak
 
 
 # Node and Bower

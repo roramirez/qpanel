@@ -3,7 +3,8 @@
 #
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
-import ConfigParser
+from __future__ import absolute_import
+import six.moves.configparser
 import os
 from distutils.util import strtobool
 
@@ -52,7 +53,7 @@ class QPanelConfig:
                                            'show_service_level', False)
 
     def __open_config_file(self, file_path):
-        cfg = ConfigParser.ConfigParser()
+        cfg = six.moves.configparser.ConfigParser()
         try:
             with open(file_path) as f:
                 cfg.readfp(f)
@@ -63,7 +64,14 @@ class QPanelConfig:
     def get_hide_config(self):
         tmp = self.__get_entry_ini_default('general', 'hide', '')
         tmp = tmp.replace('\'', '')
-        return tmp.split(',')
+        return [s.strip() for s in tmp.split(',')]
+
+    def get_show_config(self):
+        ''' Get show config from config.ini '''
+        tmp = self.__get_entry_ini_default('general', 'show', '')
+        tmp = tmp.replace('\'', '')
+        tmp = [s.strip() for s in tmp.split(',')]
+        return[s for s in tmp if len(s) >= 1]
 
     def __get_entry_ini_default(self, section, var, default):
         try:

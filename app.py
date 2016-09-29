@@ -16,7 +16,7 @@ from flask_babel import Babel, gettext
 import flask_login
 
 from libs.qpanel import upgrader
-import libs.qpanel.utils as uqpanel
+from libs.qpanel import utils as uqpanel
 
 from libs.qpanel.config import QPanelConfig
 from libs.qpanel.backend import Backend
@@ -172,7 +172,7 @@ def utility_processor():
 @app.context_processor
 def utility_processor():
     def request_interval():
-        return (cfg.interval * 1000)
+        return cfg.interval * 1000
     return dict(request_interval=request_interval)
 
 
@@ -366,7 +366,7 @@ def stats(name, from_date, to_date):
         data = queues[name]
     except:
         data = {}
-    return render_template('stats.html', data=data, queues=queues,  name=name,
+    return render_template('stats.html', data=data, queues=queues, name=name,
                            from_date=from_date, to_date=to_date)
 
 
@@ -386,6 +386,7 @@ def main():
 
     if cfg.is_debug:
         app.config['DEBUG'] = True
+        uqpanel.add_debug_toolbar(app)
 
     if APPLICATION_ROOT == '/':
         app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=True,
