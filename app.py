@@ -26,6 +26,10 @@ if QPanelConfig().has_queuelog_config():
     from libs.qpanel.model import queuelog_data_queue
 
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 class User(flask_login.UserMixin):
     pass
 
