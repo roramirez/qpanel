@@ -49,6 +49,15 @@ class UtilsTestClass(unittest.TestCase):
         self.assertEqual(convert_time_when_param(value),
                          {'when': 'test1', 'hour': '00:00:01'})
 
+        value = 'test1, string_wrong'
+        self.assertEqual(convert_time_when_param(value),
+                         {'when': 'test1', 'hour': '00:00:00'})
+
+        value = 'test1; 00:00:01'
+        self.assertEqual(convert_time_when_param(value, splitter=';'),
+                         {'when': 'test1', 'hour': '00:00:01'})
+
+
 
 # runs the unit tests
 if __name__ == '__main__':
