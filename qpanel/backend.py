@@ -13,7 +13,7 @@ from .asterisk import *
 import six
 # In case use Asterisk dont crash with ESL not in system
 try:
-    from libs.qpanel.freeswitch import *
+    from .freeswitch import *
 except:
     pass
 

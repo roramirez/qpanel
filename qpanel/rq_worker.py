@@ -1,4 +1,4 @@
-from libs.qpanel.job import start_process
+from job import start_process
 from multiprocessing import Process
 from rq_scheduler.scripts.rqscheduler import main
 

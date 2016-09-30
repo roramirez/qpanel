@@ -27,8 +27,7 @@ class QPanelConfig:
         if path_config_file:
             self.path_config_file = path_config_file
         else:
-            self.path_config_file = os.path.join(dirname, os.pardir,
-                                                 os.pardir, 'config.ini')
+            self.path_config_file = os.path.join(dirname, os.pardir, 'config.ini')
 
         self.config = self.__open_config_file(self.path_config_file)
 

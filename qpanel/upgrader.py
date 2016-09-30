@@ -8,6 +8,7 @@ import requests
 from distutils.version import LooseVersion
 import os
 import sys
+import qpanel
 
 dirname, filename = os.path.split(os.path.abspath(__file__))
 ROOT_PATH = os.path.join(dirname, os.pardir, os.pardir)
@@ -34,10 +35,8 @@ def last_check_update():
     return True
 
 
-def get_current_version(version_file=VERSION_FILE):
-    current_version = open(version_file)
-    return __first_line(current_version.read())
-
+def get_current_version():
+    return qpanel.__version__
 
 def get_stable_version(url=URL_STABLE_VERSION):
     stable_version = __get_data_url(url)

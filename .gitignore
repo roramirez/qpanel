@@ -1,7 +1,7 @@
 *.pyc
 config.ini
 .DS_Store
-translations/*/*/messages.mo
+*/translations/*/*/messages.mo
 
 
 # Distribution / packaging
@@ -37,5 +37,5 @@ var/
 
 # Node and Bower
 node_modules/
-static/components
+*/static/components
 npm-debug.log*

@@ -1,7 +1,7 @@
 import unittest
-from libs.qpanel.utils import clean_str_to_div_id, underscore_to_camelcase, \
+from qpanel.utils import clean_str_to_div_id, underscore_to_camelcase, \
     timedelta_from_field_dict
-from libs.qpanel.convert import convert_time_when_param
+from qpanel.convert import convert_time_when_param
 import time
 import datetime
 

@@ -121,7 +121,7 @@ Is necessary have installed Node.
 
 ## 4.- Translations
  ```
-  pybabel compile -d translations
+  pybabel compile -d qpanel/translations
  ```
 
 
