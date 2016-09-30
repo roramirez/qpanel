@@ -5,7 +5,7 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
-install: pip install tox
+install: pip install tox-travis
 branches:
   only:
     - master
