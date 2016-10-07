@@ -1,3 +1,5 @@
-import app
+from . import app
 
-app.main()
+if __name__ == '__main__':
+    app.main()
+

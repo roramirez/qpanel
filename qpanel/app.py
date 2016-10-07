@@ -405,7 +405,3 @@ def main():
         })
         run_simple(cfg.host_bind, cfg.port_bind, application,
                    use_reloader=reloader, extra_files=[cfg.path_config_file])
-
-
-if __name__ == '__main__':
-    main()
