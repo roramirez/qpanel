@@ -4,7 +4,6 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-
 from flask import Flask, render_template, jsonify, redirect,\
     request, session, url_for
 from werkzeug.serving import run_simple
@@ -381,6 +380,11 @@ def remove_from_queue():
 # ---------------------
 def main():
 
+    # Set reloader to False, bug present for imports
+    # Retain this as FIXME
+    # https://github.com/mitsuhiko/flask/issues/1246
+    reloader = False
+
     if cfg.is_debug:
         app.config['DEBUG'] = True
         uqpanel.add_debug_toolbar(app)
@@ -393,14 +397,14 @@ def main():
             print("       Reset stats will not work\n")
 
     if cfg.base_url == '/':
-        app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=True,
+        app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=reloader,
                 extra_files=[cfg.path_config_file])
     else:
         application = DispatcherMiddleware(Flask('dummy_app'), {
             app.config['APPLICATION_ROOT']: app,
         })
         run_simple(cfg.host_bind, cfg.port_bind, application,
-                   use_reloader=True, extra_files=[cfg.path_config_file])
+                   use_reloader=reloader, extra_files=[cfg.path_config_file])
 
 
 if __name__ == '__main__':
