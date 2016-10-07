@@ -55,7 +55,6 @@ def get_user_config_by_name(username):
         return None
 
 # Flask env
-APPLICATION_ROOT = cfg.base_url
 app = Flask(__name__)
 app.config.from_object(__name__)
 babel = Babel(app)
@@ -393,7 +392,7 @@ def main():
             print("Error: There not connection to Redis")
             print("       Reset stats will not work\n")
 
-    if APPLICATION_ROOT == '/':
+    if cfg.base_url == '/':
         app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=True,
                 extra_files=[cfg.path_config_file])
     else:
