@@ -4,8 +4,7 @@
 # Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-import backend
-import config
+from qpanel import backend, config
 from redis import Redis
 from rq_scheduler import Scheduler
 import datetime

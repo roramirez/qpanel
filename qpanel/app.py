@@ -14,15 +14,13 @@ import logging
 from flask_babel import Babel, gettext
 import flask_login
 
-import upgrader
-import utils as uqpanel
+from qpanel import upgrader, job, rq_worker
+import qpanel.utils as uqpanel
 
-from config import QPanelConfig
-from backend import Backend
-import job
-import rq_worker
+from qpanel.config import QPanelConfig
+from qpanel.backend import Backend
 if QPanelConfig().has_queuelog_config():
-    from model import queuelog_data_queue
+    from qpanel.model import queuelog_data_queue
 
 
 class User(flask_login.UserMixin):
