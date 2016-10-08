@@ -46,6 +46,8 @@ fi
 cd $CLONE_DIR
 pybabel compile -d translations
 # Bower
+cd $CLONE_DIR
+npm install
 sudo $CLONE_DIR/node_modules/bower/bin/bower --allow-root install
 
 cd /tmp
