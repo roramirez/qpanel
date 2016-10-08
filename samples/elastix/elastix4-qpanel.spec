@@ -1,7 +1,7 @@
 %define modname qpanel
 Name:    elastix-%{modname}
 Version: 0.13.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Qpanel is dashboard for Queues in Asterisk
 Group:   Applications/Communications
 License: MIT
@@ -10,8 +10,8 @@ Source0: %{modname}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{modname}-%{version}-root
 Prereq: elastix-framework >= 4.0.0
 
-
-Requires: httpd, python >= 2.7, python-pip, mod_wsgi, git
+# Git is used for py-asterisk lib from repository
+Requires: httpd, python >= 2.7, python-pip, mod_wsgi, git 
 BuildArch: noarch
 
 %description
@@ -36,7 +36,7 @@ cp $RPM_BUILD_ROOT/opt/%{modname}/samples/elastix/menu.xml $RPM_BUILD_ROOT/usr/s
 CONFIG_FILE=/opt/%{modname}/config.ini
 if ! [ -f "$CONFIG_FILE" ]; then
 
-  #Manager config
+  # Manager config
   RAN_PASS=$(date +%s | sha256sum | base64 | head -c 32 ; echo)
   cp /opt/%{modname}/samples/config.ini-dist /opt/%{modname}/config.ini
   sed -i "s/= password/= $RAN_PASS/" /opt/%{modname}/config.ini
@@ -47,19 +47,23 @@ if ! [ -f "$CONFIG_FILE" ]; then
   if  [ ${#search_include} -eq 0 ]; then
     echo  "#include manager_qpanel.conf" >> /etc/asterisk/manager.conf;
   fi
-
-echo "
-[qpanel]
-secret = $RAN_PASS
-read = command
-write = command
-" > /etc/asterisk/manager_qpanel.conf
-
 else
+  RAN_PASS=$(grep  "\[manager\]" -a5  $CONFIG_FILE | grep password | cut -f 3 --delimiter=" ")
   python /opt/%{modname}/update_config.py $CONFIG_FILE /opt/%{modname}/samples/config.ini-dist
 fi
 
-
+# Update or create manager config for qpanel user
+CONFIG_FILE_MANAGER=/etc/asterisk/manager_qpanel.conf
+if ! [ -f "$CONFIG_FILE_MANAGER" ]; then
+  cp /opt/%{modname}/samples/configs/manager_asterisk.conf  $CONFIG_FILE_MANAGER
+else
+  # update role commands
+  ROL_READ=$(grep  "read.*"   /opt/%{modname}/samples/configs/manager_asterisk.conf)
+  ROL_WRITE=$(grep  "write.*"   /opt/%{modname}/samples/configs/manager_asterisk.conf)
+  sed -i "s/read.*/$ROL_READ/" $CONFIG_FILE_MANAGER
+  sed -i "s/write.*/$ROL_WRITE/" $CONFIG_FILE_MANAGER
+fi
+sed -i "s/secret.*/secret = $RAN_PASS/" $CONFIG_FILE_MANAGER
 asterisk -rx "reload"
 
 
@@ -92,8 +96,8 @@ WSGIProcessGroup qpanel_app
 WSGIScriptAlias /qpanel /opt/qpanel/start.wsgi process-group=qpanel_app
 ' > /etc/httpd/conf.d/qpanel.conf
 
-service httpd restart
 fi
+service httpd restart
 
 
 pathModule="/usr/share/elastix/module_installer/%{name}-%{version}-%{release}"
