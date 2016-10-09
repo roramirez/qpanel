@@ -73,7 +73,7 @@ def remove_jobs_not_config():
             q = job.args[0]
             delete = True
             for qr in queue_for_reset:
-                if queue_for_reset.has_key(qr):
+                if qr in queue_for_reset:
                     if (queue_for_reset[qr]['when'] == job.args[1] and
                         queue_for_reset[qr]['hour'] == job.args[2]):
                         delete = False
