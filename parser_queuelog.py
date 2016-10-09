@@ -8,7 +8,7 @@
 
 import sys
 import tailer
-from libs.qpanel import model
+from qpanel import model
 import click
 
 
