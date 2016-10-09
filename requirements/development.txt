@@ -2,3 +2,4 @@
 flake8
 flask-debugtoolbar
 pytest
+tox
