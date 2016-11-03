@@ -34,11 +34,11 @@ Into file /etc/asterisk/logger.conf set the follow configs
 
 ```
 
-For /etc/asterisk/logger.conf set the follow configs 
+For /etc/asterisk/extconfig.conf set the follow configs 
 
 
 ```
-queue_log => odbc,general
+queue_log => odbc,general,queue_log (e.g. Adapter,Database,Table)
 
 ```
 
@@ -60,5 +60,4 @@ odbc is your driver and general the section where set config respective file
 If you dont want to work in realtime, you can parse the queue_log with parser_queuelog.py
 
 Into the  samples/sqls directory there are samples of DDL for MySQL and PostgreSQL database.
-
 
