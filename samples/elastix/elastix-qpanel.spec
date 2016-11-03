@@ -11,7 +11,7 @@ BuildRoot: %{_tmppath}/%{modname}-%{version}-root
 Prereq: elastix-framework >= 2.2.0-25
 
 
-Requires: python26 python26-devel nginx
+Requires: python26 python26-devel nginx git
 BuildArch: noarch
 
 %description
@@ -36,7 +36,7 @@ cp $RPM_BUILD_ROOT/opt/%{modname}/samples/elastix/menu.xml $RPM_BUILD_ROOT/usr/s
 CONFIG_FILE=/opt/%{modname}/config.ini
 if ! [ -f "$CONFIG_FILE" ]; then
 
-  #Manager config
+  # Manager config
   RAN_PASS=$(date +%s | sha256sum | base64 | head -c 32 ; echo)
   cp /opt/%{modname}/samples/config.ini-dist /opt/%{modname}/config.ini
   sed -i "s/= password/= $RAN_PASS/" /opt/%{modname}/config.ini
@@ -47,19 +47,23 @@ if ! [ -f "$CONFIG_FILE" ]; then
   if  [ ${#search_include} -eq 0 ]; then
     echo  "#include manager_qpanel.conf" >> /etc/asterisk/manager.conf;
   fi
-
-echo "
-[qpanel]
-secret = $RAN_PASS
-read = command
-write = command
-" > /etc/asterisk/manager_qpanel.conf
-
 else
+  RAN_PASS=$(grep  "\[manager\]" -a5  $CONFIG_FILE | grep password | cut -f 3 --delimiter=" ")
   python2.6 /opt/%{modname}/update_config.py $CONFIG_FILE /opt/%{modname}/samples/config.ini-dist
 fi
 
-
+# Update or create manager config for qpanel user
+CONFIG_FILE_MANAGER=/etc/asterisk/manager_qpanel.conf
+if ! [ -f "$CONFIG_FILE_MANAGER" ]; then
+  cp /opt/%{modname}/samples/configs/manager_asterisk.conf  $CONFIG_FILE_MANAGER
+else
+  # update role commands
+  ROL_READ=$(grep  "read.*"   /opt/%{modname}/samples/configs/manager_asterisk.conf)
+  ROL_WRITE=$(grep  "write.*"   /opt/%{modname}/samples/configs/manager_asterisk.conf)
+  sed -i "s/read.*/$ROL_READ/" $CONFIG_FILE_MANAGER
+  sed -i "s/write.*/$ROL_WRITE/" $CONFIG_FILE_MANAGER
+fi
+sed -i "s/secret.*/secret = $RAN_PASS/" $CONFIG_FILE_MANAGER
 asterisk -rx "reload"
 
 # Check and install pip
@@ -232,9 +236,18 @@ server {
 sed -i 's/listen\s*80;/listen 8080;/' /etc/nginx/nginx.conf
 # hotfix issue #56
 sed -i 's/listen 8080;/listen 8082;/' /etc/nginx/nginx.conf
-chkconfig nginx on
-/etc/init.d/nginx start
 fi
+
+if  [ -f "/etc/nginx/conf.d/default.conf" ]; then
+  # Other fix for defaults config into Centos 5.10+
+  sed -i 's/listen * 80 d/listen 8082 d/' /etc/nginx/conf.d/default.conf
+  sed -i 's/listen * \[/#listen       \[/' /etc/nginx/conf.d/default.conf
+fi
+
+chkconfig nginx on
+/etc/init.d/nginx stop
+/etc/init.d/nginx start
+
 
 # httpd apache
 if ! [ -f "/etc/httpd/conf.d/qpanel.conf" ]; then
@@ -246,8 +259,6 @@ ProxyPass /qpanel http://127.0.0.1:8081/qpanel
         Allow from all
 </Location>
 ' > /etc/httpd/conf.d/qpanel.conf
-
-/etc/init.d/httpd reload
 fi
 
 
@@ -255,6 +266,7 @@ pathModule="/usr/share/elastix/module_installer/%{name}-%{version}-%{release}"
 # Run installer script to fix up ACLs and add module to Elastix menus.
 elastix-menumerge $pathModule/menu.xml
 
+/etc/init.d/httpd reload
 /etc/init.d/uwsgi restart
 
 %pre
