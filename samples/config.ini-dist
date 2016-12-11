@@ -11,7 +11,7 @@ host = 0.0.0.0
 interval = 5 ;Interval for request on seconds
 ;hide =  ; Hide queue on monitor separate by comma. Example config hide=queue1,queue2
 ;show = ; Add queue what you required to show. Example show=queue1,otherqueuename.
-        ; This option override the hide parameter
+;This option override the hide parameter
 ;base_url =  ; Default is /
 ;secret_key = 'PLEASE_CHANGE_ME' ; is a good idea change this value
 language = en
