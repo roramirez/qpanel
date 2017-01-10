@@ -3,7 +3,7 @@
 #
 # Class Qpanel for Freeswitch
 #
-# Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+# Copyright (C) 2015-2017 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
 
