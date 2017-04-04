@@ -13,7 +13,6 @@
 - [399a3d7](https://github.com/roramirez/qpanel/commit/399a3d7cf9ad68a35669884a156d845ab48ebcaa) Set time for pool_recycle to database connection on queuelog
 - [#82](https://github.com/roramirez/qpanel/pull/82) Russian translation update
 
-
 ### 0.12.0 (2016-08-15)
 - [22d2f1d](https://github.com/roramirez/qpanel/commit/22d2f1d359378de86e48f41ea582a792f7af0616) Add Stats from queue_log
 - [0c9634c](https://github.com/roramirez/qpanel/commit/0c9634cb2dc4731b97c28e97b328983527367384) Add feature for hangup incoming calls
@@ -46,7 +45,7 @@
 - [303e08b](https://github.com/roramirez/qpanel/commit/303e08b53f8ddf53f38d758ab52e554e9442fa0e) Change port nginx close issue #56
 
 ### 0.9.1 (2016-05-30)
-- [ed7f2ff](https://github.com/roramirez/qpanel/commit/ed7f2ff8db52ec886e861c870e7dce48d1674673) Fixbug  introduce in backend for hide and rename queue names.
+- [ed7f2ff](https://github.com/roramirez/qpanel/commit/ed7f2ff8db52ec886e861c870e7dce48d1674673) fixbug remove feature hide and rename queue names
 
 ### 0.9.0  (2016-05-09)
 - [011d675](https://github.com/roramirez/qpanel/commit/011d675bde87bbcc231e52bb2c2e9c96cfcfde6a) fixbug when sections is defined in config original and not into template
