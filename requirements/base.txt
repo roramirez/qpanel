@@ -8,3 +8,4 @@ git+git://github.com/jeansch/py-asterisk@904c91c#egg=py-Asterisk
 requests==2.11.1
 future
 rq-scheduler>=0.6.1,<0.7.0
+python-ESL==1.4.18

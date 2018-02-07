@@ -10,3 +10,7 @@ branches:
   only:
     - master
 script: tox
+addons:
+  apt:
+    packages:
+    - swig
