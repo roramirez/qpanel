@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.15.0  Unreleased (Current Develop Branch)
+
+### Added
+
+### Changed
+
+### Fixed
+
+
+
+
 ### 0.14.0 (2018-06-09)
 - [3231fea](https://github.com/roramirez/qpanel/commit/3231fea6d65b7e7e0ba99cc4993805179842ee8f) Update bower version (@roramirez)
 - [7a78b05](https://github.com/roramirez/qpanel/commit/7a78b05117a6aaf696fe63e1ad13030699aab980) Fix CentOS Linux release 7.2.1511 (Core) (@pathcl)
