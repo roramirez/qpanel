@@ -9,7 +9,7 @@ from distutils.version import LooseVersion
 import qpanel
 
 
-BRANCH = 'stable'
+BRANCH = 'master'
 REPO = 'git@github.com:roramirez/qpanel.git'
 URL_STABLE_VERSION = 'https://rodrigoramirez.com/qpanel/version/' + BRANCH
 
