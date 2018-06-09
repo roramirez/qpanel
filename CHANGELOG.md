@@ -1,5 +1,9 @@
 ## Change Log
 
+### 0.13.1 (2016-09-20)
+- [aa035cb](https://github.com/roramirez/qpanel/commit/aa035cb6b336c74129fcb83e81acc915f7ee392e) Fix bug when present space between separator of config for hide (@roramirez)
+
+
 ### 0.13.0 (2016-09-15)
 - [590df92](https://github.com/roramirez/qpanel/commit/590df92131e9d70e7a25b6b5fa42fbdae1527519) Minor fix background logo header
 - [f4067c7](https://github.com/roramirez/qpanel/commit/f4067c7a8de72ff7e6cc2d2e49a2699d59e5cc8f) restructure requirements files for dependencies
@@ -12,7 +16,6 @@
 - [dd42cf0](https://github.com/roramirez/qpanel/commit/dd42cf0f534408505f57b0d387dffee2f3688711) Use py-asterisk into requirement file
 - [399a3d7](https://github.com/roramirez/qpanel/commit/399a3d7cf9ad68a35669884a156d845ab48ebcaa) Set time for pool_recycle to database connection on queuelog
 - [#82](https://github.com/roramirez/qpanel/pull/82) Russian translation update
-
 
 ### 0.12.0 (2016-08-15)
 - [22d2f1d](https://github.com/roramirez/qpanel/commit/22d2f1d359378de86e48f41ea582a792f7af0616) Add Stats from queue_log
@@ -46,7 +49,7 @@
 - [303e08b](https://github.com/roramirez/qpanel/commit/303e08b53f8ddf53f38d758ab52e554e9442fa0e) Change port nginx close issue #56
 
 ### 0.9.1 (2016-05-30)
-- [ed7f2ff](https://github.com/roramirez/qpanel/commit/ed7f2ff8db52ec886e861c870e7dce48d1674673) Fixbug  introduce in backend for hide and rename queue names.
+- [ed7f2ff](https://github.com/roramirez/qpanel/commit/ed7f2ff8db52ec886e861c870e7dce48d1674673) fixbug remove feature hide and rename queue names
 
 ### 0.9.0  (2016-05-09)
 - [011d675](https://github.com/roramirez/qpanel/commit/011d675bde87bbcc231e52bb2c2e9c96cfcfde6a) fixbug when sections is defined in config original and not into template
