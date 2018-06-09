@@ -1,5 +1,9 @@
 ## Change Log
 
+### 0.13.1 (2016-09-20)
+- [aa035cb](https://github.com/roramirez/qpanel/commit/aa035cb6b336c74129fcb83e81acc915f7ee392e) Fix bug when present space between separator of config for hide (@roramirez)
+
+
 ### 0.13.0 (2016-09-15)
 - [590df92](https://github.com/roramirez/qpanel/commit/590df92131e9d70e7a25b6b5fa42fbdae1527519) Minor fix background logo header
 - [f4067c7](https://github.com/roramirez/qpanel/commit/f4067c7a8de72ff7e6cc2d2e49a2699d59e5cc8f) restructure requirements files for dependencies
