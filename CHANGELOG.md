@@ -1,5 +1,31 @@
 ## Change Log
 
+### Unreleased
+- [3231fea](https://github.com/roramirez/qpanel/commit/3231fea6d65b7e7e0ba99cc4993805179842ee8f) Update bower version (@roramirez)
+- [7a78b05](https://github.com/roramirez/qpanel/commit/7a78b05117a6aaf696fe63e1ad13030699aab980) Fix CentOS Linux release 7.2.1511 (Core) (@pathcl)
+- [#88](https://github.com/roramirez/qpanel/pull/88) fix extconfig.conf (@DoM1niC)
+- [9a0cc96](https://github.com/roramirez/qpanel/commit/9a0cc964b721eb48836df1e83b3c0307a88fd699) fix nginx port Elastix 2.5 with Centos update 5.10+ 
+- [fe98a8e](https://github.com/roramirez/qpanel/commit/fe98a8eb890e6fbaf8ce8134320f3c7736f3a771) move parser_queuelog for run like script
+- [fa170f4](https://github.com/roramirez/qpanel/commit/fa170f4707831290fb488e16836d56adf0b45710) fix some import for py3 (@roramirez)
+- [3835aac](https://github.com/roramirez/qpanel/commit/3835aace53249a5545f357db95f2db644bdf492e) update AMI roles the enable some functions into .spec for RPM of Elastix 4
+- [a0b8943](https://github.com/roramirez/qpanel/commit/a0b89438fea46caf125a59edf581fa2fb00310c4) set use_reloader to False
+- [ab78158](https://github.com/roramirez/qpanel/commit/ab78158adacb53c2d039f028ecf5955bb02f450b) add .travis.yml
+- [3b27e45](https://github.com/roramirez/qpanel/commit/3b27e45c72a33acefc3fc7397a90acf9cb034c02) add tox.ini
+- [ce34785](https://github.com/roramirez/qpanel/commit/ce3478530611d6a05a644e25cc3358fa03df4d98) remove code not used into upgrader module
+- [ca7435c](https://github.com/roramirez/qpanel/commit/ca7435c415589b662dda43ca206d85bc99fc61c9) remove the file .gitmodules is not use anymore.
+- [637847a](https://github.com/roramirez/qpanel/commit/637847a0a7df8233bc101e8ef97a19329dc0b777) refactor code. Mode code into package module called qpanel
+- [fbb5a94](https://github.com/roramirez/qpanel/commit/fbb5a942eb246435ed77d6a291541a5d0df6fa7f) improve function convert_time_when_param
+- [#95](https://github.com/roramirez/qpanel/pull/95) Feature Reset stats
+- [083f874](https://github.com/roramirez/qpanel/commit/083f87485f87f1dcc9d03513e460d0cfbf5d95dc) update doc Python26source to 2.6.9 Python version
+- [b871991](https://github.com/roramirez/qpanel/commit/b871991df23a9c0ffffbe2e529bef295f2b101f1) SPEC for create a RPM for Elastix 4
+- [4104daa](https://github.com/roramirez/qpanel/commit/4104daaffa6ef8f88cd0445fb582f7f5ee58cbe7) support Python 3
+- [5c91f7c](https://github.com/roramirez/qpanel/commit/5c91f7cdec0ba75484321da5d8c266140a84d0dc) ignore .bak files
+- [03fba0a](https://github.com/roramirez/qpanel/commit/03fba0a2adaf60108e2bd33a9b0c9189c97146b3) little format fix
+- [52ef477](https://github.com/roramirez/qpanel/commit/52ef47703efbc0c1ebd2037c4ee9faf6f55e1708) Add sample config for apache2 and wsgi
+- [457ae17](https://github.com/roramirez/qpanel/commit/457ae1728ddcd5714d896fa657a847ff4a9cf13e) Remove submodule instruction for create RPM
+- [5cc61fa](https://github.com/roramirez/qpanel/commit/5cc61fab5e6fc3c28786526d2acadc25807013ad) add show config parameter.
+
+
 ### 0.13.1 (2016-09-20)
 - [aa035cb](https://github.com/roramirez/qpanel/commit/aa035cb6b336c74129fcb83e81acc915f7ee392e) Fix bug when present space between separator of config for hide (@roramirez)
 
