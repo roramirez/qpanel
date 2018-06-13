@@ -1,5 +1,7 @@
 # Centos 5
 
+**Note**: The support for Python 2.6 was removed. Keep maintain these guide only with historical use.
+
 If you OS. is Centos 5.X with EPEL repository activated this guide show how to install install Flask and Python 2.6.
 
 If you prefered install [Python from source read this guide] (Python26Source.md)

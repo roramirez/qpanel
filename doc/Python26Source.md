@@ -1,5 +1,7 @@
 # Python 2.6+ from source
 
+**Note**: The support for Python 2.6 was removed. Keep maintain these guide only with historical use.
+
 If you a OS with a older than 2.6 version of Python necessary for QPanel because use Flask. This document show how to install from source Python 2.6 and Flask.
 
 ## Dependences
