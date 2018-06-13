@@ -33,7 +33,7 @@ Also you can use a [API of Qpanel](doc/api.md) for data query related to queues
 
 
 ## Requirement
- * Python 2.6, 2.7, 3.4
+ * Python 2.7, 3.4
  * [Flask](http://flask.pocoo.org/) 0.10+
  * [Asterisk](http://www.asterisk.org) 1.4+ and enabled manager or [FreeSWITCH](http://www.freeswitch.org) and connection permission to Event Socket Library.
 
@@ -80,8 +80,6 @@ In general section set config
 ```
     freeswitch = True ; Use FreeSWITCH as backend. Use mod_callcenter
 ```
-
- If you used a CentOS 5.X or Elastix check [how to install Python 2.6 and Flask](doc/README.Centos5.md)
 
 ## 1. Clone this repository
 ```
