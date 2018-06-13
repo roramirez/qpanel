@@ -12,7 +12,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 
-
+### 0.14.1 (2018-06-19)
+- [#146](https://github.com/roramirez/qpanel/pull/146) Fix run wsgi (@bilson)
 
 ### 0.14.0 (2018-06-09)
 - [3231fea](https://github.com/roramirez/qpanel/commit/3231fea6d65b7e7e0ba99cc4993805179842ee8f) Update bower version (@roramirez)

@@ -3,4 +3,4 @@ import os
 dirname, filename = os.path.split(os.path.abspath(__file__))
 
 sys.path.insert(0, dirname)
-from app import app as application
+from qpanel.app import app as application
