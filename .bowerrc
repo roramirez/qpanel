@@ -1,4 +1,5 @@
 {
   "directory": "qpanel/static/components",
-  "interactive": false
+  "interactive": false,
+  "strict-ssl": false
 }
