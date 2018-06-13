@@ -83,7 +83,7 @@ In general section set config
 
 ## 1. Clone this repository
 ```
- git clone -b stable  https://github.com/roramirez/qpanel.git
+ git clone https://github.com/roramirez/qpanel.git
 ```
 
 ## 2. Install dependencies
@@ -136,10 +136,10 @@ files](samples/configs).  There are a example for use with uWSGI + NGINX
 ## New features?
 If you like new features or something is wrong [please open a issue](https://github.com/roramirez/qpanel/issues/new)
 
-If you want check the development version get checkout of master branch
+If you want check the development version get checkout of `develop` branch
 
  ```
- git clone -b master  https://github.com/roramirez/qpanel.git
+ git clone -b develop https://github.com/roramirez/qpanel.git
  ```
 
 
