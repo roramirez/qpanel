@@ -6,3 +6,4 @@ before_install:
 
 script:
 - docker run -it --rm --name qpanel-tox -v "$PWD:/code" n42org/tox bash -c "cd /code ; tox"
+- docker run -it --rm --name qpanel-tox -v "$PWD:/code" n42org/tox bash -c "cd /code ; git diff origin/develop | flake8 --diff"
