@@ -23,11 +23,16 @@ class NotConfigFileQPanel(BaseException):
 class QPanelConfig:
 
     def __init__(self, path_config_file=None):
-        dirname, filename = os.path.split(os.path.abspath(__file__))
         if path_config_file:
             self.path_config_file = path_config_file
         else:
-            self.path_config_file = os.path.join(dirname, os.pardir, 'config.ini')
+            dirname, filename = os.path.split(os.path.abspath(__file__))
+            config_file_path = os.path.join(dirname, os.pardir, 'config.ini')
+            # Enable set by enviroment varible the path for configuracion file
+            # This can be useful to test suite and when is running by process
+            # manager like supervisor, wsgi, circus, etc..
+            self.path_config_file = os.environ.setdefault(
+                'QPANEL_CONFIG_FILE', config_file_path)
 
         self.config = self.__open_config_file(self.path_config_file)
 
