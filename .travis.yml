@@ -1,8 +1,8 @@
-language: python
-python:
-  - "2.7"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-install: pip install tox-travis
-script: tox
+services:
+  - docker
+
+before_install:
+- docker pull n42org/tox
+
+script:
+- docker run -it --rm --name qpanel-tox -v "$PWD:/code" n42org/tox bash -c "cd /code ; tox"
