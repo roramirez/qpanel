@@ -28,6 +28,14 @@ class ConfigTestClass(unittest.TestCase):
         with self.assertRaises(config.NotConfigFileQPanel):
             config.QPanelConfig()
 
+    def test_sample_file_configuration(self):
+        os.environ["QPANEL_CONFIG_FILE"] = os.path.join(
+            self.configs_dir, os.pardir, os.pardir,
+            os.pardir, 'samples', 'config.ini-dist')
+
+        configuration = config.QPanelConfig()
+        self.assertEqual(configuration.port_bind, 5000)
+
 
 # runs the unit tests
 if __name__ == '__main__':
