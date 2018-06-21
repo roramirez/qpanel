@@ -121,10 +121,9 @@ class QPanelConfig:
         return self.has_section('queue_log')
 
     def has_section(self, section):
-        v = False
         if self.count_element_sections_config(section, self.config) > 0:
-            v = True
-        return v
+            return True
+        return False
 
     def is_freeswitch(self):
         return self.__get_bool_value_config('general', 'freeswitch', False)
