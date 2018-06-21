@@ -117,6 +117,8 @@ Is necessary have installed Node.
  ```
   Edit config.ini file with Manager Asterisk parameters
 
+  **Note**: Can set the absolute path for configuration file in an enviroment variable called `QPANEL_CONFIG_FILE`.
+
 ## 4.- Translations
  ```
   pybabel compile -d qpanel/translations
