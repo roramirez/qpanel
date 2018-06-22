@@ -26,6 +26,7 @@ if QPanelConfig().has_queuelog_config():
 class User(flask_login.UserMixin):
     pass
 
+
 cfg = QPanelConfig()
 backend = Backend()
 
@@ -50,6 +51,7 @@ def get_user_config_by_name(username):
         return user
     except:
         return None
+
 
 # Flask env
 app = Flask(__name__)

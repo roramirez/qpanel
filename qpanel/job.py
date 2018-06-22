@@ -11,12 +11,14 @@ import datetime
 import time
 from rq import Connection, Worker
 
+
 def check_connect_redis():
     try:
         Redis().echo("Check connection")
         return True
-    except:
+    except BaseException:
         return False
+
 
 def reset_stats_queue(queuename, when, hour):
     '''
@@ -70,12 +72,11 @@ def remove_jobs_not_config():
     jobs = scheduler.get_jobs()
     for job in jobs:
         if 'reset_stats_queue' in job.func_name:
-            q = job.args[0]
             delete = True
             for qr in queue_for_reset:
                 if qr in queue_for_reset:
                     if (queue_for_reset[qr]['when'] == job.args[1] and
-                        queue_for_reset[qr]['hour'] == job.args[2]):
+                            queue_for_reset[qr]['hour'] == job.args[2]):
                         delete = False
                 if delete:
                     job.delete()
@@ -123,8 +124,9 @@ def datetime_from_config(when, hour):
             # scheduler next day
             at_time = at_time + datetime.timedelta(days=1)
     elif days == 7:
-        if ((now.weekday() == 0 or (now.weekday() == ldays.index(when) + 1))
-            and now.time() < hour):
+        if (
+            (now.weekday() == 0 or (now.weekday() == ldays.index(when) + 1)
+             ) and now.time() < hour):
             # scheduler today
             at_time = at_time
         else:
@@ -132,7 +134,8 @@ def datetime_from_config(when, hour):
             next_day = 0
             if when is not 'weekly':
                 next_day = ldays.index(when)
-            at_time = at_time + datetime.timedelta((next_day - now.weekday()) % 7)
+            at_time = at_time + \
+                datetime.timedelta((next_day - now.weekday()) % 7)
     elif days == 30:
         if now.day == 1 and now.time() < hour:
             at_time = at_time
@@ -145,7 +148,8 @@ def datetime_from_config(when, hour):
 def last_day_of_month(date):
     if date.month == 12:
         return date.replace(day=31)
-    return date.replace(month=date.month+1, day=1) - datetime.timedelta(days=1)
+    return date.replace(month=date.month + 1, day=1) - \
+        datetime.timedelta(days=1)
 
 
 def start_jobs():

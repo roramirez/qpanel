@@ -48,6 +48,7 @@ class ConfigTestClass(unittest.TestCase):
         configuration = config.QPanelConfig()
         self.assertEqual(configuration.has_section('general_not_found'), False)
 
+
 # runs the unit tests
 if __name__ == '__main__':
     unittest.main()

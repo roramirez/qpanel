@@ -9,11 +9,11 @@ from __future__ import print_function
 from .config import QPanelConfig
 from flask_babel import format_timedelta
 from .utils import timedelta_from_field_dict, realname_queue_rename
-from .asterisk import *
+from .asterisk import AsteriskAMI
 import six
 # In case use Asterisk dont crash with ESL not in system
 try:
-    from .freeswitch import *
+    from .freeswitch import Freeswitch
 except:
     pass
 
@@ -141,7 +141,7 @@ class Backend(object):
         else:
             s = set(show)
             inter = s & six.viewkeys(data)
-            tmp_data = {x:data[x] for x in inter if x in data}
+            tmp_data = {x: data[x] for x in inter if x in data}
 
         return tmp_data
 

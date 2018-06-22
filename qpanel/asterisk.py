@@ -7,7 +7,7 @@
 #
 
 from __future__ import absolute_import
-from Asterisk.Manager import *
+import Asterisk.Manager
 
 
 class ConnectionErrorAMI(Exception):
@@ -34,7 +34,8 @@ class AsteriskAMI:
 
     def connect_ami(self):
         try:
-            manager = Manager((self.host, self.port), self.user, self.password)
+            manager = Asterisk.Manager((self.host, self.port), self.user,
+                                       self.password)
             return manager
         except:
             return None
@@ -86,7 +87,7 @@ class AsteriskAMI:
                                              async='yes')
         except Asterisk.Manager.ActionFailed as msg:
             return {'Response': 'failed', 'Message': str(msg)}
-        except PermissionDenied as msg:
+        except Asterisk.Manager.PermissionDenied as msg:
             return {'Response': 'failed', 'Message': 'Permission Denied'}
 
     def hangup(self, channel):
@@ -107,7 +108,7 @@ class AsteriskAMI:
             return self.connection.Hangup(channel)
         except Asterisk.Manager.ActionFailed as msg:
             return {'Response': 'failed', 'Message': str(msg)}
-        except PermissionDenied as msg:
+        except Asterisk.Manager.PermissionDenied as msg:
             return {'Response': 'failed', 'Message': 'Permission Denied'}
 
     def reset_stats(self, queue):
@@ -140,5 +141,5 @@ class AsteriskAMI:
             return self.connection.QueueRemove(queue, agent)
         except Asterisk.Manager.ActionFailed as msg:
             return {'Response': 'failed', 'Message': str(msg)}
-        except PermissionDenied as msg:
+        except Asterisk.Manager.PermissionDenied as msg:
             return {'Response': 'failed', 'Message': 'Permission Denied'}
