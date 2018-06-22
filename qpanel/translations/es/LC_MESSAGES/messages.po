@@ -1,0 +1,368 @@
+# Spanish translations for QPanel.
+# Copyright (C) 2015-2017 Rodrigo Ramírez Norambuena
+# This file is distributed under the same license as the QPanel project.
+# Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version:  0.8.0\n"
+"Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
+"POT-Creation-Date: 2015-10-26 07:53-0400\n"
+"PO-Revision-Date: 2016-08-05 15:57-0400\n"
+"Last-Translator: Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>\n"
+"Language: es\n"
+"Language-Team: es <a@rodrigoramirez.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: app.py:157 templates/fs/index.html:181 templates/i18n_js.html:15
+#: templates/i18n_js.html:27 templates/index.html:185
+msgid "unavailable"
+msgstr "no disponible"
+
+#: app.py:159 templates/fs/index.html:174 templates/i18n_js.html:11
+#: templates/i18n_js.html:25 templates/index.html:178
+msgid "free"
+msgstr "libre"
+
+#: app.py:161 templates/i18n_js.html:13
+msgid "in call"
+msgstr "en llamada"
+
+#: app.py:163 templates/fs/index.html:177 templates/i18n_js.html:17
+#: templates/index.html:181
+msgid "busy"
+msgstr "ocupado"
+
+#: templates/404.html:2
+msgid "Not found"
+msgstr "No encontrado"
+
+#: templates/404.html:7
+msgid "404 Not Found"
+msgstr "404 No encontrado"
+
+#: templates/404.html:10
+msgid "The request the was not found on this server."
+msgstr "La solicitud realizada no fue encontrada en el servidor"
+
+#: templates/all_queues.html:5
+msgid "Consolidated view"
+msgstr "Vista consolidada"
+
+#: templates/all_queues.html:14 templates/header.html:12
+msgid "Consolidate view"
+msgstr "Vista consolidada"
+
+#: templates/all_queues.html:29 templates/fs/queue.html:27
+#: templates/queue.html:25
+msgid "Agents"
+msgstr "Agentes"
+
+#: templates/all_queues.html:33 templates/all_queues.html:71
+msgid "Queue"
+msgstr "Cola"
+
+#: templates/all_queues.html:34 templates/fs/queue.html:31
+#: templates/queue.html:29
+msgid "Name"
+msgstr "Nombre"
+
+#: templates/all_queues.html:35 templates/queue.html:30
+msgid "Interface"
+msgstr "Interface"
+
+#: templates/all_queues.html:36 templates/fs/queue.html:33
+#: templates/queue.html:31
+msgid "Status"
+msgstr "Estado"
+
+#: templates/all_queues.html:37 templates/fs/queue.html:35
+#: templates/queue.html:32
+msgid "Attend calls"
+msgstr "Llamadas contestadas."
+
+#: templates/all_queues.html:37 templates/fs/queue.html:35
+#: templates/queue.html:32
+msgid "Calls"
+msgstr "Llamadas"
+
+#: templates/all_queues.html:38 templates/fs/queue.html:36
+#: templates/queue.html:33
+msgid "Last call at"
+msgstr "Última llamada"
+
+#: templates/all_queues.html:67 templates/fs/queue.html:67
+#: templates/queue.html:66
+msgid "Callers"
+msgstr "Llamadas"
+
+#: templates/all_queues.html:72 templates/fs/queue.html:71
+#: templates/queue.html:70
+msgid "Id Name"
+msgstr "Nombre id"
+
+#: templates/all_queues.html:73 templates/fs/queue.html:72
+#: templates/queue.html:71
+msgid "Id Number"
+msgstr "Numero Id"
+
+#: templates/all_queues.html:74 templates/queue.html:72
+msgid "Position"
+msgstr "Posición"
+
+#: templates/all_queues.html:75 templates/fs/queue.html:73
+#: templates/queue.html:73
+msgid "Wait"
+msgstr "Espera"
+
+#: templates/all_queues.html:168 templates/queue.html:173
+msgid "was"
+msgstr "hace"
+
+#: templates/all_queues.html:168 templates/queue.html:173
+msgid "ago"
+msgstr "atrás"
+
+#: templates/all_queues.html:173 templates/queue.html:178
+msgid "paused"
+msgstr "Pausado"
+
+#: templates/footer.html:4
+msgid "Developed by"
+msgstr "Desarrollado por"
+
+#: templates/footer.html:4
+msgid "with a Template by"
+msgstr "con un template de"
+
+#: templates/footer.html:4
+msgid "Version"
+msgstr "Versión"
+
+#: templates/footer.html:42
+msgid "New version available"
+msgstr "Nueva versión"
+
+#: templates/footer.html:43
+msgid "Exist a new version stable: "
+msgstr "Existe una nueva versión estable: "
+
+#: templates/footer.html:43
+msgid ""
+". Visit and update your QPanel <a "
+"href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
+"style=\"color:#ffd777\">from GitHub</a>."
+msgstr ""
+". Visita y actualiza QPanel <a "
+"href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
+"style=\"color:#ffd777\">desde GitHub</a>."
+
+#: templates/header.html:16 templates/stats.html:10 templates/stats.html:61
+msgid "Stats"
+msgstr ""
+
+#: templates/i18n_js.html:30
+msgid "Logged Out"
+msgstr "Salir"
+
+#: templates/i18n_js.html:32
+msgid "Available"
+msgstr "no disponible"
+
+#: templates/i18n_js.html:34
+msgid "Available (On Demand)"
+msgstr "Disponible (En demanda)"
+
+#: templates/i18n_js.html:36
+msgid "On Break"
+msgstr "En descanzo"
+
+#: templates/i18n_js.html:38
+msgid "Idle"
+msgstr "Libre"
+
+#: templates/i18n_js.html:40
+msgid "Waiting"
+msgstr "Esperando"
+
+#: templates/i18n_js.html:42
+msgid "Receiving"
+msgstr "Recibiendo"
+
+#: templates/i18n_js.html:44
+msgid "In a queue call"
+msgstr "En una llamada"
+
+#: templates/fs/index.html:34 templates/index.html:23
+msgid "Queues"
+msgstr "Colas"
+
+#: templates/fs/index.html:53 templates/fs/index.html:121
+#: templates/index.html:42 templates/index.html:113
+#: templates/row_general_data.html:7 templates/stats.html:80
+msgid "Answered"
+msgstr "Contestadas"
+
+#: templates/fs/index.html:54 templates/fs/index.html:116
+#: templates/index.html:43 templates/index.html:108
+#: templates/row_general_data.html:14 templates/stats.html:88
+msgid "Abandoned"
+msgstr "Abandonadas"
+
+#: templates/fs/index.html:55 templates/index.html:44
+#: templates/row_general_data.html:30
+msgid "Incoming"
+msgstr "En línea"
+
+#: templates/fs/index.html:57 templates/index.html:46
+msgid "Service Level"
+msgstr "Nivel de servicio"
+
+#: templates/fs/index.html:71 templates/index.html:60
+msgid "Abandoned:"
+msgstr "Abandono:"
+
+#: templates/language_selector.html:3
+msgid "English"
+msgstr "Inglés"
+
+#: templates/language_selector.html:4
+msgid "Spanish"
+msgstr "Español"
+
+#: templates/language_selector.html:5
+msgid "German"
+msgstr "Alemán"
+
+#: templates/language_selector.html:6
+msgid "Russian"
+msgstr "Ruso"
+
+#: templates/language_selector.html:7
+msgid "Portuguese"
+msgstr "Portugués"
+
+#: templates/login.html:2
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: templates/login.html:10 templates/login.html:19
+msgid "Sign in"
+msgstr "Ingresar"
+
+#: templates/login.html:12
+msgid "User id"
+msgstr "ID usuario"
+
+#: templates/login.html:14
+msgid "Password"
+msgstr "Contraseña"
+
+#: templates/logout_button.html:2
+msgid "Logout"
+msgstr "Salir"
+
+#: templates/queue.html:35
+msgid "Actions"
+msgstr "Acciones"
+
+#: templates/queue.html:51 templates/queue.html:195
+msgid "Spy"
+msgstr "Espiar"
+
+#: templates/queue.html:52 templates/queue.html:196
+msgid "Whisper"
+msgstr "Susurro"
+
+#: templates/queue.html:53 templates/queue.html:197
+msgid "Barge"
+msgstr ""
+
+#: templates/queue.html:54 templates/queue.html:198
+msgid "Remove from queue"
+msgstr "Remove de la cola"
+
+#: templates/queue.html:109
+msgid "Insert where  you listen the call, example: <i>SIP/1001</i>"
+msgstr "Ingresar donde escuchar la llamada, ejemplo: <i>SIP/1001</i>"
+
+#: templates/queue.html:113
+msgid "Listen "
+msgstr "Escuchar"
+
+#: templates/queue.html:291
+msgid "Execute a "
+msgstr "Realizar un"
+
+#: templates/queue.html:298
+msgid "Insert where do need listen"
+msgstr "Digita el lugar donde vas escuchar"
+
+#: templates/queue.html:304
+msgid "Try..."
+msgstr "Intentando..."
+
+#: templates/row_general_data.html:10 templates/stats.html:84
+msgid "Attended calls."
+msgstr "Llamadas contestadas."
+
+#: templates/row_general_data.html:17 templates/stats.html:92
+msgid "Calls not attended by agents."
+msgstr "Llamadas abandonadas"
+
+#: templates/row_general_data.html:22
+msgid "SL"
+msgstr "SL"
+
+#: templates/row_general_data.html:25
+msgid "Service Level."
+msgstr "Nivel de servicio."
+
+#: templates/row_general_data.html:33
+msgid "Call on line."
+msgstr "Llamadas en línea."
+
+#: templates/row_general_data.html:39 templates/stats.html:96
+msgid "Av. time"
+msgstr "P. Hablado"
+
+#: templates/row_general_data.html:42 templates/stats.html:99
+msgid "Average time for answered calls."
+msgstr "Promedio de llamadas contestadas"
+
+#: templates/row_general_data.html:46 templates/stats.html:103
+msgid "Av. Wait"
+msgstr "P. Espera"
+
+#: templates/row_general_data.html:49 templates/stats.html:106
+msgid "Average time waiting for calls."
+msgstr "Promedio de espera para llamadas"
+
+#: templates/stats.html:52
+msgid "From:"
+msgstr "Desde"
+
+#: templates/stats.html:53
+msgid "To:"
+msgstr "Hasta"
+
+#: templates/stats.html:71
+msgid "Inbound"
+msgstr "Entrada"
+
+#: templates/stats.html:74
+msgid "Total incomming calls"
+msgstr "Total llamadas entrada"
+
+#: templates/fs/queue.html:32
+msgid "Contact"
+msgstr "Contacto"
+
+#: templates/fs/queue.html:34
+msgid "State"
+msgstr "Estado"
+

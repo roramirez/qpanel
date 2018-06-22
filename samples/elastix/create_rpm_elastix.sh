@@ -9,6 +9,7 @@
 
 # config
 BRANCH=stable
+SPEC_FILE=elastix4-qpanel.spec
 REPO="https://github.com/roramirez/qpanel.git"
 URL_STABLE_VERSION="https://rodrigoramirez.com/qpanel/version/$BRANCH"
 
@@ -27,6 +28,10 @@ if ! [ -x "$(command -v curl)" ]; then
   exit 1
 fi
 
+if ! [ -x "$(command -v npm)" ]; then
+  echo "Please install npm"
+  exit 1
+fi
 
 VERSION_STABLE=$(curl -L $URL_STABLE_VERSION)
 CLONE_DIR="/tmp/qpanel-$VERSION_STABLE"
@@ -39,17 +44,19 @@ else
 fi
 
 cd $CLONE_DIR
-git submodule init
-git submodule update
 pybabel compile -d translations
+# Bower
+cd $CLONE_DIR
+npm install
+sudo $CLONE_DIR/node_modules/bower/bin/bower --allow-root install
 
 cd /tmp
-tar  cvfz $FILE_TAR qpanel-$VERSION_STABLE
+tar cvfz $FILE_TAR --exclude=node_modules qpanel-$VERSION_STABLE
 
 rpmdev-setuptree
 cd
 cp /tmp/$FILE_TAR rpmbuild/SOURCES
 cd rpmbuild
-cp $CLONE_DIR/samples/elastix/elastix-qpanel.spec elastix-qpanel.spec
-sed -i s/"Version: *.*.*"/"Version: $VERSION_STABLE"/g  elastix-qpanel.spec
-rpmbuild -v -bb elastix-qpanel.spec
+cp $CLONE_DIR/samples/elastix/$SPEC_FILE $SPEC_FILE
+sed -i s/"Version: *.*.*"/"Version: $VERSION_STABLE"/g  $SPEC_FILE
+rpmbuild -v -bb $SPEC_FILE

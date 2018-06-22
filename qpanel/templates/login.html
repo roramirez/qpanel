@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Login') }}{% endblock %}
+
+  {% block body %}
+  <body>
+
+    <div id="login-page">
+      <div class="container">
+          <form class="form-login" method="POST" action="{{ url_for('.login') }}">
+            <h2 class="form-login-heading">{{ _('Sign in') }}</h2>
+            <div class="login-wrap">
+                <input name="username" id="username" type="text" class="form-control" placeholder="{{ _('User id') }}" autofocus>
+                <br>
+                <input name="pw" id="pw" type="password" class="form-control" placeholder="{{ _('Password') }}">
+                <label class="checkbox">
+                    <span class="pull-right">
+                    </span>
+                </label>
+                <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i>{{ _('Sign in') }}</button>
+            </div>
+
+
+          </form>
+      </div>
+    </div>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{{ url_for('static', filename='components/jquery/dist/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  </body>
+  {% endblock %}
+</html>

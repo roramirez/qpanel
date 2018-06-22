@@ -1,0 +1,10 @@
+Flask>=0.11,<0.12
+Flask_Babel>=0.9
+Flask_Login>=0.3.2
+SQLAlchemy==0.9.10
+Click==6.6
+Tailer==0.4.1
+git+git://github.com/jeansch/py-asterisk@904c91c#egg=py-Asterisk
+requests==2.11.1
+future
+rq-scheduler>=0.6.1,<0.7.0

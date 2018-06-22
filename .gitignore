@@ -1,7 +1,7 @@
 *.pyc
 config.ini
 .DS_Store
-translations/*/*/messages.mo
+*/translations/*/*/messages.mo
 
 
 # Distribution / packaging
@@ -21,7 +21,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-
+.tox
 
 
 ## Vim
@@ -32,3 +32,10 @@ var/
 # diff patch
 *.orig
 *.rej
+*.bak
+
+
+# Node and Bower
+node_modules/
+*/static/components
+npm-debug.log*

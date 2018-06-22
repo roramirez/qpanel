@@ -1,0 +1,37 @@
+{
+  "name": "qpanel",
+  "description": "Dashboard for Queues in Asterisk and FreeSWITCH. app_queue panel for Asterisk and mod_callcenter in FreeSWITCH",
+  "version": "0.11.0",
+  "homepage": "https://github.com/roramirez/qpanel",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "3.3.x",
+    "jquery": "1.11.x",
+    "js-cookie": "2.0.x",
+    "Chart.js": "1.0.x",
+    "jquery.nicescroll": "3.5.x",
+    "jquery.scrollTo": "1.4.x",
+    "jquery.gritter": "1.7.x",
+    "font-awesome": "4.4.x"
+  },
+  "authors": [
+    "Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>"
+  ],
+  "directory": "app/components/",
+  "keywords": [
+    "panel",
+    "queues",
+    "asterisk",
+    "freeswitch",
+    "monitor",
+    "callcenter"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
+
