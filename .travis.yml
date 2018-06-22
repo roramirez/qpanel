@@ -1,8 +1,19 @@
+language: python
+python:
+  - "2.7"
+
 services:
   - docker
 
-before_install:
-- docker pull n42org/tox
+env:
+  - RUN=flake8
+  - RUN=tox
+  
+install:
+  - "pip install flake8"
+
+before_script:
+  - docker pull n42org/tox
 
 script:
-- docker run -it --rm --name qpanel-tox -v "$PWD:/code" n42org/tox bash -c "cd /code ; tox"
+  - ./travis.sh
