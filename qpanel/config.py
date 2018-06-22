@@ -56,6 +56,7 @@ class QPanelConfig:
         self.show_service_level \
             = self.__get_bool_value_config('general',
                                            'show_service_level', False)
+        self.theme = self.get_theme()
 
     def __open_config_file(self, file_path):
         cfg = six.moves.configparser.ConfigParser()
@@ -141,3 +142,16 @@ class QPanelConfig:
             return self.config.items(section)
         except:
             return None
+
+    def get_theme(self):
+        """
+            get the theme from configuration.
+            only one from available_themes
+            if not match return default theme
+        """
+        available_themes = ['qpanel', 'old']
+        theme = self.__get_entry_ini_default('general', 'theme', 'qpanel')
+        theme = theme.lower()
+        if theme not in available_themes:
+            return 'qpanel'
+        return theme

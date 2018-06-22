@@ -20,6 +20,12 @@ check_upgrade = True
 ;freeswitch = True ; Use FreeSWITCH as backend. Use mod_callcenter
 show_service_level = False ; Show information of service level of a queue
 
+; Theme setting available to set the design how is showing Qpanel
+; Available configuration
+;'old', 'qpanel'
+;theme = qpanel
+
+
 [rename]
 ; This section if for rename name of queue
 ; Example:

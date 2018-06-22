@@ -48,6 +48,25 @@ class ConfigTestClass(unittest.TestCase):
         configuration = config.QPanelConfig()
         self.assertEqual(configuration.has_section('general_not_found'), False)
 
+    def test_default_theme_config(self):
+        os.environ["QPANEL_CONFIG_FILE"] = os.path.join(
+            self.configs_dir, 'config_default.ini')
+        configuration = config.QPanelConfig()
+        self.assertEqual(configuration.theme, 'qpanel')
+
+    def test_old_theme_config(self):
+        os.environ["QPANEL_CONFIG_FILE"] = os.path.join(
+            self.configs_dir, 'config_old_theme.ini')
+        configuration = config.QPanelConfig()
+        self.assertEqual(configuration.theme, 'old')
+
+    def test_wrong_theme_config(self):
+        os.environ["QPANEL_CONFIG_FILE"] = os.path.join(
+            self.configs_dir, 'config_wrong_theme.ini')
+        configuration = config.QPanelConfig()
+        self.assertEqual(configuration.theme, 'qpanel')
+
+
 # runs the unit tests
 if __name__ == '__main__':
     unittest.main()
