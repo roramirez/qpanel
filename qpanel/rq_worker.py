@@ -8,6 +8,7 @@ def start_jobs():
     p.start()
     start_scheduler()
 
+
 def start_scheduler():
     p = Process(target=main)
     p.start()

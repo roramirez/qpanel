@@ -141,7 +141,7 @@ class Backend(object):
         else:
             s = set(show)
             inter = s & six.viewkeys(data)
-            tmp_data = {x:data[x] for x in inter if x in data}
+            tmp_data = {x: data[x] for x in inter if x in data}
 
         return tmp_data
 
