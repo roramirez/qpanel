@@ -22,7 +22,7 @@ var/
 .installed.cfg
 *.egg
 .tox
-
+.pytest_cache
 
 ## Vim
 # swap
