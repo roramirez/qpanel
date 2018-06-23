@@ -1,6 +1,7 @@
+
 # Qpanel
 
-[![Join the chat at https://gitter.im/qpanel/Lobby](https://badges.gitter.im/qpanel/Lobby.svg)](https://gitter.im/qpanel/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/qpanel/Lobby](https://badges.gitter.im/qpanel/Lobby.svg)](https://gitter.im/qpanel/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/roramirez/qpanel.svg?branch=master)](https://travis-ci.org/roramirez/qpanel)
 
 Qpanel is dashboard for Queues in Asterisk and FreeSWITCH
 
