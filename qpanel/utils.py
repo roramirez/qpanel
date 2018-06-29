@@ -115,6 +115,6 @@ def realname_queue_rename(queuename):
 def add_debug_toolbar(app):
     try:
         from flask_debugtoolbar import DebugToolbarExtension
-        toolbar = DebugToolbarExtension(app)
+        DebugToolbarExtension(app)
     except:
         pass
