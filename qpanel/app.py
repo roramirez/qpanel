@@ -53,7 +53,7 @@ def get_user_config_by_name(username):
         user.id = username
         user.password = cfg.get('users', username)
         return user
-    except:
+    except BaseException:
         return None
 
 
