@@ -14,7 +14,7 @@ import six
 # In case use Asterisk dont crash with ESL not in system
 try:
     from .freeswitch import Freeswitch
-except:
+except BaseException:
     pass
 
 
