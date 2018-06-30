@@ -9,12 +9,12 @@ from __future__ import print_function
 from .config import QPanelConfig
 from flask_babel import format_timedelta
 from .utils import timedelta_from_field_dict, realname_queue_rename
-from .asterisk import *
+from .asterisk import AsteriskAMI
 import six
 # In case use Asterisk dont crash with ESL not in system
 try:
-    from .freeswitch import *
-except:
+    from .freeswitch import Freeswitch
+except BaseException:
     pass
 
 
