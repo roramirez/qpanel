@@ -138,7 +138,7 @@ def parse_list_record(list):
     try:
         time = int(list[0])
         record['time'] = utils.dt(time)
-    except:
+    except BaseException:
         print(list)
         pass
 
@@ -205,8 +205,8 @@ def queuelog_data_queue(from_date, to_date, agent=None, queue=None):
     2 rows in set (0.00 sec)
     '''
 
-    data['count_abandon'] = abandon + (data['inbound'] - data['answered']
-                                       - abandon)
+    data['count_abandon'] = abandon + \
+        (data['inbound'] - data['answered'] - abandon)
     data['seconds_wait'] = queuelog_seconds_wait(from_date, to_date,
                                                  agent, queue)
     data['seconds_talking'] = queuelog_seconds_talking(from_date, to_date,

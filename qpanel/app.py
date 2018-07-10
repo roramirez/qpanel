@@ -22,9 +22,14 @@ from qpanel.backend import Backend
 if QPanelConfig().has_queuelog_config():
     from qpanel.model import queuelog_data_queue
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 
 class User(flask_login.UserMixin):
     pass
+
 
 cfg = QPanelConfig()
 backend = Backend()
@@ -48,8 +53,9 @@ def get_user_config_by_name(username):
         user.id = username
         user.password = cfg.get('users', username)
         return user
-    except:
+    except BaseException:
         return None
+
 
 # Flask env
 app = Flask(__name__)
