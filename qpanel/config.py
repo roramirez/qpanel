@@ -141,7 +141,7 @@ class QPanelConfig:
     def get_items(self, section):
         try:
             return self.config.items(section)
-        except:
+        except BaseException:
             return None
 
     def get_theme(self):
