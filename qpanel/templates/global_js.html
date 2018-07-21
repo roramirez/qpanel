@@ -1,0 +1,19 @@
+<script type="application/javascript">
+
+    // globals variable to use in Js files
+    var REQUEST_INTERVAL = {{ request_interval() }};
+    var LABELS = {
+        Abandoned: "{{ _('Abandoned') }}",
+        Answered: "{{ _('Answered') }}"
+    };
+
+    var STATUSES = {
+        free: "{{ _("free") }}",
+        busy: "{{ _("busy") }}",
+        unavailable: "{{ _("unavailable") }}"
+    };
+
+    var SHOW_SERVICE_LEVEL =  {{ show_service_level()|lower }};
+    var URL_QUEUE_DATA = "{{ url_for('.queues') }}";
+</script>
+ 
