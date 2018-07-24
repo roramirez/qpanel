@@ -170,53 +170,51 @@
 
         <div class="row">
 
+        {% for queue_name, queue in queues.items() %}
           <div class="col-md-4">
             <div class="card card-chart">
               <div class="card-header card-header-success">
 
                 <div class="row">
                   <div class="col-md-6">
-                    default - ringall
+                    {{ queue_name }} - <span id="strategy"></span>
                   </div>
                   <div class="col-md-6">
                     <i class="fa fa-users"></i> 4 agents
                   </div>
                 </div>
-              
               </div>
 
               <div class="card-body">
 
-                <div class="row">
+                <div class="row data"  id="data-{{ queue_name }}">
                   <div class="col-md-6">
 
                     <p class="card-category">
                       <span><i class="material-icons">phone_in_talk</i></span>
-                     Answered: 0
+                      <b>{{ _('Answered') }}:</b><span id="queue_completed">{{ queue.Completed }}</span>
                     </p>
                     <p class="card-category">
                       <span><i class="material-icons">cancel_presentation</i></span>
-                     Abandoned: 0
+                      <b>{{ _('Abandoned') }}:</b> <span id="queue_abandoned">{{ queue.Abandoned }} </span>
                     </p>
                     <p class="card-category">
                       <span><i class="material-icons">phone_callback</i></span>
-                     Incoming: 0
+                      <b>{{ _('Incoming') }}:</b> <span id="queue_incoming">{{ queue.Calls }} </span>
                     </p>
-
                   </div>
 
                   <div class="col-md-6">
 
                     <p class="card-category">
-                      0 (0% unavailable)
+                        <span id="queue_unavailable"></span>
                     </p>
                     <p class="card-category">
-                      0 (0% busy)
+                        <span id="queue_busy"></span>
                     </p>
                     <p class="card-category">
-                      0 (0% free)
+                        <span id="queue_free"></span>
                     </p>
-
                   </div>
 
                 </div>
@@ -224,273 +222,13 @@
               </div>
               <div class="card-footer justify-content-center">
                 <div class="stats-content-center">
-                  Abandoned: 0%
+                  <b>{{ _('Abandoned:') }}</b> <span id="{{ queue_name }}-percent_abandoned">0</span>%
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="col-md-4">
-            <div class="card card-chart">
-              <div class="card-header card-header-success">
-
-                <div class="row">
-                  <div class="col-md-6">
-                    400 - ringall
-                  </div>
-                  <div class="col-md-6">
-                    <i class="fa fa-users"></i> 4 agents
-                  </div>
-                </div>
-              
-              </div>
-
-              <div class="card-body">
-
-                <div class="row">
-                  <div class="col-md-6">
-
-                    <p class="card-category">
-                      <span><i class="material-icons">phone_in_talk</i></span>
-                     Answered: 0
-                    </p>
-                    <p class="card-category">
-                      <span><i class="material-icons">cancel_presentation</i></span>
-                     Abandoned: 0
-                    </p>
-                    <p class="card-category">
-                      <span><i class="material-icons">phone_callback</i></span>
-                     Incoming: 0
-                    </p>
-
-                  </div>
-
-                  <div class="col-md-6">
-
-                    <p class="card-category">
-                      0 (0% unavailable)
-                    </p>
-                    <p class="card-category">
-                      0 (0% busy)
-                    </p>
-                    <p class="card-category">
-                      0 (0% free)
-                    </p>
-
-                  </div>
-
-                </div>
-
-              </div>
-              <div class="card-footer justify-content-center">
-                <div class="stats-content-center">
-                  Abandoned: 0%
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card card-chart">
-              <div class="card-header card-header-success">
-
-                <div class="row">
-                  <div class="col-md-6">
-                    500 - ringall
-                  </div>
-                  <div class="col-md-6">
-                    <i class="fa fa-users"></i> 4 agents
-                  </div>
-                </div>
-              
-              </div>
-
-              <div class="card-body">
-
-                <div class="row">
-                  <div class="col-md-6">
-
-                    <p class="card-category">
-                      <span><i class="material-icons">phone_in_talk</i></span>
-                     Answered: 0
-                    </p>
-                    <p class="card-category">
-                      <span><i class="material-icons">cancel_presentation</i></span>
-                     Abandoned: 0
-                    </p>
-                    <p class="card-category">
-                      <span><i class="material-icons">phone_callback</i></span>
-                     Incoming: 0
-                    </p>
-
-                  </div>
-
-                  <div class="col-md-6">
-
-                    <p class="card-category">
-                      0 (0% unavailable)
-                    </p>
-                    <p class="card-category">
-                      0 (0% busy)
-                    </p>
-                    <p class="card-category">
-                      0 (0% free)
-                    </p>
-
-                  </div>
-
-                </div>
-
-              </div>
-              <div class="card-footer justify-content-center">
-                <div class="stats-content-center">
-                  Abandoned: 0%
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-
-
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header card-header-primary">
-                <h4 class="card-title ">Agents: 4</h4>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
-                      <th>
-                        Name
-                      </th>
-                      <th>
-                        Interface
-                      </th>
-                      <th>
-                        Status
-                      </th>
-                      <th>
-                        Calls
-                      </th>
-                      <th>
-                        Last Call at
-                      </th>
-                      <th>
-                        Actions
-                      </th>
-                    </thead>
-                    <tbody>
-
-                      <tr>
-                        <td>
-                          Agente 1
-                        </td>
-                        <td>
-                          hint:201@ext-local
-                        </td>
-                        <td>
-                          <span class="badge badge-info">free</span>
-                        </td>
-                        <td>
-                          0
-                        </td>
-                        <td>
-                          &nbsp;
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-success btn-sm">Spy</button>
-                          <button type="button" class="btn btn-warning btn-sm">Whisper</button>
-                          <button type="button" class="btn btn-info btn-sm">Barge</button>
-                          <button type="button" class="btn btn-danger btn-sm">Remove from queue</button>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>
-                          Agente 2
-                        </td>
-                        <td>
-                          hint:202@ext-local
-                        </td>
-                        <td>
-                          <span class="badge badge-danger">unavailable</span>
-                        </td>
-                        <td>
-                          0
-                        </td>
-                        <td>
-                          &nbsp;
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-success btn-sm">Spy</button>
-                          <button type="button" class="btn btn-warning btn-sm">Whisper</button>
-                          <button type="button" class="btn btn-info btn-sm">Barge</button>
-                          <button type="button" class="btn btn-danger btn-sm">Remove from queue</button>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>
-                          Agente 3
-                        </td>
-                        <td>
-                          hint:203@ext-local
-                        </td>
-                        <td>
-                          <span class="badge badge-success">in call</span>
-                        </td>
-                        <td>
-                          0
-                        </td>
-                        <td>
-                          &nbsp;
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-success btn-sm">Spy</button>
-                          <button type="button" class="btn btn-warning btn-sm">Whisper</button>
-                          <button type="button" class="btn btn-info btn-sm">Barge</button>
-                          <button type="button" class="btn btn-danger btn-sm">Remove from queue</button>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>
-                          Agente 4
-                        </td>
-                        <td>
-                          hint:204@ext-local
-                        </td>
-                        <td>
-                          <span class="badge badge-warning">busy</span>
-                        </td>
-                        <td>
-                          0
-                        </td>
-                        <td>
-                          &nbsp;
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-success btn-sm">Spy</button>
-                          <button type="button" class="btn btn-warning btn-sm">Whisper</button>
-                          <button type="button" class="btn btn-info btn-sm">Barge</button>
-                          <button type="button" class="btn btn-danger btn-sm">Remove from queue</button>
-                        </td>
-                      </tr>
-
-
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
+        {% endfor %}
+       </div>
       </div>
       <footer class="footer">
         <div class="container-fluid">
@@ -529,6 +267,7 @@
   <!--  Notifications Plugin    -->
   <script src="{{ theme_static('js/plugins/bootstrap-notify.js') }}"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{{ theme_static('js/material-dashboard.js') }}" type="text/javascript"></script>
   <script src="{{ theme_static('js/material-dashboard.js') }}" type="text/javascript"></script>
   <script>
     $(document).ready(function() {
