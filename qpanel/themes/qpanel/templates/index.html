@@ -202,10 +202,15 @@
                       <span><i class="material-icons">phone_callback</i></span>
                       <b>{{ _('Incoming') }}:</b> <span id="queue_incoming">{{ queue.Calls }} </span>
                     </p>
+                    {% if show_service_level() %}
+                    <p class="card-category">
+                      <span><i class="material-icons">timelapse</i></span>
+                      <b>{{ _('Service Level') }}:</b> <span id="queue_servicelevel">{{ queue.ServicelevelPerf }}%</span>
+                    </p>
+                    {% endif %}
                   </div>
 
                   <div class="col-md-6">
-
                     <p class="card-category">
                         <span id="queue_unavailable"></span>
                     </p>
@@ -216,13 +221,15 @@
                         <span id="queue_free"></span>
                     </p>
                   </div>
-
                 </div>
 
               </div>
               <div class="card-footer justify-content-center">
                 <div class="stats-content-center">
-                  <b>{{ _('Abandoned:') }}</b> <span id="{{ queue_name }}-percent_abandoned">0</span>%
+                  <p class="card-category">
+                      <span><i class="material-icons">whatshot</i></span>
+                      <b> {{ _('Abandoned:') }}</b> <span id="{{ queue_name }}-percent_abandoned">0</span>%
+                  </p>
                 </div>
               </div>
             </div>
