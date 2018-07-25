@@ -269,6 +269,13 @@
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{ theme_static('js/material-dashboard.js') }}" type="text/javascript"></script>
   <script src="{{ theme_static('js/material-dashboard.js') }}" type="text/javascript"></script>
+
+
+  <!-- QPanel stuff -->
+  {% include 'global_js.html' %}
+  <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+  <script src="{{ theme_static('js/qpanel.index.js') }}" type="text/javascript"></script>
+
   <script>
     $(document).ready(function() {
       md.showNotification('top','right', 'primary');
