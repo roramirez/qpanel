@@ -7,7 +7,6 @@
 
         // parse data and put values on view
         function parseDataQueue(data){
-            console.log(data);
             var answers = 0, unattended = 0, incoming = 0;
             var c_hold = 0, holdtime = 0, c_talk = 0, talktime = 0;
             var call_in_service_level = 0;
