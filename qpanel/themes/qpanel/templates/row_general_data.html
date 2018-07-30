@@ -1,0 +1,113 @@
+
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">phone_in_talk</i>
+                  </div>
+                  <p class="card-category"></p>
+                  <h3 class="card-title"><span id="answered"></span></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    {{ _('Answered') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">cancel_presentation</i>
+                  </div>
+                  <p class="card-category"></p>
+                  <h3 class="card-title"><span id="abandoned"></span></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    {{ _('Abandoned') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">phone_callback</i>
+                  </div>
+                  <p class="card-category"></p>
+                  <h3 class="card-title"><span id="incoming"></span></h3>
+
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    {{ _('Incoming') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {% if show_service_level() and not is_freeswitch() %}
+            <div class="col-lg-2 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">timelapse</i>
+                  </div>
+                  <p class="card-category"></p>
+                  <h3 class="card-title"><span id="servicelevel"></span></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    {{ _('Service Level') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+
+            {% if not is_freeswitch() %}
+            <div class="col-lg-2 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-primary card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">timer</i>
+                  </div>
+                  <p class="card-category"></p>
+                  <h3 class="card-title"><span id="av_time"></span></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    {{ _('Average time') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">timer_off</i>
+                  </div>
+                  <p class="card-category"></p>
+                  <h3 class="card-title"><span id="av_wait"></span></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    {{ _('Average Wait') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+
