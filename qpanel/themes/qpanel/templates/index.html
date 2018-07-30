@@ -91,7 +91,7 @@
                     {{ queue_name }} - <span id="strategy"></span>
                   </div>
                   <div class="col-md-6">
-                    <i class="fa fa-users"></i> 4 agents
+                    <i class="fa fa-users"></i><span id="queue_users">{{ queue.members | count }} </span> {{_('Agents')}}
                   </div>
                 </div>
               </div>

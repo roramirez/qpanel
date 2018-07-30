@@ -9,3 +9,7 @@
 .queue-card a {
   color: white;
 }
+
+#queue_users {
+  margin-left: 5px;
+}
