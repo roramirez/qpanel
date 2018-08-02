@@ -20,7 +20,7 @@
 
     function addLabelDivStatusAgent(div) {
         var label;
-        div.removeClass('label-warning label-info label-danger');
+        div.removeClass('badge-warning badge-info badge-danger');
         value = div.html();
         if (value == "{{ _('free') }}") {
             label = 'info';
@@ -46,7 +46,7 @@
         } else {
             label = 'warning';
         }
-        div.addClass('label-'+label);
+        div.addClass('badge-'+label);
     }
 
 </script>
