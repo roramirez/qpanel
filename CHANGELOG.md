@@ -10,7 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 ### Fixed
-
+ - Fix hangup for caller into the table for the button by close td
 
 ### 0.14.1 (2018-06-19)
 - [#146](https://github.com/roramirez/qpanel/pull/146) Fix run wsgi (@bilson)
