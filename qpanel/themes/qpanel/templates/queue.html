@@ -97,6 +97,56 @@
         </div>
 
 
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title">
+                    {{ _('Callers') }}: <span id="total_callers" class="label label-default"></span>
+                </h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table" id="callers">
+                    <thead class=" text-primary">
+                      <th>
+                        {{ _('Id Name') }}
+                      </th>
+                      <th>
+                        {{ _('Id Number') }}
+                      </th>
+                      <th>
+                        {{ _('Position') }}
+                      </th>
+                      <th>
+                        {{ _('Wait') }}
+                      </th>
+                      <th></th>
+                   </thead>
+                    <tbody>
+
+                    {% for key, caller in data.entries.items() %}
+                      <tr id="caller-{{ caller.Uniqueid }}" data-uniqueid="{{ caller.Uniqueid }}">
+                        <td>{{ caller.CallerIDName }}</td>
+                        <td>{{ caller.CallerIDNum }}</td>
+                        <td>{{ caller.Position }}</td>
+                        <td id="wait">{{ caller.Wait }}</td>
+                        <td>
+                            <button class="btn btn-danger btn-xs" id="stop-call">
+                                <i class="fa fa-ban"></i>
+                            </button>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
       <footer class="footer">
         <div class="container-fluid">
@@ -247,7 +297,8 @@
                         + c.CallerIDName + '</td>'
                         + '<td>' + c.CallerIDNum + '</td>'
                         + '<td id="position">'  + c.Position + '</td>'
-                        + '<td id="wait">' + c.WaitAgo
+                        + '<td id="wait">' + c.WaitAgo + '</td>'
+                        + '<td>'
                         +    '<button class="btn btn-danger btn-xs" id="stop-call">'
                         +       '<i class="fa fa-ban"></i>'
                         +     '</button>'
