@@ -17,3 +17,8 @@ before_script:
 
 script:
   - ./travis.sh
+
+addons:
+  apt:
+    packages:
+    - swig
