@@ -20,6 +20,17 @@
                 </a>
               </li>
               -->
+             {% if has_users() %}
+              <li class="nav-item">
+               <a class="nav-link" href="{{url_for('.logout')}}">
+                  <i class="material-icons">exit_to_app</i>  {{_('Logout') }}
+                  <p class="d-lg-none d-md-block">
+                    Home
+                  </p>
+                </a>
+              </li>
+             </li>
+             {% endif %}
 
               {% if not is_freeswitch() %}
               <li class="nav-item">
