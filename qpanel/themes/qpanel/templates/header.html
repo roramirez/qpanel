@@ -10,28 +10,14 @@
           </button>
           <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
-              <!--
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i class="material-icons">dashboard</i> Home
+               <a class="nav-link" href="{{url_for('.home')}}">
+                  <i class="material-icons">home</i>  {{_('Home') }}
                   <p class="d-lg-none d-md-block">
                     Home
                   </p>
                 </a>
               </li>
-              -->
-             {% if has_users() %}
-              <li class="nav-item">
-               <a class="nav-link" href="{{url_for('.logout')}}">
-                  <i class="material-icons">exit_to_app</i>  {{_('Logout') }}
-                  <p class="d-lg-none d-md-block">
-                    Home
-                  </p>
-                </a>
-              </li>
-             </li>
-             {% endif %}
-
               {% if not is_freeswitch() %}
               <li class="nav-item">
                <a class="nav-link" href="{{url_for('.all_queues')}}">
@@ -52,6 +38,16 @@
                   </p>
                 </a>
               </li>
+              {% if has_users() %}
+               <li class="nav-item">
+                <a class="nav-link" href="{{url_for('.logout')}}">
+                   <i class="material-icons">exit_to_app</i>  {{_('Logout') }}
+                   <p class="d-lg-none d-md-block">
+                     Home
+                   </p>
+                 </a>
+              </li>
+              {% endif %}
               {% endif %}
               <li class="nav-item dropdown">
                 <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
