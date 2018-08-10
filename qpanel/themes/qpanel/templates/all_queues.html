@@ -168,13 +168,7 @@
   <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
   {% include theme('i18n_js.html') %}
 
-  <script>
-    $(document).ready(function() {
-      md.showNotification('top','right', 'primary');
-    });
-  </script>
-
-    <script type="application/javascript">
+  <script type="application/javascript">
         $(document).ready(function () {
             getDataQueue(); //load data on page ready :)
             setInterval(function () {
