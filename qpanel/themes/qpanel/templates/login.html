@@ -36,7 +36,7 @@
                 <div class="card-body">
                   <form class="form-login" method="POST" action="{{ url_for('.login') }}">
                     <div class="row">
-                     <div class="col-md-10">
+                     <div class="col-md-10 offset-1">
                         <div class="form-group bmd-form-group">
                           <label class="bmd-label-floating">{{ _('User id') }}</label>
                           <input name="username" id="username" type="text" class="form-control" autofocus>
@@ -44,7 +44,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-10">
+                      <div class="col-md-10 offset-1">
                         <div class="form-group bmd-form-group">
                           <label class="bmd-label-floating">{{ _('Password') }}</label>
                           <input name="pw" id="pw" type="password" class="form-control">
@@ -52,7 +52,7 @@
                       </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary pull-right">
+                    <button type="submit" class="btn btn-lg btn-outline-dark pull-right">
                         <i class="material-icons">input</i> {{ _('Sign in') }}
                     </button>
                     <div class="clearfix"></div>
