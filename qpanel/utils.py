@@ -85,6 +85,7 @@ def bytes2human(n):
             return '%.1f%s' % (value, s)
     return "%sB" % n
 
+
 def first_data_dict(data):
     if data:
         return list(data.keys())[0]

@@ -14,11 +14,11 @@ def get_mount_partition(types=None):
         drivelist = subprocess.Popen('wmic logicaldisk get name,description',
                                      shell=True, stdout=subprocess.PIPE)
         drivelisto, err = drivelist.communicate()
-        driveLines = drivelisto.split('\n')
     elif 'linux' in sys.platform:
         p = subprocess.Popen("mount", stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)
-        retcode = p.poll()   # returns None while subprocess is running
+        # returns None while subprocess is running
+        retcode = p.poll()  # noqa: F841
         lines = p.stdout.readlines()
 
         for line in lines:
@@ -55,7 +55,7 @@ def disk_usage(path):
         import ctypes
 
         _, total, free = ctypes.c_ulonglong(), ctypes.c_ulonglong(),\
-                ctypes.c_ulonglong()
+            ctypes.c_ulonglong()
         if sys.version_info >= (3,) or isinstance(path, unicode):
             fun = ctypes.windll.kernel32.GetDiskFreeSpaceExW
         else:
@@ -84,14 +84,14 @@ def get_info_partitions(types=None):
             percent_free = usage.free * 100 / usage.total
 
         tmp = {'name': partition,
-                'total': {'bytes': usage.total,
-                          'bytes2human': utils.bytes2human(usage.total)},
-                'used': {'bytes': usage.used,
-                         'bytes2human': utils.bytes2human(usage.used),
-                         'percent': percent_used},
-                'free': {'bytes': usage.free,
-                         'bytes2human': utils.bytes2human(usage.free),
-                         'percent': percent_free}}
+               'total': {'bytes': usage.total,
+                         'bytes2human': utils.bytes2human(usage.total)},
+               'used': {'bytes': usage.used,
+                        'bytes2human': utils.bytes2human(usage.used),
+                        'percent': percent_used},
+               'free': {'bytes': usage.free,
+                        'bytes2human': utils.bytes2human(usage.free),
+                        'percent': percent_free}}
 
         info.append(tmp)
     return info
