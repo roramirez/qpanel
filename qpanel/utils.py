@@ -115,6 +115,7 @@ def realname_queue_rename(queuename):
 def add_debug_toolbar(app):
     try:
         from flask_debugtoolbar import DebugToolbarExtension
+        app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
         DebugToolbarExtension(app)
     except:
         pass
