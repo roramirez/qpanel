@@ -1,6 +1,6 @@
 import unittest
-from qpanel.utils import clean_str_to_div_id, underscore_to_camelcase, \
-    timedelta_from_field_dict
+from qpanel.utils import (clean_str_to_div_id, underscore_to_camelcase,
+                          timedelta_from_field_dict, bytes2human)
 from qpanel.convert import convert_time_when_param
 import time
 import datetime
@@ -86,6 +86,15 @@ class UtilsTestClass(unittest.TestCase):
         value = 'test1; 00:00:01'
         self.assertEqual(convert_time_when_param(value, splitter=';'),
                          {'when': 'test1', 'hour': '00:00:01'})
+
+    def test_bytes2human(self):
+        """
+            Should return correct format for n bytes for params
+        """
+        self.assertEqual(bytes2human(1024), '1.0K')
+        self.assertEqual(bytes2human(1024*10), '10.0K')
+        self.assertEqual(bytes2human(1024*10*1024), '10.0M')
+        self.assertEqual(bytes2human(1024*2000*1024), '2.0G')
 
 
 # runs the unit tests
