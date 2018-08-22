@@ -1,0 +1,24 @@
+      <!--header start-->
+      <header class="header black-bg">
+            <!--logo start-->
+            <a href="{{ url_for('.home') }}" class="logo"><img src="{{url_for('static', filename='img/logo_header.png') }}"></a>
+            <!--logo end-->
+            <div class="nav notify-row" id="top_menu">
+            </div>
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                    {% if not is_freeswitch() %}
+                    <li>
+                        <a class="logout" href="{{url_for('.all_queues')}}">{{_('Consolidate view') }}</a>
+                    </li>
+                    {% endif %}
+                    {% if config().has_queuelog_config() and not is_freeswitch() %}
+                    <li><a class="logout" href="{{ url_for('.stats') }}">{{_('Stats') }}</a></li>
+                    {% endif %}
+                    {% include 'language_selector.html' %}
+                    {% include 'logout_button.html' %}
+                </ul>
+            </div>
+        </header>
+      <!--header end-->
+

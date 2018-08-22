@@ -1,3 +1,0 @@
-import app
-
-app.main()

@@ -1,0 +1,19 @@
+language: python
+python:
+  - "2.7"
+
+services:
+  - docker
+
+env:
+  - RUN=flake8
+  - RUN=tox
+  
+install:
+  - "pip install flake8"
+
+before_script:
+  - docker pull n42org/tox
+
+script:
+  - ./travis.sh

@@ -1,0 +1,15 @@
+/*
+ *
+ * Custom CSS stuff Qpanel new theme base
+ * Material Dashboard - v2.1.0
+ *
+ *
+ * */
+
+.queue-card a {
+  color: white;
+}
+
+#queue_users {
+  margin-left: 5px;
+}

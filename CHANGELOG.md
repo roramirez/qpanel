@@ -1,4 +1,82 @@
-## Change Log
+## QPanel Change Log
+
+All notable changes to this project will be documented in this file.
+This project adheres to [Semantic Versioning](http://semver.org/).
+
+## 0.15.0  Unreleased (Current Develop Branch)
+
+### Added
+
+### Changed
+
+### Fixed
+ - Fix hangup for caller into the table for the button by close td
+
+### 0.14.1 (2018-06-19)
+- [#146](https://github.com/roramirez/qpanel/pull/146) Fix run wsgi (@bilson)
+
+### 0.14.0 (2018-06-09)
+- [3231fea](https://github.com/roramirez/qpanel/commit/3231fea6d65b7e7e0ba99cc4993805179842ee8f) Update bower version (@roramirez)
+- [7a78b05](https://github.com/roramirez/qpanel/commit/7a78b05117a6aaf696fe63e1ad13030699aab980) Fix CentOS Linux release 7.2.1511 (Core) (@pathcl)
+- [#88](https://github.com/roramirez/qpanel/pull/88) fix extconfig.conf (@DoM1niC)
+- [9a0cc96](https://github.com/roramirez/qpanel/commit/9a0cc964b721eb48836df1e83b3c0307a88fd699) fix nginx port Elastix 2.5 with Centos update 5.10+ 
+- [fe98a8e](https://github.com/roramirez/qpanel/commit/fe98a8eb890e6fbaf8ce8134320f3c7736f3a771) move parser_queuelog for run like script
+- [fa170f4](https://github.com/roramirez/qpanel/commit/fa170f4707831290fb488e16836d56adf0b45710) fix some import for py3 (@roramirez)
+- [3835aac](https://github.com/roramirez/qpanel/commit/3835aace53249a5545f357db95f2db644bdf492e) update AMI roles the enable some functions into .spec for RPM of Elastix 4
+- [a0b8943](https://github.com/roramirez/qpanel/commit/a0b89438fea46caf125a59edf581fa2fb00310c4) set use_reloader to False
+- [ab78158](https://github.com/roramirez/qpanel/commit/ab78158adacb53c2d039f028ecf5955bb02f450b) add .travis.yml
+- [3b27e45](https://github.com/roramirez/qpanel/commit/3b27e45c72a33acefc3fc7397a90acf9cb034c02) add tox.ini
+- [ce34785](https://github.com/roramirez/qpanel/commit/ce3478530611d6a05a644e25cc3358fa03df4d98) remove code not used into upgrader module
+- [ca7435c](https://github.com/roramirez/qpanel/commit/ca7435c415589b662dda43ca206d85bc99fc61c9) remove the file .gitmodules is not use anymore.
+- [637847a](https://github.com/roramirez/qpanel/commit/637847a0a7df8233bc101e8ef97a19329dc0b777) refactor code. Mode code into package module called qpanel
+- [fbb5a94](https://github.com/roramirez/qpanel/commit/fbb5a942eb246435ed77d6a291541a5d0df6fa7f) improve function convert_time_when_param
+- [#95](https://github.com/roramirez/qpanel/pull/95) Feature Reset stats
+- [083f874](https://github.com/roramirez/qpanel/commit/083f87485f87f1dcc9d03513e460d0cfbf5d95dc) update doc Python26source to 2.6.9 Python version
+- [b871991](https://github.com/roramirez/qpanel/commit/b871991df23a9c0ffffbe2e529bef295f2b101f1) SPEC for create a RPM for Elastix 4
+- [4104daa](https://github.com/roramirez/qpanel/commit/4104daaffa6ef8f88cd0445fb582f7f5ee58cbe7) support Python 3
+- [5c91f7c](https://github.com/roramirez/qpanel/commit/5c91f7cdec0ba75484321da5d8c266140a84d0dc) ignore .bak files
+- [03fba0a](https://github.com/roramirez/qpanel/commit/03fba0a2adaf60108e2bd33a9b0c9189c97146b3) little format fix
+- [52ef477](https://github.com/roramirez/qpanel/commit/52ef47703efbc0c1ebd2037c4ee9faf6f55e1708) Add sample config for apache2 and wsgi
+- [457ae17](https://github.com/roramirez/qpanel/commit/457ae1728ddcd5714d896fa657a847ff4a9cf13e) Remove submodule instruction for create RPM
+- [5cc61fa](https://github.com/roramirez/qpanel/commit/5cc61fab5e6fc3c28786526d2acadc25807013ad) add show config parameter.
+
+
+### 0.13.1 (2016-09-20)
+- [aa035cb](https://github.com/roramirez/qpanel/commit/aa035cb6b336c74129fcb83e81acc915f7ee392e) Fix bug when present space between separator of config for hide (@roramirez)
+
+
+### 0.13.0 (2016-09-15)
+- [590df92](https://github.com/roramirez/qpanel/commit/590df92131e9d70e7a25b6b5fa42fbdae1527519) Minor fix background logo header
+- [f4067c7](https://github.com/roramirez/qpanel/commit/f4067c7a8de72ff7e6cc2d2e49a2699d59e5cc8f) restructure requirements files for dependencies
+- [dfbf19d](https://github.com/roramirez/qpanel/commit/dfbf19d46e022afec844dec36b885e5c679183f9) new update pt_BR translations
+- [059884a](https://github.com/roramirez/qpanel/commit/059884ad6215ca863ce6a0b12e5d7e96bc2addb3) add logo in vector format
+- [7f68b95](https://github.com/roramirez/qpanel/commit/7f68b9506680ac017a02c508cb8aa97314cf86e7) Add script for WSGI support
+- [35422b0](https://github.com/roramirez/qpanel/commit/35422b0517bef52b06c9f429ad4a986df8eb3994) sample config for apache2 + uwsgi
+- [1767ef4](https://github.com/roramirez/qpanel/commit/1767ef4be13d107fe6ea37f87ea796f62c051798) Change use urlib2 by requests library
+- [#84](https://github.com/roramirez/qpanel/pull/84) Use bower for manager of dependencies packages of JS and CSS utilities
+- [dd42cf0](https://github.com/roramirez/qpanel/commit/dd42cf0f534408505f57b0d387dffee2f3688711) Use py-asterisk into requirement file
+- [399a3d7](https://github.com/roramirez/qpanel/commit/399a3d7cf9ad68a35669884a156d845ab48ebcaa) Set time for pool_recycle to database connection on queuelog
+- [#82](https://github.com/roramirez/qpanel/pull/82) Russian translation update
+
+### 0.12.0 (2016-08-15)
+- [22d2f1d](https://github.com/roramirez/qpanel/commit/22d2f1d359378de86e48f41ea582a792f7af0616) Add Stats from queue_log
+- [0c9634c](https://github.com/roramirez/qpanel/commit/0c9634cb2dc4731b97c28e97b328983527367384) Add feature for hangup incoming calls
+- [4a0657f](https://github.com/roramirez/qpanel/commit/4a0657f874750e5bd246c3e6a68de40622aebe7c) fix ExtDeprecationWarning for flask_login and flask_babel
+- [#69](https://github.com/roramirez/qpanel/pull/69) move babel.cfg and messages.pot into translations directory for clean
+- [#68](https://github.com/roramirez/qpanel/pull/68) Update Flask version to 0.11
+- [c8d6113](https://github.com/roramirez/qpanel/commit/c8d6113b44fd84df2f687219ad4292e3433b672e) add feature remove agent from a queue
+
+### 0.11.1 (2016-07-20)
+- [a22c0f7](https://github.com/roramirez/qpanel/commit/a22c0f7230914f3ec6aebc2eddd6c91a3e1cd740) Fix import logging detect for issue #56 (@roramirez)
+
+### 0.11.0 (2016-07-15)
+- [#66](https://github.com/roramirez/qpanel/pull/66) Move file sample config.ini-dist into samples
+- [#64](https://github.com/roramirez/qpanel/pull/64) Add In call Feature
+- [a4c0fdb](https://github.com/roramirez/qpanel/commit/a4c0fdbaacfe6aba4d80801846fe76eee8d299f8) Fix a bug for update color label when new agent is added
+- [af36976](https://github.com/roramirez/qpanel/commit/af36976a9dbc6ae6257edf69fabedabf4e1f1093) Add features Spy, Whisper and Barge
+- [#63](https://github.com/roramirez/qpanel/pull/63) Show version id in footer
+- [#62](https://github.com/roramirez/qpanel/pull/62) Add Tests
+- [#61](https://github.com/roramirez/qpanel/pull/61) Refactor init app. Add __init__ and __main__ file
 
 ### 0.10.0 (2016-06-16)
 - [c77edc9](https://github.com/roramirez/qpanel/commit/c77edc9658664ea6fad3d47174aa70d80b79d701) Install dependencies by requirements.txt file.
@@ -12,7 +90,7 @@
 - [303e08b](https://github.com/roramirez/qpanel/commit/303e08b53f8ddf53f38d758ab52e554e9442fa0e) Change port nginx close issue #56
 
 ### 0.9.1 (2016-05-30)
-- [ed7f2ff](https://github.com/roramirez/qpanel/commit/ed7f2ff8db52ec886e861c870e7dce48d1674673) Fixbug  introduce in backend for hide and rename queue names.
+- [ed7f2ff](https://github.com/roramirez/qpanel/commit/ed7f2ff8db52ec886e861c870e7dce48d1674673) fixbug remove feature hide and rename queue names
 
 ### 0.9.0  (2016-05-09)
 - [011d675](https://github.com/roramirez/qpanel/commit/011d675bde87bbcc231e52bb2c2e9c96cfcfde6a) fixbug when sections is defined in config original and not into template

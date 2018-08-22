@@ -1,5 +1,7 @@
 # Python 2.6+ from source
 
+**Note**: The support for Python 2.6 was removed. Keep maintain these guide only with historical use.
+
 If you a OS with a older than 2.6 version of Python necessary for QPanel because use Flask. This document show how to install from source Python 2.6 and Flask.
 
 ## Dependences
@@ -17,9 +19,9 @@ Minimal necessary compiler and openssl
 Install Python from source
 
 ```
-wget https://www.python.org/ftp/python/2.6.6/Python-2.6.6.tgz
-tar -zxvf Python-2.6.6.tgz
-cd Python-2.6.6
+wget https://www.python.org/ftp/python/2.6.9/Python-2.6.9.tgz
+tar -zxvf Python-2.6.9.tgz
+cd Python-2.6.9
 ./configure && make && make install
 ```
 

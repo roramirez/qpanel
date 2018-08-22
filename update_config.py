@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 #
-# Copyright (C) 2015-2016 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+# Copyright (C) 2015-2018 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-from libs.qpanel import utils
+from qpanel import utils
 import sys
 
 if __name__ == '__main__':

@@ -1,0 +1,5 @@
+-r base.txt
+flake8
+flask-debugtoolbar
+pytest
+tox

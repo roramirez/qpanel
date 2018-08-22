@@ -1,0 +1,94 @@
+{% extends theme('base.html') %}
+
+  {% block main %}
+      <script>
+        dataGraph = Array();
+        graph = Array();
+      </script>
+
+      <!--main content start-->
+      <section id="main-content" style="margin-left: 0px;">
+          <section class="wrapper">
+
+              <div class="row">
+                  <div class="col-lg-12 main-chart">
+
+                    <div class="row"><!-- row general data-->
+                      {% include 'row_general_data.html' %}
+                    </div><!-- /row general data-->
+
+                     <div class="row mt">
+
+                    <div class="border-head">
+                      <h1><i class="fa fa-angle-right"></i> {{ _('Queues') }}</h1>
+                    </div>
+
+                    {% for queue_name, queue in queues.items() %}
+                        <div class="col-lg-4 col-md-4 col-sm-4 mb project">
+                            <div class="weather-2 pn photo-wrapper transparent-background">
+                              <a href="{{ url_for('.queue', name=queue_name) }}">
+                                <div class="weather-2-header">
+                                    <div class="row header-{{ queue_name }}">
+                                        <div class="panel-title centered">
+                                            <p>{{ queue_name }} - <span id="strategy"></span></p>
+                                        </div>
+                                    </div>
+                                </div><!-- /weather-2 header -->
+
+
+                                <div class="row data" id="data-{{ queue_name }}">
+
+                                    <div class="col-sm-4 col-xs-4 voffset20 goleft">
+                                        <h5><b>{{ _('Answered') }}:</b> <span id="queue_completed">{{ queue.Completed }}</span></h5>
+                                        <h5>{{ _('Abandoned') }}: <span id="queue_abandoned">{{ queue.Abandoned }} </span></h5>
+                                        <h5>{{ _('Incoming') }}: <span id="queue_incoming">{{ queue.Calls }} </span></h5>
+                                        {% if show_service_level() %}
+                                        <h5>{{ _('Service Level') }}: <span id="queue_servicelevel">{{ queue.ServicelevelPerf }}%</span></h5>
+                                        {% endif %}
+                                    </div>
+                                     <div class="col-lg-4 col-md-4 col-sm-4 mb voffset20">
+                                            <canvas id="graph_{{ queue_name }}" height="120" width="120"></canvas>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-4 goright voffset20">
+                                        <h5><i class="fa fa-users fa-2x"> <span id="queue_users">{{ queue.members | count }} </span></i>
+                                        <h5><span id="queue_unavailable"></h5>
+                                        <h5><span id="queue_busy"></h5>
+                                        <h5><span id="queue_free"></h5>
+                                    </div>
+                                </div>
+                                <div class="row centered"  style="margin-top: -20px;">
+                                    <h2>{{ _('Abandoned:') }} <span id="{{ queue_name }}-percent_abandoned">0</span>%</h2>
+                                </div>
+                                <script>
+                                    dataGraph['{{ queue_name }}'] = [
+                                        {
+                                            value: {{ queue.Abandoned }},
+                                            color:"#FF6B6B"
+                                        },
+                                        {
+                                            value: {{ queue.Completed }},
+                                            color : "#5cb85c"
+                                        }
+                                    ];
+                                    graph['{{ queue_name }}'] = new Chart(document.getElementById("graph_{{ queue_name }}").getContext("2d")).Doughnut(dataGraph['{{ queue_name }}']);
+                                </script>
+
+
+                            </div>
+                            </a>
+                        </div><!--/col-md-4 -->
+                    {% endfor %}
+                  </div><!-- /row -->
+               </div><!-- /row -->
+            </div><!-- /row -->
+          </section>
+      </section>
+
+    {% endblock %}
+
+
+    {% block script_end %}
+        {% include 'global_js.html' %}
+        <script src="{{ url_for('static', filename='js/qpanel.index.js') }}"></script>
+    {% endblock%}
+
