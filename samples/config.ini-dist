@@ -48,6 +48,33 @@ show_service_level = False ; Show information of service level of a queue
 [reset_stats]
 ;queuename = daily,00:00:00
 
+
+
+; Configuration for queue_log database for the adapter setting
+; need extra other dependencies if you use
+; MySQL or PostreSQL
+;
+; MySQL
+; =====
+;
+; pip install -r requirements/dbs/mysql.txt
+; https://pypi.org/project/mysqlclient/
+;
+; For to build the mysqlclient you need the have installed before
+; in the system the dependencies for MySQL Client Devel.
+;
+;  Debian / Ubuntu
+;    sudo apt-get install python-dev default-libmysqlclient-dev
+;
+;  Red Hat / CentOS
+;    sudo yum install python-devel mysql-devel
+;
+;
+; PostgreSQL
+; ==========
+; pip install -r requirements/dbs/postgresql.txt
+;
+
 ;[queue_log]
 ;database = asterisk
 ;table = queue_log

@@ -136,6 +136,11 @@ Go url of machine http://IP:5000
 If you want run QPanel like a service, see the [samples configurations
 files](samples/configs).  There are a example for use with uWSGI + NGINX
 
+## QueueLog Stats for Asterisk
+You could use the stats for queue of `Asterisk` from QueueLog. If need more informacion about this go [Stats, Realtime and other things](doc/StatsConfig.md)
+or see the section `[queue_log]` of the [sample configuration file](samples/samples/config.ini-dist)
+
+
 ## New features?
 If you like new features or something is wrong [please open a issue](https://github.com/roramirez/qpanel/issues/new)
 

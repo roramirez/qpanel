@@ -23,6 +23,28 @@ adapter = postgres
 
 Before you configure the database conection, is really neccesary set configuration for queue_log logger into the database. If you dont want the realtime can too parse to queue_log file.
 
+The configuration for `queue_log` database for the adapter setting you need extra other dependencies if you use with `MySQL` or `PostgreSQL`
+
+
+### MySQL
+
+https://pypi.org/project/mysqlclient/
+
+`pip install -r requirements/dbs/mysql.txt`
+
+For to build the mysqlclient you need the have installed before  in the system the dependencies for MySQL Client Devel.
+
+
+**Debian / Ubuntu**
+`sudo apt-get install python-dev default-libmysqlclient-dev`
+
+**Red Hat / CentOS**
+`sudo yum install python-devel mysql-devel`
+
+### PostgreSQL
+`pip install -r requirements/dbs/postgresql.txt`
+
+
 
 ## How config queue_log Realtime
 
@@ -60,4 +82,3 @@ odbc is your driver and general the section where set config respective file
 If you dont want to work in realtime, you can parse the queue_log with parser_queuelog.py
 
 Into the  samples/sqls directory there are samples of DDL for MySQL and PostgreSQL database.
-
