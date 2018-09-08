@@ -72,15 +72,15 @@
                       <tr id="agent-{{ clean_str_to_div_id(agent_id) }}">
                         <td>{{ agent.Name }}</td>
                         <td>{{ agent.StateInterface }}</td>
-                        <td id="status">
+                        <td class="status">
                           <span class="badge badge-info state">
                             {{ str_status_agent(agent.Status) }}
                            </span>
                         </td>
-                        <td id="calls">
+                        <td class="calls">
                           {{ agent.CallsTaken }}
-                        <td id="last_call">{{ agent.LastCall }}</td>
-                        <td id="actions" data-channel="{{ agent.StateInterface }}">
+                        <td class="last_call">{{ agent.LastCall }}</td>
+                        <td class="actions" data-channel="{{ agent.StateInterface }}">
                             <button type="button" data-action="spy" class="btn btn-success btn-sm">{{ _('Spy')}}</button>
                             <button type="button" data-action="whisper" class="btn btn-warning btn-sm">{{_('Whisper') }}</button>
                             <button type="button" data-action="barge" class="btn btn-info btn-sm">{{ _('Barge') }}</button>
@@ -130,9 +130,9 @@
                         <td>{{ caller.CallerIDName }}</td>
                         <td>{{ caller.CallerIDNum }}</td>
                         <td>{{ caller.Position }}</td>
-                        <td id="wait">{{ caller.Wait }}</td>
+                        <td class="wait">{{ caller.Wait }}</td>
                         <td>
-                            <button class="btn btn-danger btn-xs" id="stop-call">
+                            <button class="btn btn-danger btn-xs stop-call">
                                 <i class="fa fa-ban"></i>
                             </button>
                         </td>
@@ -223,16 +223,16 @@
           var agents_ids = Array();
           for (agent in data.members) {
             agent_id_div = clean_div_name(agent);
-            $('#agent-' + agent_id_div + ' #calls').html(data.members[agent].CallsTaken)
+            $('#agent-' + agent_id_div + ' .calls').html(data.members[agent].CallsTaken)
 
             str_time_ago = ''
             if (data.members[agent].LastCall > 0) {
                str_time_ago = data.members[agent].LastCallAgo;
             }
-            $('#agent-' + agent_id_div + ' #last_call').html(str_time_ago)
+            $('#agent-' + agent_id_div + ' .last_call').html(str_time_ago)
 
-            $('#agent-' + agent_id_div + ' #status .state').html(data.members[agent].Status.toStrStatusAgent())
-            addLabelDivStatusAgent($('#agent-' + agent_id_div + ' #status .state'));
+            $('#agent-' + agent_id_div + ' .status .state').html(data.members[agent].Status.toStrStatusAgent())
+            addLabelDivStatusAgent($('#agent-' + agent_id_div + ' .status .state'));
 
             if (data.members[agent].Paused == true) {
                 // reason pause introduced in https://goo.gl/Njm6H5
@@ -247,11 +247,11 @@
                     last_pause_time = " {{ _('was') }} {last_pause} {{_('ago') }}".format({'last_pause': data.members[agent].LastPauseAgo});
                 }
 
-                $('#agent-' + agent_id_div + ' #status .pause').remove();
-                $('#agent-'+ agent_id_div +' #status .state')
+                $('#agent-' + agent_id_div + ' .status .pause').remove();
+                $('#agent-'+ agent_id_div +' .status .state')
                    .after(' <span class="label label-success label-mini pause">{{ _('paused') }}'+ reason + last_pause_time + '</span>');
             } else {
-                $('#agent-' + agent_id_div + ' #status .pause').remove();
+                $('#agent-' + agent_id_div + ' .status .pause').remove();
             }
 
 
@@ -260,12 +260,12 @@
                 var tr = '<tr id="agent-'+agent_id_div+'"><td>'
                          + data.members[agent].Name + '</td>'
                          + '<td>'+data.members[agent].StateInterface + '</td>'
-                         + '<td id="status"> <span class="badge badge-info state">'
+                         + '<td class="status"> <span class="badge badge-info state">'
                          + data.members[agent].Status.toStrStatusAgent()
                          + '</span></td>'
-                         + '<td id="calls">'+ data.members[agent].CallsTaken +'</td>'
-                         + '<td id="last_call"></td>'
-                         + '<td id="actions" data-channel="' + data.members[agent].StateInterface + '">'
+                         + '<td class="calls">'+ data.members[agent].CallsTaken +'</td>'
+                         + '<td class="last_call"></td>'
+                         + '<td class="actions" data-channel="' + data.members[agent].StateInterface + '">'
                          +      '<button type="button" data-action="spy" class="btn btn-success btn-sm">{{ _('Spy') }}</button> '
                          +      '<button type="button" data-action="whisper" class="btn btn-warning btn-sm">{{ _('Whisper') }}</button>'
                          +      '<button type="button" data-action="barge" class="btn btn-info btn-sm">{{ _('Barge') }}</a> |'
@@ -278,7 +278,7 @@
                 } else {
                     $('#agents tbody').append(tr);
                 }
-                addLabelDivStatusAgent($('#agent-' + agent_id_div + ' #status .state'));
+                addLabelDivStatusAgent($('#agent-' + agent_id_div + ' .status .state'));
             }
 
             agents_ids.push(agent_id_div);
@@ -296,10 +296,10 @@
               var tr = '<tr id="caller-' + c.Uniqueid + '" data-uniqueid="' + c.Uniqueid + '"><td>'
                         + c.CallerIDName + '</td>'
                         + '<td>' + c.CallerIDNum + '</td>'
-                        + '<td id="position">'  + c.Position + '</td>'
-                        + '<td id="wait">' + c.WaitAgo + '</td>'
+                        + '<td class="position">'  + c.Position + '</td>'
+                        + '<td class="wait">' + c.WaitAgo + '</td>'
                         + '<td>'
-                        +    '<button class="btn btn-danger btn-xs" id="stop-call">'
+                        +    '<button class="btn btn-danger btn-xs stop-call">'
                         +       '<i class="fa fa-ban"></i>'
                         +     '</button>'
                         + '</td>'
@@ -313,8 +313,8 @@
               }
             }
 
-            $("[id='caller-"+ c.Uniqueid + "'] #wait").html(c.WaitAgo);
-            $("[id='caller-"+ c.Uniqueid + "'] #position").html(c.Position);
+            $("[id='caller-"+ c.Uniqueid + "'] .wait").html(c.WaitAgo);
+            $("[id='caller-"+ c.Uniqueid + "'] .position").html(c.Position);
             uniques_ids.push(c.Uniqueid);
           }
           $.each($("[id^='caller-']"), function( index, value ) {
@@ -422,7 +422,7 @@
 
 
 
-        $('#stop-call').on('click', function() {
+        $('.stop-call').on('click', function() {
             var tr = $(this).closest("tr");
             var uniqueid = tr.data('uniqueid');
             console.log('stop call %s...', uniqueid );
