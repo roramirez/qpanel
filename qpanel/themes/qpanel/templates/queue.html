@@ -208,35 +208,6 @@
             } else {
                 $('#agent-' + agent_id_div + ' .status .pause').remove();
             }
-
-
-            if ($('#agent-' + agent_id_div).length == 0) {
-
-                var tr = '<tr id="agent-'+agent_id_div+'"><td>'
-                         + data.members[agent].Name + '</td>'
-                         + '<td>'+data.members[agent].StateInterface + '</td>'
-                         + '<td class="status"> <span class="badge badge-info state">'
-                         + data.members[agent].Status.toStrStatusAgent()
-                         + '</span></td>'
-                         + '<td class="calls">'+ data.members[agent].CallsTaken +'</td>'
-                         + '<td class="last_call"></td>'
-                         + '<td class="actions" data-channel="' + data.members[agent].StateInterface + '">'
-                         +      '<button type="button" data-action="spy" class="btn btn-success btn-sm">{{ _('Spy') }}</button> '
-                         +      '<button type="button" data-action="whisper" class="btn btn-warning btn-sm">{{ _('Whisper') }}</button>'
-                         +      '<button type="button" data-action="barge" class="btn btn-info btn-sm">{{ _('Barge') }}</a> |'
-                         +      '<button type="button" data-queue="{{ name }}" class="remove-queue btn btn-danger btn-sm">{{ _('Remove from queue') }}</button>'
-                         + '</td>'
-                         + '</tr>';
-
-                if ($('#agents tbody tr:last').length > 0){
-                    $('#agents tbody tr:last').after(tr);
-                } else {
-                    $('#agents tbody').append(tr);
-                }
-                addLabelDivStatusAgent($('#agent-' + agent_id_div + ' .status .state'));
-                handleEventButtons();
-            }
-
             agents_ids.push(agent_id_div);
           }
           $('#total_agent').html("{total}".format({total:  Object.keys(data.members).length}));
@@ -310,76 +281,6 @@
             r.always(function () {
             });
         }
-
-
-        //handle show modal for Spy and Whisper
-        function handleEventButtons() {
-            $('.actions* button').not('.remove-queue').on('click', function() {
-                var action = $(this).data('action');
-                channel = $(this.closest('td')).data('channel');
-                $('#spy_whisperk #execute-action').data('channel', channel);
-                $('#spy_whisperk #execute-action').data('action', action);
-                $('#spy_whisperk #execute-action').html(action);
-                $('#spy_whisperk .modal-header h4').html('{{_('Execute a ')}}' + action);
-                $('#spy_whisperk').modal();
-            });
-        }
-
-        var r=null;
-        $('#execute-action').on('click', function() {
-            var to_exten = $('#spy_whisperk  #to_exten').val();
-            if (to_exten == "") {
-                $('.modal-message').html('{{_('Insert where do need listen')}}');
-                $('.modal-message').addClass('has-error')
-                return 0;
-            }
-
-            $('.modal-message').removeClass('has-error');
-            $('.modal-message').html('{{_('Try...')}}');
-
-            $('#execute-action').prop("disabled", true);
-
-            var channel = $(this).data('channel');
-            var action = $(this).data('action');
-
-            console.log("do a %s to channel %s", action, channel);
-
-            var url_action = ''
-            if (action == 'spy') {
-                url_action = '{{url_for('.spy')}}';
-            } else if (action == 'whisper') {
-                url_action = '{{url_for('.whisper')}}';
-            } else if (action == 'barge') {
-                url_action = '{{url_for('.barge')}}';
-            }
-            var r = $.ajax({
-                type: 'post',
-                url: url_action,
-                data: {channel: channel, to_exten: to_exten}
-            });
-            r.done(function (response) {
-                if (response) {
-                    var status = response.result.Response;
-                    console.log(status);
-                    if (status == 'failed') {
-                        $('.modal-message').html("Failed:" +  response.result.Message);
-                        $('.modal-message').addClass('has-error')
-                    } else {
-                        $('.modal-message').html(response.result.Message);
-                        $('.modal-message').removeClass('has-error')
-                    }
-                }
-            });
-            r.fail(function (response) {
-                console.log(response);
-            });
-
-            r.always(function () {
-                $('#execute-action').prop("disabled", false);
-            });
-        });
-
-
 
         $('.stop-call').on('click', function() {
             var tr = $(this).closest("tr");
