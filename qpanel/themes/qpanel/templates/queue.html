@@ -80,12 +80,6 @@
                         <td class="calls">
                           {{ agent.CallsTaken }}
                         <td class="last_call">{{ agent.LastCall }}</td>
-                        <td class="actions" data-channel="{{ agent.StateInterface }}">
-                            <button type="button" data-action="spy" class="btn btn-success btn-sm">{{ _('Spy')}}</button>
-                            <button type="button" data-action="whisper" class="btn btn-warning btn-sm">{{_('Whisper') }}</button>
-                            <button type="button" data-action="barge" class="btn btn-info btn-sm">{{ _('Barge') }}</button>
-                            <button type="button" data-queue="{{ name }}" class="remove-queue btn btn-danger btn-sm">{{ _('Remove from queue') }}</button>
-                        </td>
                       </tr>
                     {% endfor %}
                     </tbody>
