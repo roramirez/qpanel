@@ -122,11 +122,6 @@
                         <td>{{ caller.CallerIDNum }}</td>
                         <td>{{ caller.Position }}</td>
                         <td class="wait">{{ caller.Wait }}</td>
-                        <td>
-                            <button class="btn btn-danger btn-xs stop-call">
-                                <i class="fa fa-ban"></i>
-                            </button>
-                        </td>
                       </tr>
                     {% endfor %}
                     </tbody>
@@ -136,38 +131,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Modal spy and whisper -->
-        <div id="spy_whisperk" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="swModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title"></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> 
-              </div>
-              <div class="col-lg-2">
-                <h4><i class="fa fa-headphones fa-5x"></i> </h4>
-              </div>
-              <div class="col-lg-10">
-                <br/>
-                <p>{{ _('Insert where  you listen the call, example: <i>SIP/1001</i>')}}</p>
-                <div class="input-group">
-                  <input id="to_exten" type="text" class="form-control" value="">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" id="execute-action" data-action="" data-channel=""  title="{{_('Listen ')}}"></button>
-                  </span>
-                </div>
-                <div class="input-group">
-                  <label class="modal-message"></label>
-                </div>
-              </div>
-              <div class="modal-footer">
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Modal spy and whisper -->
-
       </div>
       {% include theme('footer.html') %}
     </div>
