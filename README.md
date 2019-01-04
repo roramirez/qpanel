@@ -52,7 +52,7 @@ On /etc/asterisk/manager.conf do you set command permission for read and write, 
 ```
 
 #### AMI options
-  * _originate_ ofor  spy, whisper and barge.
+  * _originate_ for spy, whisper and barge.
   * _call_ feature hangup calls.
   * _agent_ remove agents from the queues.
 
