@@ -357,7 +357,7 @@
 
 
         //handle show modal for Spy and Whisper
-        $('#actions* button').not('.remove-queue').on('click', function() {
+        $('.actions* button').not('.remove-queue').on('click', function() {
             var action = $(this).data('action');
             channel = $(this.closest('td')).data('channel');
             $('#spy_whisperk #execute-action').data('channel', channel);
