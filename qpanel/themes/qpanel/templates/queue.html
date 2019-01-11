@@ -203,6 +203,7 @@
   <script type="application/javascript">
         $(document).ready(function () {
             getDataQueue(); //load data on page ready :)
+            handleEventButtons();
             setInterval(function () {
                 getDataQueue();
             }, REQUEST_INTERVAL );
@@ -279,6 +280,7 @@
                     $('#agents tbody').append(tr);
                 }
                 addLabelDivStatusAgent($('#agent-' + agent_id_div + ' .status .state'));
+                handleEventButtons();
             }
 
             agents_ids.push(agent_id_div);
@@ -357,15 +359,18 @@
 
 
         //handle show modal for Spy and Whisper
-        $('.actions* button').not('.remove-queue').on('click', function() {
-            var action = $(this).data('action');
-            channel = $(this.closest('td')).data('channel');
-            $('#spy_whisperk #execute-action').data('channel', channel);
-            $('#spy_whisperk #execute-action').data('action', action);
-            $('#spy_whisperk #execute-action').html(action);
-            $('#spy_whisperk .modal-header h4').html('{{_('Execute a ')}}' + action);
-            $('#spy_whisperk').modal();
-        });
+        function handleEventButtons() {
+            $('.actions* button').not('.remove-queue').on('click', function() {
+                var action = $(this).data('action');
+                channel = $(this.closest('td')).data('channel');
+                $('#spy_whisperk #execute-action').data('channel', channel);
+                $('#spy_whisperk #execute-action').data('action', action);
+                $('#spy_whisperk #execute-action').html(action);
+                $('#spy_whisperk .modal-header h4').html('{{_('Execute a ')}}' + action);
+                $('#spy_whisperk').modal();
+            });
+        }
+
         var r=null;
         $('#execute-action').on('click', function() {
             var to_exten = $('#spy_whisperk  #to_exten').val();
