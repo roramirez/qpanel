@@ -1,8 +1,8 @@
 import shutil
 import tempfile
 import unittest
-from qpanel.upgrader import __first_line as firstline,\
-    get_current_version, check_require_upgrade
+from qpanel.upgrader import (__first_line as firstline,
+    get_current_version, check_require_upgrade, get_stable_version)
 import qpanel
 
 
@@ -33,6 +33,14 @@ class UpgradeTestClass(unittest.TestCase):
         self.assertEqual(check_require_upgrade(dev, stable), False)
         self.assertEqual(check_require_upgrade(current, stable), True)
 
+
+    def test_request_estable_version(self):
+        """
+            Test for request to stable version name
+            Maybe this can be a mockup but I used to check requests and get compatability
+        """
+        current_stable_version = get_stable_version()
+        self.assertIsNotNone(current_stable_version)
 
 # runs the unit tests
 if __name__ == '__main__':
