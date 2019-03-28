@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## 0.15.1  (2019-03-30)
+
+### Added
+- [f7114e5](https://github.com/roramirez/qpanel/commit/f7114e54cb20236292955f4ef3954676ae391f09) Add upgrade/update instructions
+- [0aee6f0](https://github.com/roramirez/qpanel/commit/0aee6f0dd3da8e838595d7ac9e6d6072e9c8a0ac) Add docu-comment for VirtualEnv in sample file for Apache+Wsgi
+
+### Fixed
+- [#194](https://github.com/roramirez/qpanel/pull/194)  base_url fix  by @litnimax
+- [268b92b](https://github.com/roramirez/qpanel/commit/268b92b2d2a9cea21229a4f370d69ea4ee442452) Update requests dependency
+- [05db7b8](https://github.com/roramirez/qpanel/commit/05db7b83c51c815ed51cf99d08275d68a4a7b05d) handle events Spy, Whisper and Barge when the agent is added after the load queue/layout
+- [af473fe](https://github.com/roramirez/qpanel/commit/af473fe535b92c335ef60f4bec2f2255642eb86e) Bugfix for Actions button Spy, Whispher and Barge: Close #180
+- [4bd5a38](https://github.com/roramirez/qpanel/commit/4bd5a381df4d6977529ef85662a010700ca3c497) Fix $ not define for footer JS code
+
+
 ## 0.15.0  (2018-09-07)
 
 ### Added
