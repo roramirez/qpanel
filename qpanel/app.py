@@ -58,6 +58,7 @@ def get_user_config_by_name(username):
 
 
 # Flask env
+APPLICATION_ROOT = cfg.base_url
 app = Flask(__name__)
 app.config.from_object(__name__)
 babel = Babel(app)
