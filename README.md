@@ -88,6 +88,7 @@ In general section set config
 ```
 
 ## 2. Install dependencies
+
 ```
  $ pip install -r requirements.txt
 ```
@@ -149,6 +150,28 @@ If you want check the development version get checkout of `develop` branch
  ```
  git clone -b develop https://github.com/roramirez/qpanel.git
  ```
+
+
+## Updating source new in a release
+
+Go the Qpanel directory
+```
+    cd qpanel
+```
+
+
+Get the new code
+
+```
+    git pull
+```
+
+Update dependencies
+
+```
+    pip install -r requirements.txt
+    npm install
+```
 
 
 ## How to contribute
