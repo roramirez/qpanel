@@ -26,6 +26,7 @@
 
       <script src="{{ url_for('static', filename='components/js-cookie/src/js.cookie.js') }}"></script>
       <script>
+        document.addEventListener('DOMContentLoaded', function() {
         var config_check_update = {{ check_upgrade()|lower}};
         if (config_check_update) {
           if (typeof Cookies.get('check_version') === "undefined") {
@@ -47,6 +48,7 @@
             });
           }
         }
+        }, false);
 
         function showPopupUpdate(actual_version) {
            var title = '{{ _('New version available') }}';
