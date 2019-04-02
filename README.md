@@ -1,15 +1,29 @@
+&nbsp;
+<p align="center">
+  <a href="https://ghost.org">
+    <img src="https://raw.githubusercontent.com/roramirez/qpanel/master/qpanel/themes/qpanel/static/img/logo_header.png" alt="QPanel" />
+  </a>
+</p>
+<h3 align="center">The Dashboard for Queues/CallCenter in Asterisk and FreeSWITCH</h3>
+<hr />
+<p align="center">
+    <a href="https://travis-ci.org/roramirez/qpanel">
+        <img src="https://travis-ci.org/roramirez/qpanel.svg?branch=master" alt="Build status" />
+    </a>
+    <a href="https://github.com/roramirez/qpanel/contributors/">
+        <img src="https://img.shields.io/github/contributors/roramirez/qpanel.svg" alt="Contributors" />
+    </a>
+    <a href="https://gitter.im/qpanel/Lobby">
+        <img src="https://badges.gitter.im/qpanel/Lobby.svg" alt="Chat on Gitter" />
+    </a>
+</p>
 
-# Qpanel
-
-[![Join the chat at https://gitter.im/qpanel/Lobby](https://badges.gitter.im/qpanel/Lobby.svg)](https://gitter.im/qpanel/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/roramirez/qpanel.svg?branch=master)](https://travis-ci.org/roramirez/qpanel)
-
-Qpanel is dashboard for Queues in Asterisk and FreeSWITCH
 
 ![Demo](samples/animation.gif)
 
 ## Overview
 
-Qpanel is a panel for queues on Asterisk and FreeSWITCH, powerful and simple monitor in realtime:
+QPanel is a panel for queues on Asterisk and FreeSWITCH, powerful and simple monitor in realtime:
 
 * General resume for calls. Abandoned, Incoming, Answer time and Waiting time.
 * Show information on detail by queue.
@@ -29,7 +43,7 @@ Qpanel is a panel for queues on Asterisk and FreeSWITCH, powerful and simple mon
 * Opensource by MIT licence.
 
 
-Also you can use a [API of Qpanel](doc/api.md) for data query related to queues
+Also you can use a [API of QPanel](doc/api.md) for data query related to queues
 
 
 
@@ -154,7 +168,7 @@ If you want check the development version get checkout of `develop` branch
 
 ## Updating source new in a release
 
-Go the Qpanel directory
+Go the QPanel directory
 ```
     cd qpanel
 ```
