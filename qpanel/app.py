@@ -23,9 +23,11 @@ if QPanelConfig().has_queuelog_config():
     from qpanel.model import queuelog_data_queue
 
 import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+PY2 = sys.version_info[0] == 2
 
+if PY2: # Python 3 has not setdefaultencoding and UTF-8 is default
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
 
 class User(flask_login.UserMixin):
     pass
