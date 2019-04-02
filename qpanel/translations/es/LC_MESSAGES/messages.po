@@ -16,142 +16,186 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.6.0\n"
 
-#: app.py:157 templates/fs/index.html:181 templates/i18n_js.html:15
-#: templates/i18n_js.html:27 templates/index.html:185
+#: qpanel/app.py:170 qpanel/templates/fs/index.html:181
+#: qpanel/templates/global_js.html:13 qpanel/templates/i18n_js.html:15
+#: qpanel/templates/i18n_js.html:27
+#: qpanel/themes/qpanel/templates/i18n_js.html:15
+#: qpanel/themes/qpanel/templates/i18n_js.html:27
 msgid "unavailable"
 msgstr "no disponible"
 
-#: app.py:159 templates/fs/index.html:174 templates/i18n_js.html:11
-#: templates/i18n_js.html:25 templates/index.html:178
+#: qpanel/app.py:172 qpanel/templates/fs/index.html:174
+#: qpanel/templates/global_js.html:11 qpanel/templates/i18n_js.html:11
+#: qpanel/templates/i18n_js.html:25
+#: qpanel/themes/qpanel/templates/i18n_js.html:11
+#: qpanel/themes/qpanel/templates/i18n_js.html:25
 msgid "free"
 msgstr "libre"
 
-#: app.py:161 templates/i18n_js.html:13
+#: qpanel/app.py:174 qpanel/templates/i18n_js.html:13
+#: qpanel/themes/qpanel/templates/i18n_js.html:13
 msgid "in call"
 msgstr "en llamada"
 
-#: app.py:163 templates/fs/index.html:177 templates/i18n_js.html:17
-#: templates/index.html:181
+#: qpanel/app.py:176 qpanel/templates/fs/index.html:177
+#: qpanel/templates/global_js.html:12 qpanel/templates/i18n_js.html:17
+#: qpanel/themes/qpanel/templates/i18n_js.html:17
 msgid "busy"
 msgstr "ocupado"
 
-#: templates/404.html:2
+#: qpanel/templates/404.html:2 qpanel/themes/qpanel/templates/404.html:11
 msgid "Not found"
 msgstr "No encontrado"
 
-#: templates/404.html:7
+#: qpanel/templates/404.html:7 qpanel/themes/qpanel/templates/404.html:38
 msgid "404 Not Found"
 msgstr "404 No encontrado"
 
-#: templates/404.html:10
+#: qpanel/templates/404.html:10 qpanel/themes/qpanel/templates/404.html:46
 msgid "The request the was not found on this server."
 msgstr "La solicitud realizada no fue encontrada en el servidor"
 
-#: templates/all_queues.html:5
+#: qpanel/templates/all_queues.html:5
+#: qpanel/themes/qpanel/templates/all_queues.html:11
 msgid "Consolidated view"
 msgstr "Vista consolidada"
 
-#: templates/all_queues.html:14 templates/header.html:12
+#: qpanel/templates/all_queues.html:14 qpanel/templates/header.html:12
+#: qpanel/themes/qpanel/templates/header.html:24
 msgid "Consolidate view"
 msgstr "Vista consolidada"
 
-#: templates/all_queues.html:29 templates/fs/queue.html:27
-#: templates/queue.html:25
+#: qpanel/templates/all_queues.html:29 qpanel/templates/fs/queue.html:27
+#: qpanel/templates/queue.html:25
+#: qpanel/themes/qpanel/templates/all_queues.html:43
+#: qpanel/themes/qpanel/templates/index.html:46
+#: qpanel/themes/qpanel/templates/queue.html:43
 msgid "Agents"
 msgstr "Agentes"
 
-#: templates/all_queues.html:33 templates/all_queues.html:71
+#: qpanel/templates/all_queues.html:33 qpanel/templates/all_queues.html:71
+#: qpanel/themes/qpanel/templates/all_queues.html:51
+#: qpanel/themes/qpanel/templates/all_queues.html:110
 msgid "Queue"
 msgstr "Cola"
 
-#: templates/all_queues.html:34 templates/fs/queue.html:31
-#: templates/queue.html:29
+#: qpanel/templates/all_queues.html:34 qpanel/templates/fs/queue.html:31
+#: qpanel/templates/queue.html:29
+#: qpanel/themes/qpanel/templates/all_queues.html:54
+#: qpanel/themes/qpanel/templates/queue.html:51
 msgid "Name"
 msgstr "Nombre"
 
-#: templates/all_queues.html:35 templates/queue.html:30
+#: qpanel/templates/all_queues.html:35 qpanel/templates/queue.html:30
+#: qpanel/themes/qpanel/templates/all_queues.html:57
+#: qpanel/themes/qpanel/templates/queue.html:54
 msgid "Interface"
 msgstr "Interface"
 
-#: templates/all_queues.html:36 templates/fs/queue.html:33
-#: templates/queue.html:31
+#: qpanel/templates/all_queues.html:36 qpanel/templates/fs/queue.html:33
+#: qpanel/templates/queue.html:31
+#: qpanel/themes/qpanel/templates/all_queues.html:60
+#: qpanel/themes/qpanel/templates/queue.html:57
 msgid "Status"
 msgstr "Estado"
 
-#: templates/all_queues.html:37 templates/fs/queue.html:35
-#: templates/queue.html:32
+#: qpanel/templates/all_queues.html:37 qpanel/templates/fs/queue.html:35
+#: qpanel/templates/queue.html:32
 msgid "Attend calls"
 msgstr "Llamadas contestadas."
 
-#: templates/all_queues.html:37 templates/fs/queue.html:35
-#: templates/queue.html:32
+#: qpanel/templates/all_queues.html:37 qpanel/templates/fs/queue.html:35
+#: qpanel/templates/queue.html:32
+#: qpanel/themes/qpanel/templates/all_queues.html:63
+#: qpanel/themes/qpanel/templates/queue.html:60
 msgid "Calls"
 msgstr "Llamadas"
 
-#: templates/all_queues.html:38 templates/fs/queue.html:36
-#: templates/queue.html:33
+#: qpanel/templates/all_queues.html:38 qpanel/templates/fs/queue.html:36
+#: qpanel/templates/queue.html:33
+#: qpanel/themes/qpanel/templates/all_queues.html:66
+#: qpanel/themes/qpanel/templates/queue.html:63
 msgid "Last call at"
 msgstr "Última llamada"
 
-#: templates/all_queues.html:67 templates/fs/queue.html:67
-#: templates/queue.html:66
+#: qpanel/templates/all_queues.html:67 qpanel/templates/fs/queue.html:67
+#: qpanel/templates/queue.html:66
+#: qpanel/themes/qpanel/templates/all_queues.html:102
+#: qpanel/themes/qpanel/templates/queue.html:105
 msgid "Callers"
 msgstr "Llamadas"
 
-#: templates/all_queues.html:72 templates/fs/queue.html:71
-#: templates/queue.html:70
+#: qpanel/templates/all_queues.html:72 qpanel/templates/fs/queue.html:71
+#: qpanel/templates/queue.html:70
+#: qpanel/themes/qpanel/templates/all_queues.html:113
+#: qpanel/themes/qpanel/templates/queue.html:113
 msgid "Id Name"
 msgstr "Nombre id"
 
-#: templates/all_queues.html:73 templates/fs/queue.html:72
-#: templates/queue.html:71
+#: qpanel/templates/all_queues.html:73 qpanel/templates/fs/queue.html:72
+#: qpanel/templates/queue.html:71
+#: qpanel/themes/qpanel/templates/all_queues.html:116
+#: qpanel/themes/qpanel/templates/queue.html:116
 msgid "Id Number"
 msgstr "Numero Id"
 
-#: templates/all_queues.html:74 templates/queue.html:72
+#: qpanel/templates/all_queues.html:74 qpanel/templates/queue.html:72
+#: qpanel/themes/qpanel/templates/all_queues.html:119
+#: qpanel/themes/qpanel/templates/queue.html:119
 msgid "Position"
 msgstr "Posición"
 
-#: templates/all_queues.html:75 templates/fs/queue.html:73
-#: templates/queue.html:73
+#: qpanel/templates/all_queues.html:75 qpanel/templates/fs/queue.html:73
+#: qpanel/templates/queue.html:73
+#: qpanel/themes/qpanel/templates/all_queues.html:122
+#: qpanel/themes/qpanel/templates/queue.html:122
 msgid "Wait"
 msgstr "Espera"
 
-#: templates/all_queues.html:168 templates/queue.html:173
+#: qpanel/templates/all_queues.html:168 qpanel/templates/queue.html:176
+#: qpanel/themes/qpanel/templates/all_queues.html:238
+#: qpanel/themes/qpanel/templates/queue.html:248
 msgid "was"
 msgstr "hace"
 
-#: templates/all_queues.html:168 templates/queue.html:173
+#: qpanel/templates/all_queues.html:168 qpanel/templates/queue.html:176
+#: qpanel/themes/qpanel/templates/all_queues.html:238
+#: qpanel/themes/qpanel/templates/queue.html:248
 msgid "ago"
 msgstr "atrás"
 
-#: templates/all_queues.html:173 templates/queue.html:178
+#: qpanel/templates/all_queues.html:173 qpanel/templates/queue.html:181
+#: qpanel/themes/qpanel/templates/all_queues.html:243
+#: qpanel/themes/qpanel/templates/queue.html:253
 msgid "paused"
 msgstr "Pausado"
 
-#: templates/footer.html:4
+#: qpanel/templates/footer.html:4
 msgid "Developed by"
 msgstr "Desarrollado por"
 
-#: templates/footer.html:4
+#: qpanel/templates/footer.html:4
 msgid "with a Template by"
 msgstr "con un template de"
 
-#: templates/footer.html:4
+#: qpanel/templates/footer.html:4
 msgid "Version"
 msgstr "Versión"
 
-#: templates/footer.html:42
+#: qpanel/templates/footer.html:42
+#: qpanel/themes/qpanel/templates/footer.html:54
 msgid "New version available"
 msgstr "Nueva versión"
 
-#: templates/footer.html:43
+#: qpanel/templates/footer.html:43
+#: qpanel/themes/qpanel/templates/footer.html:55
 msgid "Exist a new version stable: "
 msgstr "Existe una nueva versión estable: "
 
-#: templates/footer.html:43
+#: qpanel/templates/footer.html:43
+#: qpanel/themes/qpanel/templates/footer.html:55
 msgid ""
 ". Visit and update your QPanel <a "
 "href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
@@ -161,208 +205,271 @@ msgstr ""
 "href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
 "style=\"color:#ffd777\">desde GitHub</a>."
 
-#: templates/header.html:16 templates/stats.html:10 templates/stats.html:61
-msgid "Stats"
-msgstr ""
-
-#: templates/i18n_js.html:30
-msgid "Logged Out"
-msgstr "Salir"
-
-#: templates/i18n_js.html:32
-msgid "Available"
-msgstr "no disponible"
-
-#: templates/i18n_js.html:34
-msgid "Available (On Demand)"
-msgstr "Disponible (En demanda)"
-
-#: templates/i18n_js.html:36
-msgid "On Break"
-msgstr "En descanzo"
-
-#: templates/i18n_js.html:38
-msgid "Idle"
-msgstr "Libre"
-
-#: templates/i18n_js.html:40
-msgid "Waiting"
-msgstr "Esperando"
-
-#: templates/i18n_js.html:42
-msgid "Receiving"
-msgstr "Recibiendo"
-
-#: templates/i18n_js.html:44
-msgid "In a queue call"
-msgstr "En una llamada"
-
-#: templates/fs/index.html:34 templates/index.html:23
-msgid "Queues"
-msgstr "Colas"
-
-#: templates/fs/index.html:53 templates/fs/index.html:121
-#: templates/index.html:42 templates/index.html:113
-#: templates/row_general_data.html:7 templates/stats.html:80
-msgid "Answered"
-msgstr "Contestadas"
-
-#: templates/fs/index.html:54 templates/fs/index.html:116
-#: templates/index.html:43 templates/index.html:108
-#: templates/row_general_data.html:14 templates/stats.html:88
+#: qpanel/templates/fs/index.html:54 qpanel/templates/fs/index.html:116
+#: qpanel/templates/global_js.html:6 qpanel/templates/index.html:43
+#: qpanel/templates/row_general_data.html:14 qpanel/templates/stats.html:55
+#: qpanel/themes/qpanel/templates/index.html:62
+#: qpanel/themes/qpanel/templates/row_general_data.html:32
+#: qpanel/themes/qpanel/templates/stats.html:97
 msgid "Abandoned"
 msgstr "Abandonadas"
 
-#: templates/fs/index.html:55 templates/index.html:44
-#: templates/row_general_data.html:30
+#: qpanel/templates/fs/index.html:53 qpanel/templates/fs/index.html:121
+#: qpanel/templates/global_js.html:7 qpanel/templates/index.html:42
+#: qpanel/templates/row_general_data.html:7 qpanel/templates/stats.html:47
+#: qpanel/themes/qpanel/templates/index.html:58
+#: qpanel/themes/qpanel/templates/row_general_data.html:15
+#: qpanel/themes/qpanel/templates/stats.html:79
+msgid "Answered"
+msgstr "Contestadas"
+
+#: qpanel/templates/header.html:16 qpanel/templates/stats.html:6
+#: qpanel/templates/stats.html:28 qpanel/themes/qpanel/templates/header.html:35
+#: qpanel/themes/qpanel/templates/stats.html:60
+msgid "Stats"
+msgstr ""
+
+#: qpanel/templates/i18n_js.html:30
+#: qpanel/themes/qpanel/templates/i18n_js.html:30
+msgid "Logged Out"
+msgstr "Salir"
+
+#: qpanel/templates/i18n_js.html:32
+#: qpanel/themes/qpanel/templates/i18n_js.html:32
+msgid "Available"
+msgstr "no disponible"
+
+#: qpanel/templates/i18n_js.html:34
+#: qpanel/themes/qpanel/templates/i18n_js.html:34
+msgid "Available (On Demand)"
+msgstr "Disponible (En demanda)"
+
+#: qpanel/templates/i18n_js.html:36
+#: qpanel/themes/qpanel/templates/i18n_js.html:36
+msgid "On Break"
+msgstr "En descanzo"
+
+#: qpanel/templates/i18n_js.html:38
+#: qpanel/themes/qpanel/templates/i18n_js.html:38
+msgid "Idle"
+msgstr "Libre"
+
+#: qpanel/templates/i18n_js.html:40
+#: qpanel/themes/qpanel/templates/i18n_js.html:40
+msgid "Waiting"
+msgstr "Esperando"
+
+#: qpanel/templates/i18n_js.html:42
+#: qpanel/themes/qpanel/templates/i18n_js.html:42
+msgid "Receiving"
+msgstr "Recibiendo"
+
+#: qpanel/templates/i18n_js.html:44
+#: qpanel/themes/qpanel/templates/i18n_js.html:44
+msgid "In a queue call"
+msgstr "En una llamada"
+
+#: qpanel/templates/fs/index.html:34 qpanel/templates/index.html:23
+msgid "Queues"
+msgstr "Colas"
+
+#: qpanel/templates/fs/index.html:55 qpanel/templates/index.html:44
+#: qpanel/templates/row_general_data.html:30
+#: qpanel/themes/qpanel/templates/index.html:66
+#: qpanel/themes/qpanel/templates/row_general_data.html:50
 msgid "Incoming"
 msgstr "En línea"
 
-#: templates/fs/index.html:57 templates/index.html:46
+#: qpanel/templates/fs/index.html:57 qpanel/templates/index.html:46
+#: qpanel/themes/qpanel/templates/index.html:71
+#: qpanel/themes/qpanel/templates/row_general_data.html:68
 msgid "Service Level"
 msgstr "Nivel de servicio"
 
-#: templates/fs/index.html:71 templates/index.html:60
+#: qpanel/templates/fs/index.html:71 qpanel/templates/index.html:60
+#: qpanel/themes/qpanel/templates/index.html:94
 msgid "Abandoned:"
 msgstr "Abandono:"
 
-#: templates/language_selector.html:3
+#: qpanel/templates/language_selector.html:3
+#: qpanel/themes/qpanel/templates/header.html:61
 msgid "English"
 msgstr "Inglés"
 
-#: templates/language_selector.html:4
+#: qpanel/templates/language_selector.html:4
+#: qpanel/themes/qpanel/templates/header.html:62
 msgid "Spanish"
 msgstr "Español"
 
-#: templates/language_selector.html:5
+#: qpanel/templates/language_selector.html:5
+#: qpanel/themes/qpanel/templates/header.html:63
 msgid "German"
 msgstr "Alemán"
 
-#: templates/language_selector.html:6
+#: qpanel/templates/language_selector.html:6
+#: qpanel/themes/qpanel/templates/header.html:64
 msgid "Russian"
 msgstr "Ruso"
 
-#: templates/language_selector.html:7
+#: qpanel/templates/language_selector.html:7
+#: qpanel/themes/qpanel/templates/header.html:65
 msgid "Portuguese"
 msgstr "Portugués"
 
-#: templates/login.html:2
+#: qpanel/templates/login.html:2
 msgid "Login"
 msgstr "Iniciar sesión"
 
-#: templates/login.html:10 templates/login.html:19
+#: qpanel/templates/login.html:10 qpanel/templates/login.html:19
+#: qpanel/themes/qpanel/templates/login.html:34
+#: qpanel/themes/qpanel/templates/login.html:56
 msgid "Sign in"
 msgstr "Ingresar"
 
-#: templates/login.html:12
+#: qpanel/templates/login.html:12 qpanel/themes/qpanel/templates/login.html:41
 msgid "User id"
 msgstr "ID usuario"
 
-#: templates/login.html:14
+#: qpanel/templates/login.html:14 qpanel/themes/qpanel/templates/login.html:49
 msgid "Password"
 msgstr "Contraseña"
 
-#: templates/logout_button.html:2
+#: qpanel/templates/logout_button.html:2
+#: qpanel/themes/qpanel/templates/header.html:44
 msgid "Logout"
 msgstr "Salir"
 
-#: templates/queue.html:35
+#: qpanel/templates/queue.html:35 qpanel/themes/qpanel/templates/queue.html:66
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/queue.html:51 templates/queue.html:195
+#: qpanel/templates/queue.html:51 qpanel/templates/queue.html:198
+#: qpanel/themes/qpanel/templates/queue.html:84
+#: qpanel/themes/qpanel/templates/queue.html:270
 msgid "Spy"
 msgstr "Espiar"
 
-#: templates/queue.html:52 templates/queue.html:196
+#: qpanel/templates/queue.html:52 qpanel/templates/queue.html:199
+#: qpanel/themes/qpanel/templates/queue.html:85
+#: qpanel/themes/qpanel/templates/queue.html:271
 msgid "Whisper"
 msgstr "Susurro"
 
-#: templates/queue.html:53 templates/queue.html:197
+#: qpanel/templates/queue.html:53 qpanel/templates/queue.html:200
+#: qpanel/themes/qpanel/templates/queue.html:86
+#: qpanel/themes/qpanel/templates/queue.html:272
 msgid "Barge"
 msgstr ""
 
-#: templates/queue.html:54 templates/queue.html:198
+#: qpanel/templates/queue.html:54 qpanel/templates/queue.html:201
+#: qpanel/themes/qpanel/templates/queue.html:87
+#: qpanel/themes/qpanel/templates/queue.html:273
 msgid "Remove from queue"
 msgstr "Remove de la cola"
 
-#: templates/queue.html:109
+#: qpanel/templates/queue.html:112
+#: qpanel/themes/qpanel/templates/queue.html:162
 msgid "Insert where  you listen the call, example: <i>SIP/1001</i>"
 msgstr "Ingresar donde escuchar la llamada, ejemplo: <i>SIP/1001</i>"
 
-#: templates/queue.html:113
+#: qpanel/templates/queue.html:116
+#: qpanel/themes/qpanel/templates/queue.html:166
 msgid "Listen "
 msgstr "Escuchar"
 
-#: templates/queue.html:291
+#: qpanel/templates/queue.html:295
+#: qpanel/themes/qpanel/templates/queue.html:369
 msgid "Execute a "
 msgstr "Realizar un"
 
-#: templates/queue.html:298
+#: qpanel/templates/queue.html:302
+#: qpanel/themes/qpanel/templates/queue.html:378
 msgid "Insert where do need listen"
 msgstr "Digita el lugar donde vas escuchar"
 
-#: templates/queue.html:304
+#: qpanel/templates/queue.html:308
+#: qpanel/themes/qpanel/templates/queue.html:384
 msgid "Try..."
 msgstr "Intentando..."
 
-#: templates/row_general_data.html:10 templates/stats.html:84
+#: qpanel/templates/row_general_data.html:10 qpanel/templates/stats.html:51
 msgid "Attended calls."
 msgstr "Llamadas contestadas."
 
-#: templates/row_general_data.html:17 templates/stats.html:92
+#: qpanel/templates/row_general_data.html:17 qpanel/templates/stats.html:59
 msgid "Calls not attended by agents."
 msgstr "Llamadas abandonadas"
 
-#: templates/row_general_data.html:22
+#: qpanel/templates/row_general_data.html:22
 msgid "SL"
 msgstr "SL"
 
-#: templates/row_general_data.html:25
+#: qpanel/templates/row_general_data.html:25
 msgid "Service Level."
 msgstr "Nivel de servicio."
 
-#: templates/row_general_data.html:33
+#: qpanel/templates/row_general_data.html:33
 msgid "Call on line."
 msgstr "Llamadas en línea."
 
-#: templates/row_general_data.html:39 templates/stats.html:96
+#: qpanel/templates/row_general_data.html:39 qpanel/templates/stats.html:63
 msgid "Av. time"
 msgstr "P. Hablado"
 
-#: templates/row_general_data.html:42 templates/stats.html:99
+#: qpanel/templates/row_general_data.html:42 qpanel/templates/stats.html:66
 msgid "Average time for answered calls."
 msgstr "Promedio de llamadas contestadas"
 
-#: templates/row_general_data.html:46 templates/stats.html:103
+#: qpanel/templates/row_general_data.html:46 qpanel/templates/stats.html:70
 msgid "Av. Wait"
 msgstr "P. Espera"
 
-#: templates/row_general_data.html:49 templates/stats.html:106
+#: qpanel/templates/row_general_data.html:49 qpanel/templates/stats.html:73
 msgid "Average time waiting for calls."
 msgstr "Promedio de espera para llamadas"
 
-#: templates/stats.html:52
+#: qpanel/templates/stats.html:19 qpanel/themes/qpanel/templates/stats.html:37
 msgid "From:"
 msgstr "Desde"
 
-#: templates/stats.html:53
+#: qpanel/templates/stats.html:20 qpanel/themes/qpanel/templates/stats.html:43
 msgid "To:"
 msgstr "Hasta"
 
-#: templates/stats.html:71
+#: qpanel/templates/stats.html:38 qpanel/themes/qpanel/templates/stats.html:116
 msgid "Inbound"
 msgstr "Entrada"
 
-#: templates/stats.html:74
+#: qpanel/templates/stats.html:41
 msgid "Total incomming calls"
 msgstr "Total llamadas entrada"
 
-#: templates/fs/queue.html:32
+#: qpanel/templates/fs/queue.html:32
 msgid "Contact"
 msgstr "Contacto"
 
-#: templates/fs/queue.html:34
+#: qpanel/templates/fs/queue.html:34
 msgid "State"
 msgstr "Estado"
 
+#: qpanel/themes/qpanel/templates/footer.html:12
+msgid "About Us"
+msgstr "Acerca de"
+
+#: qpanel/themes/qpanel/templates/header.html:15
+msgid "Home"
+msgstr "Inicio"
+
+#: qpanel/themes/qpanel/templates/header.html:57
+msgid "Language"
+msgstr "Idioma"
+
+#: qpanel/themes/qpanel/templates/row_general_data.html:87
+#: qpanel/themes/qpanel/templates/stats.html:133
+msgid "Average time"
+msgstr "Promedio hablado"
+
+#: qpanel/themes/qpanel/templates/row_general_data.html:104
+#: qpanel/themes/qpanel/templates/stats.html:150
+msgid "Average Wait"
+msgstr "Tiempo de espera"
