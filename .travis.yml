@@ -11,6 +11,9 @@ env:
   
 install:
   - "pip install flake8"
+  - "cat /etc/issue"
+  - "uname -a"
+  - "sudo apt-get install -y swig"
 
 before_script:
   - docker pull n42org/tox
