@@ -73,7 +73,7 @@ class ConfigTestClass(unittest.TestCase):
         configuration = config.QPanelConfig()
         self.assertEqual(configuration.theme, 'qpanel')
 
-    def test_use_config_ini_defaul(self):
+    def test_use_config_ini_default(self):
         """
             This test only run if the config.ini in the root path
             is not present.
