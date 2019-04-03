@@ -14,7 +14,7 @@ class UtilsTestClass(unittest.TestCase):
 
     def test_underscore_to_camelcase(self):
         a = 'rodrigoRamirez'
-        self.assertEquals(underscore_to_camelcase(a), 'Rodrigoramirez')
+        self.assertEqual(underscore_to_camelcase(a), 'Rodrigoramirez')
         a = 'rodrigo_Ramirez'
         self.assertEqual(underscore_to_camelcase(a), 'RodrigoRamirez')
         a = 'rodrigo_ramirez'

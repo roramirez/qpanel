@@ -8,6 +8,7 @@ import six.moves.configparser
 import os
 from distutils.util import strtobool
 from .convert import convert_time_when_param
+import six
 
 
 class NotConfigFileQPanel(BaseException):
@@ -63,7 +64,10 @@ class QPanelConfig:
         cfg = six.moves.configparser.ConfigParser()
         try:
             with open(file_path) as f:
-                cfg.readfp(f)
+                if six.PY3:
+                    cfg.read_file(f)
+                else:
+                    cfg.readfp(f)
                 return cfg
         except IOError:
             raise NotConfigFileQPanel(file_path)
