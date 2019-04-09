@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.15.0  (2018-09-07)
+
+### Added
+- [861f41e](https://github.com/roramirez/qpanel/commit/861f41e6d12e3c55bb356c16f90481d688c9338b) Add theme support (@roramirez and @bilson)
+- [8079f00](https://github.com/roramirez/qpanel/commit/8079f00ef50e7c4f0059fb94cb51c8c49f69b7f2) Add documentation for queue_log database connections.
+- [#152](https://github.com/roramirez/qpanel/pull/152) Add flake8 to travis (@bilson)
+- [f098908](https://github.com/roramirez/qpanel/commit/f098908ee30041560b52549dfb955d162f63492a) Add test to fix when the config.ini is present in root path
+- [496dbfc](https://github.com/roramirez/qpanel/commit/496dbfca0c64d7533442ba7b6662ad822f456f93) refactor config.has_section and add tests
+- [#150](https://github.com/roramirez/qpanel/pull/150) Config: Enable set configuration file path by enviroment variable
+- [bed119f](https://github.com/roramirez/qpanel/commit/bed119f4887bd6168dd68da1aa8c9764d1755e27) Add support for wsgi (@bilson)
+- [#147](https://github.com/roramirez/qpanel/pull/147) Support RPM spec for Issabel (@bilson)
+
+### Changed
+- [dc07772](https://github.com/roramirez/qpanel/commit/dc0777293bf31eb87f40985cb56b91a0743abd25) disable DEBUG_TB_INTERCEPT_REDIRECTS for Flask-DebugToolbar
+- [6520919](https://github.com/roramirez/qpanel/commit/6520919d31334ad3168919853b7b9cc5a4369cd9) README: Update branches related about of separation for master and develop
+- [#148](https://github.com/roramirez/qpanel/pull/148) Run travis with docker (@bilson)
+- [#149](https://github.com/roramirez/qpanel/pull/149) Add python3.6 to tox/travis (@bilson)
+
+### Fixed
+- Fix hangup for caller into the table for the button by close td
+- [#157](https://github.com/roramirez/qpanel/pull/157) Fix i18n: Close #96 Close #122 (@bilson)
+- [#153](https://github.com/roramirez/qpanel/pull/153) Clean some pep8 errors (@bilson)
+
 ### 0.14.1 (2018-06-19)
 - [#146](https://github.com/roramirez/qpanel/pull/146) Fix run wsgi (@bilson)
 

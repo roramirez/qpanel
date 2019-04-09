@@ -8,7 +8,7 @@
 #
 
 # config
-BRANCH=stable
+BRANCH=master
 SPEC_FILE=elastix4-qpanel.spec
 REPO="https://github.com/roramirez/qpanel.git"
 URL_STABLE_VERSION="https://rodrigoramirez.com/qpanel/version/$BRANCH"

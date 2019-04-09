@@ -5,7 +5,8 @@ SQLAlchemy==0.9.10
 Click==6.6
 Tailer==0.4.1
 git+git://github.com/jeansch/py-asterisk@904c91c#egg=py-Asterisk
-requests==2.11.1
+requests>=2.20.0
 future
 rq-scheduler>=0.6.1,<0.7.0
 python-ESL==1.4.18
+git+git://github.com/maxcountryman/flask-themes@9eac2dc#egg=Flask-Themes

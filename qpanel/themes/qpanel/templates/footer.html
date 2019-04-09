@@ -1,0 +1,68 @@
+      <footer class="footer">
+        <div class="container-fluid">
+          <nav class="float-left">
+            <ul>
+              <li>
+                <a href="https://github.com/roramirez/qpanel" target="_blank">
+                  QPanel
+                </a>
+              </li>
+              <li>
+                <a href="https://boxtub.com/qpanel" target="_blank">
+                  {{ _('About Us') }}
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright float-right">
+            &copy;
+            <script>
+              document.write(new Date().getFullYear())
+            </script>, made with <i class="material-icons">favorite</i> by
+            <a href="https://boxtub.com/qpanel" target="_blank">QPanel Team</a>.
+          </div>
+        </div>
+      </footer>
+
+      <script src="{{ url_for('static', filename='components/js-cookie/src/js.cookie.js') }}"></script>
+      <script>
+        var config_check_update = {{ check_upgrade()|lower}};
+        if (config_check_update) {
+          if (typeof Cookies.get('check_version') === "undefined") {
+
+            var rversion = $.ajax({
+                type: 'GET',
+                url: '{{ url_for('.check_new_version') }}'
+            });
+            rversion.done(function (response) {
+                if (response) {
+                    if (response.require_upgrade) {
+                        showPopupUpdate(response.last_stable_version);
+                    }
+                    Cookies.set('check_version', '1', { expires: 30 });
+                }
+            });
+            rversion.fail(function (response) {
+                Cookies.set('check_version', '1', { expires: 1 });
+            });
+          }
+        }
+
+        function showPopupUpdate(actual_version) {
+           var title = '{{ _('New version available') }}';
+           var message = '{{ _('Exist a new version stable: ') }}' + actual_version + '{{ _('. Visit and update your QPanel <a href="https://github.com/roramirez/qpanel" target="_blank" style="color:#ffd777">from GitHub</a>.') }}';
+
+          $.notify({
+            icon: "cloud_download",
+            message: message
+
+          }, {
+            type: 'primary',
+            timer: 3000,
+            placement: {
+            from: 'top',
+            align: 'right'
+          }
+        });
+      }
+      </script>

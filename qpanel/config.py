@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Copyright (C) 2015-2017 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+# Copyright (C) 2015-2018 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 from __future__ import absolute_import
 import six.moves.configparser
@@ -15,6 +15,7 @@ class NotConfigFileQPanel(BaseException):
         This exception is raised when is not possible read file for
         QPanel config.
     '''
+
     def __init__(self, file_path):
         error = 'Error to open file config. Check if %s file exist' % file_path
         super(NotConfigFileQPanel, self).__init__(error)
@@ -23,11 +24,16 @@ class NotConfigFileQPanel(BaseException):
 class QPanelConfig:
 
     def __init__(self, path_config_file=None):
-        dirname, filename = os.path.split(os.path.abspath(__file__))
         if path_config_file:
             self.path_config_file = path_config_file
         else:
-            self.path_config_file = os.path.join(dirname, os.pardir, 'config.ini')
+            dirname, filename = os.path.split(os.path.abspath(__file__))
+            config_file_path = os.path.join(dirname, os.pardir, 'config.ini')
+            # Enable set by enviroment varible the path for configuracion file
+            # This can be useful to test suite and when is running by process
+            # manager like supervisor, wsgi, circus, etc..
+            self.path_config_file = os.environ.setdefault(
+                'QPANEL_CONFIG_FILE', config_file_path)
 
         self.config = self.__open_config_file(self.path_config_file)
 
@@ -51,6 +57,7 @@ class QPanelConfig:
         self.show_service_level \
             = self.__get_bool_value_config('general',
                                            'show_service_level', False)
+        self.theme = self.get_theme()
 
     def __open_config_file(self, file_path):
         cfg = six.moves.configparser.ConfigParser()
@@ -116,10 +123,9 @@ class QPanelConfig:
         return self.has_section('queue_log')
 
     def has_section(self, section):
-        v = False
         if self.count_element_sections_config(section, self.config) > 0:
-            v = True
-        return v
+            return True
+        return False
 
     def is_freeswitch(self):
         return self.__get_bool_value_config('general', 'freeswitch', False)
@@ -135,5 +141,18 @@ class QPanelConfig:
     def get_items(self, section):
         try:
             return self.config.items(section)
-        except:
+        except BaseException:
             return None
+
+    def get_theme(self):
+        """
+            get the theme from configuration.
+            only one from available_themes
+            if not match return default theme
+        """
+        available_themes = ['qpanel', 'old']
+        theme = self.__get_entry_ini_default('general', 'theme', 'qpanel')
+        theme = theme.lower()
+        if theme not in available_themes:
+            return 'qpanel'
+        return theme

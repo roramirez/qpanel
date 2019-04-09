@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 #
-# Copyright (C) 2015-2017 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+# Copyright (C) 2015-2018 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
-from flask import Flask, render_template, jsonify, redirect,\
-    request, session, url_for
+from flask import Flask, jsonify, redirect, request, session, url_for
+from flask_themes import setup_themes, render_theme_template
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.exceptions import abort
@@ -22,9 +22,14 @@ from qpanel.backend import Backend
 if QPanelConfig().has_queuelog_config():
     from qpanel.model import queuelog_data_queue
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 
 class User(flask_login.UserMixin):
     pass
+
 
 cfg = QPanelConfig()
 backend = Backend()
@@ -48,8 +53,9 @@ def get_user_config_by_name(username):
         user.id = username
         user.password = cfg.get('users', username)
         return user
-    except:
+    except BaseException:
         return None
+
 
 # Flask env
 app = Flask(__name__)
@@ -57,9 +63,16 @@ app.config.from_object(__name__)
 babel = Babel(app)
 app.config['BABEL_DEFAULT_LOCALE'] = cfg.language
 app.secret_key = cfg.secret_key
+setup_themes(app, app_identifier='qpanel')
+
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
+
+
+def render_template(template, **context):
+    theme = session.get('theme', cfg.theme)
+    return render_theme_template(theme, template, **context)
 
 
 def set_data_user(user_config):

@@ -1,6 +1,7 @@
+
 # Qpanel
 
-[![Join the chat at https://gitter.im/qpanel/Lobby](https://badges.gitter.im/qpanel/Lobby.svg)](https://gitter.im/qpanel/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/qpanel/Lobby](https://badges.gitter.im/qpanel/Lobby.svg)](https://gitter.im/qpanel/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/roramirez/qpanel.svg?branch=master)](https://travis-ci.org/roramirez/qpanel)
 
 Qpanel is dashboard for Queues in Asterisk and FreeSWITCH
 
@@ -33,7 +34,7 @@ Also you can use a [API of Qpanel](doc/api.md) for data query related to queues
 
 
 ## Requirement
- * Python 2.6, 2.7, 3.4
+ * Python 2.7, 3.4
  * [Flask](http://flask.pocoo.org/) 0.10+
  * [Asterisk](http://www.asterisk.org) 1.4+ and enabled manager or [FreeSWITCH](http://www.freeswitch.org) and connection permission to Event Socket Library.
 
@@ -51,7 +52,7 @@ On /etc/asterisk/manager.conf do you set command permission for read and write, 
 ```
 
 #### AMI options
-  * _originate_ ofor  spy, whisper and barge.
+  * _originate_ for spy, whisper and barge.
   * _call_ feature hangup calls.
   * _agent_ remove agents from the queues.
 
@@ -81,11 +82,9 @@ In general section set config
     freeswitch = True ; Use FreeSWITCH as backend. Use mod_callcenter
 ```
 
- If you used a CentOS 5.X or Elastix check [how to install Python 2.6 and Flask](doc/README.Centos5.md)
-
 ## 1. Clone this repository
 ```
- git clone -b stable  https://github.com/roramirez/qpanel.git
+ git clone https://github.com/roramirez/qpanel.git
 ```
 
 ## 2. Install dependencies
@@ -119,6 +118,8 @@ Is necessary have installed Node.
  ```
   Edit config.ini file with Manager Asterisk parameters
 
+  **Note**: Can set the absolute path for configuration file in an enviroment variable called `QPANEL_CONFIG_FILE`.
+
 ## 4.- Translations
  ```
   pybabel compile -d qpanel/translations
@@ -135,13 +136,18 @@ Go url of machine http://IP:5000
 If you want run QPanel like a service, see the [samples configurations
 files](samples/configs).  There are a example for use with uWSGI + NGINX
 
+## QueueLog Stats for Asterisk
+You could use the stats for queue of `Asterisk` from QueueLog. If need more informacion about this go [Stats, Realtime and other things](doc/StatsConfig.md)
+or see the section `[queue_log]` of the [sample configuration file](samples/samples/config.ini-dist)
+
+
 ## New features?
 If you like new features or something is wrong [please open a issue](https://github.com/roramirez/qpanel/issues/new)
 
-If you want check the development version get checkout of master branch
+If you want check the development version get checkout of `develop` branch
 
  ```
- git clone -b master  https://github.com/roramirez/qpanel.git
+ git clone -b develop https://github.com/roramirez/qpanel.git
  ```
 
 

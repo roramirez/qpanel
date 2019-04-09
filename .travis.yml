@@ -1,16 +1,20 @@
 language: python
 python:
-  - "2.6"
   - "2.7"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-install: pip install tox-travis
-branches:
-  only:
-    - master
-script: tox
-addons:
-  apt:
-    packages:
-    - swig
+
+services:
+  - docker
+
+env:
+  - RUN=flake8
+  - RUN=tox
+  
+install:
+  - "pip install flake8"
+  - "sudo apt-get install -y swig"
+
+before_script:
+  - docker pull n42org/tox
+
+script:
+  - ./travis.sh

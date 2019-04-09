@@ -1,0 +1,52 @@
+<script>
+    $('.language').on('click', function (e) {
+        var lang  = $(this).data('value');
+        window.location = '{{ url_for('.language') }}' + '/' + lang;
+    });
+    $( "#language" ).val("{{ session['language'] }}")
+
+    String.prototype.toStrStatusAgent = function(args) {
+        var value = this;
+        if (C.status_agent.NOT_INUSE == value) {
+            return "{{ _('free') }}";
+        } else if (C.status_agent.INCALL == value) {
+            return "{{ _('in call') }}";
+        } else if (parseInt(value).isUnavailableInAsterisk()) {
+            return "{{ _('unavailable') }}";
+        } else {
+            return "{{ _('busy') }}"
+        }
+    }
+
+    function addLabelDivStatusAgent(div) {
+        var label;
+        div.removeClass('badge-warning badge-info badge-danger');
+        value = div.html();
+        if (value == "{{ _('free') }}") {
+            label = 'info';
+        } else if (value == "{{ _('unavailable') }}") {
+            label = 'danger';
+        //Freeswitch status and states
+        } else if (value == "{{ _('Logged Out') }}") {
+            label = 'danger';
+        } else if (value == "{{ _('Available') }}") {
+            label = 'info';
+        } else if (value == "{{ _('Available (On Demand)') }}") {
+            label = 'info';
+        } else if (value == "{{ _('On Break') }}") {
+            label = 'warning';
+        } else if (value == "{{ _('Idle') }}") {
+            label = 'info';
+        } else if (value == "{{ _('Waiting') }}") {
+            label = 'info';
+        } else if (value == "{{ _('Receiving') }}") {
+            label = 'warning';
+        } else if (value == "{{ _('In a queue call') }}") {
+            label = 'warning';
+        } else {
+            label = 'warning';
+        }
+        div.addClass('badge-'+label);
+    }
+
+</script>

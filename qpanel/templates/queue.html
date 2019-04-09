@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends theme('base.html') %}
 {% block title %} QPanel - {{ name }} {% endblock %}
 
     {% block main %}
@@ -71,6 +71,7 @@
                                   <th class="hidden-phone"><i class="fa fa-phone"></i> {{ _('Id Number') }}</th>
                                   <th><i class="fa fa-sort-numeric-asc"></i> {{ _('Position') }}</th>
                                   <th><i class="fa fa-clock-o"></i> {{ _('Wait') }}</th>
+                                  <th></th>
                               </tr>
                               </thead>
                               <tbody>
@@ -80,9 +81,11 @@
                                   <td class="hidden-phone">{{ caller.CallerIDNum }}</td>
                                   <td id="position">{{ caller.Position }}</td>
                                   <td id="wait">{{ caller.Wait }}</td>
+                                  <td>
                                       <button class="btn btn-danger btn-xs" id="stop-call">
                                           <i class="fa fa-ban"></i>
                                       </button>
+                                  </td>
                               </tr>
                               {% endfor %}
                               </tbody>
@@ -223,7 +226,8 @@
                         + c.CallerIDName + '</td>'
                         + '<td>' + c.CallerIDNum + '</td>'
                         + '<td id="position">'  + c.Position + '</td>'
-                        + '<td id="wait">' + c.WaitAgo
+                        + '<td id="wait">' + c.WaitAgo + '</td>'
+                        + '<td>'
                         +    '<button class="btn btn-danger btn-xs" id="stop-call">'
                         +       '<i class="fa fa-ban"></i>'
                         +     '</button>'
@@ -389,7 +393,7 @@
             var queue = $(this).data('queue');
             var agent = $(this.closest('td')).data('channel');
 
-            console.log('remove agent  %s from %s', agent, queue);
+            console.log('remove agent %s from %s', agent, queue);
             button = $(this);
             $('.message-hangup').remove();
 

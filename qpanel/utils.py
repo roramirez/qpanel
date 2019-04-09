@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Copyright (C) 2015-2017 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+# Copyright (C) 2015-2018 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
 from __future__ import absolute_import
@@ -111,9 +111,11 @@ def realname_queue_rename(queuename):
                 return val
     return queuename
 
+
 def add_debug_toolbar(app):
     try:
         from flask_debugtoolbar import DebugToolbarExtension
-        toolbar = DebugToolbarExtension(app)
+        app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+        DebugToolbarExtension(app)
     except:
         pass

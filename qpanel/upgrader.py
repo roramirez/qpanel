@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Copyright (C) 2015-2017 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+# Copyright (C) 2015-2018 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
 import requests
@@ -9,7 +9,7 @@ from distutils.version import LooseVersion
 import qpanel
 
 
-BRANCH = 'stable'
+BRANCH = 'master'
 REPO = 'git@github.com:roramirez/qpanel.git'
 URL_STABLE_VERSION = 'https://rodrigoramirez.com/qpanel/version/' + BRANCH
 

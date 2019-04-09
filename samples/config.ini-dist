@@ -8,7 +8,8 @@ host = localhost
 debug = False
 port = 5000
 host = 0.0.0.0
-interval = 5 ;Interval for request on seconds
+;Interval for request update in seconds
+interval = 5
 ;hide =  ; Hide queue on monitor separate by comma. Example config hide=queue1,queue2
 ;show = ; Add queue what you required to show. Example show=queue1,otherqueuename.
 ;This option override the hide parameter
@@ -18,6 +19,12 @@ language = en
 check_upgrade = True
 ;freeswitch = True ; Use FreeSWITCH as backend. Use mod_callcenter
 show_service_level = False ; Show information of service level of a queue
+
+; Theme setting available to set the design how is showing Qpanel
+; Available configuration
+;'old', 'qpanel'
+;theme = qpanel
+
 
 [rename]
 ; This section if for rename name of queue
@@ -40,6 +47,33 @@ show_service_level = False ; Show information of service level of a queue
 ;; when can by daily, weekly, monthly, sun, mon, tue, wed, thu, fri or sat
 [reset_stats]
 ;queuename = daily,00:00:00
+
+
+
+; Configuration for queue_log database for the adapter setting
+; need extra other dependencies if you use
+; MySQL or PostreSQL
+;
+; MySQL
+; =====
+;
+; pip install -r requirements/dbs/mysql.txt
+; https://pypi.org/project/mysqlclient/
+;
+; For to build the mysqlclient you need the have installed before
+; in the system the dependencies for MySQL Client Devel.
+;
+;  Debian / Ubuntu
+;    sudo apt-get install python-dev default-libmysqlclient-dev
+;
+;  Red Hat / CentOS
+;    sudo yum install python-devel mysql-devel
+;
+;
+; PostgreSQL
+; ==========
+; pip install -r requirements/dbs/postgresql.txt
+;
 
 ;[queue_log]
 ;database = asterisk
