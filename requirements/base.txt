@@ -8,4 +8,5 @@ git+git://github.com/jeansch/py-asterisk@904c91c#egg=py-Asterisk
 requests>=2.20.0
 future
 rq-scheduler>=0.6.1,<0.7.0
+python-ESL==1.4.18
 git+git://github.com/maxcountryman/flask-themes@9eac2dc#egg=Flask-Themes
