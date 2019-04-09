@@ -22,7 +22,9 @@ show_service_level = False ; Show information of service level of a queue
 
 ; Theme setting available to set the design how is showing Qpanel
 ; Available configuration
-;'old', 'qpanel'
+;'old', 'qpanel'.
+; The old theme is deprecated from 0.16.0 and not keep maintained anymore.
+; In the future will be removed by completely.
 ;theme = qpanel
 
 
