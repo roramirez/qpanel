@@ -1,4 +1,4 @@
-Flask>=0.11,<0.12
+Flask~=0.12.4
 Flask_Babel>=0.9
 Flask_Login>=0.3.2
 SQLAlchemy==0.9.10
