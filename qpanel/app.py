@@ -74,6 +74,12 @@ login_manager.init_app(app)
 
 
 def render_template(template, **context):
+
+    if cfg.theme == 'old':
+        app.logger.warning(
+            "The old theme is deprecated from 0.16.0 and "
+            "not keep maintained anymore."
+            "In the future will be removed by completely")
     theme = session.get('theme', cfg.theme)
     return render_theme_template(theme, template, **context)
 

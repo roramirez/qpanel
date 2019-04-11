@@ -1,7 +1,7 @@
 {
     "application": "qpanel",
     "identifier": "old",
-    "name": "Old QPanel Theme (The first one)",
+    "name": "Old QPanel Theme (The first one) | DEPRECATED",
     "author": "Rodrigo Ramírez Norambuena",
     "description": "Theme base in the Carlos Alvarez templates http://alvarez.is"
 }
