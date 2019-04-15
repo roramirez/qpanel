@@ -1,6 +1,5 @@
 import os
 import unittest
-from qpanel import app as qpanel_app
 from shutil import copyfile
 
 
@@ -9,10 +8,10 @@ class ConfigTestClass(unittest.TestCase):
     def setUp(self):
         dirname, filename = os.path.split(os.path.abspath(__file__))
         self.configs_dir = os.path.join(dirname, 'data', 'configs')
-        self.default_file_config = os.path.join(
-            self.configs_dir, os.pardir, os.pardir,
-            os.pardir, 'config.ini')
+        os.environ["QPANEL_CONFIG_FILE"] = os.path.join(
+            self.configs_dir, 'config_default.ini')
 
+        from  qpanel import app as qpanel_app
         qpanel_app.app.testing = True
         self.app = qpanel_app.app.test_client()
 
