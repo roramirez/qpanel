@@ -188,6 +188,18 @@ Update dependencies
 ```
 
 
+## Notes
+
+### Errors
+
+#### pip update
+
+For error in instalation process of requirements. `UserWarning: python_requires requires setuptools version > 24.3`
+ `pip install --upgrade setuptool`
+
+
+
+
 ## How to contribute
 
  * Fork the project
