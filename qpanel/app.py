@@ -38,7 +38,8 @@ backend = Backend()
 
 
 def get_data_queues(queue=None):
-    data = backend.get_data_queues()
+    username = flask_login.current_user.get_id()
+    data = backend.get_data_queues(user=username)
     if queue is not None:
         try:
             data = data[queue]

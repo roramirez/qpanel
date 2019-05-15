@@ -65,9 +65,21 @@ class Backend(object):
             print(str(e))
             return {}
 
-    def get_data_queues(self):
+    def get_data_queues(self, user=None):
+        """
+           Send request to the backend (Asterisk or FreeSwitch) queues
+           information and parse result.
+
+           params:
+           user: None by default. In case we need filter data for users
+
+        """
         data = self._get_data_queue_from_backend()
-        return self.parse_data(data)
+
+        data_parse = self.parse_data(data)
+        if user is not None and self.config.has_user_queues():
+            data_parse = self.filter_data_for_user(data_parse, user)
+        return data_parse
 
     def parse_data(self, data):
         data = self.hide_queue(data)
@@ -75,6 +87,19 @@ class Backend(object):
         if self.is_freeswitch():
             return self.parse_fs(data)
         return self.parse_asterisk(data)
+
+    def filter_data_for_user(self, data, user):
+        """
+            Remove data of queue not enable to a determined user
+
+            params:
+            data -- Dict parse from backend
+            user -- username
+        """
+        enables = self.config.queue_enables_for_username(user)
+        not_enable = list(set(data.keys()) - set(enables))
+        map(data.pop, not_enable)
+        return data
 
     def parse_fs(self, data):
         for q in data:

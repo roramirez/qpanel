@@ -123,6 +123,27 @@ class QPanelConfig:
     def has_users(self):
         return self.has_section('users')
 
+    def has_user_queues(self):
+        return self.has_section('user_queues')
+
+    def enable_queue_for_user(self, username, queuename):
+        if self.has_user_queues() is False:
+            return True
+        return queuename in self.queue_enables_for_username(username)
+
+    def queue_enables_for_username(self, username):
+        queues = []
+        user_configs = self.get_items('user_queues')
+        if user_configs is None:
+            return []
+        user_configs = dict(user_configs)
+        if username in user_configs.keys():
+            tmp = user_configs[username]
+            tmp = tmp.replace('\'', '')
+            tmp = [s.strip() for s in tmp.split(',')]
+            queues = [s for s in tmp if len(s) >= 1]
+        return queues
+
     def has_queuelog_config(self):
         return self.has_section('queue_log')
 

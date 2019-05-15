@@ -87,6 +87,57 @@ class ConfigTestClass(unittest.TestCase):
             os.remove(self.default_file_config)
             self.assertEqual(configuration.port_bind, 5010)
 
+    """
+        user_queues
+        tests/data/configs/user_queue/
+            no-section.ini
+            section-with-config.ini
+            section-without-config.ini
+    """
+
+    def test_user_queues_without_section(self):
+        os.environ["QPANEL_CONFIG_FILE"] = os.path.join(
+            self.configs_dir, 'user_queues', 'no-section.ini')
+        configuration = config.QPanelConfig()
+        self.assertFalse(configuration.has_user_queues())
+        self.assertEqual(
+            configuration.queue_enables_for_username('nobody'), [])
+        self.assertTrue(
+            configuration.enable_queue_for_user(
+                'nobody', 'testing'))
+
+    def test_user_queues_section_without_config(self):
+        os.environ["QPANEL_CONFIG_FILE"] = os.path.join(
+            self.configs_dir, 'user_queues', 'section-without-config.ini')
+        configuration = config.QPanelConfig()
+        self.assertFalse(configuration.has_user_queues())
+        self.assertEqual(
+            configuration.queue_enables_for_username('nobody'), [])
+        self.assertTrue(
+            configuration.enable_queue_for_user(
+                'nobody', 'testing'))
+
+    def test_user_queues_with_config(self):
+        os.environ["QPANEL_CONFIG_FILE"] = os.path.join(
+            self.configs_dir, 'user_queues', 'section-with-config.ini')
+        configuration = config.QPanelConfig()
+        self.assertTrue(configuration.has_user_queues())
+        self.assertEqual(len(configuration.get_items('user_queues')), 2)
+        self.assertEqual(
+            configuration.queue_enables_for_username('rodrigo'), [
+                'support', 'commercial'])
+        self.assertEqual(
+            configuration.queue_enables_for_username('ramirez'),
+            ['agents'])
+        self.assertEqual(
+            configuration.queue_enables_for_username('nobody'), [])
+        self.assertTrue(
+            configuration.enable_queue_for_user(
+                'rodrigo', 'support'))
+        self.assertFalse(
+            configuration.enable_queue_for_user(
+                'nobody', 'testing'))
+
 
 # runs the unit tests
 if __name__ == '__main__':
