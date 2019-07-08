@@ -272,7 +272,8 @@
                     if ($("[id='caller-"+ c.Uniqueid + "']").length == 0) {
                         console.log('add:' + c.Uniqueid);
                         var tr = '<tr id="caller-' + c.Uniqueid + '" data-uniqueid="' + c.Uniqueid + '"><td>'
-                            + c.CallerIDName + '</td>'
+                            + q + '</td>'
+                            + '<td>' + c.CallerIDName + '</td>'
                             + '<td>' + c.CallerIDNum + '</td>'
                             + '<td class="position">'  + c.Position + '</td>'
                             + '<td class="wait">' + c.WaitAgo + '</td></tr>'
