@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
 "POT-Creation-Date: 2015-10-26 07:53-0400\n"
-"PO-Revision-Date: 2016-08-05 15:57-0400\n"
+"PO-Revision-Date: 2019-08-25 12:35-0400\n"
 "Last-Translator: Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>\n"
 "Language: es\n"
 "Language-Team: LANGUAGE <a@rodrigoramirez.com>\n"
@@ -16,9 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
 
-
-
-#: qpanel/app.py:170 qpanel/templates/fs/index.html:181
+#: qpanel/app.py:179 qpanel/templates/fs/index.html:181
 #: qpanel/templates/global_js.html:13 qpanel/templates/i18n_js.html:15
 #: qpanel/templates/i18n_js.html:27
 #: qpanel/themes/qpanel/templates/i18n_js.html:15
@@ -26,7 +24,7 @@ msgstr ""
 msgid "unavailable"
 msgstr ""
 
-#: qpanel/app.py:172 qpanel/templates/fs/index.html:174
+#: qpanel/app.py:181 qpanel/templates/fs/index.html:174
 #: qpanel/templates/global_js.html:11 qpanel/templates/i18n_js.html:11
 #: qpanel/templates/i18n_js.html:25
 #: qpanel/themes/qpanel/templates/i18n_js.html:11
@@ -34,12 +32,12 @@ msgstr ""
 msgid "free"
 msgstr ""
 
-#: qpanel/app.py:174 qpanel/templates/i18n_js.html:13
+#: qpanel/app.py:183 qpanel/templates/i18n_js.html:13
 #: qpanel/themes/qpanel/templates/i18n_js.html:13
 msgid "in call"
 msgstr ""
 
-#: qpanel/app.py:176 qpanel/templates/fs/index.html:177
+#: qpanel/app.py:185 qpanel/templates/fs/index.html:177
 #: qpanel/templates/global_js.html:12 qpanel/templates/i18n_js.html:17
 #: qpanel/themes/qpanel/templates/i18n_js.html:17
 msgid "busy"
@@ -311,6 +309,11 @@ msgstr ""
 #: qpanel/templates/language_selector.html:7
 #: qpanel/themes/qpanel/templates/header.html:65
 msgid "Portuguese"
+msgstr ""
+
+#: qpanel/templates/language_selector.html:8
+#: qpanel/themes/qpanel/templates/header.html:66
+msgid "French"
 msgstr ""
 
 #: qpanel/templates/login.html:2
