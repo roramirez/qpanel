@@ -1,8 +1,26 @@
 ## QPanel Change Log
 
-All notable changes to this project will be documented in this file.
+All notable changes to QPanel will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## 0.16.0  (2019-10-13)
+
+### Added
+- [7d010a5] Add French translations, ref: [#199](https://github.com/roramirez/qpanel/pull/199)
+- [294e1ae] Add howto install Centos 7 with FusionPBX
+- [afd0b75] Add availability to enable a determined queues for users
+- [e796769] Adding python-ESL to prevent using the own compiling module for Freeswitch
+
+### Changed
+- [650e597] The old theme is deprecated
+- [bf02613] Upgrade Flask to 0.12.4
+
+### Fixed
+- [d441532] Bugfix: Update data of callers in the  all_queues.html
+- [9adaf38] Fix url root for href for theme qpanel in the logo
+- [056a87c] Fix Python 2.x Socket Error Broken Pipe, [#179](https://github.com/roramirez/qpanel/issues/179)
+- [bd1e19b] Bugfix for Python 3 to set utf-8 and sys.reload
 
 ## 0.15.1  (2019-03-30)
 
