@@ -4,6 +4,12 @@ All notable changes to QPanel will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 0.16.1  (2019-10-13)
+
+### Fixed
+-  Bugfix version dumped the failure in `/check_new_version`
+
+
 ## 0.16.0  (2019-10-13)
 
 ### Added
