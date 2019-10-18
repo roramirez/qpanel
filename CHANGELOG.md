@@ -4,6 +4,11 @@ All notable changes to QPanel will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 0.17.0  (unrelased)
+
+### Fixed
+- Support Redis version >= 3.0 for Reset stats jobs
+
 ## 0.16.1  (2019-10-13)
 
 ### Fixed
