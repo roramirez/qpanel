@@ -84,7 +84,7 @@ class AsteriskAMI:
             return self.connection.Originate(where_listen,
                                              application='ChanSpy',
                                              data=channel + options,
-                                             async='yes')
+                                             async_param='yes')
         except ActionFailed as msg:
             return {'Response': 'failed', 'Message': str(msg)}
         except PermissionDenied as msg:
