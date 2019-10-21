@@ -4,7 +4,11 @@ All notable changes to QPanel will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## 0.17.0  (unrelased)
+## 1.0.0  (unrelased)
+
+
+### Changed
+- Remove Python2.7 Support
 
 ### Fixed
 - Support Redis version >= 3.0 for Reset stats jobs

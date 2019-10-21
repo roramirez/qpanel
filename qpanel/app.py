@@ -22,12 +22,6 @@ from qpanel.backend import Backend
 if QPanelConfig().has_queuelog_config():
     from qpanel.model import queuelog_data_queue
 
-import sys
-PY2 = sys.version_info[0] == 2
-
-if PY2: # Python 3 has not setdefaultencoding and UTF-8 is default
-    reload(sys)
-    sys.setdefaultencoding('utf-8')
 
 class User(flask_login.UserMixin):
     pass
@@ -417,15 +411,6 @@ def main():
             print("Error: There not connection to Redis")
             print("       Reset stats will not work\n")
 
-    if PY2:
-        # This change is a fix for issue with Python 2.7
-        # The error is IOError: [Errno 32] Broken pipe
-        # All this shit happend if the connection is closed early
-        # by remove client (browser)
-        # Long story https://github.com/pallets/werkzeug/issues/954
-        from gevent.wsgi import WSGIServer
-        http_server = WSGIServer((cfg.host_bind, cfg.port_bind), app)
-        http_server.serve_forever()
 
     if cfg.base_url == '/':
         app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=reloader,
