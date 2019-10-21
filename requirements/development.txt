@@ -3,3 +3,4 @@ flake8
 flask-debugtoolbar
 pytest
 tox
+mock==2.0.0
