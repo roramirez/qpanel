@@ -138,6 +138,23 @@ class ConfigTestClass(unittest.TestCase):
             configuration.enable_queue_for_user(
                 'nobody', 'testing'))
 
+    def test_realname_queue(self):
+        """ Should return the same name if not rename"""
+        os.environ["QPANEL_CONFIG_FILE"] = os.path.join(
+            self.configs_dir, 'config_default.ini')
+
+        configuration = config.QPanelConfig()
+        self.assertEqual(configuration.realname_queue("s_cl"), "s_cl")
+
+    def test_realname_queue_with_rename(self):
+        """ Should return the same name if not rename"""
+        os.environ["QPANEL_CONFIG_FILE"] = os.path.join(
+            self.configs_dir, 'config_rename_queue.conf')
+
+        configuration = config.QPanelConfig()
+        self.assertEqual(configuration.realname_queue("s_cl"), "s_cl")
+        self.assertEqual(configuration.realname_queue("support"), "5000")
+
 
 # runs the unit tests
 if __name__ == '__main__':
