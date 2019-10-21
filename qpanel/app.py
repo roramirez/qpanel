@@ -360,7 +360,7 @@ def hangup_call():
 
 @app.route('/stats/<from_date>/<to_date>/<name>.json')
 def stats_json(name, from_date, to_date):
-    real_name = uqpanel.realname_queue_rename(name)
+    real_name = cfg.realname_queue(name)
     queue_values = queuelog_data_queue(from_date, to_date, None, real_name)
     data = get_data_queues(name)
     return jsonify(name=name, data=data, values=queue_values)
@@ -384,7 +384,7 @@ def stats(name, from_date, to_date):
 @app.route('/remove_from_queue', methods=['POST'])
 @flask_login.login_required
 def remove_from_queue():
-    queue = request.form['queue']
+    queue = cfg.realname_queue(request.form['queue'])
     agent = request.form['agent']
     r = backend.remove_from_queue(agent, queue)
     return jsonify(result=r)
