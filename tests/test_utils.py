@@ -1,7 +1,6 @@
 import unittest
 from qpanel.utils import clean_str_to_div_id, underscore_to_camelcase, \
     timedelta_from_field_dict
-from qpanel.convert import convert_time_when_param
 import time
 import datetime
 
@@ -65,27 +64,6 @@ class UtilsTestClass(unittest.TestCase):
             'time', d2, None, True)), '0:01:00')
         self.assertEqual(str(timedelta_from_field_dict(
             'time2', d2, None, True)), '1:40:01')
-
-    def test_convert_time_when_param(self):
-        value = 'test1,00:00:00'
-        self.assertEqual(convert_time_when_param(value),
-                         {'when': 'test1', 'hour': '00:00:00'})
-
-        value = 'test1'
-        self.assertEqual(convert_time_when_param(value),
-                         {'when': 'test1', 'hour': '00:00:00'})
-
-        value = 'test1, 00:00:01'
-        self.assertEqual(convert_time_when_param(value),
-                         {'when': 'test1', 'hour': '00:00:01'})
-
-        value = 'test1, string_wrong'
-        self.assertEqual(convert_time_when_param(value),
-                         {'when': 'test1', 'hour': '00:00:00'})
-
-        value = 'test1; 00:00:01'
-        self.assertEqual(convert_time_when_param(value, splitter=';'),
-                         {'when': 'test1', 'hour': '00:00:01'})
 
 
 # runs the unit tests
