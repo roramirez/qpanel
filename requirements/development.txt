@@ -4,3 +4,7 @@ flask-debugtoolbar
 pytest
 tox
 mock==2.0.0
+
+# This help me to monitor scheduler testing
+# Reset queue stats
+rq-scheduler-dashboard==0.0.2
