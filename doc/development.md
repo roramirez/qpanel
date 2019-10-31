@@ -12,3 +12,11 @@ Search and update the strings for `messages.po`
 Update the translations for languages
 
 `pybabel update -i qpanel/translations/messages.pot -o qpanel/translations`
+
+
+
+## Reset Queue Stats
+
+Using the dependencies `requirements/development.txt` is possible to use the dashboard monitor by
+
+    `rq-scheduler-dashboard`
