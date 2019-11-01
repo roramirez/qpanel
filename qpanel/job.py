@@ -163,15 +163,15 @@ def start_jobs():
         Check if processs enqueue_reset_stats is working on queue if not
         enqueue function
     """
-    start_enqueue_reset_stats = False
+    start_enqueue_reset_stats = True
     scheduler = Scheduler(connection=Redis())
     jobs = scheduler.get_jobs()
     for job in jobs:
         if 'enqueue_reset_stats' in job.func_name:
-            start_enqueue_reset_stats = True
+            start_enqueue_reset_stats = False
             break
 
-    if start_enqueue_reset_stats is False:
+    if start_enqueue_reset_stats:
         scheduler.schedule(
             scheduled_time=datetime.datetime.utcnow(),
             func=enqueue_reset_stats,
