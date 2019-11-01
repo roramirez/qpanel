@@ -66,6 +66,8 @@ def remove_jobs_not_config():
         Remove jobs on queue but not present on config.
         Prevent when in job for reset a queue stats is scheduled but
         after your config is modified or deleted
+
+        TODO: Maybe this could reload by notified in config.ini change
     """
     scheduler = Scheduler(connection=Redis())
     queue_for_reset = config.QPanelConfig().queues_for_reset_stats()
@@ -74,12 +76,16 @@ def remove_jobs_not_config():
         if 'reset_stats_queue' in job.func_name:
             delete = True
             for qr in queue_for_reset:
-                if qr in queue_for_reset:
-                    if (queue_for_reset[qr]['when'] == job.args[1] and
+                # The args for the job of reset_stats_queue are:
+                # args0 = queuename
+                # args1 = type when
+                # args2 = time hour to reset
+                if qr == job.args[0]:
+                    if (queue_for_reset[qr]['when'] == job.args[1] and  # noqa E504
                             queue_for_reset[qr]['hour'] == job.args[2]):
                         delete = False
-                if delete:
-                    job.delete()
+            if delete:
+                job.delete()
 
 
 def enqueue_reset_stats():
