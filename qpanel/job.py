@@ -20,15 +20,19 @@ def check_connect_redis():
         return False
 
 
+def to_utc(dt):
+    """ Convert a datetime into datetime as utc time"""
+    return datetime.datetime.utcfromtimestamp(dt.timestamp())
+
+
 def reset_stats_queue(queuename, when, hour):
     '''
         Reset stat for a queue on backend
         queuename: Name of queue to reset
         when, hour parameters for more easy
-               control for exists_job_onqueue
+               control for exists_job_onconfig
     '''
-    remove_jobs_not_config()
-    if not exists_job_onqueue(queuename, when, hour):
+    if not exists_job_onconfig(queuename, when, hour):
         return False
     b = backend.Backend()
     b.reset_stats(queuename)
@@ -39,12 +43,8 @@ def job_reset_stats_queue(queuename, when, hour):
     scheduler = Scheduler(connection=Redis())
     remove_jobs_not_config()
     if not exists_job_onqueue(queuename, when, hour):
-        scheduler.schedule(
-            scheduled_time=datetime_from_config(when, hour),
-            func=reset_stats_queue,
-            args=[queuename, when, hour],
-            interval=seconds_from_config_interval(when)
-        )
+        at_time = to_utc(datetime_from_config(when, hour))
+        scheduler.enqueue_at(at_time, reset_stats_queue, queuename, when, hour)
 
 
 def exists_job_onqueue(queuename, when, hour):
@@ -58,6 +58,15 @@ def exists_job_onqueue(queuename, when, hour):
             args = job.args
             if queuename == args[0] and when == args[1] and hour == args[2]:
                 return True
+    return False
+
+
+def exists_job_onconfig(queuename, when, hour):
+    """ Check if the params for configuration is present for reset_stats"""
+    queues_for_reset = config.QPanelConfig().queues_for_reset_stats()
+    entry = queues_for_reset.get(queuename)
+    if entry and entry['when'] == when and entry['hour'] == hour:
+        return True
     return False
 
 
