@@ -12,6 +12,11 @@ import time
 from rq import Connection, Worker
 
 
+DAILY = 1
+WEEKLY = 7
+MONTHLY = 30
+
+
 def check_connect_redis():
     try:
         Redis().echo("Check connection")
@@ -107,11 +112,11 @@ def get_days_from_val(val):
     val = val.lower()
     day = 0
     if val == 'daily':
-        day = 1
+        day = DAILY
     elif val in ['weekly', 'sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']:
-        day = 7
+        day = WEEKLY
     elif val == 'monthly':
-        day = 30
+        day = MONTHLY
     return day
 
 
@@ -126,11 +131,11 @@ def datetime_from_config(when, hour):
 
     at_time = datetime.datetime(now.year, now.month, now.day,
                                 hour.hour, hour.minute, hour.second)
-    if days == 1:
+    if days == DAILY:
         if now.time() > hour:
             # scheduler next day
             at_time = at_time + datetime.timedelta(days=1)
-    elif days == 7:
+    elif days == WEEKLY:
         if (
             (now.weekday() == 0 or (now.weekday() == ldays.index(when) + 1)
              ) and now.time() < hour):
@@ -143,7 +148,7 @@ def datetime_from_config(when, hour):
                 next_day = ldays.index(when)
             at_time = at_time + \
                 datetime.timedelta((next_day - now.weekday()) % 7)
-    elif days == 30:
+    elif days == MONTHLY:
         if now.day == 1 and now.time() < hour:
             at_time = at_time
         else:

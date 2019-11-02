@@ -49,6 +49,13 @@ class JobTestClass(unittest.TestCase):
                 'daily',
                 '00:10:00'))
 
+    def test_get_days_from_val(self):
+        self.assertEqual(job.get_days_from_val('daily'), 1)
+        self.assertEqual(job.get_days_from_val('Daily'), 1)
+        self.assertEqual(job.get_days_from_val('weekly'), 7)
+        self.assertEqual(job.get_days_from_val('monthly'), 30)
+        self.assertEqual(job.get_days_from_val('p'), 0)
+
 
 # runs the unit tests
 if __name__ == '__main__':
