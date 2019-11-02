@@ -1,0 +1,5 @@
+-r base.txt
+flake8
+pytest
+tox
+mock==2.0.0

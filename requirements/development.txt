@@ -1,9 +1,5 @@
--r base.txt
-flake8
+-r test.txt
 flask-debugtoolbar
-pytest
-tox
-mock==2.0.0
 
 # This help me to monitor scheduler testing
 # Reset queue stats
