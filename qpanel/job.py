@@ -115,14 +115,6 @@ def get_days_from_val(val):
     return day
 
 
-def seconds_from_config_interval(val):
-    """
-        Get interval value for a configuration by parameter
-    """
-    # day * hour * minute * seconds
-    return get_days_from_val(val) * 24 * 60 * 60
-
-
 def datetime_from_config(when, hour):
     when = when.lower()  # Fixme
     days = get_days_from_val(when)
