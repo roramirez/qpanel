@@ -15,6 +15,7 @@ from rq import Connection, Worker
 DAILY = 1
 WEEKLY = 7
 MONTHLY = 30
+WEEK_DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 
 
 def check_connect_redis():
@@ -113,18 +114,33 @@ def get_days_from_val(val):
     day = 0
     if val == 'daily':
         day = DAILY
-    elif val in ['weekly', 'sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']:
+    elif val in ['weekly'] + WEEK_DAYS:
         day = WEEKLY
     elif val == 'monthly':
         day = MONTHLY
     return day
 
 
+def give_day_number(value):
+    """
+    Return a number (weekday) for a string with day configuration.
+    By default return 0
+    """
+    day_number = 0
+    if value != 'weekly' and value in WEEK_DAYS:
+        day_number = WEEK_DAYS.index(value)
+    return day_number
+
+
+def get_now():
+    """ Get the datetime.datetime.now(). Helper to do tests"""
+    return datetime.datetime.now()
+
+
 def datetime_from_config(when, hour):
     when = when.lower()  # Fixme
     days = get_days_from_val(when)
-    now = datetime.datetime.now()
-    ldays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+    now = get_now()
 
     st = time.strptime(hour, "%H:%M:%S")
     hour = datetime.time(st.tm_hour, st.tm_min, st.tm_sec)
@@ -136,18 +152,16 @@ def datetime_from_config(when, hour):
             # scheduler next day
             at_time = at_time + datetime.timedelta(days=1)
     elif days == WEEKLY:
-        if (
-            (now.weekday() == 0 or (now.weekday() == ldays.index(when) + 1)
-             ) and now.time() < hour):
+        day_number = give_day_number(when)
+        if day_number == now.weekday() and now.time() < hour:
             # scheduler today
             at_time = at_time
         else:
-            # scheduler next week
-            next_day = 0
-            if when is not 'weekly':
-                next_day = ldays.index(when)
-            at_time = at_time + \
-                datetime.timedelta((next_day - now.weekday()) % 7)
+            # scheduler next day
+            delta = (day_number - now.weekday()) % 7
+            if day_number == now.weekday():  # current day for next week
+                delta = 7
+            at_time = at_time + datetime.timedelta(delta)
     elif days == MONTHLY:
         if now.day == 1 and now.time() < hour:
             at_time = at_time
