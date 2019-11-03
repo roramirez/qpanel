@@ -85,21 +85,15 @@ def remove_jobs_not_config():
         TODO: Maybe this could reload by notified in config.ini change
     """
     scheduler = Scheduler(connection=Redis())
-    queue_for_reset = config.QPanelConfig().queues_for_reset_stats()
     jobs = scheduler.get_jobs()
     for job in jobs:
         if 'reset_stats_queue' in job.func_name:
-            delete = True
-            for qr in queue_for_reset:
-                # The args for the job of reset_stats_queue are:
-                # args0 = queuename
-                # args1 = type when
-                # args2 = time hour to reset
-                if qr == job.args[0]:
-                    if (queue_for_reset[qr]['when'] == job.args[1] and  # noqa E504
-                            queue_for_reset[qr]['hour'] == job.args[2]):
-                        delete = False
-            if delete:
+            # The args for the job of reset_stats_queue are:
+            queuename = job.args[0]
+            when = job.args[1]
+            hour = job.args[2]
+
+            if not exists_job_onconfig(queuename, when, hour):
                 job.delete()
 
 
@@ -166,14 +160,14 @@ def datetime_from_config(when, hour):
             at_time = at_time + datetime.timedelta(days=1)
     elif days == WEEKLY:
         day_number = give_day_number(when)
-        if (day_number == now.weekday() and now.time() < hour) == False:
+        if not (day_number == now.weekday() and now.time() < hour):
             # scheduler next day
             delta = (day_number - now.weekday()) % 7
             if day_number == now.weekday():  # current day for next week
                 delta = 7
             at_time = at_time + datetime.timedelta(delta)
     elif days == MONTHLY:
-        if (now.day == 1 and now.time() < hour) == False:
+        if not (now.day == 1 and now.time() < hour):
             # scheduler next month
             at_time = last_day_of_month(at_time) + datetime.timedelta(days=1)
     return at_time
