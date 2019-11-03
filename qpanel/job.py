@@ -40,8 +40,9 @@ def reset_stats_queue(queuename, when, hour):
     '''
     if not exists_job_onconfig(queuename, when, hour):
         return False
+    cfg = config.QPanelConfig()
     b = backend.Backend()
-    b.reset_stats(queuename)
+    b.reset_stats(cfg.realname_queue(queuename))
     return True
 
 
