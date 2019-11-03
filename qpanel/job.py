@@ -138,6 +138,16 @@ def get_now():
 
 
 def datetime_from_config(when, hour):
+    """
+    Return datetime.datetime for next schedule job by configuration parameters
+
+    This function consider is need it schedule time at today o other day by
+    configuration
+
+    :param string when: 'daily', 'monthly', 'weekly' or WEEK_DAYS
+    :param string hour: string in %H:%M:%S format
+
+    """
     when = when.lower()  # Fixme
     days = get_days_from_val(when)
     now = get_now()
@@ -145,27 +155,25 @@ def datetime_from_config(when, hour):
     st = time.strptime(hour, "%H:%M:%S")
     hour = datetime.time(st.tm_hour, st.tm_min, st.tm_sec)
 
+    # By default at today
     at_time = datetime.datetime(now.year, now.month, now.day,
                                 hour.hour, hour.minute, hour.second)
+
+    # Change at_time if match for other conditions
     if days == DAILY:
         if now.time() > hour:
             # scheduler next day
             at_time = at_time + datetime.timedelta(days=1)
     elif days == WEEKLY:
         day_number = give_day_number(when)
-        if day_number == now.weekday() and now.time() < hour:
-            # scheduler today
-            at_time = at_time
-        else:
+        if (day_number == now.weekday() and now.time() < hour) == False:
             # scheduler next day
             delta = (day_number - now.weekday()) % 7
             if day_number == now.weekday():  # current day for next week
                 delta = 7
             at_time = at_time + datetime.timedelta(delta)
     elif days == MONTHLY:
-        if now.day == 1 and now.time() < hour:
-            at_time = at_time
-        else:
+        if (now.day == 1 and now.time() < hour) == False:
             # scheduler next month
             at_time = last_day_of_month(at_time) + datetime.timedelta(days=1)
     return at_time
