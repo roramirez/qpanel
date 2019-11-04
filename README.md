@@ -96,6 +96,15 @@ In general section set config
     freeswitch = True ; Use FreeSWITCH as backend. Use mod_callcenter
 ```
 
+To use a FreeSWITCH need install `SWIG`. In system Debian base run
+
+
+```
+ apt-get install swig
+ pip install -r requirements/fs.txt
+```
+
+
 ## 1. Clone this repository
 ```
  git clone https://github.com/roramirez/qpanel.git
