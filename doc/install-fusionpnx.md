@@ -43,11 +43,11 @@ Use a Freeswitch as Backend
  sed -ie 's/;freeswitch = True/freeswitch = True/g' config.ini
 
  echo '
- [freeswitch]
- host = 127.0.0.1
- port = 8021
- password = ClueCon
- ' >> config.ini
+[freeswitch]
+host = 127.0.0.1
+port = 8021
+password = ClueCon
+' >> config.ini
 
 ```
 
