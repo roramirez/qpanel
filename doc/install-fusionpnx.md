@@ -17,7 +17,7 @@ Where you add software
 
 ```
     mkdir /usr/local/apps
-    cd /usr/local/apps`
+    cd /usr/local/apps
     git clone https://github.com/roramirez/qpanel.git
 ```
 
