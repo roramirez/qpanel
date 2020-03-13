@@ -40,7 +40,7 @@ class User(flask_login.UserMixin):
 cfg = QPanelConfig()
 backend = Backend()
 
-FUSIONPBX_DOMAIN_FILTER=cfg.get_value_set_default('fusionpbx', 'domain_filter', False) != False
+EXTERNAL_LOGIN=cfg.get_value_set_default('general', 'external_login', False) != False
 
 
 def get_filter_queue():
@@ -49,26 +49,26 @@ def get_filter_queue():
         return session[key]
 
 
-def filter_queue_fusionpbx(data):
+def filter_queue_external(data):
     # Rename and filter queues for User
+    # by external Login
     filter_queues = get_filter_queue()
     tmp = {}
     for id_queue in data:
-        s = filter(lambda queue: queue['uuid'] == id_queue, filter_queues)
+        s = filter(lambda queue: queue['id'] == id_queue, filter_queues)
         if not s:
             continue
         tmp[s[0]['name']] = data[id_queue]
-    
-    return tmp
 
+    return tmp
 
 
 def get_data_queues(queue=None):
     username = flask_login.current_user.get_id()
     data = backend.get_data_queues(user=username)
 
-    if FUSIONPBX_DOMAIN_FILTER:
-        data = filter_queue_fusionpbx(data)
+    if EXTERNAL_LOGIN:
+        data = filter_queue_external(data)
 
     if queue is not None:
         try:
@@ -130,7 +130,7 @@ def unauthorized_handler():
 def user_loader(username):
     user_config = get_user_config_by_name(username)
 
-    if FUSIONPBX_DOMAIN_FILTER:
+    if EXTERNAL_LOGIN:
         if get_filter_queue() is None:
             return
         user = User()
@@ -183,24 +183,28 @@ def login():
 
 
 
-@app.route('/login_fusionpbx', methods=['GET', 'POST'])
-def login_fusionpbx():
+@app.route('/login_external', methods=['GET', 'POST'])
+def login_external():
 
-    params = {
-        'domain_uuid': request.args.get('domain_uuid'),
-        'domain_name': request.args.get('domain_name'),
-        'username':  request.args.get('username'),
-        'user_uuid': request.args.get('user_uuid')
-    }
+    """ Login with external endpoint. The endpoint should return
+        a Array JSON
+        [{u'name': u'Support', u'id': u'b15be236-1a32-4b11-ad5c-98924d0df8a8'}]
+    """
 
-    url = cfg.get('fusionpbx', 'domain_filter')
-    req = requests.get(url, params)
+    url = cfg.get('general', 'external_login')
+
+    if request.method == 'GET':
+        params = dict(request.args)
+        req = requests.get(url, params)
+    else:
+        req = requests.post(url, request.form)
+
     try:
         queues = req.json()
-        app.logger.debug("Queues from FusionPBX %s" % queues)
+        app.logger.debug("Queues from External Login %s" % queues)
         if len(queues) > 0:
             user = User()
-            user.id = request.args.get('user_uuid')
+            user.id = 'external_login'
             session['filter_queues'] = queues
             flask_login.login_user(user)
             return redirect(url_for('home'))
