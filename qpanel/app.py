@@ -22,6 +22,16 @@ from qpanel.backend import Backend
 if QPanelConfig().has_queuelog_config():
     from qpanel.model import queuelog_data_queue
 
+import requests
+import json
+import sys
+PY2 = sys.version_info[0] == 2
+
+
+
+if PY2: # Python 3 has not setdefaultencoding and UTF-8 is default
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
 
 class User(flask_login.UserMixin):
     pass
@@ -30,10 +40,36 @@ class User(flask_login.UserMixin):
 cfg = QPanelConfig()
 backend = Backend()
 
+FUSIONPBX_DOMAIN_FILTER=cfg.get_value_set_default('fusionpbx', 'domain_filter', False) != False
+
+
+def get_filter_queue():
+    key = 'filter_queues'
+    if key in session:
+        return session[key]
+
+
+def filter_queue_fusionpbx(data):
+    # Rename and filter queues for User
+    filter_queues = get_filter_queue()
+    tmp = {}
+    for id_queue in data:
+        s = filter(lambda queue: queue['uuid'] == id_queue, filter_queues)
+        if not s:
+            continue
+        tmp[s[0]['name']] = data[id_queue]
+    
+    return tmp
+
+
 
 def get_data_queues(queue=None):
     username = flask_login.current_user.get_id()
     data = backend.get_data_queues(user=username)
+
+    if FUSIONPBX_DOMAIN_FILTER:
+        data = filter_queue_fusionpbx(data)
+
     if queue is not None:
         try:
             data = data[queue]
@@ -93,6 +129,14 @@ def unauthorized_handler():
 @login_manager.user_loader
 def user_loader(username):
     user_config = get_user_config_by_name(username)
+
+    if FUSIONPBX_DOMAIN_FILTER:
+        if get_filter_queue() is None:
+            return
+        user = User()
+        user.id = username
+        return user
+
     if user_config is None:
         return
     return set_data_user(user_config)
@@ -108,6 +152,7 @@ def request_loader(request):
         user = User()
         user.id = 'withoutlogin'
         return user
+
 
     if user_config is None:
         return
@@ -135,6 +180,35 @@ def login():
         flask_login.login_user(user)
         return redirect(url_for('home'))
     return redirect(url_for('login'))
+
+
+
+@app.route('/login_fusionpbx', methods=['GET', 'POST'])
+def login_fusionpbx():
+
+    params = {
+        'domain_uuid': request.args.get('domain_uuid'),
+        'domain_name': request.args.get('domain_name'),
+        'username':  request.args.get('username'),
+        'user_uuid': request.args.get('user_uuid')
+    }
+
+    url = cfg.get('fusionpbx', 'domain_filter')
+    req = requests.get(url, params)
+    try:
+        queues = req.json()
+        app.logger.debug("Queues from FusionPBX %s" % queues)
+        if len(queues) > 0:
+            user = User()
+            user.id = request.args.get('user_uuid')
+            session['filter_queues'] = queues
+            flask_login.login_user(user)
+            return redirect(url_for('home'))
+    except:
+        pass
+
+    return redirect(url_for('logout'))
+
 
 
 @app.before_first_request

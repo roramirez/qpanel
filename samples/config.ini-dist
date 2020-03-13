@@ -91,3 +91,8 @@ show_service_level = False ; Show information of service level of a queue
 ;password = changeme
 ;port = 5432
 ;adapter = postgres
+
+
+; Integration filter queue by domain for FusionPBX
+;[fusionpbx]
+;domain_filter = http://localhost/resources/qpanel.php
