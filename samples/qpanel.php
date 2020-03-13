@@ -27,7 +27,7 @@ $sql = "SELECT v_call_center_queues.*
 
     $queues = Array();
 	foreach ($result as $queue) {
-        $obj = (object) array('id' => $queue['call_center_queue_uuid'], 'name' => $queue['queue_name']);
+        $obj = (object) array('uuid' => $queue['call_center_queue_uuid'], 'name' => $queue['queue_name']);
         $queues[] = $obj;
 	}
     header('Content-Type: application/json');
