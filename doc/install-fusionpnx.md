@@ -75,7 +75,7 @@ Add uwsgi configuration
 ' > /etc/uwsgi.d/uwsgi-qpanel.ini
 ```
 
-Add this next line inside a HTTPs configuration in Nginx (/etc/nginx/sites-enabled/fusionpbx.conf)
+Add this next line inside a HTTPs configuration in Nginx (/etc/nginx/sites-enabled/fusionpbx)
 
 
 ```
