@@ -27,6 +27,8 @@ show_service_level = False ; Show information of service level of a queue
 ; In the future will be removed by completely.
 ;theme = qpanel
 
+; external script to return json array for queue enables
+;external_login = http://localhost/resources/qpanel.php
 
 [rename]
 ; This section if for rename name of queue
