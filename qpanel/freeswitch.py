@@ -90,8 +90,11 @@ class Freeswitch:
             i = 0
             tmp_dict = {}
             for e in line:
-                tmp_dict[utils.underscore_to_camelcase(header[i])] = e
-                i = i + 1
+                try:
+                    tmp_dict[utils.underscore_to_camelcase(header[i])] = e
+                    i = i + 1
+                except:
+                    pass
             output[line[0]] = tmp_dict
 
         return output
