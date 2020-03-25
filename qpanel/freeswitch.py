@@ -85,7 +85,7 @@ class Freeswitch:
 
         for l in tmp[1:-1]:
             line = l.split(delimiter)
-            if len(line) < len(header):
+            if len(line) != len(header):
                 continue
             i = 0
             tmp_dict = {}
