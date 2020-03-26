@@ -32,7 +32,7 @@ class User(flask_login.UserMixin):
 cfg = QPanelConfig()
 backend = Backend()
 
-EXTERNAL_LOGIN=cfg.get_value_set_default('general', 'external_login', False) != False
+EXTERNAL_LOGIN = cfg.get_value_set_default('general', 'external_login', False) != False
 
 
 def get_filter_queue():
@@ -150,7 +150,6 @@ def request_loader(request):
         user.id = 'withoutlogin'
         return user
 
-
     if user_config is None:
         return
 
@@ -177,7 +176,6 @@ def login():
         flask_login.login_user(user)
         return redirect(url_for('home'))
     return redirect(url_for('login'))
-
 
 
 @app.route('/login_external', methods=['GET', 'POST'])
@@ -209,7 +207,6 @@ def login_external():
         pass
 
     return redirect(url_for('logout'))
-
 
 
 @app.before_first_request
@@ -485,7 +482,6 @@ def main():
         else:
             print("Error: There not connection to Redis")
             print("       Reset stats will not work\n")
-
 
     if cfg.base_url == '/':
         app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=reloader,
