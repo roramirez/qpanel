@@ -23,7 +23,6 @@ if QPanelConfig().has_queuelog_config():
     from qpanel.model import queuelog_data_queue
 
 import requests
-import json
 
 
 class User(flask_login.UserMixin):
