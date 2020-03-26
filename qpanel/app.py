@@ -23,9 +23,6 @@ if QPanelConfig().has_queuelog_config():
     from qpanel.model import queuelog_data_queue
 
 import requests
-import json
-import sys
-PY2 = sys.version_info[0] == 2
 
 
 
