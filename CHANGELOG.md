@@ -4,7 +4,7 @@ All notable changes to QPanel will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## 1.0.0  (unrelased)
+## 1.0.0  (2020-03-28)
 
 ### Added
 - Docker support File

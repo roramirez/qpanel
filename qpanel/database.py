@@ -3,7 +3,7 @@
 #
 # Class model Qpanel QueueLog Database
 #
-# Copyright (C) 2015-2019 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+# Copyright (C) 2015-2020 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
 from __future__ import absolute_import

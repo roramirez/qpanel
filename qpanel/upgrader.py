@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Copyright (C) 2015-2019 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+# Copyright (C) 2015-2020 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
 import requests
