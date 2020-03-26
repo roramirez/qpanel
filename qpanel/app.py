@@ -54,6 +54,11 @@ def filter_queue_external(data):
     # by external Login
     filter_queues = get_filter_queue()
     tmp = {}
+
+    # prevent raise error if None from get_filter_queue
+    if filter_queues is None:
+        return tmp
+
     for id_queue in data:
         s = filter(lambda queue: 'id' in queue.keys() and queue['id'] == id_queue, filter_queues)
         if not s:
