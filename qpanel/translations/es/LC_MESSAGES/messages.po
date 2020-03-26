@@ -1,5 +1,5 @@
 # Spanish translations for QPanel.
-# Copyright (C) 2015-2019 Rodrigo Ramírez Norambuena
+# Copyright (C) 2015-2020 Rodrigo Ramírez Norambuena
 # This file is distributed under the same license as the QPanel project.
 # Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
 #
