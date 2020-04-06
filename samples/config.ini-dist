@@ -10,15 +10,30 @@ port = 5000
 host = 0.0.0.0
 ;Interval for request update in seconds
 interval = 5
-;hide =  ; Hide queue on monitor separate by comma. Example config hide=queue1,queue2
-;show = ; Add queue what you required to show. Example show=queue1,otherqueuename.
+
+; Hide queue on monitor separate by comma.
+; Example config hide=queue1,queue2
+;hide =
+
+; Add queue what you required to show.
+; Example show=queue1,otherqueuename.
+;show =
+
 ;This option override the hide parameter
 ;base_url =  ; Default is /
-;secret_key = 'PLEASE_CHANGE_ME' ; is a good idea change this value
+
+; is a good idea change this value
+;secret_key = 'PLEASE_CHANGE_ME'
+
 language = en
 check_upgrade = True
-;freeswitch = True ; Use FreeSWITCH as backend. Use mod_callcenter
-show_service_level = False ; Show information of service level of a queue
+
+; Use FreeSWITCH as backend. Use mod_callcenter
+;freeswitch = True
+
+; Show information of service level of a queue
+show_service_level = False
+
 
 ; Theme setting available to set the design how is showing Qpanel
 ; Available configuration
