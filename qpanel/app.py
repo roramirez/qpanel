@@ -52,7 +52,7 @@ def filter_queue_external(data):
         return tmp
 
     for id_queue in data:
-        s = filter(lambda queue: 'id' in queue.keys() and queue['id'] == id_queue, filter_queues)
+        s = list(filter(lambda queue: 'id' in queue.keys() and queue['id'] == id_queue, filter_queues))
         if not s:
             continue
         tmp[s[0]['name']] = data[id_queue]
