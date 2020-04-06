@@ -13,7 +13,7 @@ from .asterisk import AsteriskAMI
 import six
 # In case use Asterisk dont crash with ESL not in system
 try:
-    from .freeswitch import Freeswitch
+    from qpanel.freeswitch import Freeswitch
 except BaseException:
     pass
 

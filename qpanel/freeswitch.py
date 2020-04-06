@@ -8,7 +8,7 @@
 
 
 import ESL
-import utils
+from qpanel import utils
 
 # Default
 defaultESLport = 8021
