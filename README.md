@@ -93,7 +93,8 @@ You can configure a freeswitch section for your config.ini file like
 In general section set config
 
 ```
-    freeswitch = True ; Use FreeSWITCH as backend. Use mod_callcenter
+    ; Use FreeSWITCH as backend. Use mod_callcenter
+    freeswitch = True
 ```
 
 To use a FreeSWITCH need install `SWIG`. In system Debian base run
