@@ -10,7 +10,7 @@ Install a dependencies
 The next step you need install dependencies for ESL (swig) and virtualenv and uwsgi.
 
 
-    $ yum install -y git python-virtualenv swig gcc gcc-c++ nodejs uwsgi uwsgi-plugin-python2
+    $ yum install -y git python-virtualenv swig gcc gcc-c++ nodejs uwsgi python3  python3-devel uwsgi-plugin-python36.x86_64
 
 
 Enviroment setup
@@ -22,7 +22,6 @@ Where the software is added.
     $ cd /usr/local/apps
     $ git clone https://github.com/roramirez/qpanel.git
     $ cd qpanel
-    $ git checkout domain-filter-fusion-pbx
 
 
 
@@ -56,9 +55,8 @@ Use a external custom script to filter the queue for domain
 
 
 ```
-$ echo '
-[uwsgi]
-socket= 0.0.0.0:5000
+$ echo '[uwsgi]
+socket= 127.0.0.1:5000
 protocol=http
 master = true
 venv = /usr/local/apps/qpanel/env
@@ -67,31 +65,9 @@ mount = /qpanel=start.wsgi
 manage-script-name = true
 uid = freeswitch
 gid = daemon
-plugins = python
-' > /usr/local/apps/qpanel/qpanel.ini
+plugins = python36
+' > /etc/uwsgi.d/uwsgi-qpanel.ini
 ```
-
-Create service qpanel for SystemV
-
-```
-$ echo '
-[Unit]
-Description=uWSGI instance to serve qpanel
-After=network.target
-
-[Service]
-User=freeswitch
-Group=daemon
-WorkingDirectory=/usr/local/apps/qpanel/
-Environment="PATH=/usr/local/apps/qpanel/env/bin"
-ExecStart=/usr/local/apps/qpanel/env/bin/uwsgi --ini qpanel.ini
-
-
-[Install]
-WantedBy=multi-user.target' > /etc/systemd/system/qpanel.service
-
-```
-
 
 
 Add the follow lines in the file /etc/nginx/sites-enabled/fusionpbx.conf in the section for server ssl (443) just before the statement for 'location = /core/upgrade/index.php {' in the line 218
@@ -107,9 +83,9 @@ Add the follow lines in the file /etc/nginx/sites-enabled/fusionpbx.conf in the 
         alias /usr/local/apps/qpanel/qpanel/static;
     }
     location /qpanel {
+        include uwsgi_params;
         proxy_pass       http://localhost:5000/qpanel;
-        proxy_set_header Host      $host;
-        proxy_set_header X-Real-IP $remote_addr;
+        uwsgi_ignore_client_abort on;
     }
 ## End Nginx Configuration ###
 ```
@@ -145,6 +121,6 @@ Restart and enable services
     $ mkdir -p  /run/uwsgi/
     $ chown uwsgi:uwsgi /run/uwsgi
     $ chown freeswitch:daemon /etc/uwsgi.d/uwsgi-qpanel.ini
-    $ systemctl enable qpanel
-    $ systemctl start qpanel
+    $ systemctl enable uwsgi
+    $ systemctl start uwsgi
     $ service nginx reload
