@@ -45,4 +45,10 @@ WORKDIR /qpanel
 
 EXPOSE 5000
 
-CMD tini -- python3 app.py
+CMD [ ! -z "${QPANEL_USER}"   ] && \
+    [ ! -z "${QPANEL_PWD}"    ] && \
+    [ ! -z "${ASTERISK_HOST}" ] && \
+       sed \
+       -e "s/user = username/user = ${QPANEL_USER}/;s/password = password/password = ${QPANEL_PWD}/;s/host = localhost/host = ${ASTERISK_HOST}/" \
+       -i config.ini; \
+    tini -- python3 app.py
