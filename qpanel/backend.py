@@ -122,13 +122,13 @@ class Backend(object):
 
     def parse_asterisk(self, data):
         # convert references manager to string
-        for q in data:
-            for e in data[q]['entries']:
+        for q in list(data):
+            for e in list(data[q]['entries']):
                 tmp = data[q]['entries'].pop(e)
                 data[q]['entries'][str(e)] = tmp
                 tmp = data[q]['entries'][str(e)]['Channel']
                 data[q]['entries'][str(e)]['Channel'] = str(tmp)
-            for m in data[q]['members']:
+            for m in list(data[q]['members']):
                 member = data[q]['members'][m]
                 # Asterisk 1.8 dont have StateInterface
                 if 'StateInterface' not in member:
@@ -147,7 +147,7 @@ class Backend(object):
                 if 'InCall' in member and member['InCall'] == '1':
                     member['Status'] = '10'
 
-            for c in data[q]['entries']:
+            for c in list(data[q]['entries']):
                 data[q]['entries'][c]['WaitAgo'] = format_timedelta(
                     timedelta_from_field_dict('Wait',
                                               data[q]['entries'][c], True),
