@@ -23,6 +23,7 @@ var/
 *.egg
 .tox
 .pytest_cache
+package-lock.json
 
 ## Vim
 # swap
