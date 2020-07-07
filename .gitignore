@@ -39,3 +39,7 @@ var/
 node_modules/
 */static/components
 npm-debug.log*
+
+# VS Code and venv
+.vscode/
+.venv/
