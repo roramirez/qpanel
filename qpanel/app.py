@@ -1,492 +1,432 @@
-# -*- coding: utf-8 -*-
-
-#
-# Copyright (C) 2015-2020 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
-#
-
-from flask import Flask, jsonify, redirect, request, session, url_for
-from flask_themes import setup_themes, render_theme_template
-from werkzeug.serving import run_simple
-from werkzeug.wsgi import DispatcherMiddleware
-from werkzeug.exceptions import abort
-import logging
-
-from flask_babel import Babel, gettext
-import flask_login
-
-from qpanel import upgrader, job, rq_worker
-import qpanel.utils as uqpanel
-
-from qpanel.config import QPanelConfig
-from qpanel.backend import Backend
-if QPanelConfig().has_queuelog_config():
-    from qpanel.model import queuelog_data_queue
-
-import requests
-
-
-
-if PY2: # Python 3 has not setdefaultencoding and UTF-8 is default
-    reload(sys)
-    sys.setdefaultencoding('utf-8')
-
-class User(flask_login.UserMixin):
-    pass
-
-
-cfg = QPanelConfig()
-backend = Backend()
-
-FUSIONPBX_DOMAIN_FILTER=cfg.get_value_set_default('fusionpbx', 'domain_filter', False) != False
-
-
-def get_filter_queue():
-    key = 'filter_queues'
-    if key in session:
-        return session[key]
-
-
-def filter_queue_fusionpbx(data):
-    # Rename and filter queues for User
-    filter_queues = get_filter_queue()
-    tmp = {}
-    for id_queue in data:
-        s = filter(lambda queue: queue['uuid'] == id_queue, filter_queues)
-        if not s:
-            continue
-        tmp[s[0]['name']] = data[id_queue]
-    
-    return tmp
-
-
-
-def get_data_queues(queue=None):
-    username = flask_login.current_user.get_id()
-    data = backend.get_data_queues(user=username)
-
-    if FUSIONPBX_DOMAIN_FILTER:
-        data = filter_queue_fusionpbx(data)
-
-    if queue is not None:
-        try:
-            data = data[queue]
-        except:
-            abort(404)
-    if cfg.is_debug:
-        app.logger.debug(data)
-    return data
-
-
-def get_user_config_by_name(username):
-    try:
-        user = User()
-        user.id = username
-        user.password = cfg.get('users', username)
-        return user
-    except BaseException:
-        return None
-
-
-# Flask env
-APPLICATION_ROOT = cfg.base_url
-app = Flask(__name__)
-app.config.from_object(__name__)
-babel = Babel(app)
-app.config['BABEL_DEFAULT_LOCALE'] = cfg.language
-app.secret_key = cfg.secret_key
-setup_themes(app, app_identifier='qpanel')
-
-
-login_manager = flask_login.LoginManager()
-login_manager.init_app(app)
-
-
-def render_template(template, **context):
-
-    if cfg.theme == 'old':
-        app.logger.warning(
-            "The old theme is deprecated from 0.16.0 and "
-            "not keep maintained anymore."
-            "In the future will be removed by completely")
-    theme = session.get('theme', cfg.theme)
-    return render_theme_template(theme, template, **context)
-
-
-def set_data_user(user_config):
-    user = User()
-    user.id = user_config.id
-    return user
-
-
-@login_manager.unauthorized_handler
-def unauthorized_handler():
-    return redirect(url_for('login'))
-
-
-@login_manager.user_loader
-def user_loader(username):
-    user_config = get_user_config_by_name(username)
-
-    if FUSIONPBX_DOMAIN_FILTER:
-        if get_filter_queue() is None:
-            return
-        user = User()
-        user.id = username
-        return user
-
-    if user_config is None:
-        return
-    return set_data_user(user_config)
-
-
-@login_manager.request_loader
-def request_loader(request):
-    username = request.form.get('username')
-    user_config = get_user_config_by_name(username)
-
-    if not cfg.has_users():
-        # fake login
-        user = User()
-        user.id = 'withoutlogin'
-        return user
-
-
-    if user_config is None:
-        return
-
-    user = set_data_user(user_config)
-    user.is_authenticated = user_config == request.form['pw']
-    return user
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if not cfg.has_users():
-        return redirect(url_for('home'))
-
-    if request.method == 'GET':
-        return render_template('login.html')
-
-    username = request.form['username']
-    user_config = get_user_config_by_name(username)
-    if user_config is None:
-        return redirect(url_for('login'))
-
-    if user_config.password == request.form['pw']:
-        user = set_data_user(user_config)
-        flask_login.login_user(user)
-        return redirect(url_for('home'))
-    return redirect(url_for('login'))
-
-
-
-@app.route('/login_fusionpbx', methods=['GET', 'POST'])
-def login_fusionpbx():
-
-    params = {
-        'domain_uuid': request.args.get('domain_uuid'),
-        'domain_name': request.args.get('domain_name'),
-        'username':  request.args.get('username'),
-        'user_uuid': request.args.get('user_uuid')
-    }
-
-    url = cfg.get('fusionpbx', 'domain_filter')
-    req = requests.get(url, params)
-    try:
-        queues = req.json()
-        app.logger.debug("Queues from FusionPBX %s" % queues)
-        if len(queues) > 0:
-            user = User()
-            user.id = request.args.get('user_uuid')
-            session['filter_queues'] = queues
-            flask_login.login_user(user)
-            return redirect(url_for('home'))
-    except:
-        pass
-
-    return redirect(url_for('logout'))
-
-
-@app.before_first_request
-def setup_logging():
-    # issue https://github.com/benoitc/gunicorn/issues/379
-    if not app.debug:
-        app.logger.addHandler(logging.StreamHandler())
-        app.logger.setLevel(logging.INFO)
-
-
-# babel
-@babel.localeselector
-def get_locale():
-    langs = ['en', 'es', 'de', 'pt_BR', 'ru']
-    browser = request.accept_languages.best_match(langs)
-    try:
-        return session['language']
-    except KeyError:
-        session['language'] = browser
-        return browser
-
-
-# Utilities helpers
-@app.context_processor
-def utility_processor():
-    def str_status_agent(value):
-        try:
-            value = int(value)
-        except:
-            value = 0
-        unavailable = [0, 4, 5]
-        free = [1]
-        in_call = [10]
-
-        if value in unavailable:
-            return gettext('unavailable')
-        elif value in free:
-            return gettext('free')
-        elif value in in_call:
-            return gettext('in call')
-        else:
-            return gettext('busy')
-    return dict(str_status_agent=str_status_agent)
-
-
-@app.context_processor
-def utility_processor():
-    def request_interval():
-        return cfg.interval * 1000
-    return dict(request_interval=request_interval)
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
-
-
-@app.context_processor
-def utility_processor():
-    def check_upgrade():
-        return cfg.check_upgrade
-    return dict(check_upgrade=check_upgrade)
-
-
-@app.context_processor
-def utility_processor():
-    def show_service_level():
-        return cfg.show_service_level
-    return dict(show_service_level=show_service_level)
-
-
-@app.context_processor
-def utility_processor():
-    def has_users():
-        return cfg.has_users()
-    return dict(has_users=has_users)
-
-
-@app.context_processor
-def utility_processor():
-    def clean_str_to_div_id(value):
-        return uqpanel.clean_str_to_div_id(value)
-    return dict(clean_str_to_div_id=clean_str_to_div_id)
-
-
-@app.context_processor
-def utility_processor():
-    def is_freeswitch():
-        return backend.is_freeswitch()
-    return dict(is_freeswitch=is_freeswitch)
-
-
-@app.context_processor
-def utility_processor():
-    def config():
-        return cfg
-    return dict(config=config)
-
-
-@app.context_processor
-def utility_processor():
-    def current_version():
-        return upgrader.get_current_version()
-    return dict(current_version=current_version)
-
-
-# ---------------------
-# ---- Routes ---------
-# ---------------------
-# home
-@app.route('/')
-@flask_login.login_required
-def home():
-    data = get_data_queues()
-    template = 'index.html'
-    if backend.is_freeswitch():
-        template = 'fs/index.html'
-    return render_template(template, queues=data)
-
-
-@app.route('/queue/<name>')
-@flask_login.login_required
-def queue(name=None):
-    data = get_data_queues(name)
-    template = 'queue.html'
-    if backend.is_freeswitch():
-        template = 'fs/queue.html'
-    return render_template(template, data=data, name=name)
-
-
-@app.route('/all_queues')
-@flask_login.login_required
-def all_queues():
-    data = get_data_queues()
-    template = 'all_queues.html'
-    if backend.is_freeswitch():
-        abort(404)
-        # Not yet implement
-        # template = 'fs/all_queue.html'
-    return render_template(template, queues=data)
-
-
-@app.route('/queue/<name>.json')
-@flask_login.login_required
-def queue_json(name=None):
-    data = get_data_queues(name)
-    return jsonify(name=name, data=data)
-
-
-# data queue
-@app.route('/queues')
-@flask_login.login_required
-def queues():
-    data = get_data_queues()
-    return jsonify(data=data)
-
-
-@app.route('/lang')
-@app.route('/lang/<language>')
-@flask_login.login_required
-def language(language=None):
-    session['language'] = language
-    return redirect(url_for('home'))
-
-
-@app.route('/check_new_version')
-@flask_login.login_required
-def check_new_version():
-    need_upgrade = False
-    try:
-        if upgrader.require_upgrade():
-            need_upgrade = True
-    except:
-        pass
-
-    return jsonify(
-        require_upgrade=need_upgrade,
-        current_version=upgrader.get_current_version(),
-        last_stable_version=upgrader.get_stable_version()
-    )
-
-
-@app.route('/logout')
-def logout():
-    flask_login.logout_user()
-    return redirect(url_for('login'))
-
-
-@app.route('/spy', methods=['POST'])
-@flask_login.login_required
-def spy():
-    channel = request.form['channel']
-    to_exten = request.form['to_exten']
-    r = backend.spy(channel, to_exten)
-    return jsonify(result=r)
-
-
-@app.route('/whisper', methods=['POST'])
-@flask_login.login_required
-def whisper():
-    channel = request.form['channel']
-    to_exten = request.form['to_exten']
-    r = backend.whisper(channel, to_exten)
-    return jsonify(result=r)
-
-
-@app.route('/barge', methods=['POST'])
-@flask_login.login_required
-def barge():
-    channel = request.form['channel']
-    to_exten = request.form['to_exten']
-    r = backend.barge(channel, to_exten)
-    return jsonify(result=r)
-
-
-@app.route('/hangup', methods=['POST'])
-@flask_login.login_required
-def hangup_call():
-    channel = request.form['channel']
-    r = backend.hangup(channel)
-    return jsonify(result=r)
-
-
-@app.route('/stats/<from_date>/<to_date>/<name>.json')
-def stats_json(name, from_date, to_date):
-    real_name = cfg.realname_queue(name)
-    queue_values = queuelog_data_queue(from_date, to_date, None, real_name)
-    data = get_data_queues(name)
-    return jsonify(name=name, data=data, values=queue_values)
-
-
-@app.route('/stats', defaults={'name': None, 'from_date': uqpanel.init_day(),
-                               'to_date': uqpanel.end_day()})
-@app.route('/stats/<name>/<from_date>/<to_date>')
-def stats(name, from_date, to_date):
-    queues = get_data_queues()
-    if name is None:
-        name = uqpanel.first_data_dict(queues)
-    try:
-        data = queues[name]
-    except:
-        data = {}
-    return render_template('stats.html', data=data, queues=queues, name=name,
-                           from_date=from_date, to_date=to_date)
-
-
-@app.route('/remove_from_queue', methods=['POST'])
-@flask_login.login_required
-def remove_from_queue():
-    queue = cfg.realname_queue(request.form['queue'])
-    agent = request.form['agent']
-    r = backend.remove_from_queue(agent, queue)
-    return jsonify(result=r)
-
-
-# ---------------------
-# ---- Main  ----------
-# ---------------------
-def main():
-
-    # Set reloader to False, bug present for imports
-    # Retain this as FIXME
-    # https://github.com/mitsuhiko/flask/issues/1246
-    reloader = False
-
-    if cfg.is_debug:
-        app.config['DEBUG'] = True
-        uqpanel.add_debug_toolbar(app)
-
-    if cfg.queues_for_reset_stats():
-        if job.check_connect_redis():
-            rq_worker.start_jobs()
-        else:
-            print("Error: There not connection to Redis")
-            print("       Reset stats will not work\n")
-
-    if cfg.base_url == '/':
-        app.run(host=cfg.host_bind, port=cfg.port_bind, use_reloader=reloader,
-                extra_files=[cfg.path_config_file])
-    else:
-        application = DispatcherMiddleware(Flask('dummy_app'), {
-            app.config['APPLICATION_ROOT']: app,
-        })
-        run_simple(cfg.host_bind, cfg.port_bind, application,
-                   use_reloader=reloader, extra_files=[cfg.path_config_file])
+{% extends theme('base.html') %}
+{% block title %} QPanel - {{ name }} {% endblock %}
+
+    {% block main %}
+      <!--main content start-->
+      <section id="main-content" style="margin-left: 0px;">
+
+
+          <section class="wrapper">
+              <h3><i class="fa fa-angle-right"></i> {{ name }} - <span id="strategy"</span></h3>
+
+              <div class="row">
+                  <div class="col-lg-12 main-chart">
+
+                      <div class="row"><!-- row general data-->
+                        {% include 'row_general_data.html' %}
+                      </div><!-- /row general data-->
+
+                     <div class="row mt">
+                    </div><!-- /row -->
+
+                  <div class="col-md-12">
+                      <div class="content-panel">
+                          <table class="table table-striped table-advance table-hover" id="agents">
+                            <h4><i class="fa fa-angle-right"></i> {{ _('Agents') }}: <span id="total_agent" class="label label-default"></span></h4>
+                            <hr>
+                              <thead>
+                              <tr>
+                                  <th><i class="fa fa-user"></i> {{ _('Name') }}</th>
+                                  <th><i class="fa fa-plug"></i> {{ _('Interface') }}</th>
+                                  <th><i class=" fa fa-question-circle "></i> {{ _('Status') }}</th>
+                                  <th><i class="fa fa-bookmark"></i> <span data-toggle="tooltip" data-placement="left" title="{{ _('Attend calls') }}"></i> {{ _('Calls') }}</span></th>
+                                  <th><i class="fa fa-clock-o"></i> {{ _('Last call at') }}</th>
+
+                                  <th><i class="fa fa-action-o"></i> {{_('Actions')}}</th>
+
+                              </tr>
+                              </thead>
+                              <tbody>
+                              {% for agent_id, agent in data.members.items() %}
+                              <tr id="agent-{{ clean_str_to_div_id(agent_id) }}">
+                                  <td>{{ agent.Name }}</td>
+                                  <td class="hidden-phone">{{ agent.StateInterface }}</td>
+                                  <td id="status">
+                                    <span class="label label-info label-mini state">
+                                        {{ str_status_agent(agent.Status) }}
+                                    </span>
+                                  <td id="calls">{{ agent.CallsTaken }}</td>
+                                  <td id="last_call">{{ agent.LastCall }}</td>
+                                  <td id="actions" data-channel="{{ agent.StateInterface }}">
+                                    <a href="#" data-action="spy">{{ _('Spy') }}</a> |
+                                    <a href="#" data-action="whisper">{{ _('Whisper') }}</a> |
+                                    <a href="#" data-action="barge">{{ _('Barge') }}</a> |
+                                    <button data-queue="{{ name }}" class="remove-queue">{{ _('Remove from queue') }}</button>
+                                  </td>
+                              </tr>
+                              {% endfor %}
+                              </tbody>
+                          </table>
+                      </div><!-- /content-panel -->
+                  </div><!-- /col-md-12 -->
+
+                  <div class="col-md-12">
+                      <div class="content-panel">
+                          <table class="table table-striped table-advance table-hover" id="callers">
+                            <h4><i class="fa fa-angle-right"></i> {{ _('Callers') }}: <span id="total_callers" class="label label-default"></span></h4>
+                            <hr>
+                              <thead>
+                              <tr>
+                                  <th><i class="fa fa-user"></i> {{ _('Id Name') }}</th>
+                                  <th class="hidden-phone"><i class="fa fa-phone"></i> {{ _('Id Number') }}</th>
+                                  <th><i class="fa fa-sort-numeric-asc"></i> {{ _('Position') }}</th>
+                                  <th><i class="fa fa-clock-o"></i> {{ _('Wait') }}</th>
+                                  <th></th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              {% for key, caller in data.entries.items() %}
+                              <tr id="caller-{{ caller.Uniqueid }}" data-uniqueid="{{ caller.Uniqueid }}">
+                                  <td>{{ caller.CallerIDName }}</td>
+                                  <td class="hidden-phone">{{ caller.CallerIDNum }}</td>
+                                  <td id="position">{{ caller.Position }}</td>
+                                  <td id="wait">{{ caller.Wait }}</td>
+                                  <td>
+                                      <button class="btn btn-danger btn-xs" id="stop-call">
+                                          <i class="fa fa-ban"></i>
+                                      </button>
+                                  </td>
+                              </tr>
+                              {% endfor %}
+                              </tbody>
+                          </table>
+                      </div><!-- /content-panel -->
+                  </div><!-- /col-md-12 -->
+
+          </section>
+      </section>
+
+    <!-- Modal spy and whisper -->
+    <div id="spy_whisperk" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="swModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> 
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="col-lg-2">
+                    <h4><i class="fa fa-headphones fa-5x"></i> </h4>
+                </div>
+                <div class="col-lg-10">
+                    <br/>
+                    <p>{{ _('Insert where  you listen the call, example: <i>SIP/1001</i>')}}</p>
+                    <div class="input-group">
+                        <input id="to_exten" type="text" class="form-control" value="">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" id="execute-action" data-action="" data-channel=""  title="{{_('Listen ')}}"></button>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <label class="modal-message"></label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+         </div>
+    </div>
+    <!-- End Modal spy and whisper -->
+    {% endblock %}
+
+    {% block script_end %}
+    <script type="application/javascript">
+        $(document).ready(function () {
+            getDataQueue(); //load data on page ready :)
+            setInterval(function () {
+                getDataQueue();
+            }, {{ request_interval() }});
+        });
+        // parse data and put values on view
+        function parseDataQueue(data){
+          $('#answered').html(data.Completed);
+          $('#abandoned').html(data.Abandoned);
+          $('#incoming').html(data.Calls);
+          $('#av_wait').html(parseInt(data.Holdtime).toString().toMMSS());
+          $('#av_time').html(parseInt(data.TalkTime).toString().toMMSS());
+
+          {% if show_service_level() %}
+          $("#servicelevel").html(data.ServicelevelPerf + '%');
+          {% endif %}
+
+          //agents
+          var agents_ids = Array();
+          for (agent in data.members) {
+            agent_id_div = clean_div_name(agent);
+            $('#agent-' + agent_id_div + ' #calls').html(data.members[agent].CallsTaken)
+
+            str_time_ago = ''
+            if (data.members[agent].LastCall > 0) {
+               str_time_ago = data.members[agent].LastCallAgo;
+            }
+            $('#agent-' + agent_id_div + ' #last_call').html(str_time_ago)
+
+            $('#agent-' + agent_id_div + ' #status .state').html(data.members[agent].Status.toStrStatusAgent())
+            addLabelDivStatusAgent($('#agent-' + agent_id_div + ' #status .state'));
+
+            if (data.members[agent].Paused == true) {
+                // reason pause introduced in https://goo.gl/Njm6H5
+                // if dont have feature in your Asterisk
+                // check directory patches
+                var reason = '';
+                if (data.members[agent].PausedReason){
+                    reason = ": {reason}".format({'reason': data.members[agent].PausedReason});
+                }
+                var last_pause_time = '';
+                if (parseInt(data.members[agent].LastPauseAgo.split(" ")[0]) > 0){
+                    last_pause_time = " {{ _('was') }} {last_pause} {{_('ago') }}".format({'last_pause': data.members[agent].LastPauseAgo});
+                }
+
+                $('#agent-' + agent_id_div + ' #status .pause').remove();
+                $('#agent-'+ agent_id_div +' #status .state')
+                   .after(' <span class="label label-success label-mini pause">{{ _('paused') }}'+ reason + last_pause_time + '</span>');
+            } else {
+                $('#agent-' + agent_id_div + ' #status .pause').remove();
+            }
+
+
+            if ($('#agent-' + agent_id_div).length == 0) {
+
+                var tr = '<tr id="agent-'+agent_id_div+'"><td>'
+                         + data.members[agent].Name + '</td>'
+                         + '<td>'+data.members[agent].StateInterface + '</td>'
+                         + '<td id="status"> <span class="label label-info label-mini state">'
+                         + data.members[agent].Status.toStrStatusAgent()
+                         + '</span></td>'
+                         + '<td id="calls">'+ data.members[agent].CallsTaken +'</td>'
+                         + '<td id="last_call"></td>'
+                         + '<td id="actions" data-channel="' + data.members[agent].StateInterface + '">'
+                         +      '<a href="#" data-action="spy">{{ _('Spy') }}</a> |'
+                         +      '<a href="#" data-action="whisper">{{ _('Whisper') }}</a> |'
+                         +      '<a href="#" data-action="barge">{{ _('Barge') }}</a> |'
+                         +      '<button data-queue="{{ name }}" class="remove-queue">{{ _('Remove from queue') }}</button>'
+                         + '</td>'
+                         + '</tr>';
+
+                if ($('#agents tbody tr:last').length > 0){
+                    $('#agents tbody tr:last').after(tr);
+                } else {
+                    $('#agents tbody').append(tr);
+                }
+                addLabelDivStatusAgent($('#agent-' + agent_id_div + ' #status .state'));
+            }
+
+            agents_ids.push(agent_id_div);
+          }
+          $('#total_agent').html("{total}".format({total:  Object.keys(data.members).length}));
+
+          //callers
+          var uniques_ids = Array();
+          for (caller in data.entries) {
+            c = data.entries[caller];
+
+            if ($("[id='caller-"+ c.Uniqueid + "']").length == 0) {
+              console.log('add:' + c.Uniqueid);
+
+              var tr = '<tr id="caller-' + c.Uniqueid + '" data-uniqueid="' + c.Uniqueid + '"><td>'
+                        + c.CallerIDName + '</td>'
+                        + '<td>' + c.CallerIDNum + '</td>'
+                        + '<td id="position">'  + c.Position + '</td>'
+                        + '<td id="wait">' + c.WaitAgo + '</td>'
+                        + '<td>'
+                        +    '<button class="btn btn-danger btn-xs" id="stop-call">'
+                        +       '<i class="fa fa-ban"></i>'
+                        +     '</button>'
+                        + '</td>'
+                        + '</tr>'
+
+
+              if ($('#callers tbody tr:last').length > 0){
+                $('#callers tbody tr:last').after(tr);
+              } else {
+                $('#callers tbody').append(tr);
+              }
+            }
+
+            $("[id='caller-"+ c.Uniqueid + "'] #wait").html(c.WaitAgo);
+            $("[id='caller-"+ c.Uniqueid + "'] #position").html(c.Position);
+            uniques_ids.push(c.Uniqueid);
+          }
+          $.each($("[id^='caller-']"), function( index, value ) {
+            uid = $(value).data('uniqueid');
+            if (uniques_ids.indexOf(uid.toString()) == -1) {
+              console.log('removed: ' + uid);
+              $("[id='caller-"+ uid +"']").remove();
+            }
+          });
+          $('#total_callers').html("{total}".format({total:  Object.keys(data.entries).length}));
+          $.each($("[id^='agent-']"), function( index, value ) {
+            uid = $(value).attr('id').substring(6);
+            if (agents_ids.indexOf(uid.toString()) == -1) {
+              console.log('removed: ' + uid);
+              $("[id='agent-"+ uid +"']").remove();
+            }
+          });
+
+          $('#strategy').html(data.Strategy);
+        }
+
+        function getDataQueue() {
+            var result;
+            var r = $.ajax({
+                type: 'GET',
+                url: '{{ url_for('.queue', name=name+".json") }}'
+            });
+            r.done(function (response) {
+                if (response) {
+                    result = response.data;
+                    parseDataQueue(result);
+                }
+            });
+            r.fail(function (response) {
+            });
+
+            r.always(function () {
+            });
+        }
+
+
+        //handle show modal for Spy and Whisper
+        $('#actions* a').not('.remove-queue').on('click', function() {
+            var action = $(this).data('action');
+            channel = $(this.closest('td')).data('channel');
+            $('#spy_whisperk #execute-action').data('channel', channel);
+            $('#spy_whisperk #execute-action').data('action', action);
+            $('#spy_whisperk #execute-action').html(action);
+            $('#spy_whisperk .modal-header h4').html('{{_('Execute a ')}}' + action);
+            $('#spy_whisperk').modal();
+        });
+        var r=null;
+        $('#execute-action').on('click', function() {
+            var to_exten = $('#spy_whisperk  #to_exten').val();
+            if (to_exten == "") {
+                $('.modal-message').html('{{_('Insert where do need listen')}}');
+                $('.modal-message').addClass('has-error')
+                return 0;
+            }
+
+            $('.modal-message').removeClass('has-error');
+            $('.modal-message').html('{{_('Try...')}}');
+
+            $('#execute-action').prop("disabled", true);
+
+            var channel = $(this).data('channel');
+            var action = $(this).data('action');
+
+            console.log("do a %s to channel %s", action, channel);
+
+            var url_action = ''
+            if (action == 'spy') {
+                url_action = '{{url_for('.spy')}}';
+            } else if (action == 'whisper') {
+                url_action = '{{url_for('.whisper')}}';
+            } else if (action == 'barge') {
+                url_action = '{{url_for('.barge')}}';
+            }
+            var r = $.ajax({
+                type: 'post',
+                url: url_action,
+                data: {channel: channel, to_exten: to_exten}
+            });
+            r.done(function (response) {
+                if (response) {
+                    var status = response.result.Response;
+                    console.log(status);
+                    if (status == 'failed') {
+                        $('.modal-message').html("Failed:" +  response.result.Message);
+                        $('.modal-message').addClass('has-error')
+                    } else {
+                        $('.modal-message').html(response.result.Message);
+                        $('.modal-message').removeClass('has-error')
+                    }
+                }
+            });
+            r.fail(function (response) {
+                console.log(response);
+            });
+
+            r.always(function () {
+                $('#execute-action').prop("disabled", false);
+            });
+        });
+
+
+
+        $('#stop-call').on('click', function() {
+            var tr = $(this).closest("tr");
+            var uniqueid = tr.data('uniqueid');
+            console.log('stop call %s...', uniqueid );
+            button = $(this);
+            $('.message-hangup').remove();
+
+            var r = $.ajax({
+                type: 'post',
+                url: '/hangup',
+                data: {channel: uniqueid}
+            });
+            r.done(function (response) {
+                if (response) {
+                    console.log(response.result.Response);
+                    msg = '<span class="btn btn-xs message-hangup">'
+                        + response.result.Message + '</span>';
+
+                    $(button).after(msg);
+                    var status = response.result.Response;
+                    console.log(status);
+                    if (status == 'failed') {
+                        $('.message-hangup').addClass('btn-danger');
+                    } else {
+                        $('.message-hangup').addClass('btn-success');
+                        setTimeout(function() { tr.remove(); }, 1000);
+                        var total_callers = (parseInt($('#total_callers').html()) - 1);
+                        $('#total_callers').html("{total}".format({total:  total_callers}));
+                    }
+                }
+            });
+            r.fail(function (response) {
+                console.log(response);
+            });
+
+        });
+
+        $('.remove-queue').on('click', function() {
+            var tr = $(this).closest("tr");
+            var queue = $(this).data('queue');
+            var agent = $(this.closest('td')).data('channel');
+
+            console.log('remove agent %s from %s', agent, queue);
+            button = $(this);
+            $('.message-hangup').remove();
+
+            var r = $.ajax({
+                type: 'post',
+                url: '{{ url_for('.remove_from_queue') }}',
+                data: {agent: agent, queue: queue}
+            });
+            r.done(function (response) {
+                if (response) {
+                    console.log(response.result.Response);
+                    msg = '<span class="btn btn-xs message-hangup">'
+                        + response.result.Message + '</span>';
+
+                    $(button).after(msg);
+                    var status = response.result.Response;
+                    console.log(status);
+                    if (status == 'failed') {
+                        $('.message-hangup').addClass('btn-danger');
+                    } else {
+                        $('.message-hangup').addClass('btn-success');
+                        setTimeout(function() { tr.remove(); }, 1000);
+                        var total_agents = (parseInt($('#total_agent').html()) - 1);
+                        $('#total_agent').html("{total}".format({total:  total_agents}));
+                    }
+                }
+            });
+            r.fail(function (response) {
+                console.log(response);
+            });
+
+        });
+
+
+    </script>
+    {% endblock %}
