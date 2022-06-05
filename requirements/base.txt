@@ -8,4 +8,4 @@ py-Asterisk==0.5.18
 requests>=2.20.0
 future
 rq-scheduler==0.9.0
-git+git://github.com/maxcountryman/flask-themes@9eac2dc#egg=Flask-Themes
+git+https://github.com/maxcountryman/flask-themes@9eac2dc#egg=Flask-Themes
