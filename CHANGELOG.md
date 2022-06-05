@@ -4,6 +4,21 @@ All notable changes to QPanel will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 1.0.1  (2022-06-05)
+
+
+### Changed
+ - Update doc to install in FusionPBX for Python 3
+ - Re format the config sample to prevent error in ConfigIni parser
+
+### Fixed
+ - Bugfix has_key for Python 3: Close #231
+   The support for Python2 was remove so, the has_key is not require to use
+   in this wsgi
+ - Fix issue Close #235
+
+
+
 ## 1.0.0  (2020-03-28)
 
 ### Added
