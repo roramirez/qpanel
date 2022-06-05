@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Copyright (C) 2015-2020 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
+# Copyright (C) 2015-2022 Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>
 #
 
 from qpanel import config, job, rq_worker
