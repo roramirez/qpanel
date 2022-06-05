@@ -48,7 +48,7 @@ Also you can use a [API of QPanel](doc/api.md) for data query related to queues
 
 
 ## Requirement
- * Python 3.4+
+ * Python 3.6+
  * [Asterisk](http://www.asterisk.org) 1.4+ and enabled manager or [FreeSWITCH](http://www.freeswitch.org) and connection permission to Event Socket Library.
 
   The feature to scheduler reset stats for the queues is required Redis >= 3.0.0. 
