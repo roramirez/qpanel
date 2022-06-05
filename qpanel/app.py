@@ -7,7 +7,7 @@
 from flask import Flask, jsonify, redirect, request, session, url_for
 from flask_themes import setup_themes, render_theme_template
 from werkzeug.serving import run_simple
-from werkzeug.wsgi import DispatcherMiddleware
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from werkzeug.exceptions import abort
 import logging
 
