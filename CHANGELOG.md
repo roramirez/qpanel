@@ -3,6 +3,16 @@
 All notable changes to QPanel will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.1  (2022-07-17)
+
+
+### Changed
+ - Upgrade sqlalchemy from 0.9.10 to 1.3.0 in /requirements
+
+
+
+
+
 ## 1.1.0  (2022-07-17)
 
 
