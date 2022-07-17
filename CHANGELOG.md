@@ -3,6 +3,14 @@
 All notable changes to QPanel will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.0  (2022-07-17)
+
+
+### Changed
+ - Drop support Python 3.4
+ - Upgrade Flask 1.1.14
+
+
 
 ## 1.0.1  (2022-06-05)
 
