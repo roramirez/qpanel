@@ -38,6 +38,7 @@
                   </p>
                 </a>
               </li>
+              {% endif %}
               {% if has_users() %}
                <li class="nav-item">
                 <a class="nav-link" href="{{url_for('.logout')}}">
@@ -47,7 +48,6 @@
                    </p>
                  </a>
               </li>
-              {% endif %}
               {% endif %}
               <li class="nav-item dropdown">
                 <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
