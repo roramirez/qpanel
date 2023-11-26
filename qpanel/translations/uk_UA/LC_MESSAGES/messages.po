@@ -118,14 +118,14 @@ msgstr "Дзвінки"
 #: qpanel/themes/qpanel/templates/all_queues.html:66
 #: qpanel/themes/qpanel/templates/queue.html:63
 msgid "Last call at"
-msgstr "Останній дзвінок о"
+msgstr "Останній дзвінок"
 
 #: qpanel/templates/all_queues.html:67 qpanel/templates/fs/queue.html:67
 #: qpanel/templates/queue.html:66
 #: qpanel/themes/qpanel/templates/all_queues.html:102
 #: qpanel/themes/qpanel/templates/queue.html:105
 msgid "Callers"
-msgstr "Ті, що дзвонять"
+msgstr "Телефонують"
 
 #: qpanel/templates/all_queues.html:72 qpanel/templates/fs/queue.html:71
 #: qpanel/templates/queue.html:70
@@ -275,7 +275,7 @@ msgstr "Черги"
 #: qpanel/themes/qpanel/templates/index.html:66
 #: qpanel/themes/qpanel/templates/row_general_data.html:50
 msgid "Incoming"
-msgstr "Вхідний"
+msgstr "Вхідних"
 
 #: qpanel/templates/fs/index.html:57 qpanel/templates/index.html:46
 #: qpanel/themes/qpanel/templates/index.html:71
@@ -317,6 +317,11 @@ msgstr "Португальська"
 #: qpanel/themes/qpanel/templates/header.html:66
 msgid "French"
 msgstr "Французька"
+
+#: qpanel/templates/language_selector.html:8
+#: qpanel/themes/qpanel/templates/header.html:66
+msgid "Ukrainian"
+msgstr "Українська"
 
 #: qpanel/templates/login.html:2
 msgid "Login"
