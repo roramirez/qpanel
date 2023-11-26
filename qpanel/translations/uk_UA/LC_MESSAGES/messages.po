@@ -1,0 +1,478 @@
+# Ukrainian (Ukraine) translations for QPanel.
+# Copyright (C) 2015-2019  Rodrigo Ramírez Norambuena
+# This file is distributed under the same license as the QPanel project.
+# Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: a@rodrigoramirez.com\n"
+"POT-Creation-Date: 2015-10-26 07:53-0400\n"
+"PO-Revision-Date: 2023-11-26 12:46+0200\n"
+"Last-Translator: Rodrigo Ramírez Norambuena <a@rodrigoramirez.com>\n"
+"Language: uk_UA\n"
+"Language-Team: uk_UA <a@rodrigoramirez.com>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.1\n"
+
+#: qpanel/app.py:179 qpanel/templates/fs/index.html:181
+#: qpanel/templates/global_js.html:13 qpanel/templates/i18n_js.html:15
+#: qpanel/templates/i18n_js.html:27
+#: qpanel/themes/qpanel/templates/i18n_js.html:15
+#: qpanel/themes/qpanel/templates/i18n_js.html:27
+msgid "unavailable"
+msgstr "недоступний"
+
+#: qpanel/app.py:181 qpanel/templates/fs/index.html:174
+#: qpanel/templates/global_js.html:11 qpanel/templates/i18n_js.html:11
+#: qpanel/templates/i18n_js.html:25
+#: qpanel/themes/qpanel/templates/i18n_js.html:11
+#: qpanel/themes/qpanel/templates/i18n_js.html:25
+msgid "free"
+msgstr "вільний"
+
+#: qpanel/app.py:183 qpanel/templates/i18n_js.html:13
+#: qpanel/themes/qpanel/templates/i18n_js.html:13
+msgid "in call"
+msgstr "розмовляє"
+
+#: qpanel/app.py:185 qpanel/templates/fs/index.html:177
+#: qpanel/templates/global_js.html:12 qpanel/templates/i18n_js.html:17
+#: qpanel/themes/qpanel/templates/i18n_js.html:17
+msgid "busy"
+msgstr "зайнятий"
+
+#: qpanel/templates/404.html:2 qpanel/themes/qpanel/templates/404.html:11
+msgid "Not found"
+msgstr "Не знайдено"
+
+#: qpanel/templates/404.html:7 qpanel/themes/qpanel/templates/404.html:38
+msgid "404 Not Found"
+msgstr "404 Не Знайдено"
+
+#: qpanel/templates/404.html:10 qpanel/themes/qpanel/templates/404.html:46
+msgid "The request the was not found on this server."
+msgstr "Запиту не було знайдено на цьому сервері"
+
+#: qpanel/templates/all_queues.html:5
+#: qpanel/themes/qpanel/templates/all_queues.html:11
+msgid "Consolidated view"
+msgstr "Всі черги"
+
+#: qpanel/templates/all_queues.html:14 qpanel/templates/header.html:12
+#: qpanel/themes/qpanel/templates/header.html:24
+msgid "Consolidate view"
+msgstr "Всі черги"
+
+#: qpanel/templates/all_queues.html:29 qpanel/templates/fs/queue.html:27
+#: qpanel/templates/queue.html:25
+#: qpanel/themes/qpanel/templates/all_queues.html:43
+#: qpanel/themes/qpanel/templates/index.html:46
+#: qpanel/themes/qpanel/templates/queue.html:43
+msgid "Agents"
+msgstr "Агенти"
+
+#: qpanel/templates/all_queues.html:33 qpanel/templates/all_queues.html:71
+#: qpanel/themes/qpanel/templates/all_queues.html:51
+#: qpanel/themes/qpanel/templates/all_queues.html:110
+msgid "Queue"
+msgstr "Черга"
+
+#: qpanel/templates/all_queues.html:34 qpanel/templates/fs/queue.html:31
+#: qpanel/templates/queue.html:29
+#: qpanel/themes/qpanel/templates/all_queues.html:54
+#: qpanel/themes/qpanel/templates/queue.html:51
+msgid "Name"
+msgstr "Ім'я"
+
+#: qpanel/templates/all_queues.html:35 qpanel/templates/queue.html:30
+#: qpanel/themes/qpanel/templates/all_queues.html:57
+#: qpanel/themes/qpanel/templates/queue.html:54
+msgid "Interface"
+msgstr "Інтерфейс"
+
+#: qpanel/templates/all_queues.html:36 qpanel/templates/fs/queue.html:33
+#: qpanel/templates/queue.html:31
+#: qpanel/themes/qpanel/templates/all_queues.html:60
+#: qpanel/themes/qpanel/templates/queue.html:57
+msgid "Status"
+msgstr "Статус"
+
+#: qpanel/templates/all_queues.html:37 qpanel/templates/fs/queue.html:35
+#: qpanel/templates/queue.html:32
+msgid "Attend calls"
+msgstr "Прийнято дзвінків"
+
+#: qpanel/templates/all_queues.html:37 qpanel/templates/fs/queue.html:35
+#: qpanel/templates/queue.html:32
+#: qpanel/themes/qpanel/templates/all_queues.html:63
+#: qpanel/themes/qpanel/templates/queue.html:60
+msgid "Calls"
+msgstr "Дзвінки"
+
+#: qpanel/templates/all_queues.html:38 qpanel/templates/fs/queue.html:36
+#: qpanel/templates/queue.html:33
+#: qpanel/themes/qpanel/templates/all_queues.html:66
+#: qpanel/themes/qpanel/templates/queue.html:63
+msgid "Last call at"
+msgstr "Останній дзвінок о"
+
+#: qpanel/templates/all_queues.html:67 qpanel/templates/fs/queue.html:67
+#: qpanel/templates/queue.html:66
+#: qpanel/themes/qpanel/templates/all_queues.html:102
+#: qpanel/themes/qpanel/templates/queue.html:105
+msgid "Callers"
+msgstr "Ті, що дзвонять"
+
+#: qpanel/templates/all_queues.html:72 qpanel/templates/fs/queue.html:71
+#: qpanel/templates/queue.html:70
+#: qpanel/themes/qpanel/templates/all_queues.html:113
+#: qpanel/themes/qpanel/templates/queue.html:113
+msgid "Id Name"
+msgstr "Ім'я"
+
+#: qpanel/templates/all_queues.html:73 qpanel/templates/fs/queue.html:72
+#: qpanel/templates/queue.html:71
+#: qpanel/themes/qpanel/templates/all_queues.html:116
+#: qpanel/themes/qpanel/templates/queue.html:116
+msgid "Id Number"
+msgstr "Номер"
+
+#: qpanel/templates/all_queues.html:74 qpanel/templates/queue.html:72
+#: qpanel/themes/qpanel/templates/all_queues.html:119
+#: qpanel/themes/qpanel/templates/queue.html:119
+msgid "Position"
+msgstr "Позиція"
+
+#: qpanel/templates/all_queues.html:75 qpanel/templates/fs/queue.html:73
+#: qpanel/templates/queue.html:73
+#: qpanel/themes/qpanel/templates/all_queues.html:122
+#: qpanel/themes/qpanel/templates/queue.html:122
+msgid "Wait"
+msgstr "Очікування"
+
+#: qpanel/templates/all_queues.html:168 qpanel/templates/queue.html:176
+#: qpanel/themes/qpanel/templates/all_queues.html:238
+#: qpanel/themes/qpanel/templates/queue.html:248
+msgid "was"
+msgstr "було"
+
+#: qpanel/templates/all_queues.html:168 qpanel/templates/queue.html:176
+#: qpanel/themes/qpanel/templates/all_queues.html:238
+#: qpanel/themes/qpanel/templates/queue.html:248
+msgid "ago"
+msgstr "тому"
+
+#: qpanel/templates/all_queues.html:173 qpanel/templates/queue.html:181
+#: qpanel/themes/qpanel/templates/all_queues.html:243
+#: qpanel/themes/qpanel/templates/queue.html:253
+msgid "paused"
+msgstr "на паузі"
+
+#: qpanel/templates/footer.html:4
+msgid "Developed by"
+msgstr "Розроблено"
+
+#: qpanel/templates/footer.html:4
+msgid "with a Template by"
+msgstr "з Шаблоном"
+
+#: qpanel/templates/footer.html:4
+msgid "Version"
+msgstr "Версія"
+
+#: qpanel/templates/footer.html:42
+#: qpanel/themes/qpanel/templates/footer.html:54
+msgid "New version available"
+msgstr "Доступна нова версія"
+
+#: qpanel/templates/footer.html:43
+#: qpanel/themes/qpanel/templates/footer.html:55
+msgid "Exist a new version stable: "
+msgstr "Є нова стабільна версія: "
+
+#: qpanel/templates/footer.html:43
+#: qpanel/themes/qpanel/templates/footer.html:55
+msgid ""
+". Visit and update your QPanel <a "
+"href=\"https://github.com/roramirez/qpanel\" target=\"_blank\" "
+"style=\"color:#ffd777\">from GitHub</a>."
+msgstr ""
+
+#: qpanel/templates/fs/index.html:54 qpanel/templates/fs/index.html:116
+#: qpanel/templates/global_js.html:6 qpanel/templates/index.html:43
+#: qpanel/templates/row_general_data.html:14 qpanel/templates/stats.html:55
+#: qpanel/themes/qpanel/templates/index.html:62
+#: qpanel/themes/qpanel/templates/row_general_data.html:32
+#: qpanel/themes/qpanel/templates/stats.html:97
+msgid "Abandoned"
+msgstr "Втрачено"
+
+#: qpanel/templates/fs/index.html:53 qpanel/templates/fs/index.html:121
+#: qpanel/templates/global_js.html:7 qpanel/templates/index.html:42
+#: qpanel/templates/row_general_data.html:7 qpanel/templates/stats.html:47
+#: qpanel/themes/qpanel/templates/index.html:58
+#: qpanel/themes/qpanel/templates/row_general_data.html:15
+#: qpanel/themes/qpanel/templates/stats.html:79
+msgid "Answered"
+msgstr "Прийнято"
+
+#: qpanel/templates/header.html:16 qpanel/templates/stats.html:6
+#: qpanel/templates/stats.html:28 qpanel/themes/qpanel/templates/header.html:35
+#: qpanel/themes/qpanel/templates/stats.html:60
+msgid "Stats"
+msgstr "Статистика"
+
+#: qpanel/templates/i18n_js.html:30
+#: qpanel/themes/qpanel/templates/i18n_js.html:30
+msgid "Logged Out"
+msgstr "Вийшов"
+
+#: qpanel/templates/i18n_js.html:32
+#: qpanel/themes/qpanel/templates/i18n_js.html:32
+msgid "Available"
+msgstr "Доступно"
+
+#: qpanel/templates/i18n_js.html:34
+#: qpanel/themes/qpanel/templates/i18n_js.html:34
+msgid "Available (On Demand)"
+msgstr "Доступно (за запитом)"
+
+#: qpanel/templates/i18n_js.html:36
+#: qpanel/themes/qpanel/templates/i18n_js.html:36
+msgid "On Break"
+msgstr "На перерві"
+
+#: qpanel/templates/i18n_js.html:38
+#: qpanel/themes/qpanel/templates/i18n_js.html:38
+msgid "Idle"
+msgstr "Вільний"
+
+#: qpanel/templates/i18n_js.html:40
+#: qpanel/themes/qpanel/templates/i18n_js.html:40
+msgid "Waiting"
+msgstr "Очікує"
+
+#: qpanel/templates/i18n_js.html:42
+#: qpanel/themes/qpanel/templates/i18n_js.html:42
+msgid "Receiving"
+msgstr "Отримує"
+
+#: qpanel/templates/i18n_js.html:44
+#: qpanel/themes/qpanel/templates/i18n_js.html:44
+msgid "In a queue call"
+msgstr "Виклик у черзі"
+
+#: qpanel/templates/fs/index.html:34 qpanel/templates/index.html:23
+msgid "Queues"
+msgstr "Черги"
+
+#: qpanel/templates/fs/index.html:55 qpanel/templates/index.html:44
+#: qpanel/templates/row_general_data.html:30
+#: qpanel/themes/qpanel/templates/index.html:66
+#: qpanel/themes/qpanel/templates/row_general_data.html:50
+msgid "Incoming"
+msgstr "Вхідний"
+
+#: qpanel/templates/fs/index.html:57 qpanel/templates/index.html:46
+#: qpanel/themes/qpanel/templates/index.html:71
+#: qpanel/themes/qpanel/templates/row_general_data.html:68
+msgid "Service Level"
+msgstr "Рівень сервісу"
+
+#: qpanel/templates/fs/index.html:71 qpanel/templates/index.html:60
+#: qpanel/themes/qpanel/templates/index.html:94
+msgid "Abandoned:"
+msgstr "Втрачено:"
+
+#: qpanel/templates/language_selector.html:3
+#: qpanel/themes/qpanel/templates/header.html:61
+msgid "English"
+msgstr "Англійська"
+
+#: qpanel/templates/language_selector.html:4
+#: qpanel/themes/qpanel/templates/header.html:62
+msgid "Spanish"
+msgstr "Іспанська"
+
+#: qpanel/templates/language_selector.html:5
+#: qpanel/themes/qpanel/templates/header.html:63
+msgid "German"
+msgstr "Німецька"
+
+#: qpanel/templates/language_selector.html:6
+#: qpanel/themes/qpanel/templates/header.html:64
+msgid "Russian"
+msgstr "російська"
+
+#: qpanel/templates/language_selector.html:7
+#: qpanel/themes/qpanel/templates/header.html:65
+msgid "Portuguese"
+msgstr "Португальська"
+
+#: qpanel/templates/language_selector.html:8
+#: qpanel/themes/qpanel/templates/header.html:66
+msgid "French"
+msgstr "Французька"
+
+#: qpanel/templates/login.html:2
+msgid "Login"
+msgstr "Вхід"
+
+#: qpanel/templates/login.html:10 qpanel/templates/login.html:19
+#: qpanel/themes/qpanel/templates/login.html:34
+#: qpanel/themes/qpanel/templates/login.html:56
+msgid "Sign in"
+msgstr "Реєстрація"
+
+#: qpanel/templates/login.html:12 qpanel/themes/qpanel/templates/login.html:41
+msgid "User id"
+msgstr "Користувач"
+
+#: qpanel/templates/login.html:14 qpanel/themes/qpanel/templates/login.html:49
+msgid "Password"
+msgstr "Пароль"
+
+#: qpanel/templates/logout_button.html:2
+#: qpanel/themes/qpanel/templates/header.html:44
+msgid "Logout"
+msgstr "Вихід"
+
+#: qpanel/templates/queue.html:35 qpanel/themes/qpanel/templates/queue.html:66
+msgid "Actions"
+msgstr "Дії"
+
+#: qpanel/templates/queue.html:51 qpanel/templates/queue.html:198
+#: qpanel/themes/qpanel/templates/queue.html:84
+#: qpanel/themes/qpanel/templates/queue.html:270
+msgid "Spy"
+msgstr "Шпигувати"
+
+#: qpanel/templates/queue.html:52 qpanel/templates/queue.html:199
+#: qpanel/themes/qpanel/templates/queue.html:85
+#: qpanel/themes/qpanel/templates/queue.html:271
+msgid "Whisper"
+msgstr "Шепотіти"
+
+#: qpanel/templates/queue.html:53 qpanel/templates/queue.html:200
+#: qpanel/themes/qpanel/templates/queue.html:86
+#: qpanel/themes/qpanel/templates/queue.html:272
+msgid "Barge"
+msgstr "Втрутитись"
+
+#: qpanel/templates/queue.html:54 qpanel/templates/queue.html:201
+#: qpanel/themes/qpanel/templates/queue.html:87
+#: qpanel/themes/qpanel/templates/queue.html:273
+msgid "Remove from queue"
+msgstr "Видалити з черги"
+
+#: qpanel/templates/queue.html:112
+#: qpanel/themes/qpanel/templates/queue.html:162
+msgid "Insert where  you listen the call, example: <i>SIP/1001</i>"
+msgstr "Вкажіть номер, де будете слухати, наприклад: <i>SIP/1001</i>"
+
+#: qpanel/templates/queue.html:116
+#: qpanel/themes/qpanel/templates/queue.html:166
+msgid "Listen "
+msgstr "Слухати "
+
+#: qpanel/templates/queue.html:295
+#: qpanel/themes/qpanel/templates/queue.html:369
+msgid "Execute a "
+msgstr "Виконати "
+
+#: qpanel/templates/queue.html:302
+#: qpanel/themes/qpanel/templates/queue.html:378
+msgid "Insert where do need listen"
+msgstr "Вкажіть номер де слухати"
+
+#: qpanel/templates/queue.html:308
+#: qpanel/themes/qpanel/templates/queue.html:384
+msgid "Try..."
+msgstr "Спробувати..."
+
+#: qpanel/templates/row_general_data.html:10 qpanel/templates/stats.html:51
+msgid "Attended calls."
+msgstr "Дзвінків прийнято."
+
+#: qpanel/templates/row_general_data.html:17 qpanel/templates/stats.html:59
+msgid "Calls not attended by agents."
+msgstr "Дзвінків не прийнято агентами."
+
+#: qpanel/templates/row_general_data.html:22
+msgid "SL"
+msgstr "SL"
+
+#: qpanel/templates/row_general_data.html:25
+msgid "Service Level."
+msgstr "Рівень сервісу."
+
+#: qpanel/templates/row_general_data.html:33
+msgid "Call on line."
+msgstr "Дзвінок онлайн"
+
+#: qpanel/templates/row_general_data.html:39 qpanel/templates/stats.html:63
+msgid "Av. time"
+msgstr "Сер. час"
+
+#: qpanel/templates/row_general_data.html:42 qpanel/templates/stats.html:66
+msgid "Average time for answered calls."
+msgstr "Середній час прийнятих дзвінків."
+
+#: qpanel/templates/row_general_data.html:46 qpanel/templates/stats.html:70
+msgid "Av. Wait"
+msgstr "Сер. очікування"
+
+#: qpanel/templates/row_general_data.html:49 qpanel/templates/stats.html:73
+msgid "Average time waiting for calls."
+msgstr "Середній час очікування дзвінків."
+
+#: qpanel/templates/stats.html:19 qpanel/themes/qpanel/templates/stats.html:37
+msgid "From:"
+msgstr "Від:"
+
+#: qpanel/templates/stats.html:20 qpanel/themes/qpanel/templates/stats.html:43
+msgid "To:"
+msgstr "До:"
+
+#: qpanel/templates/stats.html:38 qpanel/themes/qpanel/templates/stats.html:116
+msgid "Inbound"
+msgstr "Вхідний"
+
+#: qpanel/templates/stats.html:41
+msgid "Total incomming calls"
+msgstr "Всього вхідних дзвінків"
+
+#: qpanel/templates/fs/queue.html:32
+msgid "Contact"
+msgstr "Контакт"
+
+#: qpanel/templates/fs/queue.html:34
+msgid "State"
+msgstr "Стан"
+
+#: qpanel/themes/qpanel/templates/footer.html:12
+msgid "About Us"
+msgstr "Про нас"
+
+#: qpanel/themes/qpanel/templates/header.html:15
+msgid "Home"
+msgstr "Додому"
+
+#: qpanel/themes/qpanel/templates/header.html:57
+msgid "Language"
+msgstr "Мова"
+
+#: qpanel/themes/qpanel/templates/row_general_data.html:87
+#: qpanel/themes/qpanel/templates/stats.html:133
+msgid "Average time"
+msgstr "Середній час"
+
+#: qpanel/themes/qpanel/templates/row_general_data.html:104
+#: qpanel/themes/qpanel/templates/stats.html:150
+msgid "Average Wait"
+msgstr "Середнє очікування"
+
