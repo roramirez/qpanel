@@ -32,7 +32,7 @@
       <div class="content">
         <div class="row">
         {% include theme('row_general_data.html') %}
-        {% for queue_name, queue in queues.items() %}
+        {% for queue_name, queue in queues.items() | sort %}
           <div class="col-md-4">
             <div class="card card-chart">
               <div class="card-header card-header-success queue-card">
