@@ -20,20 +20,21 @@ RUN apk add --ino-cache \
         swig \
         gcc \
         alpine-sdk \
-        python3-dev && \
+        python3-dev \
+        mariadb-dev && \
     cd / && \
     git clone \
         -b master \
         --depth=1 \
-        https://github.com/roramirez/qpanel.git && \
+         https://github.com/d-sergienko/qpanel.git && \
     cd qpanel &&  \
     pip3 install -r requirements.txt && \
+    pip3 install -r requirements/dbs/mysql.txt && \
     cd /qpanel && \
     npm install && \
     cd /qpanel && \
     pybabel compile -d qpanel/translations && \
     cd /qpanel && \
-    cp samples/config.ini-dist config.ini && \
     apk del --quiet \
         git \
         npm \
