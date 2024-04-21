@@ -92,7 +92,7 @@ def queuelog_count_inbound(start_date, end_date, agent=None, queue=None):
 
 
 def queuelog_count_abandon(start_date, end_date, agent=None, queue=None):
-    events = ['ABANDON']
+    events = ['ABANDON', 'EXITWITHTIMEOUT']
     data = queuelog_event_by_range_and_types(start_date, end_date, events,
                                              agent, queue)
     return len(data)
@@ -100,7 +100,7 @@ def queuelog_count_abandon(start_date, end_date, agent=None, queue=None):
 
 def queuelog_seconds_wait_abandon(start_date, end_date, agent=None,
                                   queue=None):
-    events = ['ABANDON']
+    events = ['ABANDON', 'EXITWITHTIMEOUT']
     seconds = 0
     data = queuelog_event_by_range_and_types(start_date, end_date, events,
                                              agent, queue)
