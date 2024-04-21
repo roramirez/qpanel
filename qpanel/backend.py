@@ -97,8 +97,10 @@ class Backend(object):
             user -- username
         """
         enables = self.config.queue_enables_for_username(user)
-        not_enable = list(set(data.keys()) - set(enables))
-        map(data.pop, not_enable)
+        if len(enables):
+            for q in list(data.keys()):
+                if q not in enables:
+                    data.pop(q)
         return data
 
     def parse_fs(self, data):
