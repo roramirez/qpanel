@@ -347,7 +347,7 @@ msgstr "Действия"
 #: qpanel/themes/qpanel/templates/queue.html:84
 #: qpanel/themes/qpanel/templates/queue.html:270
 msgid "Spy"
-msgstr "Шпион"
+msgstr "Шпионить"
 
 #: qpanel/templates/queue.html:52 qpanel/templates/queue.html:199
 #: qpanel/themes/qpanel/templates/queue.html:85
@@ -390,7 +390,7 @@ msgstr "Вы не указали номер"
 #: qpanel/templates/queue.html:308
 #: qpanel/themes/qpanel/templates/queue.html:384
 msgid "Try..."
-msgstr "Пробую..."
+msgstr "Попробовать..."
 
 #: qpanel/templates/row_general_data.html:10 qpanel/templates/stats.html:51
 msgid "Attended calls."
@@ -434,7 +434,7 @@ msgstr "От:"
 
 #: qpanel/templates/stats.html:20 qpanel/themes/qpanel/templates/stats.html:43
 msgid "To:"
-msgstr "Кому:"
+msgstr "До:"
 
 #: qpanel/templates/stats.html:38 qpanel/themes/qpanel/templates/stats.html:116
 msgid "Inbound"
@@ -454,15 +454,15 @@ msgstr "Состояние"
 
 #: qpanel/themes/qpanel/templates/footer.html:12
 msgid "About Us"
-msgstr ""
+msgstr "О нас"
 
 #: qpanel/themes/qpanel/templates/header.html:15
 msgid "Home"
-msgstr ""
+msgstr "Домой"
 
 #: qpanel/themes/qpanel/templates/header.html:57
 msgid "Language"
-msgstr ""
+msgstr "Язык"
 
 #: qpanel/themes/qpanel/templates/row_general_data.html:87
 #: qpanel/themes/qpanel/templates/stats.html:133

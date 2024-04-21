@@ -316,6 +316,11 @@ msgstr ""
 msgid "French"
 msgstr ""
 
+#: qpanel/templates/language_selector.html:9
+#: qpanel/themes/qpanel/templates/header.html:67
+msgid "Ukrainian"
+msgstr ""
+
 #: qpanel/templates/login.html:2
 msgid "Login"
 msgstr ""

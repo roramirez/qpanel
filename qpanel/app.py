@@ -220,7 +220,7 @@ def setup_logging():
 # babel
 @babel.localeselector
 def get_locale():
-    langs = ['en', 'es', 'de', 'pt_BR', 'ru']
+    langs = ['en', 'es', 'de', 'pt_BR', 'ru', 'uk_UA']
     browser = request.accept_languages.best_match(langs)
     try:
         return session['language']
